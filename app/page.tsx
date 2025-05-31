@@ -6,6 +6,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold">AI-Translator</h1>
 
       {/* Download button */}
+      {/* For future multi-OS support: const isMac = typeof navigator !== "undefined" && /Mac/.test(navigator.platform); */}
       <Link
         href={process.env.NEXT_PUBLIC_DOWNLOAD_URL || "#"}
         className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
@@ -26,7 +27,9 @@ type PackProps = { title: string; price: number; packId: "HOUR_1" | "HOUR_5" };
 
 function PackCard({ title, price, packId }: PackProps) {
   return (
-    <form action={`/checkout?packId=${packId}`} method="POST">
+    <form action="/checkout" method="POST">
+      <input type="hidden" name="packId" value={packId} />
+      <input type="hidden" name="deviceId" value="" />
       <div className="p-6 border rounded-xl flex flex-col items-center gap-4">
         <h2 className="text-xl">{title}</h2>
         <p className="text-3xl font-semibold">${price}</p>

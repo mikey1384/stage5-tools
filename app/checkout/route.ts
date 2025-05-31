@@ -8,9 +8,11 @@ export async function POST(request: Request) {
   const packId = data.get("packId") as "HOUR_1" | "HOUR_5" | null;
   if (!packId) return redirect("/?error=invalid_pack");
 
-  // Grab a deviceId from querystring (or generate anonymously); with no auth
+  // Grab a deviceId from form data or querystring (or generate anonymously); with no auth
   const deviceId =
-    new URL(request.url).searchParams.get("deviceId") ?? crypto.randomUUID();
+    (data.get("deviceId") as string) ||
+    new URL(request.url).searchParams.get("deviceId") ||
+    crypto.randomUUID();
 
   // Call your payments API
   const res = await fetch(
