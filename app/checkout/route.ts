@@ -1,5 +1,7 @@
 "use server";
 
+export const runtime = "edge";
+
 import { redirect } from "next/navigation";
 
 export async function POST(request: Request) {
