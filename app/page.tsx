@@ -41,8 +41,9 @@ export default function Home() {
             Translator
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
-            Add AI-translated subtitles to any video. Download from YouTube,
-            merge subtitles, and translate to any language with precision.
+            Add AI-translated subtitles to any video. Download videos from
+            YouTube and other platforms, translate to any language, and merge
+            subtitles with precision.
           </p>
 
           <DownloadButton className="mt-8" />

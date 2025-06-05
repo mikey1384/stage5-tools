@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Translator",
   description:
-    "Add AI-translated subtitles to any video. Download from YouTube, merge subtitles, and translate to any language with precision.",
+    "Add AI-translated subtitles to any video. Download from hundreds of platforms, translate to any language, and merge subtitles with precision.",
 };
 
 export default function RootLayout({
