@@ -6,6 +6,18 @@ const ONE_YEAR = 60 * 60 * 24 * 365;
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
+  /** 0️⃣ respect explicit URL parameter *********************************/
+  const explicitLocale = url.searchParams.get("l") as "ko" | "en" | null;
+  if (explicitLocale === "ko" || explicitLocale === "en") {
+    // Set cookie to remember user's choice
+    const res = NextResponse.rewrite(url, {
+      headers: {
+        "Set-Cookie": `${LOCALE_COOKIE}=${explicitLocale}; Path=/; Max-Age=${ONE_YEAR}`,
+      },
+    });
+    return res;
+  }
+
   /** 1️⃣ honour an existing cookie **************************************/
   const cookieLocale = req.cookies.get(LOCALE_COOKIE)?.value as
     | "ko"

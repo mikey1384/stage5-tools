@@ -1,6 +1,3 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import { DownloadButton } from "../components/DownloadButton";
 import { FeatureRow } from "../components/FeatureRow";
 import {
@@ -9,15 +6,15 @@ import {
   AITranslationIcon,
 } from "../components/icons";
 import { t } from "../lib/strings";
+import { getLocale } from "../lib/get-locale";
 
-export default function Home() {
-  const searchParams = useSearchParams();
-  const queryLocale = searchParams.get("l");
-  const domLocale =
-    typeof document !== "undefined"
-      ? (document.documentElement.lang as "en" | "ko")
-      : "en";
-  const locale = (queryLocale as "en" | "ko" | null) ?? domLocale;
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const locale = await getLocale(params);
 
   const features = [
     {
@@ -38,6 +35,7 @@ export default function Home() {
       icon: AITranslationIcon,
     },
   ];
+
   return (
     <main className="min-h-screen bg-black">
       <div className="container mx-auto px-6">
