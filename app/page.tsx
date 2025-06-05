@@ -1,45 +1,94 @@
-import Link from "next/link";
+"use client";
+
+import { DownloadButton } from "../components/DownloadButton";
+import { FeatureRow } from "../components/FeatureRow";
+import { PackCard } from "../components/PackCard";
+import {
+  VideoDownloadIcon,
+  SubtitleMergeIcon,
+  AITranslationIcon,
+} from "../components/icons";
+
+const features = [
+  {
+    title: "Video Download",
+    description:
+      "Download videos from YouTube and other platforms with yt-dlp integration. Get high-quality video files ready for subtitle processing.",
+    icon: VideoDownloadIcon,
+  },
+  {
+    title: "Subtitle Merging",
+    description:
+      "Merge and embed subtitles directly into your videos with precision timing. Support for multiple subtitle formats and seamless integration.",
+    icon: SubtitleMergeIcon,
+  },
+  {
+    title: "AI Translation",
+    description:
+      "Translate subtitles to any language with AI-powered precision. Maintain context, tone, and cultural nuances in your translations.",
+    icon: AITranslationIcon,
+  },
+];
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center gap-8 py-24">
-      <h1 className="text-4xl font-bold">AI-Translator</h1>
+    <main className="min-h-screen bg-black">
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <section className="text-center py-20">
+          <h1 className="text-6xl md:text-7xl font-light tracking-tight text-white mb-6">
+            Translator
+          </h1>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
+            Add AI-translated subtitles to any video. Download from YouTube,
+            merge subtitles, and translate to any language with precision.
+          </p>
 
-      {/* Download button */}
-      {/* For future multi-OS support: const isMac = typeof navigator !== "undefined" && /Mac/.test(navigator.platform); */}
-      <Link
-        href={process.env.NEXT_PUBLIC_DOWNLOAD_URL || "#"}
-        className="px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
-      >
-        Download for Mac
-      </Link>
+          {/* Mobile download button */}
+          <DownloadButton className="mt-8 md:hidden" />
+        </section>
 
-      {/* Pricing cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12">
-        <PackCard title="1 Hour" price={5} packId="HOUR_1" />
-        <PackCard title="5 Hours" price={10} packId="HOUR_5" />
+        {/* Features */}
+        <section className="space-y-0">
+          {features.map((feature, index) => (
+            <FeatureRow
+              key={feature.title}
+              {...feature}
+              direction={index % 2 ? "rtl" : "ltr"}
+            />
+          ))}
+        </section>
+
+        {/* Download section */}
+        <section className="py-32 text-center">
+          <DownloadButton />
+          <p className="text-sm text-gray-500 mt-4">
+            Video downloading and subtitle merging included • Only pay for AI
+            translation
+          </p>
+        </section>
+
+        {/* Credits */}
+        <section className="py-32 text-center">
+          <h2 className="text-3xl font-light text-white mb-4">
+            Translation Credits
+          </h2>
+          <p className="text-gray-400 mb-12 max-w-2xl mx-auto">
+            Pay only for what you use. Download and merge subtitles for free.
+            Only AI translation requires credits.
+          </p>
+          <div className="flex justify-center">
+            <PackCard title="5,000 credits" price={5} packId="CREDITS_5000" />
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-16 text-center border-t border-gray-800">
+          <p className="text-gray-600 text-sm">
+            © 2024 Translator. All rights reserved.
+          </p>
+        </footer>
       </div>
     </main>
-  );
-}
-
-type PackProps = { title: string; price: number; packId: "HOUR_1" | "HOUR_5" };
-
-function PackCard({ title, price, packId }: PackProps) {
-  return (
-    <form action="/checkout" method="POST">
-      <input type="hidden" name="packId" value={packId} />
-      <input type="hidden" name="deviceId" value="" />
-      <div className="p-6 border rounded-xl flex flex-col items-center gap-4">
-        <h2 className="text-xl">{title}</h2>
-        <p className="text-3xl font-semibold">${price}</p>
-        <button
-          type="submit"
-          className="mt-auto px-5 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700"
-        >
-          Buy now
-        </button>
-      </div>
-    </form>
   );
 }
