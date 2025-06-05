@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { DownloadButton } from "../components/DownloadButton";
 import { FeatureRow } from "../components/FeatureRow";
 import {
@@ -7,46 +8,44 @@ import {
   SubtitleMergeIcon,
   AITranslationIcon,
 } from "../components/icons";
-
-const features = [
-  {
-    title: "Video Download",
-    description:
-      "Download videos from YouTube and other platforms simply by pasting the URL. Get low, mid, and high quality video files ready for subtitle processing.",
-    icon: VideoDownloadIcon,
-    label: "free",
-  },
-  {
-    title: "Subtitle Editing & Merging",
-    description:
-      "Edit subtitle timing and text, then merge and embed them directly into your videos with precision or download as SRT files. Support for multiple subtitle formats and seamless integration.",
-    icon: SubtitleMergeIcon,
-    label: "free",
-  },
-  {
-    title: "AI Translation",
-    description:
-      "Translate subtitles to any language with AI-powered precision. Maintain context, tone, and cultural nuances in your translations.",
-    icon: AITranslationIcon,
-  },
-];
+import { t } from "../lib/strings";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const locale = (searchParams.get("l") as "en" | "ko") ?? "en";
+
+  const features = [
+    {
+      title: t("videoDownload", locale),
+      description: t("videoDownloadDesc", locale),
+      icon: VideoDownloadIcon,
+      label: t("free", locale),
+    },
+    {
+      title: t("subtitleEditing", locale),
+      description: t("subtitleEditingDesc", locale),
+      icon: SubtitleMergeIcon,
+      label: t("free", locale),
+    },
+    {
+      title: t("aiTranslation", locale),
+      description: t("aiTranslationDesc", locale),
+      icon: AITranslationIcon,
+    },
+  ];
   return (
     <main className="min-h-screen bg-black">
       <div className="container mx-auto px-6">
         {/* Header */}
         <section className="text-center py-20">
           <h1 className="text-6xl md:text-7xl font-light tracking-tight text-white mb-6">
-            Translator
+            {t("headline", locale)}
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
-            Add AI-translated subtitles to any video. Download videos from
-            YouTube and other platforms, translate to any language, and merge
-            subtitles with precision.
+            {t("subheadline", locale)}
           </p>
 
-          <DownloadButton className="mt-8" />
+          <DownloadButton className="mt-8" label={t("download", locale)} />
         </section>
 
         {/* Features */}
@@ -62,18 +61,13 @@ export default function Home() {
 
         {/* Download section */}
         <section className="py-32 text-center">
-          <DownloadButton />
-          <p className="text-sm text-gray-500 mt-4">
-            Video downloading and subtitle merging included • Only pay for AI
-            translation
-          </p>
+          <DownloadButton label={t("download", locale)} />
+          <p className="text-sm text-gray-500 mt-4">{t("footer", locale)}</p>
         </section>
 
         {/* Footer */}
         <footer className="py-16 text-center border-t border-gray-800">
-          <p className="text-gray-600 text-sm">
-            © 2025 Stage5 Tools. All rights reserved.
-          </p>
+          <p className="text-gray-600 text-sm">{t("copyright", locale)}</p>
         </footer>
       </div>
     </main>

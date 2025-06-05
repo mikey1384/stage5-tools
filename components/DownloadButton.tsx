@@ -2,9 +2,13 @@ import Link from "next/link";
 
 interface DownloadButtonProps {
   className?: string;
+  label?: string;
 }
 
-export function DownloadButton({ className = "" }: DownloadButtonProps) {
+export function DownloadButton({
+  className = "",
+  label = "Download for Mac",
+}: DownloadButtonProps) {
   const downloadUrl =
     process.env.NEXT_PUBLIC_DOWNLOAD_URL ||
     "https://downloads.stage5.tools/mac/latest/Translator.dmg";
@@ -21,7 +25,7 @@ export function DownloadButton({ className = "" }: DownloadButtonProps) {
           clipRule="evenodd"
         />
       </svg>
-      Download for Mac
+      {label}
     </Link>
   );
 }

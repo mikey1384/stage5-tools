@@ -21,6 +21,7 @@ export function LanguageMenu() {
     next.set("l", lang);
     document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`;
     router.replace(`${pathname}?${next.toString()}`);
+    router.refresh(); // force React Server Components to re-run with new locale
   };
 
   return (
