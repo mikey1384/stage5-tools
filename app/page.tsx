@@ -12,7 +12,12 @@ import { t } from "../lib/strings";
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const locale = (searchParams.get("l") as "en" | "ko") ?? "en";
+  const queryLocale = searchParams.get("l");
+  const domLocale =
+    typeof document !== "undefined"
+      ? (document.documentElement.lang as "en" | "ko")
+      : "en";
+  const locale = (queryLocale as "en" | "ko" | null) ?? domLocale;
 
   const features = [
     {

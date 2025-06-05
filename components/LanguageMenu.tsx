@@ -6,7 +6,12 @@ export function LanguageMenu() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const locale = (params.get("l") as "ko" | "en") ?? "en";
+  const queryLocale = params.get("l");
+  const domLocale =
+    typeof document !== "undefined"
+      ? (document.documentElement.lang as "en" | "ko")
+      : "en";
+  const locale = (queryLocale as "ko" | "en" | null) ?? domLocale;
 
   /** Show menu only when the browser *wanted* Korean */
   const browserWantedKorean =
@@ -18,9 +23,18 @@ export function LanguageMenu() {
   /** swap locale & store cookie */
   const switchTo = (lang: "ko" | "en") => {
     const next = new URLSearchParams(params);
-    next.set("l", lang);
+
+    // Only add query param when switching away from detected default
+    if (lang !== domLocale) {
+      next.set("l", lang);
+    } else {
+      next.delete("l");
+    }
+
     document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`;
-    router.replace(`${pathname}?${next.toString()}`);
+    const queryString = next.toString();
+    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+    router.replace(newUrl);
     router.refresh(); // force React Server Components to re-run with new locale
   };
 
