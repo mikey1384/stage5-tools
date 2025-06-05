@@ -15,6 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const runtime = "edge";
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
 
