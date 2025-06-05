@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
 import { LanguageMenu } from "../components/LanguageMenu";
 import { t } from "../lib/strings";
+import { getLocale } from "../lib/get-locale";
 import "./globals.css";
-
-async function getLocale() {
-  const headersList = await headers();
-  const search = headersList.get("x-nextjs-rewrite") ?? "";
-  return (new URLSearchParams(search).get("l") as "en" | "ko") ?? "en";
-}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,9 +45,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const search = headersList.get("x-nextjs-rewrite") ?? "";
-  const locale = (new URLSearchParams(search).get("l") as "en" | "ko") ?? "en";
+  const locale = await getLocale();
 
   return (
     <html lang={locale}>
