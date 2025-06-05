@@ -1,5 +1,3 @@
-import { useInView } from "../hooks/useInView";
-
 interface FeatureRowProps {
   title: string;
   description: string;
@@ -15,15 +13,11 @@ export function FeatureRow({
   direction = "ltr",
   label,
 }: FeatureRowProps) {
-  const [ref, active] = useInView();
-
   return (
     <div
-      ref={ref}
-      data-active={active}
       className={`relative group flex flex-col md:flex-row ${
         direction === "rtl" ? "md:flex-row-reverse" : ""
-      } items-center gap-12 py-24 mb-16 transition-transform duration-500 translate-y-6 group-data-[active]:translate-y-0`}
+      } items-center gap-12 py-24 mb-16`}
     >
       {/* Content wrapper with higher z-index */}
       <div
@@ -56,7 +50,6 @@ export function FeatureRow({
       {/* Subtle glass overlay - now behind content */}
       <div
         className="absolute inset-0 rounded-3xl backdrop-blur-md bg-white/5 border border-white/5 
-                   opacity-0 transition-opacity duration-500 group-data-[active]:opacity-100 
                    shadow-glass pointer-events-none z-0"
       />
     </div>
