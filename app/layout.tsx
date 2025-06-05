@@ -5,6 +5,12 @@ import { LanguageMenu } from "../components/LanguageMenu";
 import { t } from "../lib/strings";
 import "./globals.css";
 
+async function getLocale() {
+  const headersList = await headers();
+  const search = headersList.get("x-nextjs-rewrite") ?? "";
+  return (new URLSearchParams(search).get("l") as "en" | "ko") ?? "en";
+}
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -16,9 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const headersList = await headers();
-  const search = headersList.get("x-nextjs-rewrite") ?? "";
-  const locale = (new URLSearchParams(search).get("l") as "en" | "ko") ?? "en";
+  const locale = await getLocale();
 
   return {
     title: t("headline", locale),
