@@ -2,7 +2,6 @@
 
 import { DownloadButton } from "../components/DownloadButton";
 import { FeatureRow } from "../components/FeatureRow";
-import { PackCard } from "../components/PackCard";
 import {
   VideoDownloadIcon,
   SubtitleMergeIcon,
@@ -15,12 +14,14 @@ const features = [
     description:
       "Download videos from YouTube and other platforms with yt-dlp integration. Get high-quality video files ready for subtitle processing.",
     icon: VideoDownloadIcon,
+    label: "free",
   },
   {
     title: "Subtitle Merging",
     description:
       "Merge and embed subtitles directly into your videos with precision timing. Support for multiple subtitle formats and seamless integration.",
     icon: SubtitleMergeIcon,
+    label: "free",
   },
   {
     title: "AI Translation",
@@ -70,24 +71,10 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Credits */}
-        <section className="py-32 text-center">
-          <h2 className="text-3xl font-light text-white mb-4">
-            Translation Credits
-          </h2>
-          <p className="text-gray-400 mb-12 max-w-2xl mx-auto">
-            Pay only for what you use. Download and merge subtitles for free.
-            Only AI translation requires credits.
-          </p>
-          <div className="flex justify-center">
-            <PackCard title="5,000 credits" price={5} packId="CREDITS_5000" />
-          </div>
-        </section>
-
         {/* Footer */}
         <footer className="py-16 text-center border-t border-gray-800">
           <p className="text-gray-600 text-sm">
-            © 2024 Translator. All rights reserved.
+            © 2025 Stage5 Tools. All rights reserved.
           </p>
         </footer>
       </div>

@@ -16,9 +16,9 @@ export function PackCard({ title, price, packId }: PackProps) {
       <div
         ref={ref}
         data-active={active}
-        className="relative bg-black border border-white/5 p-8 rounded-3xl transition-all duration-300 max-w-sm"
+        className="relative group bg-black border border-white/5 p-8 rounded-3xl transition-all duration-300 max-w-sm"
       >
-        <div className="text-center space-y-6">
+        <div className="relative z-10 text-center space-y-6">
           <div className="space-y-2">
             <h3 className="text-lg font-medium text-white">{title}</h3>
             <div className="text-4xl font-light text-white">
@@ -38,8 +38,8 @@ export function PackCard({ title, price, packId }: PackProps) {
         {/* Glass overlay */}
         <div
           className="absolute inset-0 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 
-                     opacity-0 transition-opacity duration-500 [data-active]:opacity-100 
-                     shadow-glass pointer-events-none z-10"
+                     opacity-0 transition-opacity duration-500 group-data-[active]:opacity-100 
+                     shadow-glass pointer-events-none z-0"
         />
       </div>
     </form>
