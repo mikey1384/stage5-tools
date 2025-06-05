@@ -17,6 +17,8 @@ export const strings = {
     footer:
       "Video downloading and subtitle merging included • Only pay for AI translation",
     copyright: "© 2025 Stage5 Tools. All rights reserved.",
+    notFound: "Page not found",
+    goHome: "Go Home",
   },
   ko: {
     headline: "번역기",
@@ -35,6 +37,8 @@ export const strings = {
       "AI 기반 정밀도로 자막을 모든 언어로 번역합니다. 맥락, 톤, 문화적 뉘앙스를 유지합니다.",
     footer: "동영상 다운로드 및 자막 병합 포함 • AI 번역만 결제",
     copyright: "© 2025 Stage5 Tools. All rights reserved.",
+    notFound: "페이지를 찾을 수 없습니다",
+    goHome: "홈으로",
   },
 } as const;
 
