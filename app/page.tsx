@@ -12,14 +12,14 @@ const features = [
   {
     title: "Video Download",
     description:
-      "Download videos from YouTube and other platforms with yt-dlp integration. Get high-quality video files ready for subtitle processing.",
+      "Download videos from YouTube and other platforms simply by pasting the URL. Get low, mid, and high quality video files ready for subtitle processing.",
     icon: VideoDownloadIcon,
     label: "free",
   },
   {
-    title: "Subtitle Merging",
+    title: "Subtitle Editing & Merging",
     description:
-      "Merge and embed subtitles directly into your videos with precision timing. Support for multiple subtitle formats and seamless integration.",
+      "Edit subtitle timing and text, then merge and embed them directly into your videos with precision or download as SRT files. Support for multiple subtitle formats and seamless integration.",
     icon: SubtitleMergeIcon,
     label: "free",
   },
