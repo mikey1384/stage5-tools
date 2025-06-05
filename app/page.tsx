@@ -45,10 +45,7 @@ export default function Home() {
             merge subtitles, and translate to any language with precision.
           </p>
 
-          {/* Mobile download button */}
-          <DownloadButton className="mt-8 md:hidden" />
-          {/* Desktop/tablet download button */}
-          <DownloadButton className="hidden md:inline-flex mt-12" />
+          <DownloadButton className="mt-8" />
         </section>
 
         {/* Features */}
