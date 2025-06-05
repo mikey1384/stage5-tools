@@ -38,8 +38,8 @@ export function PackCard({ title, price, packId }: PackProps) {
         {/* Glass overlay */}
         <div
           className="absolute inset-0 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 
-                     opacity-0 transition-opacity duration-500 data-[active=true]:opacity-100 
-                     shadow-glass pointer-events-none"
+                     opacity-0 transition-opacity duration-500 [data-active]:opacity-100 
+                     shadow-glass pointer-events-none z-10"
         />
       </div>
     </form>

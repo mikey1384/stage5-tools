@@ -21,7 +21,7 @@ export function FeatureRow({
       data-active={active}
       className={`relative flex flex-col md:flex-row ${
         direction === "rtl" ? "md:flex-row-reverse" : ""
-      } items-center gap-12 py-24`}
+      } items-center gap-12 py-24 transition-transform duration-500 translate-y-6 [data-active]:translate-y-0`}
     >
       {/* Icon */}
       <div className="shrink-0">
@@ -39,8 +39,8 @@ export function FeatureRow({
       {/* Subtle glass overlay */}
       <div
         className="absolute inset-0 rounded-3xl backdrop-blur-md bg-white/5 border border-white/5 
-                   opacity-0 transition-opacity duration-500 data-[active=true]:opacity-100 
-                   shadow-glass pointer-events-none"
+                   opacity-0 transition-opacity duration-500 [data-active]:opacity-100 
+                   shadow-glass pointer-events-none z-10"
       />
     </div>
   );

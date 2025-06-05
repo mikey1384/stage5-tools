@@ -46,6 +46,8 @@ export default function Home() {
 
           {/* Mobile download button */}
           <DownloadButton className="mt-8 md:hidden" />
+          {/* Desktop/tablet download button */}
+          <DownloadButton className="hidden md:inline-flex mt-12" />
         </section>
 
         {/* Features */}
