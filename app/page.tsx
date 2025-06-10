@@ -48,7 +48,20 @@ export default async function Home({
             {t("subheadline", locale)}
           </p>
 
-          <DownloadButton className="mt-8" label={t("download", locale)} />
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <DownloadButton
+              className=""
+              label={`${t("download", locale)} (Apple Silicon)`}
+              architecture="arm64"
+              variant="primary"
+            />
+            <DownloadButton
+              className=""
+              label={`${t("download", locale)} (Intel)`}
+              architecture="x64"
+              variant="secondary"
+            />
+          </div>
         </section>
 
         {/* Features */}
@@ -64,7 +77,18 @@ export default async function Home({
 
         {/* Download section */}
         <section className="py-32 text-center">
-          <DownloadButton label={t("download", locale)} />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <DownloadButton
+              label={`${t("download", locale)} (Apple Silicon)`}
+              architecture="arm64"
+              variant="primary"
+            />
+            <DownloadButton
+              label={`${t("download", locale)} (Intel)`}
+              architecture="x64"
+              variant="secondary"
+            />
+          </div>
           <p className="text-sm text-gray-500 mt-4">{t("footer", locale)}</p>
         </section>
 

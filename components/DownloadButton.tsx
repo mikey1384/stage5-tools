@@ -3,20 +3,29 @@ import Link from "next/link";
 interface DownloadButtonProps {
   className?: string;
   label?: string;
+  architecture?: "arm64" | "x64";
+  variant?: "primary" | "secondary";
 }
 
 export function DownloadButton({
   className = "",
   label = "Download for Mac",
+  architecture = "arm64",
+  variant = "primary",
 }: DownloadButtonProps) {
-  const downloadUrl =
-    process.env.NEXT_PUBLIC_DOWNLOAD_URL ||
-    "https://downloads.stage5.tools/mac/latest/Translator.dmg";
+  const baseUrl = "https://downloads.stage5.tools/mac/latest";
+  const archPath = architecture === "arm64" ? "darwin-arm64" : "darwin-x64";
+  const downloadUrl = `${baseUrl}/${archPath}/Translator.dmg`;
+
+  const isPrimary = variant === "primary";
+  const buttonClasses = isPrimary
+    ? "text-black bg-white hover:bg-gray-100"
+    : "text-white bg-gray-800 hover:bg-gray-700 border border-gray-600";
 
   return (
     <Link
       href={downloadUrl}
-      className={`inline-flex items-center px-8 py-4 text-lg font-medium text-black bg-white rounded-2xl hover:bg-gray-100 transition-all duration-300 ${className}`}
+      className={`inline-flex items-center px-8 py-4 text-lg font-medium ${buttonClasses} rounded-2xl transition-all duration-300 ${className}`}
     >
       <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
         <path

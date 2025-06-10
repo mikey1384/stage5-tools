@@ -5,4 +5,3 @@ compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-NEXT_PUBLIC_DOWNLOAD_URL = "https://downloads.stage5.tools/mac/latest/Translator.dmg"
