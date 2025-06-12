@@ -29,11 +29,20 @@ export async function generateMetadata(): Promise<Metadata> {
       url: "https://translator.tools",
       siteName: "Translator",
       locale,
+      images: [
+        {
+          url: "/thumb.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Translator by Stage 5",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: t("headline", locale),
       description: t("subheadline", locale),
+      images: ["/thumb.jpg"],
     },
     alternates: {
       canonical: "/",
