@@ -29,9 +29,10 @@ export async function generateMetadata(): Promise<Metadata> {
       url: "https://translator.tools",
       siteName: "Translator",
       locale,
+      type: "website",
       images: [
         {
-          url: "/thumb.jpg",
+          url: "https://translator.tools/thumb.jpg",
           width: 1200,
           height: 630,
           alt: "Translator by Stage 5",
@@ -42,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: t("headline", locale),
       description: t("subheadline", locale),
-      images: ["/thumb.jpg"],
+      images: ["https://translator.tools/thumb.jpg"],
     },
     alternates: {
       canonical: "/",
