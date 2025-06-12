@@ -14,8 +14,9 @@ export function DownloadButton({
   variant = "primary",
 }: DownloadButtonProps) {
   const baseUrl = "https://downloads.stage5.tools/mac/latest";
-  const archPath = architecture === "arm64" ? "darwin-arm64" : "darwin-x64";
-  const downloadUrl = `${baseUrl}/${archPath}/Translator.dmg`;
+  const archFile =
+    architecture === "arm64" ? "Translator-arm64.dmg" : "Translator-x64.dmg";
+  const downloadUrl = `${baseUrl}/${archFile}`;
 
   const isPrimary = variant === "primary";
   const buttonClasses = isPrimary
