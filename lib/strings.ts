@@ -1,6 +1,6 @@
 export const strings = {
   en: {
-    headline: "Translator",
+    headline: "translator",
     subheadline:
       "Add AI-translated subtitles to any video. Download videos from YouTube and other platforms, translate to over 30 languages, and edit/merge subtitles with precision.",
     download: "Download for Mac",
@@ -21,7 +21,7 @@ export const strings = {
     goHome: "Go Home",
   },
   ko: {
-    headline: "Translator",
+    headline: "translator",
     subheadline:
       "국내 및 해외 동영상에 AI 번역 자막을 추가하세요. YouTube를 포함한 다양한 플랫폼에서 동영상을 다운로드하고, 30개 이상의 언어로 번역하며, 편집/병합하실 수 있습니다.",
     download: "Mac용 다운로드",

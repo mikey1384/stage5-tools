@@ -41,9 +41,14 @@ export default async function Home({
       <div className="container mx-auto px-6">
         {/* Header */}
         <section className="text-center py-20">
-          <h1 className="text-6xl md:text-7xl font-light tracking-tight text-white mb-6">
-            {t("headline", locale)}
-          </h1>
+          <div className="mb-6">
+            <h1 className="text-6xl md:text-7xl font-montserrat font-bold tracking-tight text-cream">
+              {t("headline", locale)}
+            </h1>
+            <div className="font-montserrat font-medium text-lg text-cream mt-1">
+              by stage_5
+            </div>
+          </div>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
             {t("subheadline", locale)}
           </p>
