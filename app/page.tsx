@@ -42,10 +42,10 @@ export default async function Home({
         {/* Header */}
         <section className="text-center py-20">
           <div className="mb-6">
-            <h1 className="text-6xl md:text-7xl font-montserrat font-bold tracking-tight text-cream">
+            <h1 className="text-6xl md:text-7xl font-montserrat font-bold tracking-tight text-white">
               {t("headline", locale)}
             </h1>
-            <div className="font-montserrat font-medium text-lg text-cream mt-1">
+            <div className="font-montserrat font-medium text-lg text-white mt-1">
               by stage_5
             </div>
           </div>
