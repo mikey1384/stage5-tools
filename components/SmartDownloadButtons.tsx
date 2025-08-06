@@ -42,7 +42,7 @@ export function SmartDownloadButtons({
       {showWindows && (
         <DownloadButton
           label={t("downloadWindows", locale)}
-          platform="windows"
+          platform="win"
           architecture="x64"
           variant={showMac ? "secondary" : "primary"}
         />

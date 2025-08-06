@@ -1,5 +1,5 @@
 import { DownloadButton } from "../components/DownloadButton";
-import { SmartDownloadButtons } from "../components/SmartDownloadButtons";
+import { AllDownloadButtons } from "../components/AllDownloadButtons";
 import { FeatureRow } from "../components/FeatureRow";
 import {
   VideoDownloadIcon,
@@ -55,7 +55,7 @@ export default async function Home({
           </p>
 
           <div className="mt-8">
-            <SmartDownloadButtons locale={locale} />
+            <AllDownloadButtons locale={locale} />
           </div>
         </section>
 
@@ -72,7 +72,7 @@ export default async function Home({
 
         {/* Download section */}
         <section className="py-32 text-center">
-          <SmartDownloadButtons locale={locale} />
+          <AllDownloadButtons locale={locale} />
           <p className="text-sm text-gray-500 mt-4">{t("footer", locale)}</p>
         </section>
 
