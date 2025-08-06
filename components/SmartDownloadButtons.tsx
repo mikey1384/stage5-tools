@@ -40,20 +40,12 @@ export function SmartDownloadButtons({
       )}
 
       {showWindows && (
-        <>
-          <DownloadButton
-            label={`${t("downloadWindows", locale)} (x64)`}
-            platform="windows"
-            architecture="x64"
-            variant={showMac ? "secondary" : "primary"}
-          />
-          <DownloadButton
-            label={`${t("downloadWindows", locale)} (ARM64)`}
-            platform="windows"
-            architecture="arm64"
-            variant="secondary"
-          />
-        </>
+        <DownloadButton
+          label={t("downloadWindows", locale)}
+          platform="windows"
+          architecture="x64"
+          variant={showMac ? "secondary" : "primary"}
+        />
       )}
     </div>
   );
