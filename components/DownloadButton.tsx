@@ -3,6 +3,7 @@ import Link from "next/link";
 interface DownloadButtonProps {
   className?: string;
   label?: string;
+  platform?: "mac" | "windows";
   architecture?: "arm64" | "x64";
   variant?: "primary" | "secondary";
 }
@@ -10,12 +11,19 @@ interface DownloadButtonProps {
 export function DownloadButton({
   className = "",
   label = "Download for Mac",
+  platform = "mac",
   architecture = "arm64",
   variant = "primary",
 }: DownloadButtonProps) {
-  const baseUrl = "https://downloads.stage5.tools/mac/latest";
-  const archFile =
-    architecture === "arm64" ? "Translator-arm64.dmg" : "Translator-x64.dmg";
+  const baseUrl = `https://downloads.stage5.tools/${platform}/latest`;
+  
+  let archFile: string;
+  if (platform === "windows") {
+    archFile = architecture === "arm64" ? "Translator-arm64.exe" : "Translator-x64.exe";
+  } else {
+    archFile = architecture === "arm64" ? "Translator-arm64.dmg" : "Translator-x64.dmg";
+  }
+  
   const downloadUrl = `${baseUrl}/${archFile}`;
 
   const isPrimary = variant === "primary";

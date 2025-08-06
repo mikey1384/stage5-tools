@@ -1,4 +1,5 @@
 import { DownloadButton } from "../components/DownloadButton";
+import { SmartDownloadButtons } from "../components/SmartDownloadButtons";
 import { FeatureRow } from "../components/FeatureRow";
 import {
   VideoDownloadIcon,
@@ -53,19 +54,8 @@ export default async function Home({
             {t("subheadline", locale)}
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <DownloadButton
-              className=""
-              label={`${t("download", locale)} (Apple Silicon)`}
-              architecture="arm64"
-              variant="primary"
-            />
-            <DownloadButton
-              className=""
-              label={`${t("download", locale)} (Intel)`}
-              architecture="x64"
-              variant="secondary"
-            />
+          <div className="mt-8">
+            <SmartDownloadButtons locale={locale} />
           </div>
         </section>
 
@@ -82,18 +72,7 @@ export default async function Home({
 
         {/* Download section */}
         <section className="py-32 text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <DownloadButton
-              label={`${t("download", locale)} (Apple Silicon)`}
-              architecture="arm64"
-              variant="primary"
-            />
-            <DownloadButton
-              label={`${t("download", locale)} (Intel)`}
-              architecture="x64"
-              variant="secondary"
-            />
-          </div>
+          <SmartDownloadButtons locale={locale} />
           <p className="text-sm text-gray-500 mt-4">{t("footer", locale)}</p>
         </section>
 
