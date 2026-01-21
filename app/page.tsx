@@ -48,6 +48,9 @@ export default async function Home({
             <div className="font-montserrat font-medium text-lg text-white mt-1">
               by stage_5
             </div>
+            <h2 className="text-xl md:text-2xl text-gray-400 mt-4 font-normal">
+              {t("tagline", locale)}
+            </h2>
           </div>
           <a
             href="https://www.producthunt.com/products/translator-3?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-translator-5"

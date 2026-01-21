@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
 
   return {
-    title: t("headline", locale),
+    title: t("pageTitle", locale),
     description: t("subheadline", locale),
     openGraph: {
       title: t("headline", locale),
@@ -58,6 +58,21 @@ export async function generateMetadata(): Promise<Metadata> {
   } satisfies Metadata;
 }
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Translator",
+  description:
+    "AI-powered video translation app. Download videos, transcribe with Whisper, translate to 30+ languages with GPT + Claude, and dub with AI voices.",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "macOS, Windows",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +82,12 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
       >

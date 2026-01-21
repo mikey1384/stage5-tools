@@ -42,7 +42,7 @@ export function FeatureRow({
 
         {/* Content */}
         <div className="max-w-xl text-center md:text-left">
-          <h3 className="text-3xl font-light text-white mb-4">{title}</h3>
+          <h2 className="text-3xl font-light text-white mb-4">{title}</h2>
           <p className="text-lg text-gray-400 leading-relaxed">{description}</p>
         </div>
       </div>
