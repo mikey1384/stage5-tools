@@ -49,12 +49,39 @@ export default async function Home({
               by stage_5
             </div>
           </div>
+          <a
+            href="https://www.producthunt.com/products/translator-3?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-translator-5"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mb-6"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063984&theme=dark&t=1768993812067"
+              alt="Translator - Translate any video to 30+ languages with latest AI | Product Hunt"
+              width={250}
+              height={54}
+            />
+          </a>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
             {t("subheadline", locale)}
           </p>
 
           <div className="mt-8">
             <AllDownloadButtons locale={locale} />
+          </div>
+
+          {/* Promo Video */}
+          <div className="mt-16 max-w-4xl mx-auto">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl shadow-white/10">
+              <iframe
+                src="https://www.youtube.com/embed/0HXMpUGDhkU"
+                title="Translator App Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
           </div>
         </section>
 
