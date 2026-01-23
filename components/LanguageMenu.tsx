@@ -54,7 +54,8 @@ export function LanguageMenu() {
     locale === "ko" || // Currently viewing Korean content
     hasUsedKorean; // Has used Korean at some point
 
-  if (!userHasKoreanContext) return null;
+  // Hide on routes that don't support localization
+  if (!userHasKoreanContext || pathname.startsWith("/echo")) return null;
 
   /** swap locale & store cookie */
   const switchTo = async (lang: "ko" | "en") => {
