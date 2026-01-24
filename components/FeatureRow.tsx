@@ -1,9 +1,13 @@
+import Link from "next/link";
+
 interface FeatureRowProps {
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   direction?: "ltr" | "rtl";
   label?: string;
+  href?: string;
+  ctaLabel?: string;
 }
 
 export function FeatureRow({
@@ -12,6 +16,8 @@ export function FeatureRow({
   icon: Icon,
   direction = "ltr",
   label,
+  href,
+  ctaLabel = "Learn more",
 }: FeatureRowProps) {
   return (
     <div
@@ -44,6 +50,17 @@ export function FeatureRow({
         <div className="max-w-xl text-center md:text-left">
           <h2 className="text-3xl font-light text-white mb-4">{title}</h2>
           <p className="text-lg text-gray-400 leading-relaxed">{description}</p>
+          {href && (
+            <div className="mt-6">
+              <Link
+                href={href}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-gray-200"
+              >
+                {ctaLabel}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
