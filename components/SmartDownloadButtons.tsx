@@ -28,12 +28,14 @@ export function SmartDownloadButtons({
             label={`${t("download", locale)} (Apple Silicon)`}
             platform="mac"
             architecture="arm64"
+            trackingLabel="Smart CTA - Mac ARM64"
             variant="primary"
           />
           <DownloadButton
             label={`${t("download", locale)} (Intel)`}
             platform="mac"
             architecture="x64"
+            trackingLabel="Smart CTA - Mac x64"
             variant="secondary"
           />
         </>
@@ -44,6 +46,7 @@ export function SmartDownloadButtons({
           label={t("downloadWindows", locale)}
           platform="win"
           architecture="x64"
+          trackingLabel="Smart CTA - Windows x64"
           variant={showMac ? "secondary" : "primary"}
         />
       )}

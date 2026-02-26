@@ -11,7 +11,7 @@ import { t } from "../../lib/strings";
 export const metadata: Metadata = buildMetadata({
   title: "Free Subtitle Editor - Edit, Sync & Merge Subtitles | Translator",
   description:
-    "Edit SRT, VTT, and ASS subtitles with a free subtitle editor. Sync timing, merge tracks, and export clean files.",
+    "Edit SRT subtitles with a free subtitle editor. Sync timing, merge tracks, and export clean SRT files.",
   path: "/subtitle-editor",
   keywords: [
     "subtitle editor",

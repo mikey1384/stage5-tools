@@ -1,26 +1,29 @@
 export const strings = {
   en: {
     // Homepage
-    headline: "translator",
+    headline: "Translate any video",
     pageTitle:
       "Translator - AI Video Translator & Subtitle Editor | Free Download",
-    tagline: "AI Video Translation & Subtitle Editor",
+    tagline: "39 supported languages in one desktop workflow",
     subheadline:
-      "Add AI-translated subtitles to any video. Download videos from YouTube and other platforms, translate to over 30 languages, and edit/merge subtitles with precision.",
+      "Download by URL or import local video/audio, generate subtitles, and translate to 39 supported languages. GPT handles base translation, and Quality mode can add optional Claude review. Subtitle editing and SRT export are currently free; AI transcription, translation, and dubbing use credits.",
     download: "Download for Mac",
     downloadWindows: "Download for Windows",
+    homeDownloadRecommended: "Recommended for your device",
+    homeDownloadChoose: "Choose your download",
+    homeDownloadAllVersions: "See all versions →",
     free: "free",
     videoDownload: "Video Download",
     videoDownloadDesc:
       "Download videos from YouTube and other platforms simply by entering the URL. Get high-quality video files ready for subtitle processing.",
     subtitleEditing: "Subtitle Editing & Merging",
     subtitleEditingDesc:
-      "Edit subtitle timing and text, then merge and embed them directly into your videos with precision or download as SRT files. Support for multiple subtitle formats and seamless integration.",
+      "Edit subtitle timing and text, then export SRT files or burn subtitles directly into your videos. Keep original and translated lines aligned in one editor.",
     aiTranslation: "AI Translation",
     aiTranslationDesc:
-      "Translate subtitles to over 30 languages with AI-powered precision. Maintain context, tone, and cultural nuances in your translations.",
+      "Translate subtitles to 39 supported languages, generate transcript summaries, and detect highlight moments. Use GPT by default and optional Claude review in Quality mode.",
     footer:
-      "Video downloading and subtitle editing/merging are free • Only pay for AI transcription/translation",
+      "Video downloading and subtitle editing/merging are free • AI transcription, translation, summary, and dubbing use credits",
     copyright: "© 2026 Stage5 Tools. All rights reserved.",
     notFound: "Page not found",
     goHome: "Go Home",
@@ -52,21 +55,21 @@ export const strings = {
     // Pricing page
     pricingTitle: "Simple pricing for video translation",
     pricingSubtitle:
-      "Translator is free to download. Video downloading and subtitle editing stay free forever. AI transcription and translation use pay-as-you-go credits.",
+      "Translator is free to download. Video downloading, subtitle editing, and SRT export are currently free. AI transcription, translation, and dubbing use pay-as-you-go credits.",
     pricingFreeLabel: "Free",
     pricingFreePrice: "$0",
     pricingFreeDesc: "Essential video tools for creators and teams.",
     pricingFreeItem1: "Download videos from URLs",
     pricingFreeItem2: "Edit and sync subtitles",
     pricingFreeItem3: "Merge subtitle tracks",
-    pricingFreeItem4: "Export SRT, VTT, and ASS",
+    pricingFreeItem4: "Export SRT files",
     pricingCreditsLabel: "AI Credits",
     pricingCreditsPrice: "Pay as you go",
     pricingCreditsDesc:
       "Buy credits inside the app and spend them only when you need AI.",
     pricingCreditsItem1: "AI transcription with Whisper",
-    pricingCreditsItem2: "Subtitle translation to 30+ languages",
-    pricingCreditsItem3: "Optional AI voice dubbing",
+    pricingCreditsItem2: "Subtitle translation to 39 supported languages",
+    pricingCreditsItem3: "Optional AI dubbing + transcript summaries",
     pricingCreditsItem4: "No subscription required",
     pricingExamplePacks: "Example credit packs",
     pricingPack1: "$1 ≈ 50 minutes of video",
@@ -74,10 +77,10 @@ export const strings = {
     pricingPack3: "$10 ≈ 18 hours of video",
     pricingPack4: "$50 ≈ 127 hours of video",
     pricingByoNote:
-      "Unlock BYO API keys for a $10 one-time fee and pay direct API costs forever.",
+      "Unlock BYO API keys for a $10 one-time fee and pay provider API costs directly.",
     pricingFreeQuestion: "What's included for free?",
     pricingFreeAnswer:
-      "All download and subtitle editing tools are free. You only pay when using AI transcription or translation.",
+      "All download and subtitle editing tools are free. You only pay when using AI transcription, translation, summary, or dubbing.",
     pricingExploreEditor: "Explore Subtitle Editor →",
     pricingCostQuestion: "Need help estimating cost?",
     pricingCostAnswer:
@@ -87,16 +90,16 @@ export const strings = {
     // Translate page
     translateTitle: "AI video translation for subtitles",
     translateSubtitle:
-      "Translate YouTube subtitles or local files to over 30 languages with AI. Translator keeps timing and tone intact so you can localize videos faster.",
-    translateFeature1Title: "GPT + Claude translation stack",
+      "Translate YouTube subtitles or local SRT files to 39 supported languages. GPT handles base translation, and Quality mode can add optional Claude review.",
+    translateFeature1Title: "GPT translation + optional Claude review",
     translateFeature1Desc:
-      "Combine multiple AI models to preserve tone, context, and intent.",
-    translateFeature2Title: "30+ languages supported",
+      "Uses GPT by default, with optional Claude review in Quality mode for higher-fidelity wording.",
+    translateFeature2Title: "39 languages supported",
     translateFeature2Desc:
       "Translate subtitles into Spanish, Korean, Japanese, Chinese, and more.",
     translateFeature3Title: "Built for subtitle workflows",
     translateFeature3Desc:
-      "Keep timings intact and export ready-to-use SRT, VTT, or ASS files.",
+      "Keep timings intact and export ready-to-use SRT files or burn subtitles into video.",
     translateHowItWorks: "How AI subtitle translation works",
     translateStep1: "Import or generate subtitles.",
     translateStep2: "Choose your target language.",
@@ -115,18 +118,17 @@ export const strings = {
     translateCreditsNote: "AI translation uses credits. Free tools remain free.",
 
     // Subtitle Editor page
-    subtitleEditorTitle: "Free subtitle editor for SRT, VTT, and ASS",
+    subtitleEditorTitle: "Free subtitle editor for SRT",
     subtitleEditorSubtitle:
       "Clean up subtitles, sync timing, and merge tracks in one place. Translator is the subtitle editor built for modern video teams.",
     subtitleEditorFeature1Title: "Timeline precision",
     subtitleEditorFeature1Desc:
-      "Adjust subtitle timing with frame-level control for perfect sync.",
+      "Adjust subtitle timing with millisecond timecode controls for precise sync.",
     subtitleEditorFeature2Title: "Merge and clean tracks",
     subtitleEditorFeature2Desc:
       "Combine multiple subtitle files into a single polished track.",
     subtitleEditorFeature3Title: "Edit popular formats",
-    subtitleEditorFeature3Desc:
-      "Import and export SRT, VTT, and ASS with confidence.",
+    subtitleEditorFeature3Desc: "Import and export SRT with confidence.",
     subtitleEditorWorkflow: "Subtitle editing workflow",
     subtitleEditorStep1:
       "Import subtitles or auto-generate them with AI transcription.",
@@ -139,10 +141,10 @@ export const strings = {
       "Download videos from YouTube and other platforms, then edit subtitles instantly.",
     subtitleEditorReadyTranslate: "Ready to translate?",
     subtitleEditorReadyTranslateDesc:
-      "Translate subtitles to 30+ languages with AI while keeping tone and context intact.",
+      "Translate subtitles to 39 supported languages with AI while keeping tone and context intact.",
     subtitleEditorExploreTranslation: "Explore AI Translation →",
     subtitleEditorFreeNote:
-      "Subtitle editing is free. AI translation is optional.",
+      "Subtitle editing is free. AI features are optional and credit-based.",
 
     // Video Downloader page
     videoDownloaderTitle: "Free video downloader for YouTube and more",
@@ -173,12 +175,12 @@ export const strings = {
     videoDownloaderQuality2: "Audio-only exports for transcription",
     videoDownloaderPairEditor: "Pair with the subtitle editor",
     videoDownloaderPairEditorDesc:
-      "Sync and merge subtitles, edit timing, and export SRT/VTT files without leaving Translator.",
+      "Sync and merge subtitles, edit timing, and export SRT files without leaving Translator.",
     videoDownloaderTranslateAi: "Translate subtitles with AI",
     videoDownloaderTranslateAiDesc:
-      "Translate subtitles to 30+ languages with GPT + Claude for natural, localized results.",
+      "Translate subtitles to 39 supported languages with GPT, then optionally add Claude review in Quality mode.",
     videoDownloaderFreeNote:
-      "Download free. AI translation is available as a paid feature.",
+      "Download free. AI features (transcription, translation, summary, dubbing) use credits.",
 
     // FAQ page
     faqTitle: "Frequently asked questions",
@@ -186,9 +188,9 @@ export const strings = {
       "Everything you need to know about Translator, from subtitle formats to AI translation credits.",
     faqQ1: "Is Translator free to use?",
     faqA1:
-      "Yes. Video downloading and subtitle editing are free. AI transcription and translation use paid credits.",
+      "Yes. Video downloading and subtitle editing are free. AI transcription, translation, summary, and dubbing use paid credits.",
     faqQ2: "Which subtitle formats do you support?",
-    faqA2: "Translator supports SRT, VTT, and ASS for import and export.",
+    faqA2: "Translator currently supports SRT import and export.",
     faqQ3: "Can I translate YouTube subtitles?",
     faqA3:
       "Yes. Download the video, import or generate subtitles, and translate them with AI.",
@@ -200,13 +202,13 @@ export const strings = {
       "A modern macOS or Windows computer with enough storage for video files is recommended.",
     faqQ6: "Do I need an internet connection?",
     faqA6:
-      "Internet is required for AI transcription and translation. Free editing tools work offline.",
+      "Internet is required for AI transcription, translation, summary, and dubbing. Free editing tools work offline.",
     faqQ7: "How accurate is AI translation?",
     faqA7:
-      "Translator uses a GPT + Claude stack to keep meaning, tone, and context while translating.",
+      "Translator uses GPT for base translation, and Quality mode can add optional Claude review to improve nuance.",
     faqQ8: "Do you offer a subscription?",
     faqA8:
-      "No subscription is required. AI translation is billed via pay-as-you-go credits.",
+      "No subscription is required. AI features are billed via pay-as-you-go credits.",
     faqQ9: "Can I burn subtitles into the video?",
     faqA9:
       "Yes. You can export subtitle files or embed them directly into your video.",
@@ -232,7 +234,7 @@ export const strings = {
       "A world where every video can be understood instantly, no matter the language.",
     aboutBuiltFor: "Built for creators and teams",
     aboutBuiltForDesc:
-      "Translator combines video downloads, subtitle editing, and AI translation in one desktop workflow.",
+      "Translator combines video downloads, subtitle editing, AI translation, transcript summaries, highlight clips, and dubbing in one desktop workflow.",
     aboutContactUs: "Contact us",
     aboutContactUsDesc:
       "Questions about Translator, partnerships, or enterprise plans?",
@@ -261,30 +263,31 @@ export const strings = {
     // Homepage - How it works section
     homeHowItWorks: "How it works",
     homeHowItWorksDesc:
-      "From URL to translated subtitles in minutes. Translator is the AI video translator built for creators, teams, and learners.",
+      "From URL or local files to translated subtitles, summaries, highlight clips, and optional dubbing, Translator combines download, subtitle editing, transcription, and translation in one desktop workflow.",
     homeExploreAiTranslation: "Explore AI translation →",
     homeStep: "Step",
     homeStep1Title: "Download or import your video",
     homeStep1Desc:
-      "Paste a URL from YouTube or another platform, or bring your own MP4 file.",
+      "Paste a URL from YouTube or another platform, or import local video/audio files.",
     homeStep2Title: "Generate or import subtitles",
     homeStep2Desc:
-      "Create subtitles with AI transcription or import existing SRT, VTT, or ASS files.",
+      "Create subtitles with AI transcription or import existing SRT files.",
     homeStep3Title: "Translate with AI",
     homeStep3Desc:
-      "Translate subtitles to 30+ languages while preserving tone and context.",
+      "Translate subtitles to 39 supported languages with GPT, then optionally add Claude review in Quality mode.",
     homeStep4Title: "Export and publish",
     homeStep4Desc:
-      "Export SRT/VTT or burn subtitles into your video for sharing anywhere.",
+      "Generate summaries, cut 9:16 highlight clips for Shorts/TikTok/Reels, then export SRT, burned subtitles, or dubbed video.",
 
     // Homepage - Supported languages section
-    homeSupportedLanguages: "Supported languages (30+)",
+    homeSupportedLanguages: "Supported languages (39)",
     homeSupportedLanguagesDesc:
       "Translate YouTube subtitles to Spanish, Korean, Japanese, Chinese, French, German, Portuguese, and more.",
     homeSeeAllLanguages: "See all languages →",
 
     // Homepage - Other languages
     langArabic: "Arabic",
+    langBengali: "Bengali",
     langBulgarian: "Bulgarian",
     langCroatian: "Croatian",
     langCzech: "Czech",
@@ -305,15 +308,17 @@ export const strings = {
     langRussian: "Russian",
     langSerbian: "Serbian",
     langSwedish: "Swedish",
+    langTagalog: "Tagalog",
     langThai: "Thai",
     langTurkish: "Turkish",
+    langUrdu: "Urdu",
     langUkrainian: "Ukrainian",
     langVietnamese: "Vietnamese",
 
     // Homepage - Use cases section
     homeUseCases: "Use cases",
     homeUseCasesDesc:
-      "Translator combines a video subtitle editor, SRT translator, and AI translation workflow for any content pipeline.",
+      "Translator combines a video subtitle editor, SRT translation workflow, transcript summaries, and highlight clip creation for modern content pipelines.",
     homeLearnMore: "Learn more →",
     homeUseCase1Title: "Creators localizing YouTube content",
     homeUseCase1Desc:
@@ -324,9 +329,9 @@ export const strings = {
     homeUseCase3Title: "Businesses translating training videos",
     homeUseCase3Desc:
       "Localize internal training, onboarding, and marketing videos for global teams.",
-    homeUseCase4Title: "Fans translating entertainment",
+    homeUseCase4Title: "Short-form teams creating highlight clips",
     homeUseCase4Desc:
-      "Translate subtitles for podcasts, anime, K-drama, and indie films in minutes.",
+      "Generate AI summaries, auto-detect key moments, and cut 9:16 clips for Shorts, TikTok, and Reels.",
 
     // Homepage - Testimonials section
     homeTestimonialsTitle: "Loved by Product Hunt users",
@@ -339,36 +344,38 @@ export const strings = {
     homeViewFullFaq: "View full FAQ →",
     homeFaqQ1: "Is Translator free to use?",
     homeFaqA1:
-      "Video downloading and subtitle editing are free. AI transcription and translation use paid credits.",
+      "Video downloading and subtitle editing are free. AI transcription, translation, summary, and dubbing use paid credits.",
     homeFaqQ2: "What subtitle formats do you support?",
-    homeFaqA2:
-      "Translator supports SRT, VTT, and ASS files for import, editing, and export.",
+    homeFaqA2: "Translator currently supports SRT files for import and export.",
     homeFaqQ3: "Which platforms are supported?",
     homeFaqA3: "Translator runs on macOS (Apple Silicon + Intel) and Windows.",
     homeFaqQ4: "How many languages can I translate to?",
-    homeFaqA4: "You can translate subtitles to 30+ languages.",
+    homeFaqA4: "You can translate subtitles to 39 supported languages.",
   },
   ko: {
     // Homepage
-    headline: "translator",
+    headline: "모든 영상을 번역하세요",
     pageTitle: "Translator - AI 비디오 번역 & 자막 편집기 | 무료 다운로드",
-    tagline: "AI 비디오 번역 & 자막 편집기",
+    tagline: "39개 지원 언어, 하나의 데스크톱 워크플로우",
     subheadline:
-      "국내 및 해외 동영상에 AI 번역 자막을 추가하세요. YouTube를 포함한 다양한 플랫폼에서 동영상을 다운로드하고, 30개 이상의 언어로 번역하며, 편집/병합하실 수 있습니다.",
+      "URL로 다운로드하거나 로컬 영상/오디오를 가져와 자막을 생성하고, 39개 지원 언어로 번역을 한 번에 처리하세요. 기본은 GPT 번역이며 품질 모드에서 Claude 검토를 추가할 수 있습니다. 자막 편집과 SRT 내보내기는 현재 무료이며 AI 전사·번역·요약·더빙은 크레딧을 사용합니다.",
     download: "Mac용 다운로드",
     downloadWindows: "Windows용 다운로드",
+    homeDownloadRecommended: "현재 기기에 추천",
+    homeDownloadChoose: "다운로드 버전 선택",
+    homeDownloadAllVersions: "모든 버전 보기 →",
     free: "무료",
     videoDownload: "동영상 다운로드",
     videoDownloadDesc:
-      "URL 입력만으로 YouTube 및 기타 플랫폼에서 동영상을 다운로드 하실 수 있습니다.",
+      "URL만 입력하면 YouTube와 기타 플랫폼에서 동영상을 다운로드할 수 있습니다. 자막 작업에 바로 쓸 수 있는 고화질 파일을 받을 수 있습니다.",
     subtitleEditing: "자막 편집 및 병합",
     subtitleEditingDesc:
-      "자막 타이밍과 텍스트를 편집한 다음 정밀하게 동영상에 직접 병합하거나 SRT 파일로 저장할 수 있습니다. 여러 자막 형식을 지원합니다.",
+      "자막 타이밍과 텍스트를 편집한 뒤 SRT로 내보내거나 영상에 자막을 삽입할 수 있습니다. 원문과 번역문을 한 편집기에서 정렬해 관리하세요.",
     aiTranslation: "AI 번역",
     aiTranslationDesc:
-      "AI를 사용하여 자막을 30개 이상의 언어로 번역합니다. 맥락, 톤, 문화적 뉘앙스를 유지합니다.",
+      "AI 워크플로우로 자막을 39개 지원 언어로 번역하고, 전사 요약과 하이라이트 구간까지 생성하세요. 기본은 GPT 번역이며 품질 모드에서 Claude 검토를 추가할 수 있습니다.",
     footer:
-      "동영상 다운로드 및 자막 편집/병합기능 무료 • AI 전사 및 번역만 결제",
+      "동영상 다운로드와 자막 편집/병합은 무료 • AI 전사·번역·요약·더빙에만 크레딧이 소모됩니다",
     copyright: "© 2026 Stage5 Tools. All rights reserved.",
     notFound: "페이지를 찾을 수 없습니다",
     goHome: "홈으로",
@@ -400,21 +407,21 @@ export const strings = {
     // Pricing page
     pricingTitle: "간단한 비디오 번역 가격",
     pricingSubtitle:
-      "Translator는 무료로 다운로드할 수 있습니다. 동영상 다운로드와 자막 편집은 영구 무료입니다. AI 전사 및 번역은 종량제 크레딧을 사용합니다.",
+      "Translator는 무료로 다운로드할 수 있습니다. 동영상 다운로드, 자막 편집, SRT 내보내기는 현재 무료입니다. AI 전사·번역·요약·더빙은 종량제 크레딧을 사용합니다.",
     pricingFreeLabel: "무료",
     pricingFreePrice: "$0",
     pricingFreeDesc: "크리에이터와 팀을 위한 필수 비디오 도구.",
     pricingFreeItem1: "URL로 동영상 다운로드",
     pricingFreeItem2: "자막 편집 및 싱크",
     pricingFreeItem3: "자막 트랙 병합",
-    pricingFreeItem4: "SRT, VTT, ASS 내보내기",
+    pricingFreeItem4: "SRT 내보내기",
     pricingCreditsLabel: "AI 크레딧",
     pricingCreditsPrice: "사용한 만큼만 결제",
     pricingCreditsDesc:
       "앱 내에서 크레딧을 구매하고 AI가 필요할 때만 사용하세요.",
     pricingCreditsItem1: "Whisper를 이용한 AI 전사",
-    pricingCreditsItem2: "30개 이상 언어로 자막 번역",
-    pricingCreditsItem3: "AI 음성 더빙 (선택사항)",
+    pricingCreditsItem2: "39개 지원 언어로 자막 번역",
+    pricingCreditsItem3: "AI 더빙 + 전사 요약 (선택사항)",
     pricingCreditsItem4: "구독 없음",
     pricingExamplePacks: "크레딧 팩 예시",
     pricingPack1: "$1 ≈ 동영상 50분",
@@ -425,7 +432,7 @@ export const strings = {
       "$10 일회성 결제로 BYO API 키를 사용하고 직접 API 비용만 지불하세요.",
     pricingFreeQuestion: "무료로 포함된 기능은?",
     pricingFreeAnswer:
-      "모든 다운로드 및 자막 편집 도구는 무료입니다. AI 전사 또는 번역을 사용할 때만 결제합니다.",
+      "모든 다운로드 및 자막 편집 도구는 무료입니다. AI 전사·번역·더빙·요약 기능을 사용할 때만 크레딧이 소모됩니다.",
     pricingExploreEditor: "자막 편집기 살펴보기 →",
     pricingCostQuestion: "비용 견적이 필요하신가요?",
     pricingCostAnswer:
@@ -435,16 +442,16 @@ export const strings = {
     // Translate page
     translateTitle: "자막을 위한 AI 비디오 번역",
     translateSubtitle:
-      "YouTube 자막 또는 로컬 파일을 AI로 30개 이상의 언어로 번역하세요. Translator는 타이밍과 톤을 유지하여 더 빠르게 비디오를 현지화합니다.",
-    translateFeature1Title: "GPT + Claude 번역 스택",
+      "YouTube 자막 또는 로컬 SRT 파일을 39개 지원 언어로 번역하세요. 기본은 GPT 번역이며 품질 모드에서 Claude 검토를 추가할 수 있습니다.",
+    translateFeature1Title: "GPT 번역 + 선택형 Claude 검토",
     translateFeature1Desc:
-      "여러 AI 모델을 결합하여 톤, 맥락, 의도를 보존합니다.",
-    translateFeature2Title: "30개 이상 언어 지원",
+      "기본은 GPT 번역이며, 품질 모드에서 Claude 검토를 추가해 문장 품질을 높일 수 있습니다.",
+    translateFeature2Title: "39개 언어 지원",
     translateFeature2Desc:
       "스페인어, 한국어, 일본어, 중국어 등으로 자막을 번역하세요.",
     translateFeature3Title: "자막 워크플로우에 최적화",
     translateFeature3Desc:
-      "타이밍을 유지하고 바로 사용 가능한 SRT, VTT, ASS 파일로 내보냅니다.",
+      "타이밍을 유지하고 바로 사용할 수 있는 SRT로 내보내거나 영상에 자막을 삽입합니다.",
     translateHowItWorks: "AI 자막 번역 작동 방식",
     translateStep1: "자막을 가져오거나 생성합니다.",
     translateStep2: "타겟 언어를 선택합니다.",
@@ -463,17 +470,17 @@ export const strings = {
       "AI 번역은 크레딧을 사용합니다. 무료 도구는 무료로 유지됩니다.",
 
     // Subtitle Editor page
-    subtitleEditorTitle: "SRT, VTT, ASS 무료 자막 편집기",
+    subtitleEditorTitle: "SRT 무료 자막 편집기",
     subtitleEditorSubtitle:
       "한 곳에서 자막을 정리하고, 타이밍을 동기화하고, 트랙을 병합하세요. Translator는 현대 비디오 팀을 위해 만들어진 자막 편집기입니다.",
     subtitleEditorFeature1Title: "타임라인 정밀도",
     subtitleEditorFeature1Desc:
-      "프레임 단위 제어로 완벽한 싱크를 위한 자막 타이밍을 조정합니다.",
+      "밀리초 타임코드로 자막 타이밍을 정밀하게 조정합니다.",
     subtitleEditorFeature2Title: "트랙 병합 및 정리",
     subtitleEditorFeature2Desc:
       "여러 자막 파일을 하나의 깔끔한 트랙으로 결합합니다.",
-    subtitleEditorFeature3Title: "인기 형식 편집",
-    subtitleEditorFeature3Desc: "SRT, VTT, ASS를 자신 있게 가져오고 내보냅니다.",
+    subtitleEditorFeature3Title: "SRT 형식 편집",
+    subtitleEditorFeature3Desc: "SRT를 안정적으로 가져오고 내보냅니다.",
     subtitleEditorWorkflow: "자막 편집 워크플로우",
     subtitleEditorStep1: "자막을 가져오거나 AI 전사로 자동 생성합니다.",
     subtitleEditorStep2:
@@ -485,9 +492,10 @@ export const strings = {
       "YouTube 및 기타 플랫폼에서 동영상을 다운로드하고 바로 자막을 편집하세요.",
     subtitleEditorReadyTranslate: "번역할 준비가 되셨나요?",
     subtitleEditorReadyTranslateDesc:
-      "톤과 맥락을 유지하면서 AI로 30개 이상의 언어로 자막을 번역하세요.",
+      "톤과 맥락을 유지하면서 AI로 39개 지원 언어로 자막을 번역하세요.",
     subtitleEditorExploreTranslation: "AI 번역 살펴보기 →",
-    subtitleEditorFreeNote: "자막 편집은 무료입니다. AI 번역은 선택 사항입니다.",
+    subtitleEditorFreeNote:
+      "자막 편집은 무료입니다. AI 기능은 선택 사항이며 크레딧이 소모됩니다.",
 
     // Video Downloader page
     videoDownloaderTitle: "YouTube 등 무료 동영상 다운로더",
@@ -495,7 +503,7 @@ export const strings = {
       "Translator로 URL에서 동영상을 쉽게 다운로드하고, 고화질로 저장하고, 바로 자막 편집이나 AI 번역을 시작하세요.",
     videoDownloaderFeature1Title: "URL을 붙여넣고 깔끔한 파일 받기",
     videoDownloaderFeature1Desc:
-      "단일 링크로 YouTube 또는 기타 인기 플랫폼에서 비디오를 가져옵니다.",
+      "링크 하나로 YouTube와 기타 주요 플랫폼의 동영상을 가져올 수 있습니다.",
     videoDownloaderFeature2Title: "필요한 화질 선택",
     videoDownloaderFeature2Desc:
       "더 빠른 자막 작업을 위해 사용 가능한 해상도와 오디오 옵션 중에서 선택하세요.",
@@ -518,12 +526,12 @@ export const strings = {
     videoDownloaderQuality2: "전사를 위한 오디오 전용 내보내기",
     videoDownloaderPairEditor: "자막 편집기와 함께 사용",
     videoDownloaderPairEditorDesc:
-      "Translator를 떠나지 않고 자막을 동기화, 병합하고 타이밍을 편집하여 SRT/VTT 파일을 내보냅니다.",
+      "Translator를 벗어나지 않고 자막을 동기화하고 병합한 뒤, 타이밍을 편집해 SRT 파일로 내보낼 수 있습니다.",
     videoDownloaderTranslateAi: "AI로 자막 번역",
     videoDownloaderTranslateAiDesc:
-      "GPT + Claude로 30개 이상의 언어로 자막을 번역하여 자연스럽고 현지화된 결과를 얻으세요.",
+      "GPT로 자막을 39개 지원 언어로 번역하고, 품질 모드에서 Claude 검토를 선택해 품질을 높이세요.",
     videoDownloaderFreeNote:
-      "다운로드는 무료입니다. AI 번역은 유료 기능으로 제공됩니다.",
+      "다운로드는 무료입니다. AI 기능(전사·번역·요약·더빙)은 크레딧을 사용합니다.",
 
     // FAQ page
     faqTitle: "자주 묻는 질문",
@@ -531,9 +539,9 @@ export const strings = {
       "자막 형식부터 AI 번역 크레딧까지, Translator에 대해 알아야 할 모든 것.",
     faqQ1: "Translator는 무료인가요?",
     faqA1:
-      "네. 동영상 다운로드와 자막 편집은 무료입니다. AI 전사와 번역은 유료 크레딧을 사용합니다.",
+      "네. 동영상 다운로드와 자막 편집은 무료입니다. AI 전사·번역·요약·더빙은 유료 크레딧을 사용합니다.",
     faqQ2: "어떤 자막 형식을 지원하나요?",
-    faqA2: "Translator는 SRT, VTT, ASS 가져오기 및 내보내기를 지원합니다.",
+    faqA2: "Translator는 현재 SRT 가져오기 및 내보내기를 지원합니다.",
     faqQ3: "YouTube 자막을 번역할 수 있나요?",
     faqA3:
       "네. 동영상을 다운로드하고, 자막을 가져오거나 생성한 다음, AI로 번역하세요.",
@@ -545,13 +553,13 @@ export const strings = {
       "비디오 파일을 저장할 충분한 저장 공간이 있는 최신 macOS 또는 Windows 컴퓨터를 권장합니다.",
     faqQ6: "인터넷 연결이 필요한가요?",
     faqA6:
-      "AI 전사 및 번역에는 인터넷이 필요합니다. 무료 편집 도구는 오프라인에서 작동합니다.",
+      "AI 전사·번역·요약·더빙에는 인터넷이 필요합니다. 무료 편집 도구는 오프라인에서 작동합니다.",
     faqQ7: "AI 번역은 얼마나 정확한가요?",
     faqA7:
-      "Translator는 GPT + Claude 스택을 사용하여 번역 시 의미, 톤, 맥락을 유지합니다.",
+      "Translator는 기본 번역에 GPT를 사용하며, 품질 모드에서 Claude 검토를 추가해 뉘앙스를 개선할 수 있습니다.",
     faqQ8: "구독을 제공하나요?",
     faqA8:
-      "구독이 필요 없습니다. AI 번역은 종량제 크레딧으로 청구됩니다.",
+      "구독은 필요 없습니다. AI 전사·번역·요약·더빙 기능은 종량제 크레딧으로 과금됩니다.",
     faqQ9: "비디오에 자막을 삽입할 수 있나요?",
     faqA9:
       "네. 자막 파일을 내보내거나 비디오에 직접 삽입할 수 있습니다.",
@@ -576,7 +584,7 @@ export const strings = {
       "언어에 상관없이 모든 비디오를 즉시 이해할 수 있는 세상.",
     aboutBuiltFor: "크리에이터와 팀을 위해 제작",
     aboutBuiltForDesc:
-      "Translator는 하나의 데스크톱 워크플로우에서 비디오 다운로드, 자막 편집, AI 번역을 결합합니다.",
+      "Translator는 비디오 다운로드, 자막 편집, AI 번역, 전사 요약, 하이라이트 클립, 더빙을 하나의 데스크톱 워크플로우로 결합합니다.",
     aboutContactUs: "문의하기",
     aboutContactUsDesc:
       "Translator, 파트너십 또는 기업 플랜에 대한 질문이 있으신가요?",
@@ -590,7 +598,7 @@ export const strings = {
     contactEmailDesc: "일반 문의, 지원 또는 파트너십 기회는 이메일로 연락주세요.",
     contactEnterprise: "기업 문의",
     contactEnterpriseDesc:
-      "대량 가격 또는 팀 워크플로우가 필요하신가요? 요구 사항을 알려주세요.",
+      "대량 요금제 또는 팀 워크플로우가 필요하신가요? 요구 사항을 알려주세요.",
 
     // Language labels for translate page
     langSpanish: "스페인어",
@@ -604,30 +612,31 @@ export const strings = {
     // Homepage - How it works section
     homeHowItWorks: "사용 방법",
     homeHowItWorksDesc:
-      "URL에서 번역된 자막까지 몇 분 만에. Translator는 크리에이터, 팀, 학습자를 위한 AI 비디오 번역기입니다.",
+      "URL 또는 로컬 파일에서 번역 자막, 요약, 하이라이트 클립, 선택형 더빙까지, Translator는 다운로드·자막 편집·전사·번역을 하나의 데스크톱 워크플로우로 제공합니다.",
     homeExploreAiTranslation: "AI 번역 살펴보기 →",
     homeStep: "단계",
     homeStep1Title: "비디오 다운로드 또는 가져오기",
     homeStep1Desc:
-      "YouTube 또는 다른 플랫폼에서 URL을 붙여넣거나 직접 MP4 파일을 가져오세요.",
+      "YouTube 등에서 URL을 붙여넣거나 로컬 영상/오디오 파일을 가져오세요.",
     homeStep2Title: "자막 생성 또는 가져오기",
     homeStep2Desc:
-      "AI 전사로 자막을 생성하거나 기존 SRT, VTT, ASS 파일을 가져오세요.",
+      "AI 전사로 자막을 생성하거나 기존 SRT 파일을 가져오세요.",
     homeStep3Title: "AI로 번역",
     homeStep3Desc:
-      "톤과 맥락을 유지하면서 30개 이상의 언어로 자막을 번역하세요.",
+      "GPT로 39개 지원 언어로 번역하고, 품질 모드에서 Claude 검토를 선택하세요.",
     homeStep4Title: "내보내기 및 게시",
     homeStep4Desc:
-      "SRT/VTT로 내보내거나 자막을 비디오에 삽입하여 어디서나 공유하세요.",
+      "요약을 생성하고 Shorts/TikTok/Reels용 9:16 하이라이트 클립을 만든 뒤, SRT·삽입 자막·더빙 결과를 저장하세요.",
 
     // Homepage - Supported languages section
-    homeSupportedLanguages: "지원 언어 (30개 이상)",
+    homeSupportedLanguages: "지원 언어 (39)",
     homeSupportedLanguagesDesc:
       "YouTube 자막을 스페인어, 한국어, 일본어, 중국어, 프랑스어, 독일어, 포르투갈어 등으로 번역하세요.",
     homeSeeAllLanguages: "모든 언어 보기 →",
 
     // Homepage - Other languages
     langArabic: "아랍어",
+    langBengali: "벵골어",
     langBulgarian: "불가리아어",
     langCroatian: "크로아티아어",
     langCzech: "체코어",
@@ -648,15 +657,17 @@ export const strings = {
     langRussian: "러시아어",
     langSerbian: "세르비아어",
     langSwedish: "스웨덴어",
+    langTagalog: "타갈로그어",
     langThai: "태국어",
     langTurkish: "터키어",
+    langUrdu: "우르두어",
     langUkrainian: "우크라이나어",
     langVietnamese: "베트남어",
 
     // Homepage - Use cases section
     homeUseCases: "사용 사례",
     homeUseCasesDesc:
-      "Translator는 모든 콘텐츠 파이프라인을 위한 비디오 자막 편집기, SRT 번역기, AI 번역 워크플로우를 결합합니다.",
+      "Translator는 비디오 자막 편집기, SRT 번역 워크플로우, 전사 요약, 하이라이트 클립 생성을 결합해 현대 콘텐츠 파이프라인에 맞춥니다.",
     homeLearnMore: "자세히 알아보기 →",
     homeUseCase1Title: "YouTube 콘텐츠를 현지화하는 크리에이터",
     homeUseCase1Desc:
@@ -667,9 +678,9 @@ export const strings = {
     homeUseCase3Title: "교육 비디오를 번역하는 기업",
     homeUseCase3Desc:
       "글로벌 팀을 위해 내부 교육, 온보딩, 마케팅 비디오를 현지화하세요.",
-    homeUseCase4Title: "엔터테인먼트를 번역하는 팬",
+    homeUseCase4Title: "숏폼 하이라이트를 만드는 팀",
     homeUseCase4Desc:
-      "팟캐스트, 애니메이션, K-드라마, 인디 영화의 자막을 몇 분 만에 번역하세요.",
+      "AI 요약으로 핵심 구간을 찾고 Shorts·TikTok·Reels용 9:16 하이라이트 클립을 빠르게 만드세요.",
 
     // Homepage - Testimonials section
     homeTestimonialsTitle: "Product Hunt 사용자들의 사랑을 받고 있습니다",
@@ -678,18 +689,17 @@ export const strings = {
 
     // Homepage - FAQ preview section
     homeFaqTitle: "자주 묻는 질문",
-    homeFaqDesc: "Translator에 대한 가장 일반적인 질문에 대한 빠른 답변.",
+    homeFaqDesc: "Translator에 대해 가장 자주 받는 질문에 빠르게 답해드립니다.",
     homeViewFullFaq: "전체 FAQ 보기 →",
     homeFaqQ1: "Translator는 무료인가요?",
     homeFaqA1:
-      "동영상 다운로드와 자막 편집은 무료입니다. AI 전사와 번역은 유료 크레딧을 사용합니다.",
+      "동영상 다운로드와 자막 편집은 무료입니다. AI 전사·번역·요약·더빙은 유료 크레딧을 사용합니다.",
     homeFaqQ2: "어떤 자막 형식을 지원하나요?",
-    homeFaqA2:
-      "Translator는 가져오기, 편집, 내보내기를 위해 SRT, VTT, ASS 파일을 지원합니다.",
+    homeFaqA2: "Translator는 현재 SRT 파일 가져오기 및 내보내기를 지원합니다.",
     homeFaqQ3: "어떤 플랫폼을 지원하나요?",
     homeFaqA3: "Translator는 macOS (Apple Silicon + Intel) 및 Windows에서 실행됩니다.",
     homeFaqQ4: "몇 개의 언어로 번역할 수 있나요?",
-    homeFaqA4: "30개 이상의 언어로 자막을 번역할 수 있습니다.",
+    homeFaqA4: "39개 지원 언어로 자막을 번역할 수 있습니다.",
   },
 } as const;
 

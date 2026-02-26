@@ -13,7 +13,7 @@ const languageData = {
     name: "Spanish",
     title: "Translate Videos to Spanish | Translator",
     description:
-      "Translate video subtitles to Spanish for audiences across Latin America and Spain. Fast, accurate AI subtitle translation.",
+      "Translate video subtitles to Spanish for audiences across Latin America and Spain with AI-assisted subtitle translation.",
     intro:
       "Reach Spanish-speaking audiences with AI-translated subtitles that sound natural in both Latin America and Spain.",
     useCases: [
@@ -32,7 +32,7 @@ const languageData = {
     name: "Korean",
     title: "Translate Videos to Korean | Translator",
     description:
-      "Translate video subtitles to Korean for K-drama, K-pop, and gaming audiences. AI subtitle translation in minutes.",
+      "Translate video subtitles to Korean for K-drama, K-pop, and gaming audiences with AI-assisted subtitle translation.",
     intro:
       "Make your videos accessible to Korean-speaking viewers, from K-drama fans to growing gaming communities.",
     useCases: [
@@ -51,7 +51,7 @@ const languageData = {
     name: "Japanese",
     title: "Translate Videos to Japanese | Translator",
     description:
-      "Translate video subtitles to Japanese for anime, gaming, and creator audiences. Accurate AI subtitle translation.",
+      "Translate video subtitles to Japanese for anime, gaming, and creator audiences with AI-assisted subtitle translation.",
     intro:
       "Translate videos into Japanese for anime lovers, gaming communities, and creators building a global audience.",
     useCases: [
@@ -108,7 +108,7 @@ const languageData = {
     name: "German",
     title: "Translate Videos to German | Translator",
     description:
-      "Translate video subtitles to German for audiences in Germany, Austria, and Switzerland with AI accuracy.",
+      "Translate video subtitles to German for audiences in Germany, Austria, and Switzerland with AI-assisted translation.",
     intro:
       "Reach German-speaking audiences with subtitles that preserve tone and technical vocabulary.",
     useCases: [
@@ -229,8 +229,8 @@ export default async function LanguagePage({
                 AI subtitle translation workflow
               </h3>
               <p className="mt-3 text-sm text-gray-400">
-                Import subtitles, translate with AI, and export SRT, VTT, or ASS
-                files ready for publishing.
+                Import subtitles, translate with AI, and export SRT files ready
+                for publishing.
               </p>
               <Link
                 href="/translate"
@@ -260,7 +260,7 @@ export default async function LanguagePage({
         <section className="py-20 text-center">
           <AllDownloadButtons locale={locale} />
           <p className="text-sm text-gray-500 mt-4">
-            Translate subtitles to {data.name} with AI-powered accuracy.
+            Translate subtitles to {data.name} with AI-assisted workflows.
           </p>
         </section>
       </div>

@@ -1,10 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { trackDownload } from "../lib/analytics";
 
 interface DownloadButtonProps {
   className?: string;
   label?: string;
   platform?: "mac" | "win";
   architecture?: "arm64" | "x64";
+  trackingLabel?: string;
   variant?: "primary" | "secondary";
   size?: "normal" | "small";
 }
@@ -14,6 +18,7 @@ export function DownloadButton({
   label = "Download for Mac",
   platform = "mac",
   architecture = "arm64",
+  trackingLabel,
   variant = "primary",
   size = "normal",
 }: DownloadButtonProps) {
@@ -27,6 +32,23 @@ export function DownloadButton({
   }
   
   const downloadUrl = `${baseUrl}/${archFile}`;
+
+  const handleDownloadClick = () => {
+    if (typeof window === "undefined") return;
+
+    const eventName =
+      platform === "win" ? "download_windows_click" : "download_mac_click";
+    const normalizedPlatform = platform === "win" ? "windows" : "mac";
+
+    trackDownload({
+      event: eventName,
+      platform: normalizedPlatform,
+      architecture,
+      download_url: downloadUrl,
+      link_label: trackingLabel ?? label,
+      page_path: window.location.pathname,
+    });
+  };
 
   const isPrimary = variant === "primary";
   const isSmall = size === "small";
@@ -72,6 +94,7 @@ export function DownloadButton({
   return (
     <Link
       href={downloadUrl}
+      onClick={handleDownloadClick}
       className={`inline-flex items-center ${sizeClasses} font-medium ${buttonClasses} rounded-2xl transition-all duration-300 ${className}`}
     >
 {renderIcon()}

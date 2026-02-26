@@ -9,9 +9,9 @@ import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AI Video Translation - Translate Subtitles to 30+ Languages | Translator",
+  title: "AI Video Translation - Translate Subtitles to 39 Languages | Translator",
   description:
-    "Translate video subtitles to 30+ languages with AI. Use GPT + Claude for fast, accurate subtitle translation.",
+    "Translate video subtitles to 39 supported languages with AI. GPT-based translation with optional Claude review.",
   path: "/translate",
   keywords: [
     "AI subtitle translation",

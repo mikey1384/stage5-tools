@@ -28,6 +28,7 @@ export function AllDownloadButtons({
         label={`${t("download", locale)} (Apple Silicon)`}
         platform="mac"
         architecture="arm64"
+        trackingLabel="All Versions - Mac ARM64"
         variant={isMacUser ? "primary" : "secondary"}
         size={isMacUser ? "normal" : "small"}
       />
@@ -35,6 +36,7 @@ export function AllDownloadButtons({
         label={`${t("download", locale)} (Intel)`}
         platform="mac"
         architecture="x64"
+        trackingLabel="All Versions - Mac x64"
         variant="secondary"
         size="small"
       />
@@ -44,6 +46,7 @@ export function AllDownloadButtons({
         label={t("downloadWindows", locale)}
         platform="win"
         architecture="x64"
+        trackingLabel="All Versions - Windows x64"
         variant={isWindowsUser ? "primary" : "secondary"}
         size={isWindowsUser ? "normal" : "small"}
       />

@@ -10,6 +10,41 @@ export interface PlatformInfo {
   architecture: Architecture;
 }
 
+type NavigatorWithUAData = Navigator & {
+  userAgentData?: {
+    platform?: string;
+    architecture?: string;
+    getHighEntropyValues?: (
+      hints: Array<'architecture' | 'bitness'>
+    ) => Promise<{
+      architecture?: string;
+      bitness?: string;
+    }>;
+  };
+};
+
+function parseArchitectureHint(value: string): Architecture {
+  const normalized = value.toLowerCase();
+
+  if (
+    normalized.includes('arm') ||
+    normalized.includes('aarch64')
+  ) {
+    return 'arm64';
+  }
+
+  if (
+    normalized.includes('x86') ||
+    normalized.includes('x64') ||
+    normalized.includes('amd64') ||
+    normalized.includes('intel')
+  ) {
+    return 'x64';
+  }
+
+  return 'unknown';
+}
+
 export function usePlatformDetection(): PlatformInfo {
   const [platformInfo, setPlatformInfo] = useState<PlatformInfo>({
     platform: 'unknown',
@@ -19,38 +54,97 @@ export function usePlatformDetection(): PlatformInfo {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const platform = window.navigator.platform?.toLowerCase() || '';
+    let cancelled = false;
 
-    let detectedPlatform: Platform = 'unknown';
-    let detectedArchitecture: Architecture = 'unknown';
+    const detect = async () => {
+      const navigatorInfo = window.navigator as NavigatorWithUAData;
+      const userAgent = navigatorInfo.userAgent.toLowerCase();
+      const platform = navigatorInfo.platform?.toLowerCase() || '';
+      const uaDataPlatform =
+        navigatorInfo.userAgentData?.platform?.toLowerCase() || '';
 
-    // Detect platform
-    if (platform.includes('mac') || userAgent.includes('mac')) {
-      detectedPlatform = 'mac';
-    } else if (platform.includes('win') || userAgent.includes('windows')) {
-      detectedPlatform = 'windows';
-    }
+      let detectedPlatform: Platform = 'unknown';
+      let detectedArchitecture: Architecture = 'unknown';
 
-    // Detect architecture
-    // Note: This is tricky on web, but we can make educated guesses
-    if (userAgent.includes('arm64') || userAgent.includes('aarch64')) {
-      detectedArchitecture = 'arm64';
-    } else if (userAgent.includes('x86_64') || userAgent.includes('x64') || userAgent.includes('amd64')) {
-      detectedArchitecture = 'x64';
-    } else if (detectedPlatform === 'mac') {
-      // For Mac, default to arm64 for newer machines, but this is just a guess
-      // M1/M2/M3 are becoming more common
-      detectedArchitecture = 'arm64';
-    } else if (detectedPlatform === 'windows') {
-      // For Windows, default to x64 as it's most common
-      detectedArchitecture = 'x64';
-    }
+      // Detect platform
+      if (
+        platform.includes('mac') ||
+        userAgent.includes('mac') ||
+        uaDataPlatform.includes('mac')
+      ) {
+        detectedPlatform = 'mac';
+      } else if (
+        platform.includes('win') ||
+        userAgent.includes('windows') ||
+        uaDataPlatform.includes('win')
+      ) {
+        detectedPlatform = 'windows';
+      }
 
-    setPlatformInfo({
-      platform: detectedPlatform,
-      architecture: detectedArchitecture,
-    });
+      // First pass architecture hints from user agent + platform strings.
+      const stringHints = [userAgent, platform];
+      for (const hint of stringHints) {
+        const parsed = parseArchitectureHint(hint);
+        if (parsed !== 'unknown') {
+          detectedArchitecture = parsed;
+          break;
+        }
+      }
+
+      // Optional second pass via User-Agent Client Hints when available.
+      const uaData = navigatorInfo.userAgentData;
+      if (uaData) {
+        const hintValues: string[] = [];
+
+        if (uaData.architecture) {
+          hintValues.push(uaData.architecture);
+        }
+
+        if (typeof uaData.getHighEntropyValues === 'function') {
+          try {
+            const values = await uaData.getHighEntropyValues([
+              'architecture',
+              'bitness',
+            ]);
+            if (values.architecture) hintValues.push(values.architecture);
+            if (values.bitness) hintValues.push(values.bitness);
+          } catch {
+            // Ignore UA-CH failures; string hints + safe defaults still apply.
+          }
+        }
+
+        for (const hint of hintValues) {
+          const parsed = parseArchitectureHint(hint);
+          if (parsed !== 'unknown') {
+            detectedArchitecture = parsed;
+            break;
+          }
+        }
+      }
+
+      // Compatibility-first defaults for unknown architecture.
+      if (detectedArchitecture === 'unknown') {
+        if (detectedPlatform === 'mac') {
+          // x64 is safer as a default because Intel Macs cannot run arm64 installers.
+          detectedArchitecture = 'x64';
+        } else if (detectedPlatform === 'windows') {
+          detectedArchitecture = 'x64';
+        }
+      }
+
+      if (!cancelled) {
+        setPlatformInfo({
+          platform: detectedPlatform,
+          architecture: detectedArchitecture,
+        });
+      }
+    };
+
+    void detect();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return platformInfo;

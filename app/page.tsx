@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Script from "next/script";
 import { AllDownloadButtons } from "../components/AllDownloadButtons";
+import { HeroDownloadActions } from "../components/HeroDownloadActions";
 import { FeatureRow } from "../components/FeatureRow";
 import {
   VideoDownloadIcon,
@@ -18,14 +19,15 @@ const structuredData = {
   name: "Translator",
   url: "https://translator.tools",
   description:
-    "AI-powered video translation and subtitle editing tool for creators and teams.",
+    "AI-assisted video translation, transcript summary, highlight clips, dubbing, and subtitle editing tool for creators and teams.",
   applicationCategory: "MultimediaApplication",
   operatingSystem: "macOS, Windows",
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
-    description: "Free download with optional paid AI transcription and translation",
+    description:
+      "Free download with optional paid AI transcription, translation, and dubbing",
   },
 };
 
@@ -94,8 +96,7 @@ export default async function Home({
 
   const otherLanguages = [
     "langArabic" as const,
-    "langBulgarian" as const,
-    "langCroatian" as const,
+    "langBengali" as const,
     "langCzech" as const,
     "langDanish" as const,
     "langDutch" as const,
@@ -112,11 +113,12 @@ export default async function Home({
     "langPolish" as const,
     "langRomanian" as const,
     "langRussian" as const,
-    "langSerbian" as const,
     "langSwedish" as const,
+    "langTagalog" as const,
     "langThai" as const,
     "langTurkish" as const,
     "langUkrainian" as const,
+    "langUrdu" as const,
     "langVietnamese" as const,
   ];
 
@@ -162,7 +164,7 @@ export default async function Home({
         <SiteNav locale={locale} />
 
         {/* Hero */}
-        <section className="text-center py-12 md:py-20">
+        <section id="download" className="text-center py-12 md:py-20">
           <div className="mb-6">
             <h1 className="text-6xl md:text-7xl font-montserrat font-bold tracking-tight text-white">
               {t("headline", locale)}
@@ -181,19 +183,19 @@ export default async function Home({
             className="inline-block mb-6"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063984&theme=dark&t=1768993812067"
-              alt="Translator - Translate any video to 30+ languages with latest AI | Product Hunt"
-              width={250}
-              height={54}
-            />
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063984&theme=dark&t=1768993812067"
+                alt="Translator - Translate videos to 39 supported languages with modern AI models | Product Hunt"
+                width={250}
+                height={54}
+              />
           </a>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
             {t("subheadline", locale)}
           </p>
 
           <div className="mt-8">
-            <AllDownloadButtons locale={locale} />
+            <HeroDownloadActions locale={locale} />
           </div>
 
           {/* Promo Video */}
@@ -369,7 +371,7 @@ export default async function Home({
         </section>
 
         {/* Download section */}
-        <section id="download" className="py-32 text-center">
+        <section id="all-downloads" className="py-32 text-center">
           <AllDownloadButtons locale={locale} />
           <p className="text-sm text-gray-500 mt-4">{t("footer", locale)}</p>
         </section>
