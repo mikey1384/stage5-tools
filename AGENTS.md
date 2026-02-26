@@ -10,7 +10,7 @@ This file defines the default deployment workflow for this landing-page project.
 
 ## Default Deploy Behavior (One Go)
 
-When asked to deploy, run build + Pages prepare + deploy in one command:
+When asked to deploy, first ensure the command is run outside sandbox with escalated permissions, then run build + Pages prepare + deploy in one command:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \
@@ -21,6 +21,7 @@ cd /Users/mikey/Developer/stage5/stage5-tools \
 
 Notes:
 
+- First check: run deploy commands with escalated permissions (outside sandbox).
 - `npm run -s pages` runs `next build` and `next-on-pages`.
 - Use `/tmp/cf_pages_token` for Cloudflare auth.
 - Keep `HOME=/tmp` so Wrangler runs non-interactively.
@@ -30,8 +31,9 @@ Notes:
 
 ## If Deploy Fails with `fetch failed`
 
-1. Retry immediately using the same deploy command.
-2. If you see token/auth errors in non-interactive mode, verify this works first:
+1. Confirm the deploy command is running outside sandbox with escalated permissions.
+2. Retry immediately using the same deploy command.
+3. If you see token/auth errors in non-interactive mode, verify this works first:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \
@@ -39,8 +41,7 @@ cd /Users/mikey/Developer/stage5/stage5-tools \
   && CLOUDFLARE_API_TOKEN="$TOKEN" HOME=/tmp npx wrangler pages project list
 ```
 
-3. If sandbox/network restrictions block deploy (`fetch failed`), rerun outside sandbox (escalated permissions).
-4. Use retries (up to 5):
+4. Use retries (up to 5), still with escalated permissions:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \
