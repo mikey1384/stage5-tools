@@ -1,0 +1,21 @@
+name = "stage5-tools-monitor"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["* * * * *"]
+
+[[kv_namespaces]]
+binding = "MONITOR_STATE_KV"
+id = "2e5201a407b942df840f6f42a0547ca4"
+preview_id = "5f92b4975c184b1db91caf79b0d483ea"
+
+[vars]
+MONITOR_NAME = "stage5-tools-dns-tls-monitor"
+ALERT_EMAIL_FROM = "noreply@stage5.tools"
+ALERT_EMAIL_TO = "mikey@stage5.tools"
+ALERT_REMINDER_INTERVAL_MS = "3600000"
+ALERT_OPEN_AFTER_CONSECUTIVE_FAILURES = "2"
+TLS_CERT_SOURCE = "live_socket,crtsh"
+TLS_CERT_CACHE_MAX_AGE_MS = "21600000"

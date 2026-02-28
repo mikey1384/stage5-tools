@@ -1,0 +1,88 @@
+export const BASELINE_CONFIG = {
+  minCertDaysRemaining: 21,
+  blockedAnswers: ["172.239.57.117", "172.234.24.211"],
+  dnsResolvers: ["cloudflare", "google"],
+  cloudflareIpv4FeedUrl: "https://www.cloudflare.com/ips-v4",
+  cloudflareIpsCacheTtlSeconds: 86400,
+  httpsChecks: [
+    {
+      name: "stage5-root",
+      url: "https://stage5.tools",
+      expectedStatusMin: 200,
+      expectedStatusMax: 399,
+    },
+    {
+      name: "stage5-www",
+      url: "https://www.stage5.tools",
+      expectedStatusMin: 200,
+      expectedStatusMax: 399,
+    },
+    {
+      name: "echo-healthz",
+      url: "https://api.echo.stage5.tools/healthz",
+      expectedStatusMin: 200,
+      expectedStatusMax: 399,
+    },
+    {
+      name: "echo-auth-login-empty-post",
+      url: "https://api.echo.stage5.tools/echo/auth/login",
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: "{}",
+      expectedStatusMin: 400,
+      expectedStatusMax: 400,
+      expectBodyIncludes: ["Email and password are required"],
+    },
+  ],
+  tlsChecks: [
+    {
+      host: "stage5.tools",
+      minDaysRemaining: 21,
+      expectedCommonNames: ["stage5.tools", "sni.cloudflaressl.com", "*.stage5.tools"],
+      expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],
+    },
+    {
+      host: "www.stage5.tools",
+      minDaysRemaining: 21,
+      expectedCommonNames: ["www.stage5.tools", "sni.cloudflaressl.com", "*.stage5.tools"],
+      expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],
+    },
+    {
+      host: "api.echo.stage5.tools",
+      minDaysRemaining: 21,
+      expectedCommonNames: ["api.echo.stage5.tools", "*.stage5.tools", "sni.cloudflaressl.com"],
+      expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],
+    },
+  ],
+  dnsChecks: [
+    {
+      host: "api.echo.stage5.tools",
+      type: "A",
+      mustInclude: ["18.182.90.49"],
+    },
+    {
+      host: "www.stage5.tools",
+      type: "A",
+      requireAllAnswersInCloudflareIpv4Feed: true,
+      fallbackCidrs: [
+        "173.245.48.0/20",
+        "103.21.244.0/22",
+        "103.22.200.0/22",
+        "103.31.4.0/22",
+        "141.101.64.0/18",
+        "108.162.192.0/18",
+        "190.93.240.0/20",
+        "188.114.96.0/20",
+        "197.234.240.0/22",
+        "198.41.128.0/17",
+        "162.158.0.0/15",
+        "104.16.0.0/13",
+        "104.24.0.0/14",
+        "172.64.0.0/13",
+        "131.0.72.0/22",
+      ],
+    },
+  ],
+};
