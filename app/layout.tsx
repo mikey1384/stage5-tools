@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import Script from "next/script";
-import { LanguageMenu } from "../components/LanguageMenu";
 import { t } from "../lib/strings";
 import { getLocale } from "../lib/get-locale";
 import "./globals.css";
@@ -106,7 +105,6 @@ export default async function RootLayout({
             </noscript>
           </>
         ) : null}
-        <LanguageMenu />
         {children}
       </body>
     </html>

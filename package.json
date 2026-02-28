@@ -8,7 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "pages:prepare": "next-on-pages --experimental-minify",
-    "pages": "npm run build && npm run pages:prepare"
+    "pages": "npm run build && npm run pages:prepare",
+    "monitor:dev": "wrangler dev -c monitor/wrangler.toml",
+    "monitor:deploy": "wrangler deploy -c monitor/wrangler.toml",
+    "monitor:test": "node --test monitor/test/monitor.test.mjs",
+    "monitor:demo:pass": "node monitor/scripts/demo-run.mjs pass",
+    "monitor:demo:force": "node monitor/scripts/demo-run.mjs force"
   },
   "dependencies": {
     "lucide-react": "^0.513.0",

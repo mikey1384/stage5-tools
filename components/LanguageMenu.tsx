@@ -1,9 +1,13 @@
 "use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export function LanguageMenu() {
+interface LanguageMenuProps {
+  className?: string;
+}
+
+export function LanguageMenu({ className }: LanguageMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -15,18 +19,7 @@ export function LanguageMenu() {
           | "en"
           | undefined)
       : undefined;
-
-  // Check if user has ever used Korean (separate from current language)
-  // Use state to prevent hydration mismatch
-  const [hasUsedKorean, setHasUsedKorean] = useState(false);
   const [isChanging, setIsChanging] = useState(false);
-
-  useEffect(() => {
-    // Only run on client to prevent hydration mismatch
-    if (typeof localStorage !== "undefined") {
-      setHasUsedKorean(localStorage.getItem("hasUsedKorean") === "true");
-    }
-  }, []);
   const domLocale =
     typeof document !== "undefined"
       ? (document.documentElement.lang as "en" | "ko")
@@ -34,28 +27,8 @@ export function LanguageMenu() {
   const locale =
     (queryLocale as "ko" | "en" | null) ?? cookieLocale ?? domLocale;
 
-  // Set localStorage flag when Korean is detected (URL param or other means)
-  useEffect(() => {
-    if (locale === "ko" && typeof localStorage !== "undefined") {
-      localStorage.setItem("hasUsedKorean", "true");
-      setHasUsedKorean(true);
-    }
-  }, [locale]);
-
-  /** Show menu when Korean has ever been relevant to the user */
-  const browserWantedKorean =
-    typeof navigator !== "undefined" &&
-    navigator.language.toLowerCase().startsWith("ko");
-
-  const userHasKoreanContext =
-    browserWantedKorean || // Browser language is Korean
-    queryLocale === "ko" || // Currently using ?l=ko URL
-    cookieLocale === "ko" || // Has Korean cookie (used Korean before)
-    locale === "ko" || // Currently viewing Korean content
-    hasUsedKorean; // Has used Korean at some point
-
   // Hide on routes that don't support localization
-  if (!userHasKoreanContext || pathname.startsWith("/echo")) return null;
+  if (pathname.startsWith("/echo")) return null;
 
   /** swap locale & store cookie */
   const switchTo = async (lang: "ko" | "en") => {
@@ -72,12 +45,6 @@ export function LanguageMenu() {
       next.delete("l");
     }
 
-    // Remember if user has ever used Korean
-    if (lang === "ko" && typeof localStorage !== "undefined") {
-      localStorage.setItem("hasUsedKorean", "true");
-      setHasUsedKorean(true);
-    }
-
     document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`;
     const queryString = next.toString();
     const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
@@ -92,13 +59,14 @@ export function LanguageMenu() {
   };
 
   return (
-    <div className="absolute top-6 right-6 z-50">
+    <div className={className}>
       <div className="relative">
         <select
           value={locale}
           onChange={(e) => switchTo(e.target.value as "ko" | "en")}
           disabled={isChanging}
-          className={`rounded-md bg-black/60 text-white p-2 text-2xl border border-white/20 backdrop-blur-sm cursor-pointer hover:bg-black/80 transition-all ${
+          aria-label="Select language"
+          className={`h-9 min-w-14 rounded-full border border-white/20 bg-white/10 pl-3 pr-2 text-[15px] leading-none text-white backdrop-blur-sm cursor-pointer transition hover:bg-white/20 sm:h-auto sm:min-w-0 sm:rounded-md sm:bg-black/60 sm:p-2 sm:text-2xl sm:hover:bg-black/80 ${
             isChanging ? "opacity-50 cursor-wait" : ""
           }`}
         >

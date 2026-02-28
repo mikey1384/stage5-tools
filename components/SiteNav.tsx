@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { t, Locale } from "../lib/strings";
+import { LanguageMenu } from "./LanguageMenu";
 
 interface SiteNavProps {
   locale: Locale;
@@ -22,19 +23,22 @@ export function SiteNav({ locale }: SiteNavProps) {
   return (
     <header className="pt-10 pb-8">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <Link
             href="/"
             className="text-xl font-montserrat font-semibold tracking-tight text-white"
           >
             Translator
           </Link>
-          <Link
-            href="/#download"
-            className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200 lg:hidden"
-          >
-            {t("navDownload", locale)}
-          </Link>
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageMenu />
+            <Link
+              href="/#download"
+              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+            >
+              {t("navDownload", locale)}
+            </Link>
+          </div>
         </div>
 
         <nav className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
@@ -59,12 +63,15 @@ export function SiteNav({ locale }: SiteNavProps) {
           ))}
         </nav>
 
-        <Link
-          href="/#download"
-          className="hidden rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200 lg:inline-flex"
-        >
-          {t("navDownload", locale)}
-        </Link>
+        <div className="hidden lg:flex lg:items-center lg:gap-3">
+          <LanguageMenu />
+          <Link
+            href="/#download"
+            className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+          >
+            {t("navDownload", locale)}
+          </Link>
+        </div>
       </div>
     </header>
   );
