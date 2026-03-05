@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { t, Locale } from "../lib/strings";
+import { localizePathForLocale } from "../lib/locale-routing";
 
 interface SiteFooterProps {
   locale: Locale;
 }
 
 export function SiteFooter({ locale }: SiteFooterProps) {
+  const downloadHref = localizePathForLocale(locale, "/#download");
+
   const footerLinks = [
     {
       titleKey: "footerProduct" as const,
@@ -21,7 +24,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
       links: [
         { labelKey: "footerSupportedLanguages" as const, href: "/translate" },
         { labelKey: "navFaq" as const, href: "/faq" },
-        { labelKey: "navDownload" as const, href: "/#download" },
+        { labelKey: "navDownload" as const, href: downloadHref },
       ],
     },
     {
@@ -53,7 +56,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
                 {group.links.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={link.href}
+                      href={localizePathForLocale(locale, link.href)}
                       className="transition hover:text-white"
                     >
                       {t(link.labelKey, locale)}

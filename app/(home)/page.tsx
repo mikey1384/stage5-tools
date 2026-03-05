@@ -1,23 +1,27 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Script from "next/script";
-import { AllDownloadButtons } from "../components/AllDownloadButtons";
-import { HeroDownloadActions } from "../components/HeroDownloadActions";
-import { FeatureRow } from "../components/FeatureRow";
+import { AllDownloadButtons } from "../../components/AllDownloadButtons";
+import { HeroDownloadActions } from "../../components/HeroDownloadActions";
+import { FeatureRow } from "../../components/FeatureRow";
+import { XPostEmbed } from "../../components/XPostEmbed";
 import {
   VideoDownloadIcon,
   SubtitleMergeIcon,
   AITranslationIcon,
-} from "../components/icons";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteNav } from "../components/SiteNav";
-import { t } from "../lib/strings";
-import { getLocale } from "../lib/get-locale";
+} from "../../components/icons";
+import { SiteFooter } from "../../components/SiteFooter";
+import { SiteNav } from "../../components/SiteNav";
+import { t } from "../../lib/strings";
+import { getLocale } from "../../lib/get-locale";
+import { localizePathForLocale } from "../../lib/locale-routing";
 
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Translator",
   url: "https://translator.tools",
+  inLanguage: ["en", "ko"],
   description:
     "AI-assisted video translation, transcript summary, highlight clips, dubbing, and subtitle editing tool for creators and teams.",
   applicationCategory: "MultimediaApplication",
@@ -31,6 +35,63 @@ const structuredData = {
   },
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const englishCanonicalUrl = "https://translator.tools/";
+  const koreanCanonicalUrl = "https://translator.tools/ko";
+  const canonicalUrl = locale === "ko" ? koreanCanonicalUrl : englishCanonicalUrl;
+  const ogLocale = locale === "ko" ? "ko_KR" : "en_US";
+  const alternateOgLocale = locale === "ko" ? ["en_US"] : ["ko_KR"];
+
+  return {
+    title: t("pageTitle", locale),
+    description: t("subheadline", locale),
+    keywords: [
+      "AI video translator",
+      "video translation software",
+      "YouTube subtitle translator",
+      "add subtitles to video",
+      "translate YouTube video",
+      "video subtitle editor",
+      "SRT translator",
+      "subtitle editor",
+      "subtitle translation",
+      "Translator app",
+    ],
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "x-default": englishCanonicalUrl,
+        en: englishCanonicalUrl,
+        ko: koreanCanonicalUrl,
+      },
+    },
+    openGraph: {
+      title: t("pageTitle", locale),
+      description: t("subheadline", locale),
+      url: canonicalUrl,
+      siteName: "Translator",
+      locale: ogLocale,
+      alternateLocale: alternateOgLocale,
+      type: "website",
+      images: [
+        {
+          url: "https://translator.tools/thumb.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Translator by Stage 5",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("pageTitle", locale),
+      description: t("subheadline", locale),
+      images: ["https://translator.tools/thumb.jpg"],
+    },
+  };
+}
+
 export default async function Home({
   searchParams,
 }: {
@@ -38,6 +99,7 @@ export default async function Home({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const localizedHref = (href: string) => localizePathForLocale(locale, href);
 
   const features = [
     {
@@ -45,23 +107,23 @@ export default async function Home({
       description: t("videoDownloadDesc", locale),
       icon: VideoDownloadIcon,
       label: t("free", locale),
-      href: "/video-downloader",
-      ctaLabel: "Learn about the downloader",
+      href: localizedHref("/video-downloader"),
+      ctaLabel: t("homeFeatureCtaDownloader", locale),
     },
     {
       title: t("subtitleEditing", locale),
       description: t("subtitleEditingDesc", locale),
       icon: SubtitleMergeIcon,
       label: t("free", locale),
-      href: "/subtitle-editor",
-      ctaLabel: "Explore the subtitle editor",
+      href: localizedHref("/subtitle-editor"),
+      ctaLabel: t("homeFeatureCtaEditor", locale),
     },
     {
       title: t("aiTranslation", locale),
       description: t("aiTranslationDesc", locale),
       icon: AITranslationIcon,
-      href: "/translate",
-      ctaLabel: "See AI translation details",
+      href: localizedHref("/translate"),
+      ctaLabel: t("homeFeatureCtaTranslation", locale),
     },
   ];
 
@@ -199,15 +261,9 @@ export default async function Home({
           </div>
 
           {/* Promo Video */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl shadow-white/10">
-              <iframe
-                src="https://www.youtube.com/embed/0HXMpUGDhkU"
-                title="Translator App Demo"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-              />
+          <div className="mt-16 max-w-3xl mx-auto">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-3 md:p-6 shadow-2xl shadow-white/10">
+              <XPostEmbed />
             </div>
           </div>
         </section>
@@ -236,7 +292,7 @@ export default async function Home({
                 </p>
               </div>
               <Link
-                href="/translate"
+                href={localizedHref("/translate")}
                 className="text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("homeExploreAiTranslation", locale)}
@@ -276,7 +332,7 @@ export default async function Home({
               {languageLinks.map((lang) => (
                 <Link
                   key={lang.href}
-                  href={lang.href}
+                  href={localizedHref(lang.href)}
                   className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40"
                 >
                   {t(lang.labelKey, locale)}
@@ -292,7 +348,7 @@ export default async function Home({
               ))}
             </div>
             <Link
-              href="/translate"
+              href={localizedHref("/translate")}
               className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
             >
               {t("homeSeeAllLanguages", locale)}
@@ -322,7 +378,7 @@ export default async function Home({
                     {t(useCase.descKey, locale)}
                   </p>
                   <Link
-                    href={useCase.href}
+                    href={localizedHref(useCase.href)}
                     className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
                   >
                     {t("homeLearnMore", locale)}
@@ -346,7 +402,7 @@ export default async function Home({
                 </p>
               </div>
               <Link
-                href="/faq"
+                href={localizedHref("/faq")}
                 className="text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("homeViewFullFaq", locale)}

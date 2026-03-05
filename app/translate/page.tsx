@@ -5,23 +5,37 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "AI Video Translation - Translate Subtitles to 39 Languages | Translator",
-  description:
-    "Translate video subtitles to 39 supported languages with AI. GPT-based translation with optional Claude review.",
-  path: "/translate",
-  keywords: [
-    "AI subtitle translation",
-    "translate video subtitles",
-    "automatic video translation",
-    "AI video translator",
-    "SRT translator",
-    "YouTube subtitle translator",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("translateTitle", locale)} | Translator`,
+    description: t("translateSubtitle", locale),
+    path: "/translate",
+    keywords:
+      locale === "ko"
+        ? [
+            "AI 자막 번역",
+            "비디오 자막 번역",
+            "자동 비디오 번역",
+            "AI 비디오 번역기",
+            "SRT 번역기",
+            "YouTube 자막 번역",
+          ]
+        : [
+            "AI subtitle translation",
+            "translate video subtitles",
+            "automatic video translation",
+            "AI video translator",
+            "SRT translator",
+            "YouTube subtitle translator",
+          ],
+    locale,
+  });
+}
 
 export default async function TranslatePage({
   searchParams,
@@ -30,6 +44,8 @@ export default async function TranslatePage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const features = [
     {
@@ -69,7 +85,7 @@ export default async function TranslatePage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navAiTranslation", locale) },
           ]}
         />
@@ -134,7 +150,7 @@ export default async function TranslatePage({
               {languageLinks.map((lang) => (
                 <Link
                   key={lang.href}
-                  href={lang.href}
+                  href={localizeHref(lang.href)}
                   className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40"
                 >
                   {t(lang.labelKey, locale)}
@@ -154,7 +170,7 @@ export default async function TranslatePage({
                 {t("translateNeedSubtitlesDesc", locale)}
               </p>
               <Link
-                href="/subtitle-editor"
+                href={localizeHref("/subtitle-editor")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("translateGoToEditor", locale)}
@@ -168,7 +184,7 @@ export default async function TranslatePage({
                 {t("translateStartWithUrlDesc", locale)}
               </p>
               <Link
-                href="/video-downloader"
+                href={localizeHref("/video-downloader")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("translateGoToDownloader", locale)}

@@ -5,22 +5,35 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Free Video Downloader - Download YouTube Videos | Translator",
-  description:
-    "Download YouTube videos and more by URL. Save high-quality files for subtitle editing and AI translation with Translator.",
-  path: "/video-downloader",
-  keywords: [
-    "YouTube video downloader",
-    "download video from URL",
-    "free video downloader",
-    "video downloader for subtitles",
-    "AI video translator",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("videoDownloaderTitle", locale)} | Translator`,
+    description: t("videoDownloaderSubtitle", locale),
+    path: "/video-downloader",
+    keywords:
+      locale === "ko"
+        ? [
+            "YouTube 동영상 다운로더",
+            "URL 동영상 다운로드",
+            "무료 동영상 다운로더",
+            "자막용 동영상 다운로드",
+            "AI 비디오 번역",
+          ]
+        : [
+            "YouTube video downloader",
+            "download video from URL",
+            "free video downloader",
+            "video downloader for subtitles",
+            "AI video translator",
+          ],
+    locale,
+  });
+}
 
 export default async function VideoDownloaderPage({
   searchParams,
@@ -29,6 +42,8 @@ export default async function VideoDownloaderPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const highlights = [
     {
@@ -58,7 +73,7 @@ export default async function VideoDownloaderPage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navVideoDownloader", locale) },
           ]}
         />
@@ -150,7 +165,7 @@ export default async function VideoDownloaderPage({
                 {t("videoDownloaderPairEditorDesc", locale)}
               </p>
               <Link
-                href="/subtitle-editor"
+                href={localizeHref("/subtitle-editor")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("translateGoToEditor", locale)}
@@ -164,7 +179,7 @@ export default async function VideoDownloaderPage({
                 {t("videoDownloaderTranslateAiDesc", locale)}
               </p>
               <Link
-                href="/translate"
+                href={localizeHref("/translate")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("subtitleEditorExploreTranslation", locale)}

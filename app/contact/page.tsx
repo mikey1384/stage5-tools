@@ -4,16 +4,32 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Contact Stage5 Tools - Translator",
-  description:
-    "Contact Stage5 Tools for Translator support, partnerships, or enterprise video translation.",
-  path: "/contact",
-  keywords: ["Translator contact", "Stage5 Tools support", "video translation help"],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("contactTitle", locale)} | Translator`,
+    description: t("contactSubtitle", locale),
+    path: "/contact",
+    keywords:
+      locale === "ko"
+        ? [
+            "Translator 문의",
+            "Stage5 Tools 지원",
+            "비디오 번역 문의",
+            "엔터프라이즈 번역 문의",
+          ]
+        : [
+            "Translator contact",
+            "Stage5 Tools support",
+            "video translation help",
+          ],
+    locale,
+  });
+}
 
 export default async function ContactPage({
   searchParams,
@@ -22,6 +38,8 @@ export default async function ContactPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   return (
     <main className="min-h-screen bg-black">
@@ -30,7 +48,7 @@ export default async function ContactPage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navContact", locale) },
           ]}
         />
@@ -73,19 +91,19 @@ export default async function ContactPage({
               </p>
               <div className="mt-4 flex flex-wrap gap-3 text-sm">
                 <Link
-                  href="/pricing"
+                  href={localizeHref("/pricing")}
                   className="text-gray-300 transition hover:text-white"
                 >
                   {t("navPricing", locale)} →
                 </Link>
                 <Link
-                  href="/translate"
+                  href={localizeHref("/translate")}
                   className="text-gray-300 transition hover:text-white"
                 >
                   {t("navAiTranslation", locale)} →
                 </Link>
                 <Link
-                  href="/faq"
+                  href={localizeHref("/faq")}
                   className="text-gray-300 transition hover:text-white"
                 >
                   {t("navFaq", locale)} →

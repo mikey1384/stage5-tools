@@ -5,23 +5,37 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Free Subtitle Editor - Edit, Sync & Merge Subtitles | Translator",
-  description:
-    "Edit SRT subtitles with a free subtitle editor. Sync timing, merge tracks, and export clean SRT files.",
-  path: "/subtitle-editor",
-  keywords: [
-    "subtitle editor",
-    "SRT editor",
-    "sync subtitles",
-    "merge subtitles",
-    "subtitle timing",
-    "free subtitle editor",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("subtitleEditorTitle", locale)} | Translator`,
+    description: t("subtitleEditorSubtitle", locale),
+    path: "/subtitle-editor",
+    keywords:
+      locale === "ko"
+        ? [
+            "자막 편집기",
+            "SRT 편집기",
+            "자막 싱크",
+            "자막 병합",
+            "자막 타이밍",
+            "무료 자막 편집기",
+          ]
+        : [
+            "subtitle editor",
+            "SRT editor",
+            "sync subtitles",
+            "merge subtitles",
+            "subtitle timing",
+            "free subtitle editor",
+          ],
+    locale,
+  });
+}
 
 export default async function SubtitleEditorPage({
   searchParams,
@@ -30,6 +44,8 @@ export default async function SubtitleEditorPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const features = [
     {
@@ -59,7 +75,7 @@ export default async function SubtitleEditorPage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navSubtitleEditor", locale) },
           ]}
         />
@@ -122,7 +138,7 @@ export default async function SubtitleEditorPage({
                 {t("subtitleEditorNeedVideoDesc", locale)}
               </p>
               <Link
-                href="/video-downloader"
+                href={localizeHref("/video-downloader")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("translateGoToDownloader", locale)}
@@ -136,7 +152,7 @@ export default async function SubtitleEditorPage({
                 {t("subtitleEditorReadyTranslateDesc", locale)}
               </p>
               <Link
-                href="/translate"
+                href={localizeHref("/translate")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("subtitleEditorExploreTranslation", locale)}

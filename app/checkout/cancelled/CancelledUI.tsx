@@ -9,24 +9,20 @@ export default function CancelledUI() {
     if (target) {
       target.postMessage({ type: "stripe-cancelled" }, "*");
     }
-
-    // Auto-close after a short delay
-    const timer = setTimeout(() => {
-      if (window.opener || window.parent) {
-        window.close();
-      }
-    }, 3000);
-
-    return () => clearTimeout(timer);
   }, []);
 
   return (
     <main className="flex flex-col items-center justify-center h-screen gap-4">
       <h1 className="text-2xl font-semibold">Payment cancelled</h1>
       <p>You may safely close this window.</p>
-      <p className="text-sm text-gray-600">
-        This window will close automatically in a few seconds.
-      </p>
+      <button
+        type="button"
+        onClick={() => window.close()}
+        className="rounded-lg bg-black px-4 py-2 text-white transition hover:opacity-90"
+      >
+        Close window
+      </button>
+      <p className="text-sm text-gray-600">Please close it manually.</p>
     </main>
   );
 }

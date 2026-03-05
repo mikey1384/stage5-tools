@@ -4,21 +4,33 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "About Stage5 Tools - Translator",
-  description:
-    "Stage5 Tools builds Translator, an AI-powered video translation and subtitle editing app for creators and teams.",
-  path: "/about",
-  keywords: [
-    "Stage5 Tools",
-    "Translator app",
-    "about Translator",
-    "AI video translation company",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("aboutTitle", locale)} | Translator`,
+    description: t("aboutSubtitle", locale),
+    path: "/about",
+    keywords:
+      locale === "ko"
+        ? [
+            "Stage5 Tools 소개",
+            "Translator 앱 소개",
+            "AI 비디오 번역 도구",
+            "자막 편집 앱",
+          ]
+        : [
+            "Stage5 Tools",
+            "Translator app",
+            "about Translator",
+            "AI video translation company",
+          ],
+    locale,
+  });
+}
 
 export default async function AboutPage({
   searchParams,
@@ -27,6 +39,8 @@ export default async function AboutPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   return (
     <main className="min-h-screen bg-black">
@@ -35,7 +49,7 @@ export default async function AboutPage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navAbout", locale) },
           ]}
         />
@@ -82,7 +96,7 @@ export default async function AboutPage({
                 {t("aboutBuiltForDesc", locale)}
               </p>
               <Link
-                href="/translate"
+                href={localizeHref("/translate")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("subtitleEditorExploreTranslation", locale)}
@@ -96,7 +110,7 @@ export default async function AboutPage({
                 {t("aboutContactUsDesc", locale)}
               </p>
               <Link
-                href="/contact"
+                href={localizeHref("/contact")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("aboutGetInTouch", locale)}

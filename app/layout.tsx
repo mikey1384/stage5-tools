@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import Script from "next/script";
-import { t } from "../lib/strings";
 import { getLocale } from "../lib/get-locale";
 import "./globals.css";
 
@@ -23,53 +22,30 @@ const montserrat = Montserrat({
 
 export const runtime = "edge";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
+export const metadata: Metadata = {
+  metadataBase: new URL("https://translator.tools"),
+};
 
-  return {
-    metadataBase: new URL("https://translator.tools"),
-    title: t("pageTitle", locale),
-    description: t("subheadline", locale),
-    keywords: [
-      "AI video translator",
-      "video translation software",
-      "YouTube subtitle translator",
-      "add subtitles to video",
-      "translate YouTube video",
-      "video subtitle editor",
-      "SRT translator",
-      "subtitle editor",
-      "subtitle translation",
-      "Translator app",
-    ],
-    openGraph: {
-      title: t("pageTitle", locale),
-      description: t("subheadline", locale),
-      url: "https://translator.tools",
-      siteName: "Translator",
-      locale,
-      type: "website",
-      images: [
-        {
-          url: "https://translator.tools/thumb.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Translator by Stage 5",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: t("pageTitle", locale),
-      description: t("subheadline", locale),
-      images: ["https://translator.tools/thumb.jpg"],
-    },
-    alternates: {
-      canonical: "https://translator.tools/",
-      languages: { ko: "/?l=ko", en: "/" },
-    },
-  } satisfies Metadata;
-}
+const organizationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Stage5 Tools",
+  url: "https://translator.tools",
+  logo: "https://translator.tools/icon.svg",
+};
+
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Translator",
+  url: "https://translator.tools",
+  inLanguage: ["en", "ko"],
+  publisher: {
+    "@type": "Organization",
+    name: "Stage5 Tools",
+    url: "https://translator.tools",
+  },
+};
 
 export default async function RootLayout({
   children,
@@ -105,6 +81,20 @@ export default async function RootLayout({
             </noscript>
           </>
         ) : null}
+        <Script
+          id="structured-data-organization"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationStructuredData),
+          }}
+        />
+        <Script
+          id="structured-data-website"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+        />
         {children}
       </body>
     </html>

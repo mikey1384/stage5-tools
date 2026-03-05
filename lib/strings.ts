@@ -22,6 +22,9 @@ export const strings = {
     aiTranslation: "AI Translation",
     aiTranslationDesc:
       "Translate subtitles to 39 supported languages, generate transcript summaries, and detect highlight moments. Use GPT by default and optional Claude review in Quality mode.",
+    homeFeatureCtaDownloader: "Learn about the downloader",
+    homeFeatureCtaEditor: "Explore the subtitle editor",
+    homeFeatureCtaTranslation: "See AI translation details",
     footer:
       "Video downloading and subtitle editing/merging are free • AI transcription, translation, summary, and dubbing use credits",
     copyright: "© 2026 Stage5 Tools. All rights reserved.",
@@ -374,6 +377,9 @@ export const strings = {
     aiTranslation: "AI 번역",
     aiTranslationDesc:
       "AI 워크플로우로 자막을 39개 지원 언어로 번역하고, 전사 요약과 하이라이트 구간까지 생성하세요. 기본은 GPT 번역이며 품질 모드에서 Claude 검토를 추가할 수 있습니다.",
+    homeFeatureCtaDownloader: "다운로더 자세히 보기",
+    homeFeatureCtaEditor: "자막 편집기 살펴보기",
+    homeFeatureCtaTranslation: "AI 번역 자세히 보기",
     footer:
       "동영상 다운로드와 자막 편집/병합은 무료 • AI 전사·번역·요약·더빙에만 크레딧이 소모됩니다",
     copyright: "© 2026 Stage5 Tools. All rights reserved.",

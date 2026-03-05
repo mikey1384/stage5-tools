@@ -1,24 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Translator FAQ - Video Translation & Subtitle Editing",
-  description:
-    "Answers to common questions about Translator: downloads, subtitle formats, AI translation, pricing, and system requirements.",
-  path: "/faq",
-  keywords: [
-    "Translator FAQ",
-    "subtitle editor FAQ",
-    "video translation help",
-    "SRT translator questions",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("faqTitle", locale)} | Translator`,
+    description: t("faqSubtitle", locale),
+    path: "/faq",
+    keywords:
+      locale === "ko"
+        ? [
+            "Translator FAQ",
+            "자막 편집기 FAQ",
+            "비디오 번역 도움말",
+            "SRT 번역 질문",
+          ]
+        : [
+            "Translator FAQ",
+            "subtitle editor FAQ",
+            "video translation help",
+            "SRT translator questions",
+          ],
+    locale,
+  });
+}
 
 export default async function FAQPage({
   searchParams,
@@ -27,6 +40,8 @@ export default async function FAQPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const faqs = [
     { qKey: "faqQ1" as const, aKey: "faqA1" as const },
@@ -40,15 +55,33 @@ export default async function FAQPage({
     { qKey: "faqQ9" as const, aKey: "faqA9" as const },
     { qKey: "faqQ10" as const, aKey: "faqA10" as const },
   ];
+  const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: t(faq.qKey, locale),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: t(faq.aKey, locale),
+      },
+    })),
+  };
 
   return (
     <main className="min-h-screen bg-black">
+      <Script
+        id="faq-structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
       <div className="container mx-auto px-6">
         <SiteNav locale={locale} />
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navFaq", locale) },
           ]}
         />
@@ -92,7 +125,7 @@ export default async function FAQPage({
                 {t("faqReadyTranslateDesc", locale)}
               </p>
               <Link
-                href="/translate"
+                href={localizeHref("/translate")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("subtitleEditorExploreTranslation", locale)}
@@ -106,7 +139,7 @@ export default async function FAQPage({
                 {t("faqNeedPricingDesc", locale)}
               </p>
               <Link
-                href="/pricing"
+                href={localizeHref("/pricing")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("faqViewPricing", locale)}

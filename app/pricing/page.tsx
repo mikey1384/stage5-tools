@@ -5,21 +5,33 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
 
-export const metadata: Metadata = buildMetadata({
-  title: "Translator Pricing - Free Download + AI Translation Credits",
-  description:
-    "Download Translator for free. Video downloading and subtitle editing are free. AI transcription and translation use pay-as-you-go credits.",
-  path: "/pricing",
-  keywords: [
-    "Translator pricing",
-    "AI translation credits",
-    "video translation pricing",
-    "subtitle editor free",
-  ],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return buildMetadata({
+    title: `${t("pricingTitle", locale)} | Translator`,
+    description: t("pricingSubtitle", locale),
+    path: "/pricing",
+    keywords:
+      locale === "ko"
+        ? [
+            "Translator 가격",
+            "AI 번역 크레딧",
+            "비디오 번역 요금",
+            "무료 자막 편집기",
+          ]
+        : [
+            "Translator pricing",
+            "AI translation credits",
+            "video translation pricing",
+            "subtitle editor free",
+          ],
+    locale,
+  });
+}
 
 export default async function PricingPage({
   searchParams,
@@ -28,6 +40,8 @@ export default async function PricingPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  const homeHref = homeHrefForLocale(locale);
+  const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   return (
     <main className="min-h-screen bg-black">
@@ -36,7 +50,7 @@ export default async function PricingPage({
 
         <Breadcrumbs
           items={[
-            { label: t("breadcrumbHome", locale), href: "/" },
+            { label: t("breadcrumbHome", locale), href: homeHref },
             { label: t("navPricing", locale) },
           ]}
         />
@@ -118,7 +132,7 @@ export default async function PricingPage({
                 {t("pricingFreeAnswer", locale)}
               </p>
               <Link
-                href="/subtitle-editor"
+                href={localizeHref("/subtitle-editor")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("pricingExploreEditor", locale)}
@@ -132,7 +146,7 @@ export default async function PricingPage({
                 {t("pricingCostAnswer", locale)}
               </p>
               <Link
-                href="/contact"
+                href={localizeHref("/contact")}
                 className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
               >
                 {t("pricingContactSales", locale)}

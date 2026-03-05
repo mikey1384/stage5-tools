@@ -1,61 +1,69 @@
 "use client";
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
+import { resolveLocaleCookieDomain } from "../lib/locale-cookie";
 
 interface LanguageMenuProps {
   className?: string;
 }
 
 export function LanguageMenu({ className }: LanguageMenuProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
+  const isKoreanRoute = pathname === "/ko" || pathname.startsWith("/ko/");
+  const isEnglishHome = pathname === "/";
   const queryLocale = params.get("l");
-  const cookieLocale =
-    typeof document !== "undefined"
-      ? (document.cookie.match(/(?:^|;\s*)lang=(ko|en)/)?.[1] as
-          | "ko"
-          | "en"
-          | undefined)
+  const cookieLocale = (() => {
+    if (typeof document === "undefined") return undefined;
+    const matches = Array.from(document.cookie.matchAll(/(?:^|;\s*)lang=(ko|en)/g));
+    return matches.length
+      ? (matches[matches.length - 1]?.[1] as "ko" | "en" | undefined)
       : undefined;
+  })();
   const [isChanging, setIsChanging] = useState(false);
   const domLocale =
     typeof document !== "undefined"
       ? (document.documentElement.lang as "en" | "ko")
       : "en";
-  const locale =
-    (queryLocale as "ko" | "en" | null) ?? cookieLocale ?? domLocale;
+  const locale = isKoreanRoute
+    ? "ko"
+    : isEnglishHome
+      ? ((queryLocale as "ko" | "en" | null) ?? "en")
+      : ((queryLocale as "ko" | "en" | null) ?? cookieLocale ?? domLocale);
 
   // Hide on routes that don't support localization
   if (pathname.startsWith("/echo")) return null;
 
   /** swap locale & store cookie */
-  const switchTo = async (lang: "ko" | "en") => {
+  const switchTo = (lang: "ko" | "en") => {
     if (lang === locale) return; // Don't reload if same language
 
     setIsChanging(true);
 
-    const next = new URLSearchParams(params);
+    const cookieDomain = resolveLocaleCookieDomain(window.location.hostname);
+    const domainPart = cookieDomain ? `; domain=${cookieDomain}` : "";
+    const securePart = window.location.protocol === "https:" ? "; secure" : "";
+    document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax${domainPart}${securePart}`;
+    const nextParams = new URLSearchParams(params);
+    nextParams.delete("l");
 
-    // Only add query param when switching away from detected default
-    if (lang !== domLocale) {
-      next.set("l", lang);
-    } else {
-      next.delete("l");
+    let newPathname = pathname;
+    if (lang === "ko") {
+      if (isEnglishHome) {
+        newPathname = "/ko";
+      } else if (!isKoreanRoute) {
+        newPathname = `/ko${pathname}`;
+      }
+    } else if (isKoreanRoute) {
+      newPathname = pathname === "/ko" ? "/" : pathname.slice(3) || "/";
     }
 
-    document.cookie = `lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}`;
-    const queryString = next.toString();
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+    const queryString = nextParams.toString();
+    const newUrl = queryString ? `${newPathname}?${queryString}` : newPathname;
 
-    try {
-      await router.replace(newUrl);
-      router.refresh(); // force React Server Components to re-run with new locale
-    } finally {
-      // Reset loading state after a delay to ensure smooth transition
-      setTimeout(() => setIsChanging(false), 500);
-    }
+    // Force full navigation so locale applies immediately on the current page.
+    window.location.assign(newUrl);
   };
 
   return (
