@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import Script from "next/script";
 import { getLocale } from "../lib/get-locale";
+import { HOME_LOCALIZED_LOCALES } from "../lib/locales";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -39,7 +40,7 @@ const websiteStructuredData = {
   "@type": "WebSite",
   name: "Translator",
   url: "https://translator.tools",
-  inLanguage: ["en", "ko"],
+  inLanguage: [...HOME_LOCALIZED_LOCALES],
   publisher: {
     "@type": "Organization",
     name: "Stage5 Tools",

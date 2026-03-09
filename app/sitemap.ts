@@ -1,4 +1,9 @@
 import type { MetadataRoute } from "next";
+import {
+  localizedLocalesForPath,
+  localizePathForLocale,
+} from "../lib/locales";
+import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
 
 const BASE_URL = "https://translator.tools";
 
@@ -10,22 +15,14 @@ type RouteDef = {
   changeFrequency: ChangeFreq;
 };
 
-const languageSlugs = [
-  "spanish",
-  "korean",
-  "japanese",
-  "chinese",
-  "french",
-  "german",
-  "portuguese",
-];
-
 const routes: RouteDef[] = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
+  { path: "/video-discovery", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/dubbing", priority: 0.9, changeFrequency: "weekly" },
   { path: "/video-downloader", priority: 0.9, changeFrequency: "weekly" },
   { path: "/subtitle-editor", priority: 0.9, changeFrequency: "weekly" },
   { path: "/translate", priority: 0.9, changeFrequency: "weekly" },
-  ...languageSlugs.map((slug) => ({
+  ...TRANSLATED_LANGUAGE_SLUGS.map((slug) => ({
     path: `/translate/${slug}`,
     priority: 0.8,
     changeFrequency: "weekly" as const,
@@ -42,40 +39,31 @@ function absoluteUrl(path: string): string {
   return new URL(path, BASE_URL).toString();
 }
 
-function koreanPathFor(path: string): string {
-  return path === "/" ? "/ko" : `/ko${path}`;
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   return routes.flatMap((route) => {
-    const englishUrl = absoluteUrl(route.path);
-    const koreanUrl = absoluteUrl(koreanPathFor(route.path));
-    const languages: Record<string, string> = {
-      "x-default": englishUrl,
-      en: englishUrl,
-      ko: koreanUrl,
-    };
+    const availableLocales = localizedLocalesForPath(route.path);
+    const englishUrl = absoluteUrl(localizePathForLocale("en", route.path));
+    const fullSiteLanguages: Record<string, string> = { "x-default": englishUrl };
+    for (const locale of availableLocales) {
+      fullSiteLanguages[locale] = absoluteUrl(localizePathForLocale(locale, route.path));
+    }
 
     const shared = {
       lastModified,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
       alternates: {
-        languages,
+        languages: fullSiteLanguages,
       },
     };
 
-    return [
-      {
-        url: englishUrl,
-        ...shared,
-      },
-      {
-        url: koreanUrl,
-        ...shared,
-      },
-    ];
+    const localizedEntries = availableLocales.map((locale) => ({
+      url: absoluteUrl(localizePathForLocale(locale, route.path)),
+      ...shared,
+    }));
+
+    return localizedEntries;
   });
 }

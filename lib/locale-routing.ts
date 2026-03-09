@@ -1,7 +1,11 @@
-import type { Locale } from "./strings";
+import {
+  homeHrefForLocale as localizedHomeHrefForLocale,
+  localizePathForLocale as localizeSitePathForLocale,
+  type Locale,
+} from "./locales";
 
-export function homeHrefForLocale(locale: Locale): "/" | "/ko" {
-  return locale === "ko" ? "/ko" : "/";
+export function homeHrefForLocale(locale: Locale): string {
+  return localizedHomeHrefForLocale(locale);
 }
 
 export function homeSectionHrefForLocale(
@@ -13,31 +17,5 @@ export function homeSectionHrefForLocale(
 }
 
 export function localizePathForLocale(locale: Locale, href: string): string {
-  if (!href.startsWith("/")) return href;
-
-  const splitIndex = href.search(/[?#]/);
-  const basePath =
-    splitIndex === -1 ? href : href.slice(0, splitIndex);
-  const suffix = splitIndex === -1 ? "" : href.slice(splitIndex);
-
-  let localizedPath = basePath;
-  if (locale === "ko") {
-    if (basePath === "/") {
-      localizedPath = "/ko";
-    } else {
-      localizedPath =
-        basePath === "/ko" || basePath.startsWith("/ko/")
-          ? basePath
-          : `/ko${basePath}`;
-    }
-  } else {
-    localizedPath =
-      basePath === "/ko"
-        ? "/"
-        : basePath.startsWith("/ko/")
-          ? basePath.slice(3)
-          : basePath;
-  }
-
-  return `${localizedPath}${suffix}`;
+  return localizeSitePathForLocale(locale, href);
 }

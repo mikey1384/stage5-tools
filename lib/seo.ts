@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import type { Locale } from "./strings";
+import {
+  DEFAULT_LOCALE,
+  localizedLocalesForPath,
+  localizePathForLocale,
+  openGraphLocaleByLocale,
+  type Locale,
+} from "./locales";
 
 const BASE_URL = "https://translator.tools";
 
@@ -18,17 +24,6 @@ interface BuildMetadataProps {
   locale?: Locale;
 }
 
-function toEnglishPath(path: string): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  if (normalized === "/ko") return "/";
-  return normalized.startsWith("/ko/") ? normalized.slice(3) || "/" : normalized;
-}
-
-function toKoreanPath(path: string): string {
-  const englishPath = toEnglishPath(path);
-  return englishPath === "/" ? "/ko" : `/ko${englishPath}`;
-}
-
 export function buildMetadata({
   title,
   description,
@@ -36,15 +31,20 @@ export function buildMetadata({
   keywords,
   locale = "en",
 }: BuildMetadataProps): Metadata {
-  const englishPath = toEnglishPath(path);
-  const koreanPath = toKoreanPath(englishPath);
-  const canonicalPath = locale === "ko" ? koreanPath : englishPath;
-
+  const englishPath = path.startsWith("/") ? path : `/${path}`;
+  const canonicalPath = localizePathForLocale(locale, englishPath);
   const canonicalUrl = new URL(canonicalPath, BASE_URL).toString();
-  const englishUrl = new URL(englishPath, BASE_URL).toString();
-  const koreanUrl = new URL(koreanPath, BASE_URL).toString();
-  const ogLocale = locale === "ko" ? "ko_KR" : "en_US";
-  const alternateOgLocale = locale === "ko" ? ["en_US"] : ["ko_KR"];
+  const availableLocales = localizedLocalesForPath(englishPath);
+  const languageUrls = Object.fromEntries(
+    availableLocales.map((supportedLocale) => [
+      supportedLocale,
+      new URL(localizePathForLocale(supportedLocale, englishPath), BASE_URL).toString(),
+    ])
+  ) as Record<string, string>;
+  const ogLocale = openGraphLocaleByLocale[locale];
+  const alternateOgLocale = availableLocales.filter(
+    (supportedLocale) => supportedLocale !== locale
+  ).map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
 
   return {
     title,
@@ -53,9 +53,8 @@ export function buildMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        "x-default": englishUrl,
-        en: englishUrl,
-        ko: koreanUrl,
+        "x-default": languageUrls[DEFAULT_LOCALE],
+        ...languageUrls,
       },
     },
     openGraph: {

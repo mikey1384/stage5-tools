@@ -1,14 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { postCheckoutMessage } from "../../../lib/checkout-messaging";
 
 export default function CancelledUI() {
-  // Let the opener (Electron) know checkout was cancelled
   useEffect(() => {
-    const target = window.opener || window.parent;
-    if (target) {
-      target.postMessage({ type: "stripe-cancelled" }, "*");
-    }
+    postCheckoutMessage("stripe-cancelled");
   }, []);
 
   return (

@@ -7,12 +7,13 @@ interface SiteFooterProps {
 }
 
 export function SiteFooter({ locale }: SiteFooterProps) {
-  const downloadHref = localizePathForLocale(locale, "/#download");
+  const downloadHref = localizePathForLocale(locale, "/#all-downloads");
 
   const footerLinks = [
     {
       titleKey: "footerProduct" as const,
       links: [
+        { labelKey: "navDubbing" as const, href: "/dubbing" },
         { labelKey: "navVideoDownloader" as const, href: "/video-downloader" },
         { labelKey: "navSubtitleEditor" as const, href: "/subtitle-editor" },
         { labelKey: "navAiTranslation" as const, href: "/translate" },

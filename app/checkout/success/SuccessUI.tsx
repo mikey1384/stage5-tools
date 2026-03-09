@@ -1,19 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { postCheckoutMessage } from "../../../lib/checkout-messaging";
 
 export default function SuccessUI() {
-  const params = useSearchParams();
-  const sessionId = params.get("session_id");
-
-  // Let the opener (Electron) know we're done
   useEffect(() => {
-    const target = window.opener || window.parent;
-    if (target) {
-      target.postMessage({ type: "stripe-success", sessionId }, "*");
-    }
-  }, [sessionId]);
+    postCheckoutMessage("stripe-success");
+  }, []);
 
   return (
     <main className="flex flex-col items-center justify-center h-screen gap-4">

@@ -2,7 +2,17 @@
 
 import { useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
-import { resolveLocaleCookieDomain } from "../lib/locale-cookie";
+import { parseLocaleCookie, resolveLocaleCookieDomain } from "../lib/locale-cookie";
+import {
+  DEFAULT_LOCALE,
+  homeHrefForLocale,
+  isLocale,
+  isFullSiteLocale,
+  localeFromPathname,
+  localeOptions,
+  localizePathForLocale,
+  type Locale,
+} from "../lib/locales";
 
 interface LanguageMenuProps {
   className?: string;
@@ -11,32 +21,27 @@ interface LanguageMenuProps {
 export function LanguageMenu({ className }: LanguageMenuProps) {
   const pathname = usePathname();
   const params = useSearchParams();
-  const isKoreanRoute = pathname === "/ko" || pathname.startsWith("/ko/");
-  const isEnglishHome = pathname === "/";
+  const pathLocale = localeFromPathname(pathname);
   const queryLocale = params.get("l");
-  const cookieLocale = (() => {
-    if (typeof document === "undefined") return undefined;
-    const matches = Array.from(document.cookie.matchAll(/(?:^|;\s*)lang=(ko|en)/g));
-    return matches.length
-      ? (matches[matches.length - 1]?.[1] as "ko" | "en" | undefined)
-      : undefined;
-  })();
+  const cookieLocale =
+    typeof document === "undefined" ? undefined : parseLocaleCookie(document.cookie);
   const [isChanging, setIsChanging] = useState(false);
   const domLocale =
     typeof document !== "undefined"
-      ? (document.documentElement.lang as "en" | "ko")
-      : "en";
-  const locale = isKoreanRoute
-    ? "ko"
-    : isEnglishHome
-      ? ((queryLocale as "ko" | "en" | null) ?? "en")
-      : ((queryLocale as "ko" | "en" | null) ?? cookieLocale ?? domLocale);
+      ? ((document.documentElement.lang as Locale) ?? DEFAULT_LOCALE)
+      : DEFAULT_LOCALE;
+  const locale =
+    pathLocale !== DEFAULT_LOCALE
+      ? pathLocale
+      : isLocale(queryLocale)
+        ? queryLocale
+        : cookieLocale ?? domLocale;
 
   // Hide on routes that don't support localization
-  if (pathname.startsWith("/echo")) return null;
+  if (pathname.startsWith("/echo") || pathname.startsWith("/checkout")) return null;
 
   /** swap locale & store cookie */
-  const switchTo = (lang: "ko" | "en") => {
+  const switchTo = (lang: Locale) => {
     if (lang === locale) return; // Don't reload if same language
 
     setIsChanging(true);
@@ -48,16 +53,9 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
     const nextParams = new URLSearchParams(params);
     nextParams.delete("l");
 
-    let newPathname = pathname;
-    if (lang === "ko") {
-      if (isEnglishHome) {
-        newPathname = "/ko";
-      } else if (!isKoreanRoute) {
-        newPathname = `/ko${pathname}`;
-      }
-    } else if (isKoreanRoute) {
-      newPathname = pathname === "/ko" ? "/" : pathname.slice(3) || "/";
-    }
+    const newPathname = isFullSiteLocale(lang)
+      ? localizePathForLocale(lang, pathname)
+      : homeHrefForLocale(lang);
 
     const queryString = nextParams.toString();
     const newUrl = queryString ? `${newPathname}?${queryString}` : newPathname;
@@ -71,15 +69,18 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
       <div className="relative">
         <select
           value={locale}
-          onChange={(e) => switchTo(e.target.value as "ko" | "en")}
+          onChange={(e) => switchTo(e.target.value as Locale)}
           disabled={isChanging}
           aria-label="Select language"
-          className={`h-9 min-w-14 rounded-full border border-white/20 bg-white/10 pl-3 pr-2 text-[15px] leading-none text-white backdrop-blur-sm cursor-pointer transition hover:bg-white/20 sm:h-auto sm:min-w-0 sm:rounded-md sm:bg-black/60 sm:p-2 sm:text-2xl sm:hover:bg-black/80 ${
+          className={`h-9 min-w-16 rounded-full border border-white/20 bg-white/10 pl-3 pr-2 text-[13px] leading-none text-white backdrop-blur-sm cursor-pointer transition hover:bg-white/20 sm:h-auto sm:min-w-0 sm:rounded-md sm:bg-black/60 sm:px-3 sm:py-2 sm:text-sm sm:hover:bg-black/80 ${
             isChanging ? "opacity-50 cursor-wait" : ""
           }`}
         >
-          <option value="en">🇺🇸</option>
-          <option value="ko">🇰🇷</option>
+          {localeOptions.map((option) => (
+            <option key={option.locale} value={option.locale}>
+              {option.label}
+            </option>
+          ))}
         </select>
         {isChanging && (
           <div className="absolute inset-0 flex items-center justify-center">

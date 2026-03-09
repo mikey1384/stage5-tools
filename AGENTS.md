@@ -10,7 +10,17 @@ This file defines the default deployment workflow for this landing-page project.
 
 ## Default Deploy Behavior (One Go)
 
-When asked to deploy, first ensure the command is run outside sandbox with escalated permissions, then run build + Pages prepare + deploy in one command:
+When asked to deploy, first ensure the command is run outside sandbox with escalated permissions.
+
+Preferred auth path: if `npx wrangler whoami` succeeds, use the existing Wrangler login and deploy with:
+
+```bash
+cd /Users/mikey/Developer/stage5/stage5-tools \
+  && npm run -s pages \
+  && CI=1 npx wrangler pages deploy .vercel/output/static --project-name stage5-tools --commit-dirty=true
+```
+
+Token fallback: only if Wrangler is not already logged in and `/tmp/cf_pages_token` exists:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \
@@ -23,17 +33,26 @@ Notes:
 
 - First check: run deploy commands with escalated permissions (outside sandbox).
 - `npm run -s pages` runs `next build` and `next-on-pages`.
-- Use `/tmp/cf_pages_token` for Cloudflare auth.
-- Keep `HOME=/tmp` so Wrangler runs non-interactively.
+- Prefer the existing Wrangler OAuth/session login whenever available.
+- Only read `/tmp/cf_pages_token` if that file exists and logged-in Wrangler auth is unavailable.
+- Do not keep retrying the token path when `/tmp/cf_pages_token` is missing.
+- Keep `HOME=/tmp` only for the token-based non-interactive fallback.
 - Keep `CI=1` so Wrangler does not pause for interactive prompts in automation.
 - Keep `--commit-dirty=true` because working tree may be dirty.
-- Run this command directly in the current shell. Do not wrap it in another quoted `/bin/zsh -lc "..."` layer, or `$(cat /tmp/cf_pages_token)` can be expanded in the wrong shell and pass an empty token.
+- Run these commands directly in the current shell. Do not wrap them in another quoted `/bin/zsh -lc "..."` layer, or `$(cat /tmp/cf_pages_token)` can be expanded in the wrong shell and pass an empty token.
 
 ## If Deploy Fails with `fetch failed`
 
 1. Confirm the deploy command is running outside sandbox with escalated permissions.
-2. Retry immediately using the same deploy command.
-3. If you see token/auth errors in non-interactive mode, verify this works first:
+2. Retry immediately using the same deploy command and the same auth path.
+3. First verify whether Wrangler is already logged in:
+
+```bash
+cd /Users/mikey/Developer/stage5/stage5-tools \
+  && npx wrangler whoami
+```
+
+4. If logged-in Wrangler auth is unavailable and `/tmp/cf_pages_token` exists, verify this works first:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \
@@ -41,7 +60,24 @@ cd /Users/mikey/Developer/stage5/stage5-tools \
   && CLOUDFLARE_API_TOKEN="$TOKEN" HOME=/tmp npx wrangler pages project list
 ```
 
-4. Use retries (up to 5), still with escalated permissions:
+5. If neither Wrangler login nor `/tmp/cf_pages_token` is available, stop and ask the user to authenticate instead of repeatedly retrying a missing token file.
+
+6. Use retries (up to 5), still with escalated permissions, matching the auth path you selected:
+
+Logged-in Wrangler auth:
+
+```bash
+cd /Users/mikey/Developer/stage5/stage5-tools \
+  && npm run -s pages \
+  && for i in 1 2 3 4 5; do
+    echo "deploy attempt $i"
+    CI=1 npx wrangler pages deploy .vercel/output/static --project-name stage5-tools --commit-dirty=true \
+      && break
+    sleep 3
+  done
+```
+
+Token fallback:
 
 ```bash
 cd /Users/mikey/Developer/stage5/stage5-tools \

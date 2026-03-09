@@ -2,10 +2,10 @@
 
 import { DownloadButton } from "./DownloadButton";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
-import { t } from "../lib/strings";
+import { t, type Locale } from "../lib/strings";
 
 interface SmartDownloadButtonsProps {
-  locale: "en" | "ko";
+  locale: Locale;
   className?: string;
 }
 
