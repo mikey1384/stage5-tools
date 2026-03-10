@@ -37,7 +37,7 @@ type VideoDownloaderPageCopy = {
   ctaBody: string;
 };
 
-const pageCopy: Record<Locale, VideoDownloaderPageCopy> = {
+const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
   en: {
     heroEyebrow: "Get the video into the workflow fast",
     heroPoints: [
@@ -414,6 +414,53 @@ const pageCopy: Record<Locale, VideoDownloaderPageCopy> = {
     ctaBody:
       "Traga o video por URL e siga sem trocar de app para legendas, traducao ou exportacao.",
   },
+  vi: {
+    heroEyebrow: "Đưa video vào quy trình thật nhanh",
+    heroPoints: [
+      "Dán URL rồi đi thẳng sang xem, làm phụ đề hoặc dịch",
+      "Chọn chất lượng phù hợp với quy trình của bạn thay vì chấp nhận bất cứ thứ gì có sẵn",
+      "Coi tải xuống là bước đầu tiên chứ không phải một đường vòng riêng",
+    ],
+    intakeTitle: "Dán URL -> chọn chất lượng -> tiếp tục",
+    intakeCaption:
+      "Trình tải xuống quan trọng vì nó đưa nguồn video vào cùng một quy trình nơi bạn sẽ xem, làm phụ đề, dịch hoặc lồng tiếng.",
+    intakeUrl: "https://www.youtube.com/watch?v=...",
+    intakeQuality: "1080p / 720p / chỉ âm thanh",
+    intakeReady: "Sẵn sàng cho phụ đề, dịch hoặc xuất file",
+    outcomesEyebrow: "Bạn nhận được gì",
+    outcomesTitle:
+      "Trình tải xuống ở đây để đưa bạn sang bước tiếp theo nhanh hơn, không phải để nhốt bạn trong một tiện ích đứng riêng.",
+    workflowEyebrow: "Cách hoạt động",
+    workflowTitle:
+      "Đưa video vào, chọn đúng phiên bản cần dùng và tiếp tục đi tiếp.",
+    workflowSteps: [
+      {
+        step: "01",
+        title: "Dán URL của video",
+        body: "Bắt đầu từ đường link thay vì phải chuẩn bị thêm ở ngoài ứng dụng.",
+      },
+      {
+        step: "02",
+        title: "Chọn đúng chất lượng",
+        body: "Chọn độ phân giải hoặc tùy chọn chỉ âm thanh phù hợp nhất cho chép lời, làm phụ đề hoặc xuất file.",
+      },
+      {
+        step: "03",
+        title: "Đi thẳng sang công việc tiếp theo",
+        body: "Mở tệp trong cùng quy trình và tiếp tục với phụ đề, dịch, lồng tiếng hoặc xuất file hoàn chỉnh.",
+      },
+    ],
+    utilityEyebrow: "Chi tiết hữu ích",
+    bridgeTitle: "Muốn làm thêm sau khi tệp đã nằm trong ứng dụng?",
+    bridgeBody:
+      "Trình tải xuống mạnh nhất khi nó bàn giao thẳng sang chỉnh sửa phụ đề hoặc dịch thay vì kết thúc quy trình ở đó.",
+    bridgePrimary: "Xem Trình chỉnh sửa phụ đề",
+    bridgeSecondary: "Xem Dịch bằng AI",
+    ctaTitle:
+      "Tải Translator và biến việc nạp video thành bước đầu tiên của quy trình thực sự.",
+    ctaBody:
+      "Kéo video vào từ URL rồi tiếp tục mà không cần đổi sang ứng dụng khác để làm phụ đề, dịch hoặc xuất file.",
+  },
 };
 
 const downloaderScreenshot = {
@@ -422,7 +469,7 @@ const downloaderScreenshot = {
   height: 1962,
 };
 
-const metadataKeywords: Record<Locale, string[]> = {
+const metadataKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "YouTube video downloader",
     "download video from URL",
@@ -479,10 +526,17 @@ const metadataKeywords: Record<Locale, string[]> = {
     "downloader de video para legendas",
     "tradutor de video com IA",
   ],
+  vi: [
+    "trình tải video YouTube",
+    "tải video từ URL",
+    "trình tải video miễn phí",
+    "tải video để làm phụ đề",
+    "trình dịch video AI",
+  ],
 };
 
 function getPageCopy(locale: Locale): VideoDownloaderPageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -491,7 +545,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${t("videoDownloaderTitle", locale)} | Translator`,
     description: t("videoDownloaderSubtitle", locale),
     path: "/video-downloader",
-    keywords: metadataKeywords[locale],
+    keywords: metadataKeywords[locale] ?? metadataKeywords.en!,
     locale,
   });
 }

@@ -10,7 +10,7 @@ import { t } from "../../lib/strings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const content = privacyContent[locale];
+  const content = privacyContent[locale] ?? privacyContent.en!;
   return buildMetadata({
     title: content.metaTitle,
     description: content.metaDescription,
@@ -28,7 +28,7 @@ export default async function PrivacyPage({
   const params = await searchParams;
   const locale = await getLocale(params);
   const homeHref = homeHrefForLocale(locale);
-  const content = privacyContent[locale];
+  const content = privacyContent[locale] ?? privacyContent.en!;
 
   return (
     <main className="min-h-screen bg-black">

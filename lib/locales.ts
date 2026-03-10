@@ -1,7 +1,7 @@
 import { isTranslatedLanguageDetailPath } from "./translate-language-slugs";
 import { normalizePathname } from "./pathname-utils";
 
-const FULL_SITE_LOCALES = ["en", "ko", "es", "ja", "zh", "fr", "de", "pt"] as const;
+const FULL_SITE_LOCALES = ["en", "ko", "es", "ja", "zh", "fr", "de", "pt", "vi"] as const;
 const HOME_ONLY_LOCALES = [] as const;
 
 export const DEFAULT_LOCALE = "en" as const;
@@ -106,7 +106,8 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
     locale === "zh" ||
     locale === "fr" ||
     locale === "de" ||
-    locale === "pt"
+    locale === "pt" ||
+    locale === "vi"
   ) {
     return (
       MAJOR_EXPANDED_PATHS.has(normalizedEnglishPath) ||
@@ -129,7 +130,16 @@ export const localeOptions: Array<{ locale: Locale; label: string }> = [
   { locale: "fr", label: "FR" },
   { locale: "de", label: "DE" },
   { locale: "pt", label: "PT" },
+  { locale: "vi", label: "VI" },
 ];
+
+export function localeOptionsForPath(pathname: string): Array<{
+  locale: Locale;
+  label: string;
+}> {
+  const englishPath = englishPathFor(pathname);
+  return localeOptions.filter(({ locale }) => supportsLocalePath(locale, englishPath));
+}
 
 export const openGraphLocaleByLocale: Record<Locale, string> = {
   en: "en_US",
@@ -140,4 +150,5 @@ export const openGraphLocaleByLocale: Record<Locale, string> = {
   fr: "fr_FR",
   de: "de_DE",
   pt: "pt_BR",
+  vi: "vi_VN",
 };

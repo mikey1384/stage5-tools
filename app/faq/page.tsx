@@ -29,7 +29,7 @@ type FaqPageCopy = {
   ctaNote: string;
 };
 
-const pageCopy: Record<Locale, FaqPageCopy> = {
+const pageCopy: Partial<Record<Locale, FaqPageCopy>> = {
   en: {
     metadataDescription:
       "Answers about pricing, formats, platforms, internet requirements, and how Translator handles AI translation, subtitles, and exports.",
@@ -278,9 +278,42 @@ const pageCopy: Record<Locale, FaqPageCopy> = {
     ctaNote:
       "Baixar e editar legendas e gratis. A IA so custa dinheiro quando voce realmente usa recursos de IA.",
   },
+  vi: {
+    metadataDescription:
+      "Câu trả lời về giá, định dạng, nền tảng, yêu cầu internet và cách Translator xử lý dịch AI, phụ đề và xuất file.",
+    heroEyebrow: "Câu trả lời nhanh",
+    heroPoints: [
+      "Phần nào miễn phí và phần nào dùng credit",
+      "Ứng dụng hỗ trợ những định dạng và nền tảng nào",
+      "Dịch, xuất file và các tính năng cần internet hoạt động ra sao",
+    ],
+    sectionEyebrow: "Câu hỏi thường gặp",
+    sectionTitle:
+      "Những câu trả lời mọi người thường cần trước khi cài đặt hoặc trả tiền.",
+    bottomCards: [
+      {
+        title: "Muốn xem phần dịch trước?",
+        body: "Nếu bạn muốn hiểu cách dịch phụ đề hoạt động trước khi bận tâm đến chi tiết, trang dịch là điểm dừng tiếp theo hợp lý nhất.",
+        ctaLabel: "Xem Dịch bằng AI",
+        href: "/translate",
+      },
+      {
+        title: "Thực ra bạn đang hỏi về giá?",
+        body: "Nếu câu hỏi thực sự là phần nào vẫn miễn phí và lúc nào bắt đầu tốn tiền, trang giá sẽ giải thích khác biệt giữa công cụ miễn phí, credit và BYO.",
+        ctaLabel: "Xem Giá",
+        href: "/pricing",
+      },
+    ],
+    ctaTitle:
+      "Tải Translator rồi hiểu phần còn lại khi ứng dụng nằm ngay trước mặt bạn.",
+    ctaBody:
+      "Hầu hết mọi người hiểu sản phẩm nhanh hơn nhiều khi họ có thể thử các công cụ miễn phí, mở một video và cảm nhận quy trình hoạt động.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề đều miễn phí. AI chỉ tốn tiền khi bạn thực sự chạy các tính năng AI.",
+  },
 };
 
-const metadataKeywords: Record<Locale, string[]> = {
+const metadataKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "Translator FAQ",
     "subtitle editor FAQ",
@@ -329,10 +362,16 @@ const metadataKeywords: Record<Locale, string[]> = {
     "ajuda com traducao de video",
     "perguntas sobre tradutor SRT",
   ],
+  vi: [
+    "FAQ Translator",
+    "FAQ trình chỉnh sửa phụ đề",
+    "hỗ trợ dịch video",
+    "câu hỏi về trình dịch SRT",
+  ],
 };
 
 function getPageCopy(locale: Locale): FaqPageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -343,7 +382,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${t("faqTitle", locale)} | Translator`,
     description: copy.metadataDescription,
     path: "/faq",
-    keywords: metadataKeywords[locale],
+    keywords: metadataKeywords[locale] ?? metadataKeywords.en!,
     locale,
   });
 }

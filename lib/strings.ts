@@ -556,10 +556,10 @@ export const strings = {
 
 type SharedLocaleBundle = Record<RequiredSharedStringKey, string>;
 
-export const extraStrings: Record<
+export const extraStrings: Partial<Record<
   Exclude<Locale, "en" | "ko">,
   SharedLocaleBundle & Partial<Record<StringKey, string>>
-> = {
+>> = {
   es: {
     download: "Descargar para Mac",
     downloadWindows: "Descargar para Windows",
@@ -2060,6 +2060,256 @@ export const extraStrings: Record<
     langUkrainian: "Ucraniano",
     langVietnamese: "Vietnamita",
   },
+  vi: {
+    download: "Tải về cho Mac",
+    downloadWindows: "Tải về cho Windows",
+    homeDownloadRecommended: "Đề xuất cho thiết bị của bạn",
+    homeDownloadChoose: "Chọn bản tải xuống",
+    homeDownloadAllVersions: "Xem tất cả phiên bản →",
+    footer:
+      "Tải video và chỉnh sửa/gộp phụ đề đều miễn phí • Phiên âm, dịch, tóm tắt và lồng tiếng bằng AI dùng tín dụng",
+    copyright: "© 2026 Stage5 Tools. Bảo lưu mọi quyền.",
+    notFound: "Không tìm thấy trang",
+    goHome: "Về trang chủ",
+    navVideoDiscovery: "Khám phá video",
+    navDubbing: "Lồng tiếng",
+    navVideoDownloader: "Tải video",
+    navSubtitleEditor: "Trình chỉnh sửa phụ đề",
+    navAiTranslation: "Dịch bằng AI",
+    navPricing: "Bảng giá",
+    navFaq: "Câu hỏi thường gặp",
+    navAbout: "Giới thiệu",
+    navContact: "Liên hệ",
+    navDownload: "Tải về",
+    footerProduct: "Sản phẩm",
+    footerResources: "Tài nguyên",
+    footerCompany: "Công ty",
+    footerLegal: "Pháp lý",
+    footerSupportedLanguages: "Ngôn ngữ được hỗ trợ",
+    footerAboutStage5: "Về Stage5 Tools",
+    footerPrivacy: "Chính sách quyền riêng tư",
+    footerTerms: "Điều khoản dịch vụ",
+    footerQuestions: "Có câu hỏi? Email",
+    breadcrumbHome: "Trang chủ",
+    langSpanish: "Tiếng Tây Ban Nha",
+    langKorean: "Tiếng Hàn",
+    langJapanese: "Tiếng Nhật",
+    langChinese: "Tiếng Trung",
+    langFrench: "Tiếng Pháp",
+    langGerman: "Tiếng Đức",
+    langPortuguese: "Tiếng Bồ Đào Nha",
+    langArabic: "Tiếng Ả Rập",
+    langBengali: "Tiếng Bengal",
+    langCzech: "Tiếng Séc",
+    langDanish: "Tiếng Đan Mạch",
+    langDutch: "Tiếng Hà Lan",
+    langEnglish: "Tiếng Anh",
+    langFinnish: "Tiếng Phần Lan",
+    langGreek: "Tiếng Hy Lạp",
+    langHebrew: "Tiếng Do Thái",
+    langHindi: "Tiếng Hindi",
+    langHungarian: "Tiếng Hungary",
+    langIndonesian: "Tiếng Indonesia",
+    langItalian: "Tiếng Ý",
+    langMalay: "Tiếng Mã Lai",
+    langNorwegian: "Tiếng Na Uy",
+    langPolish: "Tiếng Ba Lan",
+    langRomanian: "Tiếng Romania",
+    langRussian: "Tiếng Nga",
+    langSwedish: "Tiếng Thụy Điển",
+    langTagalog: "Tiếng Tagalog",
+    langThai: "Tiếng Thái",
+    langTurkish: "Tiếng Thổ Nhĩ Kỳ",
+    langUrdu: "Tiếng Urdu",
+    langUkrainian: "Tiếng Ukraina",
+    langVietnamese: "Tiếng Việt",
+    pricingTitle: "Giá đơn giản cho dịch video",
+    pricingSubtitle:
+      "Translator tải về miễn phí. Tải video, chỉnh sửa phụ đề và xuất SRT hiện đều miễn phí. Phiên âm, dịch, tóm tắt và lồng tiếng bằng AI dùng tín dụng trả theo mức sử dụng.",
+    pricingFreeLabel: "Miễn phí",
+    pricingFreePrice: "$0",
+    pricingFreeDesc: "Các công cụ video cốt lõi cho người sáng tạo và đội ngũ.",
+    pricingFreeItem1: "Tải video từ URL",
+    pricingFreeItem2: "Chỉnh sửa và đồng bộ phụ đề",
+    pricingFreeItem3: "Gộp các track phụ đề",
+    pricingFreeItem4: "Xuất tệp SRT",
+    pricingCreditsLabel: "Tín dụng AI",
+    pricingCreditsPrice: "Trả theo mức dùng",
+    pricingCreditsDesc:
+      "Mua tín dụng trong ứng dụng và chỉ dùng khi bạn thực sự cần AI.",
+    pricingCreditsItem1: "Phiên âm bằng AI",
+    pricingCreditsItem2: "Dịch phụ đề sang 39 ngôn ngữ được hỗ trợ",
+    pricingCreditsItem3: "Lồng tiếng AI và tóm tắt bản ghi tùy chọn",
+    pricingCreditsItem4: "Không cần đăng ký thuê bao",
+    pricingExamplePacks: "Ví dụ gói tín dụng",
+    pricingPack1: "$1 ≈ 50 phút video",
+    pricingPack2: "$5 ≈ 8 giờ video",
+    pricingPack3: "$10 ≈ 18 giờ video",
+    pricingPack4: "$50 ≈ 127 giờ video",
+    pricingByoNote:
+      "Mở khóa BYO API key với phí một lần $10 và thanh toán trực tiếp chi phí API cho nhà cung cấp.",
+    pricingFreeQuestion: "Miễn phí gồm những gì?",
+    pricingFreeAnswer:
+      "Tất cả công cụ tải video và chỉnh sửa phụ đề đều miễn phí. Bạn chỉ trả tiền khi dùng phiên âm, dịch, tóm tắt hoặc lồng tiếng bằng AI.",
+    pricingExploreEditor: "Khám phá Trình chỉnh sửa phụ đề →",
+    pricingCostQuestion: "Cần giúp ước tính chi phí?",
+    pricingCostAnswer:
+      "Tín dụng dịch tăng theo độ dài video và số ngôn ngữ. Hãy liên hệ nếu bạn có quy trình làm việc cho đội ngũ lớn.",
+    pricingContactSales: "Liên hệ đội ngũ bán hàng →",
+    translateTitle: "Dịch video bằng AI cho phụ đề",
+    translateSubtitle:
+      "Dịch phụ đề YouTube hoặc tệp SRT cục bộ sang 39 ngôn ngữ được hỗ trợ. Stage5 dùng GPT-5.1 cho bản dịch nền và chế độ Chất lượng thêm vòng rà soát bằng GPT-5.4.",
+    translateFeature1Title: "Dịch bằng GPT-5.1 + rà soát bằng GPT-5.4",
+    translateFeature1Desc:
+      "Stage5 bắt đầu với GPT-5.1 và thêm vòng rà soát GPT-5.4 trong chế độ Chất lượng khi bạn cần câu chữ tốt hơn.",
+    translateFeature2Title: "Hỗ trợ 39 ngôn ngữ",
+    translateFeature2Desc:
+      "Dịch phụ đề sang tiếng Tây Ban Nha, tiếng Hàn, tiếng Nhật, tiếng Trung và nhiều ngôn ngữ khác.",
+    translateFeature3Title: "Xây cho quy trình làm việc với phụ đề",
+    translateFeature3Desc:
+      "Giữ nguyên timing và xuất tệp SRT sẵn sàng dùng hoặc chèn phụ đề vào video.",
+    translateHowItWorks: "Cách dịch phụ đề bằng AI hoạt động",
+    translateStep1: "Nhập hoặc tạo phụ đề.",
+    translateStep2: "Chọn ngôn ngữ đích.",
+    translateStep3: "Rà soát bản dịch AI và xuất.",
+    translateLanguagesTitle: "Dịch sang các ngôn ngữ này",
+    translateLanguagesDesc:
+      "Nhắm tới những nhóm khán giả lớn nhất với các trang ngôn ngữ chuyên biệt.",
+    translateNeedSubtitles: "Cần có phụ đề trước?",
+    translateNeedSubtitlesDesc:
+      "Dùng trình chỉnh sửa phụ đề để nhập, làm sạch và đồng bộ phụ đề trước khi dịch.",
+    translateGoToEditor: "Đi tới Trình chỉnh sửa phụ đề →",
+    translateStartWithUrl: "Bắt đầu từ URL video",
+    translateStartWithUrlDesc:
+      "Tải video từ YouTube và các nguồn khác để bạn có thể bắt đầu dịch ngay.",
+    translateGoToDownloader: "Đi tới Tải video →",
+    translateCreditsNote:
+      "Dịch bằng AI dùng tín dụng. Các công cụ miễn phí vẫn miễn phí.",
+    subtitleEditorTitle: "Trình chỉnh sửa phụ đề miễn phí cho SRT",
+    subtitleEditorSubtitle:
+      "Làm sạch phụ đề, đồng bộ thời gian và gộp track trong một nơi. Translator là trình chỉnh sửa phụ đề dành cho quy trình video hiện đại.",
+    subtitleEditorFeature1Title: "Độ chính xác trên timeline",
+    subtitleEditorFeature1Desc:
+      "Điều chỉnh timing phụ đề bằng các điều khiển timecode theo mili giây để đồng bộ chính xác.",
+    subtitleEditorFeature2Title: "Gộp và làm sạch các track",
+    subtitleEditorFeature2Desc:
+      "Kết hợp nhiều tệp phụ đề thành một track hoàn chỉnh, gọn gàng.",
+    subtitleEditorFeature3Title: "Chỉnh sửa các định dạng phổ biến",
+    subtitleEditorFeature3Desc: "Nhập và xuất SRT một cách tự tin.",
+    subtitleEditorWorkflow: "Quy trình chỉnh sửa phụ đề",
+    subtitleEditorStep1:
+      "Nhập phụ đề hoặc tự động tạo chúng bằng phiên âm AI.",
+    subtitleEditorStep2:
+      "Chỉnh văn bản, timing và định dạng trong khi xem trước video.",
+    subtitleEditorStep3:
+      "Xuất tệp phụ đề sạch hoặc chèn phụ đề vào video.",
+    subtitleEditorNeedVideo: "Cần video trước?",
+    subtitleEditorNeedVideoDesc:
+      "Tải video từ YouTube và các nền tảng khác rồi chỉnh phụ đề ngay.",
+    subtitleEditorReadyTranslate: "Sẵn sàng để dịch?",
+    subtitleEditorReadyTranslateDesc:
+      "Dịch phụ đề sang 39 ngôn ngữ được hỗ trợ bằng AI trong khi vẫn giữ giọng điệu và ngữ cảnh.",
+    subtitleEditorExploreTranslation: "Khám phá Dịch bằng AI →",
+    subtitleEditorFreeNote:
+      "Chỉnh sửa phụ đề là miễn phí. Các tính năng AI là tùy chọn và dùng tín dụng.",
+    videoDownloaderTitle: "Công cụ tải video miễn phí cho YouTube và hơn thế nữa",
+    videoDownloaderSubtitle:
+      "Translator giúp bạn dễ dàng tải video từ URL, lưu ở chất lượng cao và chuyển thẳng sang chỉnh sửa phụ đề hoặc dịch bằng AI.",
+    videoDownloaderFeature1Title: "Dán URL, lấy tệp sạch",
+    videoDownloaderFeature1Desc:
+      "Lấy video từ YouTube hoặc các nền tảng phổ biến khác chỉ với một liên kết.",
+    videoDownloaderFeature2Title: "Chọn chất lượng bạn cần",
+    videoDownloaderFeature2Desc:
+      "Chọn giữa các độ phân giải và tùy chọn âm thanh có sẵn để làm việc với phụ đề nhanh hơn.",
+    videoDownloaderFeature3Title: "Sẵn sàng cho phụ đề ngay",
+    videoDownloaderFeature3Desc:
+      "Tải các tệp MP4 tối ưu cho chỉnh sửa, dịch và xuất.",
+    videoDownloaderHowItWorks: "Cách hoạt động",
+    videoDownloaderStep1: "Dán URL video vào Translator.",
+    videoDownloaderStep2: "Chọn chất lượng và tải xuống.",
+    videoDownloaderStep3: "Chỉnh hoặc dịch phụ đề ngay.",
+    videoDownloaderPlatforms: "Nền tảng được hỗ trợ",
+    videoDownloaderPlatformsDesc:
+      "Tải từ YouTube và các nền tảng phổ biến khác cho phép tải trực tiếp qua URL.",
+    videoDownloaderPlatform1: "YouTube",
+    videoDownloaderPlatform2: "Các nền tảng lớn khác (khả dụng có thể khác nhau)",
+    videoDownloaderQuality: "Tùy chọn chất lượng",
+    videoDownloaderQualityDesc:
+      "Chọn độ phân giải phù hợp nhất với quy trình của bạn, từ bản nháp nhanh đến xuất chất lượng cao.",
+    videoDownloaderQuality1: "Nhiều độ phân giải khi có sẵn",
+    videoDownloaderQuality2: "Xuất chỉ âm thanh cho phiên âm",
+    videoDownloaderPairEditor: "Kết hợp với trình chỉnh sửa phụ đề",
+    videoDownloaderPairEditorDesc:
+      "Đồng bộ và gộp phụ đề, chỉnh timing và xuất tệp SRT mà không rời Translator.",
+    videoDownloaderTranslateAi: "Dịch phụ đề bằng AI",
+    videoDownloaderTranslateAiDesc:
+      "Dịch phụ đề sang 39 ngôn ngữ được hỗ trợ với GPT-5.1, rồi thêm vòng rà soát GPT-5.4 trong chế độ Chất lượng khi bạn cần.",
+    videoDownloaderFreeNote:
+      "Tải xuống miễn phí. Các tính năng AI (phiên âm, dịch, tóm tắt, lồng tiếng) dùng tín dụng.",
+    faqTitle: "Câu hỏi thường gặp",
+    faqSubtitle:
+      "Mọi điều bạn cần biết về Translator, từ định dạng phụ đề đến tín dụng dịch bằng AI.",
+    faqQ1: "Translator có miễn phí không?",
+    faqA1:
+      "Có. Tải video và chỉnh sửa phụ đề là miễn phí. Phiên âm, dịch, tóm tắt và lồng tiếng bằng AI dùng tín dụng trả phí.",
+    faqQ2: "Bạn hỗ trợ những định dạng phụ đề nào?",
+    faqA2: "Translator hiện hỗ trợ nhập và xuất SRT.",
+    faqQ3: "Tôi có thể dịch phụ đề YouTube không?",
+    faqA3:
+      "Có. Hãy tải video, nhập hoặc tạo phụ đề, rồi dịch chúng bằng AI.",
+    faqQ4: "Những nền tảng nào được hỗ trợ?",
+    faqA4:
+      "Translator có sẵn cho macOS (Apple Silicon + Intel) và Windows.",
+    faqQ5: "Yêu cầu hệ thống là gì?",
+    faqA5:
+      "Nên dùng máy macOS hoặc Windows hiện đại với đủ dung lượng lưu trữ cho tệp video.",
+    faqQ6: "Tôi có cần kết nối internet không?",
+    faqA6:
+      "Internet là bắt buộc cho phiên âm, dịch, tóm tắt và lồng tiếng bằng AI. Các công cụ chỉnh sửa miễn phí hoạt động offline.",
+    faqQ7: "Độ chính xác của bản dịch AI thế nào?",
+    faqA7:
+      "Translator dùng GPT-5.1 cho vòng dịch nền và chế độ Chất lượng thêm vòng rà soát GPT-5.4 để giữ sắc thái tốt hơn.",
+    faqQ8: "Bạn có gói đăng ký không?",
+    faqA8:
+      "Không cần đăng ký. Các tính năng AI được tính phí bằng tín dụng trả theo mức sử dụng.",
+    faqQ9: "Tôi có thể chèn phụ đề trực tiếp vào video không?",
+    faqA9:
+      "Có. Bạn có thể xuất tệp phụ đề hoặc nhúng phụ đề trực tiếp vào video.",
+    faqQ10: "Tôi có thể nhận hỗ trợ ở đâu?",
+    faqA10:
+      "Hãy vào trang liên hệ hoặc gửi email cho chúng tôi nếu bạn cần hỗ trợ về thiết lập hoặc giá.",
+    faqReadyTranslate: "Sẵn sàng để dịch?",
+    faqReadyTranslateDesc:
+      "Tìm hiểu thêm về dịch bằng AI và các ngôn ngữ được hỗ trợ.",
+    faqNeedPricing: "Cần xem tổng quan về giá?",
+    faqNeedPricingDesc: "Xem phần nào miễn phí và tín dụng AI hoạt động ra sao.",
+    faqViewPricing: "Xem bảng giá →",
+    aboutTitle: "Về Stage5 Tools",
+    aboutSubtitle:
+      "Stage5 xây dựng Translator và Echo, hai sản phẩm được thiết kế để giúp mọi người vượt qua rào cản ngôn ngữ, vòng lặp đề xuất và chế độ tự vận hành trong suy nghĩ.",
+    aboutMission: "Sứ mệnh của chúng tôi",
+    aboutMissionDesc:
+      "Xây những sản phẩm giúp mọi người vượt ra ngoài những giới hạn mà ngôn ngữ, feed và thói quen mặc định thường nhốt họ lại bên trong.",
+    aboutVision: "Tầm nhìn của chúng tôi",
+    aboutVisionDesc:
+      "Một thế giới nơi rào cản ngôn ngữ, vòng lặp feed và chế độ tự vận hành trong suy nghĩ bớt giới hạn con người hơn.",
+    aboutBuiltFor: "Được xây để mở rộng khả năng tiếp cận",
+    aboutBuiltForDesc:
+      "Translator giúp mọi người vượt qua các giới hạn ngôn ngữ và đề xuất quanh video. Echo giúp mọi người thoát khỏi vòng lặp suy nghĩ của chính mình bằng một câu hỏi hay mỗi ngày.",
+    aboutContactUs: "Liên hệ với chúng tôi",
+    aboutContactUsDesc:
+      "Có câu hỏi về Translator, hợp tác hay các gói doanh nghiệp?",
+    aboutGetInTouch: "Liên hệ →",
+    contactTitle: "Liên hệ Stage5 Tools",
+    contactSubtitle:
+      "Có câu hỏi về Translator? Chúng tôi có thể hỗ trợ bạn về thiết lập, giá, hợp tác và các nhu cầu dùng thực tế hơn.",
+    contactEmail: "Gửi email cho chúng tôi",
+    contactEmailDesc:
+      "Dành cho câu hỏi chung, hỗ trợ hoặc cơ hội hợp tác.",
+    contactEnterprise: "Nhu cầu doanh nghiệp",
+    contactEnterpriseDesc:
+      "Cần giá theo khối lượng hoặc quy trình cho đội ngũ? Hãy cho chúng tôi biết nhu cầu của bạn.",
+  },
 };
 
 export type StringKey = keyof (typeof strings)["en"];
@@ -2070,7 +2320,9 @@ export const requiredSharedStringKeys =
 export function getLocaleStringTable(
   locale: Locale
 ): Partial<Record<StringKey, string>> {
-  return locale === "en" || locale === "ko" ? strings[locale] : extraStrings[locale];
+  return locale === "en" || locale === "ko"
+    ? strings[locale]
+    : extraStrings[locale] ?? strings.en;
 }
 
 export const t = (key: StringKey, locale: Locale): string => {

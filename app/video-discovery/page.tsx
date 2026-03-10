@@ -49,7 +49,7 @@ const discoveryScreenshot = {
   height: 1017,
 };
 
-const discoveryCopy = {
+const discoveryCopy: Partial<Record<Locale, DiscoveryPageCopy>> = {
   en: {
     title: "AI video discovery for finding videos beyond your language bubble",
     description:
@@ -709,9 +709,94 @@ const discoveryCopy = {
     ctaNote:
       "Download e edição de legendas são grátis. Os recursos de IA só usam créditos quando você os executa.",
   },
-} satisfies Record<Locale, DiscoveryPageCopy>;
+  vi: {
+    title:
+      "Khám phá video bằng AI để tìm những video nằm ngoài bong bóng ngôn ngữ của bạn",
+    description:
+      "Dùng Translator để tìm những video mà thuật toán YouTube của bạn sẽ không bao giờ gợi ra, xem chúng bằng ngôn ngữ của mình và đưa những video tốt nhất vào phần còn lại của quy trình.",
+    breadcrumb: "Khám phá video",
+    heroEyebrow: "Tìm trước khi dịch",
+    heroTitle:
+      "Tìm những video mà thuật toán YouTube của bạn sẽ không bao giờ gợi ra.",
+    heroBody:
+      "Hầu hết công cụ video bắt đầu sau khi bạn đã có link. Translator cho phép bạn mô tả thứ mình muốn bằng ngôn ngữ của mình, kéo video từ những thế giới ngôn ngữ khác vào, rồi tiếp tục đi tiếp khi đã tìm được thứ đáng giữ lại.",
+    heroPoints: [
+      "Tìm bằng ngôn ngữ của bạn và kéo vào những video ngoại ngữ",
+      "Tiếp tục đào sâu bằng các lượt theo sau thay vì bắt đầu lại từ đầu",
+      "Mở, tải xuống, làm phụ đề, lồng tiếng hoặc xuất file trong cùng một luồng",
+    ],
+    screenshotAlt: "Kết quả khám phá video AI trong Translator",
+    screenshotCaption:
+      "Mô tả kiểu video bạn muốn, rồi tiếp tục tìm sâu hơn cho đến khi thấy kênh hoặc đoạn clip đáng giữ lại.",
+    outcomesEyebrow: "Điều này mở ra gì",
+    outcomesTitle:
+      "Khám phá không còn là ngõ cụt mà trở thành bước đầu của cả quy trình.",
+    outcomes: [
+      {
+        title: "Tìm xuyên ngôn ngữ, không chỉ xuyên từ khóa",
+        body: "Tìm bằng ngôn ngữ bạn nghĩ và lôi ra những creator, kênh và định dạng vốn thường bị nhốt trong feed của một nhóm khán giả khác.",
+      },
+      {
+        title: "Đánh giá video trước khi lao vào làm",
+        body: "Mở các kết quả hứa hẹn, xem với phụ đề đã dịch và quyết định thứ gì thực sự đáng để lưu, lồng tiếng, cắt clip hoặc xuất file.",
+      },
+      {
+        title: "Để những phát hiện tốt tiếp tục đi tiếp",
+        body: "Video đã tải xuống nằm ngay trong cùng ứng dụng, nên việc chuyển sang phụ đề, lồng tiếng, highlight hoặc xuất file hoàn chỉnh diễn ra liền mạch thay vì bị đứt đoạn.",
+      },
+    ],
+    workflowEyebrow: "Cách hoạt động",
+    workflowTitle:
+      "Một vòng khám phá tốt hơn cho video bằng tiếng nước ngoài.",
+    workflowSteps: [
+      {
+        step: "01",
+        title: "Mô tả điều bạn muốn",
+        body: "Bắt đầu bằng chủ đề, kiểu creator, khán giả, không khí hoặc quốc gia bằng ngôn ngữ của mình thay vì cố đoán chính xác tiêu đề hay từ khóa.",
+      },
+      {
+        step: "02",
+        title: "Tìm sâu hơn, không phải rộng hơn",
+        body: "Dùng các lượt theo sau và kết quả tìm thêm để tiếp tục đào vào những kênh lân cận và đề xuất liên quan thay vì khởi động lại từ số không.",
+      },
+      {
+        step: "03",
+        title: "Biến kết quả đúng thành công việc",
+        body: "Khi tìm được video đúng, hãy tải xuống, xem bằng ngôn ngữ của bạn và chuyển thẳng sang phụ đề, lồng tiếng hoặc xuất file.",
+      },
+    ],
+    reasonsEyebrow: "Vì sao hữu ích",
+    reasonsTitle:
+      "Dùng nó để tìm những video bạn đã bỏ lỡ, xem chúng bằng ngôn ngữ của mình và tiếp tục đẩy những video tốt đi tiếp khi bạn muốn nhiều hơn chỉ là xem.",
+    reasons: [
+      {
+        title: "Tìm những video bạn sẽ không tự tìm ra",
+        body: "Tìm bằng ngôn ngữ của mình và chạm tới những creator, kênh và chủ đề vốn thường bị nhốt trong một hệ sinh thái ngôn ngữ khác.",
+      },
+      {
+        title: "Biết nhanh một video có đáng giữ không",
+        body: "Mở nó, xem với phụ đề đã dịch và quyết định xem nó có đáng để lưu, lồng tiếng, cắt clip hay xuất file hay không.",
+      },
+      {
+        title: "Tiếp tục đi khi bạn tìm được thứ tốt",
+        body: "Tải video xuống và biến nó thành bản có phụ đề hoặc lồng tiếng mà không phải chuyển sang một chuỗi công cụ khác.",
+      },
+    ],
+    bridgeTitle: "Muốn tiếp tục sau khi đã tìm được video phù hợp?",
+    bridgeBody:
+      "Translator mạnh nhất khi phần khám phá chảy thẳng vào việc xem bản dịch và các đầu ra hoàn chỉnh.",
+    bridgePrimary: "Xem Dịch bằng AI",
+    bridgeSecondary: "Xem Trình chỉnh sửa phụ đề",
+    ctaTitle:
+      "Tải Translator và bắt đầu tìm những video nằm ngoài luồng nội dung quen thuộc của bạn.",
+    ctaBody:
+      "Dùng khám phá như cánh cửa đầu vào, rồi để những video tốt nhất tiếp tục đi qua phần còn lại của quy trình.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề đều miễn phí. Tính năng AI chỉ dùng credit khi bạn thực sự chạy chúng.",
+  },
+};
 
-const discoveryKeywords: Record<Locale, string[]> = {
+const discoveryKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "AI video discovery",
     "cross-language video discovery",
@@ -768,10 +853,17 @@ const discoveryKeywords: Record<Locale, string[]> = {
     "vídeos fora do algoritmo do YouTube",
     "app de descoberta de vídeos",
   ],
+  vi: [
+    "khám phá video bằng AI",
+    "khám phá video xuyên ngôn ngữ",
+    "tìm video ngoại ngữ",
+    "video nằm ngoài thuật toán YouTube",
+    "ứng dụng khám phá video",
+  ],
 };
 
 function getDiscoveryCopy(locale: Locale): DiscoveryPageCopy {
-  return discoveryCopy[locale];
+  return discoveryCopy[locale] ?? discoveryCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -782,7 +874,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${copy.title} | Translator`,
     description: copy.description,
     path: "/video-discovery",
-    keywords: discoveryKeywords[locale],
+    keywords: discoveryKeywords[locale] ?? discoveryKeywords.en!,
     locale,
   });
 }

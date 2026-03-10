@@ -50,7 +50,7 @@ type PricingPageCopy = {
   metadataKeywords: string[];
 };
 
-const pageCopy = {
+const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
   en: {
     metadataDescription:
       "Free to start. Pay only when AI runs with Stage5 credits, or unlock BYO once and use your own OpenAI, Anthropic, and ElevenLabs accounts.",
@@ -803,10 +803,106 @@ const pageCopy = {
       "chaves de API BYO",
     ],
   },
-} satisfies Record<Locale, PricingPageCopy>;
+  vi: {
+    metadataDescription:
+      "Bắt đầu miễn phí. Chỉ trả tiền khi AI thực sự chạy bằng credit Stage5, hoặc mở BYO một lần rồi dùng trực tiếp tài khoản OpenAI, Anthropic và ElevenLabs của bạn.",
+    heroEyebrow: "Miễn phí để bắt đầu",
+    heroTitle: "Chỉ trả tiền khi AI thực sự chạy.",
+    heroDescription:
+      "Tải xuống, chỉnh sửa phụ đề, gộp phụ đề và xuất file vẫn miễn phí. Khi bạn cần chép lời, dịch, tóm tắt, highlight hoặc lồng tiếng, bạn có thể dùng credit Stage5 cho tiện hoặc mở BYO một lần rồi thanh toán trực tiếp bằng tài khoản nhà cung cấp của mình.",
+    heroPoints: [
+      "Không cần đăng ký thuê bao chỉ để cài và dùng ứng dụng",
+      "Các công cụ cốt lõi để tải xuống, chỉnh sửa phụ đề, gộp và xuất file đều miễn phí",
+      "Chọn giữa credit Stage5 và thanh toán BYO qua nhà cung cấp",
+    ],
+    plansEyebrow: "Cách tính phí",
+    plansTitle: "Một ứng dụng cốt lõi miễn phí, hai cách trả tiền cho AI.",
+    plans: [
+      {
+        eyebrow: "Ứng dụng cốt lõi miễn phí",
+        title: "$0 để tải và bắt đầu dùng",
+        body: "Những phần mọi người dùng để đưa video vào và làm việc với phụ đề vẫn miễn phí, nên bạn có thể nhận được giá trị thực từ ứng dụng trước khi tốn gì cho AI.",
+        items: [
+          "Tải video từ URL",
+          "Chỉnh sửa và đồng bộ phụ đề",
+          "Gộp các track phụ đề",
+          "Xuất SRT và thành phẩm phụ đề",
+        ],
+      },
+      {
+        eyebrow: "Credit Stage5",
+        title: "Cách đơn giản nhất để chạy AI",
+        body: "Mua credit trong ứng dụng và chỉ dùng khi bạn chạy chép lời, dịch, tóm tắt hoặc highlight, hay lồng tiếng. Không cần thiết lập API.",
+        items: [
+          "Phù hợp nhất cho người muốn con đường dễ nhất",
+          "Tốt khi bạn không muốn tự quản lý tài khoản nhà cung cấp",
+          "Dùng được cho chép lời, dịch, tóm tắt, highlight và lồng tiếng",
+        ],
+      },
+      {
+        eyebrow: "Chế độ BYO",
+        title: "Mở khóa một lần $10 rồi dùng khóa của chính bạn",
+        body: "Nếu bạn muốn kiểm soát trực tiếp hóa đơn nhà cung cấp, hãy mở BYO một lần rồi chạy các tính năng AI được hỗ trợ bằng tài khoản OpenAI, Anthropic hoặc ElevenLabs của bạn thay vì dùng credit Stage5.",
+        items: [
+          "Thường rẻ hơn credit nếu bạn đã quen quản lý mức dùng API",
+          "Cho phép bạn tự chọn đường đi nhà cung cấp",
+          "Phù hợp với người dùng nặng muốn thanh toán trực tiếp",
+        ],
+      },
+    ],
+    packsEyebrow: "Ví dụ gói credit",
+    packsTitle: "Các gói credit Stage5 vẫn hoạt động như một chiếc ví đơn giản.",
+    packsDescription:
+      "Đây là các ước lượng tương đương dịch thô dựa trên heuristic hiện tại của ứng dụng. Chế độ chất lượng, lồng tiếng và các đường AI khác có thể tiêu tốn nhiều hơn.",
+    packs: [
+      { name: "Micro", price: "$1", value: "~50 phút" },
+      { name: "Starter", price: "$5", value: "~8 giờ" },
+      { name: "Standard", price: "$10", value: "~18 giờ" },
+      { name: "Pro", price: "$50", value: "~127 giờ" },
+    ],
+    packFootnote:
+      "Dùng credit khi bạn muốn sự tiện lợi. Dùng BYO khi bạn muốn quy trình của ứng dụng nhưng thích thanh toán trực tiếp với nhà cung cấp.",
+    byoEyebrow: "Khi nào BYO hợp lý",
+    byoTitle:
+      "BYO dành cho những người đã trả tiền cho AI và không muốn trả hai lần.",
+    byoDescription:
+      "Nếu bạn đã dùng các tài khoản API trả phí của OpenAI, Anthropic hoặc ElevenLabs, BYO cho phép bạn giữ nguyên quy trình của Translator nhưng tính phí vào các tài khoản API đó thay vì tiêu hao credit Stage5.",
+    byoItems: [
+      "Phù hợp nhất với người dùng nặng đã tự quản lý chi phí API",
+      "Tốt khi bạn muốn thanh toán trực tiếp với nhà cung cấp nhưng vẫn muốn trải nghiệm của ứng dụng",
+      "Hữu ích nếu lúc thì bạn muốn dùng credit cho tiện, lúc thì muốn dùng khóa riêng",
+    ],
+    faqCards: [
+      {
+        title: "Điều gì vẫn miễn phí?",
+        body: "Tải ứng dụng, tải video, chỉnh sửa phụ đề, gộp phụ đề và các công cụ xuất file tiêu chuẩn vẫn miễn phí. Bạn chỉ trả tiền khi công việc AI thực sự chạy.",
+        ctaLabel: "Xem Trình chỉnh sửa phụ đề",
+        href: "/subtitle-editor",
+      },
+      {
+        title: "Cần nhiều hơn một bảng giá?",
+        body: "Nếu bạn đang cố ước tính mức dùng nặng hơn hoặc quyết định giữa credit và BYO, bước tiếp theo tốt nhất là nói về quy trình thực tế của bạn thay vì đoán từ một bảng.",
+        ctaLabel: "Liên hệ",
+        href: "/contact",
+      },
+    ],
+    ctaTitle:
+      "Tải Translator rồi quyết định sau bạn muốn trả tiền cho AI theo cách nào.",
+    ctaBody:
+      "Bắt đầu với các công cụ miễn phí, sau đó dùng credit Stage5 nếu bạn muốn con đường dễ hoặc dùng BYO nếu bạn muốn thanh toán trực tiếp với nhà cung cấp.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề vẫn miễn phí. Chi phí AI chỉ xuất hiện khi bạn chạy các tính năng AI.",
+    metadataKeywords: [
+      "giá Translator",
+      "credit dịch AI",
+      "giá dịch video",
+      "khóa API BYO",
+    ],
+  },
+};
 
 function getPageCopy(locale: Locale): PricingPageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

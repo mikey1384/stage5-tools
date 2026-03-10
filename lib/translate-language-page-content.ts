@@ -5,8 +5,8 @@ import {
 } from "./translate-language-slugs";
 
 type LanguageFacts = {
-  names: Record<Locale, string>;
-  audiences: Record<Locale, string>;
+  names: Partial<Record<Locale, string>>;
+  audiences: Partial<Record<Locale, string>>;
 };
 
 type LanguagePageLocaleCopy = {
@@ -38,6 +38,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "espagnol",
       de: "Spanisch",
       pt: "espanhol",
+      vi: "tiếng Tây Ban Nha",
     },
     audiences: {
       en: "Spanish-speaking audiences",
@@ -48,6 +49,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics hispanophones",
       de: "spanischsprachige Zielgruppen",
       pt: "públicos que falam espanhol",
+      vi: "khán giả nói tiếng Tây Ban Nha",
     },
   },
   korean: {
@@ -60,6 +62,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "coréen",
       de: "Koreanisch",
       pt: "coreano",
+      vi: "tiếng Hàn",
     },
     audiences: {
       en: "Korean-speaking audiences",
@@ -70,6 +73,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics coréens",
       de: "koreanischsprachige Zielgruppen",
       pt: "públicos que falam coreano",
+      vi: "khán giả nói tiếng Hàn",
     },
   },
   japanese: {
@@ -82,6 +86,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "japonais",
       de: "Japanisch",
       pt: "japonês",
+      vi: "tiếng Nhật",
     },
     audiences: {
       en: "Japanese-speaking audiences",
@@ -92,6 +97,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics japonais",
       de: "japanischsprachige Zielgruppen",
       pt: "públicos que falam japonês",
+      vi: "khán giả nói tiếng Nhật",
     },
   },
   chinese: {
@@ -104,6 +110,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "chinois",
       de: "Chinesisch",
       pt: "chinês",
+      vi: "tiếng Trung",
     },
     audiences: {
       en: "Chinese-speaking audiences",
@@ -114,6 +121,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics chinois",
       de: "chinesischsprachige Zielgruppen",
       pt: "públicos que falam chinês",
+      vi: "khán giả nói tiếng Trung",
     },
   },
   french: {
@@ -126,6 +134,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "français",
       de: "Französisch",
       pt: "francês",
+      vi: "tiếng Pháp",
     },
     audiences: {
       en: "French-speaking audiences",
@@ -136,6 +145,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics francophones",
       de: "französischsprachige Zielgruppen",
       pt: "públicos que falam francês",
+      vi: "khán giả nói tiếng Pháp",
     },
   },
   german: {
@@ -148,6 +158,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "allemand",
       de: "Deutsch",
       pt: "alemão",
+      vi: "tiếng Đức",
     },
     audiences: {
       en: "German-speaking audiences",
@@ -158,6 +169,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics germanophones",
       de: "deutschsprachige Zielgruppen",
       pt: "públicos que falam alemão",
+      vi: "khán giả nói tiếng Đức",
     },
   },
   portuguese: {
@@ -170,6 +182,7 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "portugais",
       de: "Portugiesisch",
       pt: "português",
+      vi: "tiếng Bồ Đào Nha",
     },
     audiences: {
       en: "Portuguese-speaking audiences",
@@ -180,11 +193,12 @@ const languageFacts: Record<TranslatedLanguageSlug, LanguageFacts> = {
       fr: "les publics lusophones",
       de: "portugiesischsprachige Zielgruppen",
       pt: "públicos que falam português",
+      vi: "khán giả nói tiếng Bồ Đào Nha",
     },
   },
 };
 
-const localeCopy: Record<Locale, LanguagePageLocaleCopy> = {
+const localeCopy: Partial<Record<Locale, LanguagePageLocaleCopy>> = {
   en: {
     title: (name) => `Translate Videos to ${name} | Translator`,
     description: (name, audience) =>
@@ -425,6 +439,36 @@ const localeCopy: Record<Locale, LanguagePageLocaleCopy> = {
       `legendas em ${name}`,
     ],
   },
+  vi: {
+    title: (name) => `Dịch video sang ${name} | Translator`,
+    description: (name, audience) =>
+      `Dịch phụ đề video sang ${name} cho ${audience} với quy trình phụ đề có AI hỗ trợ.`,
+    intro: (name, audience) =>
+      `Tiếp cận ${audience} bằng phụ đề ${name} dễ rà soát, tinh chỉnh và xuất file.`,
+    creatorUseCase: (audience) =>
+      `Nhà sáng tạo đang bản địa hóa video cho ${audience}.`,
+    businessUseCase: (audience) =>
+      `Doanh nghiệp điều chỉnh video sản phẩm, đào tạo và hỗ trợ cho ${audience}.`,
+    educationUseCase: (name) =>
+      `Đội ngũ giáo dục và xuất bản thêm phụ đề ${name} cho người xem đa ngôn ngữ.`,
+    heading: (name) => `Dịch video sang ${name}`,
+    useCasesHeading: "Trường hợp sử dụng phổ biến",
+    workflowTitle: "Quy trình dịch phụ đề bằng AI",
+    workflowDescription:
+      "Nhập phụ đề, dịch bằng AI, rà soát kết quả rồi xuất tệp SRT sạch sẵn sàng để đăng.",
+    workflowBackLabel: "Quay lại Dịch bằng AI →",
+    cleanupTitle: "Chỉnh và đồng bộ trước khi dịch",
+    cleanupDescription:
+      "Dùng trình chỉnh sửa phụ đề để dọn lại mốc thời gian và câu chữ trước khi bản địa hóa.",
+    finalNote: (name) =>
+      `Dịch phụ đề sang ${name} bằng quy trình AI được xây cho các đội ngũ video thực tế.`,
+    keywords: (name) => [
+      `dịch video sang ${name}`,
+      `trình dịch phụ đề ${name}`,
+      `dịch video bằng AI ${name}`,
+      `phụ đề ${name}`,
+    ],
+  },
 };
 
 export const translatedLanguageSlugs = [...TRANSLATED_LANGUAGE_SLUGS];
@@ -434,9 +478,9 @@ export function getLanguagePageContent(
   slug: TranslatedLanguageSlug
 ) {
   const facts = languageFacts[slug];
-  const copy = localeCopy[locale];
-  const name = facts.names[locale];
-  const audience = facts.audiences[locale];
+  const copy = localeCopy[locale] ?? localeCopy.en!;
+  const name = facts.names[locale] ?? facts.names.en!;
+  const audience = facts.audiences[locale] ?? facts.audiences.en!;
 
   return {
     name,

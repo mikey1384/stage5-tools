@@ -32,7 +32,7 @@ type AboutPageCopy = {
   ctaNote: string;
 };
 
-const pageCopy: Record<Locale, AboutPageCopy> = {
+const pageCopy: Partial<Record<Locale, AboutPageCopy>> = {
   en: {
     metadataDescription:
       "Stage5 builds Translator and Echo, two apps that use AI to make language and thinking friction smaller instead of adding more app friction.",
@@ -337,10 +337,50 @@ const pageCopy: Record<Locale, AboutPageCopy> = {
     ctaNote:
       "Baixar e editar legendas é grátis. A IA só custa quando você realmente usa recursos de IA.",
   },
+  vi: {
+    metadataDescription:
+      "Stage5 xây dựng Translator và Echo, hai sản phẩm giúp giảm ma sát về ngôn ngữ, gợi ý và quán tính suy nghĩ thay vì tạo thêm ma sát từ ứng dụng.",
+    heroEyebrow: "Stage5 đang làm gì",
+    heroTitle:
+      "Chúng tôi xây dựng sản phẩm giúp mọi người vượt qua những giới hạn họ được giao sẵn.",
+    heroDescription:
+      "Translator giúp bạn vượt qua giới hạn về ngôn ngữ và gợi ý trong những luồng nội dung quen thuộc. Echo giúp bạn thoát khỏi chế độ tự động trong đầu bằng một câu hỏi hữu ích mỗi ngày và buộc bạn viết ra trước khi nghĩ quá nhiều.",
+    heroPoints: [
+      "Translator giúp bạn tìm những video mà ứng dụng thường dùng sẽ không bao giờ gợi ra và xem chúng bằng ngôn ngữ của mình",
+      "Echo dùng AI để phá vỡ chế độ tự động bên trong bạn bằng một câu hỏi mỗi ngày đáng để trả lời",
+      "Cả hai sản phẩm đều cố mở rộng những gì bạn có thể chạm tới thay vì nhốt bạn trong một vòng lặp hẹp hơn",
+    ],
+    sectionEyebrow: "Sản phẩm",
+    sectionTitle:
+      "Hiện tại điều đó có nghĩa là hai sản phẩm: Translator giúp bạn vượt qua video bằng tiếng nước ngoài, còn Echo giúp bạn suy nghĩ rõ hơn từ một câu hỏi hay mỗi ngày.",
+    productCards: [
+      {
+        eyebrow: "Video",
+        title: "Translator",
+        body: "Translator giúp bạn tìm video nằm ngoài thuật toán quen thuộc, xem chúng bằng ngôn ngữ của mình, rồi biến những video đáng giữ lại thành video có phụ đề hoặc lồng tiếng.",
+        ctaLabel: "Xem Translator",
+        href: "/translate",
+      },
+      {
+        eyebrow: "Viết",
+        title: "Echo: Stream your mind",
+        body: "Echo bắt đầu từ ý tưởng dùng AI theo chiều ngược lại. Thay vì mở AI để xin câu trả lời, bạn nhận một câu hỏi mỗi ngày, viết một mạch không quay lại sửa, rồi để ứng dụng giúp bạn nhìn ra điều mình thực sự muốn nói sau khi bản nháp lộn xộn đã tuôn ra.",
+        ctaLabel: "Xem Echo trên App Store",
+        href: "https://apps.apple.com/us/app/echo-stream-your-mind/id6757453505",
+        external: true,
+      },
+    ],
+    ctaTitle:
+      "Tải Translator và hiểu sản phẩm bằng cách dùng nó thay vì chỉ đọc quanh nó.",
+    ctaBody:
+      "Cách nhanh nhất để hiểu Stage5 đang xây dựng gì là mở ứng dụng, thử các công cụ miễn phí và tự đi qua toàn bộ luồng làm việc.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề đều miễn phí. AI chỉ tốn tiền khi bạn thực sự chạy các tính năng AI.",
+  },
 };
 
 function getPageCopy(locale: Locale): AboutPageCopy {
-  return pageCopy[locale] ?? pageCopy.en;
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -359,6 +399,13 @@ export async function generateMetadata(): Promise<Metadata> {
             "AI 비디오 번역 도구",
             "자막 편집 앱",
           ]
+        : locale === "vi"
+          ? [
+              "giới thiệu Stage5 Tools",
+              "giới thiệu ứng dụng Translator",
+              "công ty dịch video AI",
+              "ứng dụng chỉnh sửa phụ đề",
+            ]
         : [
             "Stage5 Tools",
             "Translator app",

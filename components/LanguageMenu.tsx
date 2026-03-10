@@ -5,12 +5,14 @@ import { useState } from "react";
 import { parseLocaleCookie, resolveLocaleCookieDomain } from "../lib/locale-cookie";
 import {
   DEFAULT_LOCALE,
+  englishPathFor,
   homeHrefForLocale,
   isLocale,
   isFullSiteLocale,
   localeFromPathname,
-  localeOptions,
+  localeOptionsForPath,
   localizePathForLocale,
+  supportsLocalePath,
   type Locale,
 } from "../lib/locales";
 
@@ -26,6 +28,10 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
   const cookieLocale =
     typeof document === "undefined" ? undefined : parseLocaleCookie(document.cookie);
   const [isChanging, setIsChanging] = useState(false);
+  const englishPath = englishPathFor(pathname);
+  const availableOptions = localeOptionsForPath(pathname);
+  const supportsCurrentRoute = (locale: Locale | undefined): locale is Locale =>
+    !!locale && supportsLocalePath(locale, englishPath);
   const domLocale =
     typeof document !== "undefined"
       ? ((document.documentElement.lang as Locale) ?? DEFAULT_LOCALE)
@@ -33,9 +39,13 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
   const locale =
     pathLocale !== DEFAULT_LOCALE
       ? pathLocale
-      : isLocale(queryLocale)
+      : isLocale(queryLocale) && supportsCurrentRoute(queryLocale)
         ? queryLocale
-        : cookieLocale ?? domLocale;
+        : supportsCurrentRoute(cookieLocale)
+          ? cookieLocale
+          : supportsCurrentRoute(domLocale)
+            ? domLocale
+            : DEFAULT_LOCALE;
 
   // Hide on routes that don't support localization
   if (pathname.startsWith("/echo") || pathname.startsWith("/checkout")) return null;
@@ -76,7 +86,7 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
             isChanging ? "opacity-50 cursor-wait" : ""
           }`}
         >
-          {localeOptions.map((option) => (
+          {availableOptions.map((option) => (
             <option key={option.locale} value={option.locale}>
               {option.label}
             </option>

@@ -46,7 +46,7 @@ const watchSubtitleScreenshot = {
   height: 1003,
 };
 
-const pageCopy = {
+const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
   en: {
     heroEyebrow: "Watch it in your own language",
     heroDescription:
@@ -951,10 +951,123 @@ const pageCopy = {
       "tradutor de legendas do YouTube",
     ],
   },
-} satisfies Record<Locale, TranslatePageCopy>;
+  vi: {
+    heroEyebrow: "Xem bằng ngôn ngữ của bạn",
+    heroDescription:
+      "Dịch phụ đề YouTube hoặc tệp SRT cục bộ sang 39 ngôn ngữ. Dùng credit Stage5 cho con đường đơn giản nhất với GPT-5.1 và lượt rà soát GPT-5.4 tùy chọn, hoặc chuyển sang khóa OpenAI hay Anthropic của chính bạn.",
+    heroPoints: [
+      "Dịch phụ đề mà không làm vỡ timing",
+      "Chọn giữa credit Stage5 và khóa nhà cung cấp của riêng bạn",
+      "Đi từ xem bản dịch đến xuất video có phụ đề hoặc lồng tiếng trong một ứng dụng",
+    ],
+    screenshotCaption:
+      "Phụ đề đã dịch xuất hiện trong cùng một luồng làm việc, nên bạn có thể xem, rà soát và tiếp tục chỉnh sửa mà không phải nhảy giữa các công cụ.",
+    screenshotAlt: "Xem video với phụ đề đã dịch trong Translator",
+    outcomesEyebrow: "Bạn nhận được gì",
+    outcomesTitle:
+      "Một bản dịch phụ đề tốt phải giúp bạn theo kịp video tự nhiên, chứ không bắt bạn vật lộn với phụ đề.",
+    features: [
+      {
+        title: "Chế độ chất lượng của Stage5 thêm bước rà soát GPT-5.4",
+        body: "Đường mặc định của Stage5 bắt đầu với GPT-5.1, và chế độ Quality thêm một lượt rà soát mạnh hơn bằng GPT-5.4 khi bạn cần câu chữ tốt hơn.",
+      },
+      {
+        title: "Dùng khóa OpenAI hoặc Anthropic của riêng bạn",
+        body: "Mở BYO một lần, thêm khóa của bạn và chạy việc dịch trên chính tài khoản nhà cung cấp thay vì tiêu credit Stage5.",
+      },
+      {
+        title: "Được xây cho công việc phụ đề thực sự",
+        body: "Giữ nguyên timing, rà từng dòng trong ngữ cảnh và chuyển thẳng sang xuất file, bản lồng tiếng hoặc chỉnh sửa thêm mà không phải bắt đầu lại.",
+      },
+    ],
+    workflowEyebrow: "Cách hoạt động",
+    workflowTitle:
+      "Một con đường đơn giản từ phụ đề gốc đến bản dịch bạn thực sự dùng được.",
+    workflowSteps: [
+      {
+        step: "01",
+        title: "Bắt đầu với bộ phụ đề đáng tin",
+        body: "Nhập một tệp phụ đề có sẵn hoặc tạo từ video gốc để bạn bắt đầu từ một thứ có thật.",
+      },
+      {
+        step: "02",
+        title: "Chọn ngôn ngữ, chất lượng và cách tính phí",
+        body: "Chọn ngôn ngữ đích, quyết định có cần lượt rà soát GPT-5.4 bổ sung hay không, rồi chạy bằng credit Stage5 hoặc khóa riêng của bạn.",
+      },
+      {
+        step: "03",
+        title: "Rà soát và biến nó thành đầu ra",
+        body: "Xem kết quả đã dịch, chỉnh những phần quan trọng và tiếp tục sang xuất video có phụ đề hoặc bước tiếp theo trong quy trình.",
+      },
+    ],
+    languageEyebrow: "Độ phủ ngôn ngữ",
+    languageDescription:
+      "Dịch sang cùng tập ngôn ngữ rộng mà ứng dụng hỗ trợ, không chỉ vài tuyến đã có trang chi tiết riêng.",
+    languages: [
+      { label: "tiếng Anh" },
+      { label: "tiếng Hàn", href: "/translate/korean" },
+      { label: "tiếng Nhật", href: "/translate/japanese" },
+      { label: "tiếng Trung (giản thể)", href: "/translate/chinese" },
+      { label: "tiếng Trung (phồn thể)", href: "/translate/chinese" },
+      { label: "tiếng Việt" },
+      { label: "tiếng Tây Ban Nha", href: "/translate/spanish" },
+      { label: "tiếng Pháp", href: "/translate/french" },
+      { label: "tiếng Đức", href: "/translate/german" },
+      { label: "tiếng Italy" },
+      { label: "tiếng Bồ Đào Nha", href: "/translate/portuguese" },
+      { label: "tiếng Nga" },
+      { label: "tiếng Hà Lan" },
+      { label: "tiếng Ba Lan" },
+      { label: "tiếng Thụy Điển" },
+      { label: "tiếng Thổ Nhĩ Kỳ" },
+      { label: "tiếng Na Uy" },
+      { label: "tiếng Đan Mạch" },
+      { label: "tiếng Phần Lan" },
+      { label: "tiếng Hy Lạp" },
+      { label: "tiếng Séc" },
+      { label: "tiếng Hungary" },
+      { label: "tiếng Romania" },
+      { label: "tiếng Ukraina" },
+      { label: "tiếng Hindi" },
+      { label: "tiếng Indonesia" },
+      { label: "tiếng Thái" },
+      { label: "tiếng Mã Lai" },
+      { label: "tiếng Tagalog (Filipino)" },
+      { label: "tiếng Bengal" },
+      { label: "tiếng Tamil" },
+      { label: "tiếng Telugu" },
+      { label: "tiếng Marathi" },
+      { label: "tiếng Urdu" },
+      { label: "tiếng Ả Rập" },
+      { label: "tiếng Do Thái" },
+      { label: "tiếng Farsi (Ba Tư)" },
+      { label: "tiếng Swahili" },
+      { label: "tiếng Afrikaans" },
+    ],
+    bridgeTitle: "Cần cả những bước xung quanh việc dịch?",
+    bridgeBody:
+      "Bạn có thể làm sạch phụ đề trước, hoặc bắt đầu từ một URL nếu video vẫn chưa có trên máy.",
+    bridgePrimary: "Xem Trình chỉnh sửa phụ đề",
+    bridgeSecondary: "Xem Trình tải video",
+    ctaTitle:
+      "Tải Translator và biến phụ đề thành thứ bạn thực sự xem được bằng ngôn ngữ của mình.",
+    ctaBody:
+      "Dịch video, rà soát trong ngữ cảnh và tiếp tục đến các đầu ra có phụ đề hoặc lồng tiếng mà không rời khỏi quy trình.",
+    metadataDescription:
+      "Dịch phụ đề YouTube hoặc tệp SRT cục bộ sang 39 ngôn ngữ bằng credit Stage5 hoặc khóa API OpenAI và Anthropic của riêng bạn.",
+    metadataKeywords: [
+      "dịch phụ đề bằng AI",
+      "dịch phụ đề video",
+      "dịch video tự động",
+      "trình dịch video AI",
+      "trình dịch SRT",
+      "dịch phụ đề YouTube",
+    ],
+  },
+};
 
 function getPageCopy(locale: Locale): TranslatePageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

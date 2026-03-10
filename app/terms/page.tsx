@@ -10,7 +10,7 @@ import { t } from "../../lib/strings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const content = termsContent[locale];
+  const content = termsContent[locale] ?? termsContent.en!;
   return buildMetadata({
     title: content.metaTitle,
     description: content.metaDescription,
@@ -28,7 +28,7 @@ export default async function TermsPage({
   const params = await searchParams;
   const locale = await getLocale(params);
   const homeHref = homeHrefForLocale(locale);
-  const content = termsContent[locale];
+  const content = termsContent[locale] ?? termsContent.en!;
 
   return (
     <main className="min-h-screen bg-black">

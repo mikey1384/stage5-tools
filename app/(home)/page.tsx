@@ -88,9 +88,9 @@ type HomeCopy = {
 const baseHomeCopy = {
   en: {
     pageTitle:
-      "Translator - Search global videos in your language | Free desktop app",
+      "Translator - Find, watch, and localize foreign-language videos | Free desktop app",
     metadataDescription:
-      "Search for videos in your own language, discover creators outside your language bubble, and watch with translated subtitles in a few clicks. Then dub, clip, edit, and export in one desktop app.",
+      "Find foreign-language videos beyond your usual algorithm, watch them in your own language, and turn the best ones into subtitled or dubbed videos you can keep in one desktop app.",
     eyebrow: "Not just another AI video translator",
     title:
       "If it's in another language, you may never even find it. Translator gets you past that barrier first.",
@@ -236,9 +236,9 @@ const baseHomeCopy = {
   },
   ko: {
     pageTitle:
-      "Translator - 내 언어로 전 세계 영상을 찾는 데스크톱 앱 | 무료 다운로드",
+      "Translator - 외국어 영상을 찾고, 보고, 현지화하는 데스크톱 앱 | 무료 다운로드",
     metadataDescription:
-      "내 언어로 검색하고, 다른 언어권의 영상과 크리에이터를 발견하고, 몇 번의 클릭으로 번역 자막과 함께 시청하세요. 이후 더빙, 클립, 편집, 내보내기까지 한 앱에서 이어집니다.",
+      "평소 알고리즘이 보여주지 않던 외국어 영상을 찾고, 내 언어로 시청하고, 가장 좋은 영상은 한 데스크톱 앱에서 자막 영상이나 더빙 영상으로 만들어 보관하세요.",
     eyebrow: "그냥 또 하나의 AI 비디오 번역기가 아닙니다",
     title: "언어가 다르면 발견조차 어렵습니다. Translator는 그 장벽부터 넘깁니다.",
     subtitle:
@@ -387,9 +387,9 @@ const homeCopy = {
   es: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Busca videos globales en tu idioma | App de escritorio gratis",
+      "Translator - Encuentra, mira y localiza videos en otros idiomas | App de escritorio gratis",
     metadataDescription:
-      "Busca videos en tu propio idioma, descubre creadores fuera de tu burbuja lingüística y míralos con subtítulos traducidos en pocos clics. Luego dobla, recorta, edita y exporta en una sola app de escritorio.",
+      "Encuentra videos en otros idiomas más allá de tu algoritmo habitual, míralos en tu propio idioma y convierte los mejores en videos subtitulados o doblados que puedas guardar en una sola app de escritorio.",
     eyebrow: "No es otro traductor de video con IA",
     title:
       "Si está en otro idioma, quizá ni siquiera lo encuentres. Translator rompe primero esa barrera.",
@@ -539,9 +539,9 @@ const homeCopy = {
   ja: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - 自分の言語で世界の動画を探せるデスクトップアプリ | 無料ダウンロード",
+      "Translator - 外国語の動画を見つけて、見て、ローカライズできるデスクトップアプリ | 無料ダウンロード",
     metadataDescription:
-      "自分の言語で動画を探し、言語の壁の外にいるクリエイターを見つけ、翻訳字幕付きですぐ視聴できます。そのまま吹き替え、切り抜き、編集、書き出しまで1つのデスクトップアプリで続けられます。",
+      "いつものアルゴリズムでは出会えない外国語動画を見つけ、自分の言語で視聴し、気に入ったものは1つのデスクトップアプリで字幕付きや吹き替え付きの動画として残せます。",
     eyebrow: "ただの AI 動画翻訳ツールではありません",
     title:
       "別の言語にある動画は、そもそも見つけられないことがあります。Translator はまずその壁を越えます。",
@@ -690,9 +690,9 @@ const homeCopy = {
   zh: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - 用你的语言搜索全球视频 | 免费桌面应用",
+      "Translator - 发现、观看并本地化外语视频 | 免费桌面应用",
     metadataDescription:
-      "用你的语言搜索视频，发现语言圈外的创作者，并在几次点击内用翻译字幕观看。然后在同一款桌面应用里继续配音、剪辑、编辑和导出。",
+      "找到超出你平时算法推荐范围的外语视频，用你的语言观看，并在一款桌面应用里把最值得保留的内容做成带字幕或配音的视频。",
     eyebrow: "不只是又一个 AI 视频翻译器",
     title: "如果内容在另一种语言里，你甚至可能根本找不到。Translator 先帮你越过这道门槛。",
     subtitle:
@@ -833,9 +833,9 @@ const homeCopy = {
   fr: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Recherchez des vidéos mondiales dans votre langue | App desktop gratuite",
+      "Translator - Trouvez, regardez et localisez des vidéos en langue étrangère | App desktop gratuite",
     metadataDescription:
-      "Recherchez des vidéos dans votre langue, découvrez des créateurs hors de votre bulle linguistique et regardez-les avec des sous-titres traduits en quelques clics. Ensuite, doublez, découpez, éditez et exportez dans une seule app desktop.",
+      "Trouvez des vidéos en langue étrangère au-delà de votre algorithme habituel, regardez-les dans votre langue et transformez les meilleures en vidéos sous-titrées ou doublées que vous pouvez conserver dans une seule app desktop.",
     eyebrow: "Pas juste un autre traducteur vidéo IA",
     title:
       "Si c’est dans une autre langue, vous ne le trouverez peut-être même jamais. Translator vous aide d’abord à franchir cette barrière.",
@@ -986,9 +986,9 @@ const homeCopy = {
   de: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Weltweite Videos in deiner Sprache finden | Kostenlose Desktop-App",
+      "Translator - Fremdsprachige Videos finden, ansehen und lokalisieren | Kostenlose Desktop-App",
     metadataDescription:
-      "Suche Videos in deiner Sprache, entdecke Creator außerhalb deiner Sprachblase und sieh sie mit übersetzten Untertiteln in wenigen Klicks an. Danach kannst du alles in derselben Desktop-App dubben, schneiden, bearbeiten und exportieren.",
+      "Finde fremdsprachige Videos jenseits deines üblichen Algorithmus, sieh sie in deiner eigenen Sprache an und verwandle die besten in untertitelte oder gedubbte Videos, die du in einer einzigen Desktop-App behalten kannst.",
     eyebrow: "Nicht einfach noch ein KI-Videoübersetzer",
     title:
       "Wenn etwas in einer anderen Sprache ist, findest du es vielleicht nicht einmal. Translator hilft dir zuerst über genau diese Hürde hinweg.",
@@ -1139,9 +1139,9 @@ const homeCopy = {
   pt: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Pesquise vídeos globais no seu idioma | App desktop grátis",
+      "Translator - Encontre, assista e localize vídeos em outros idiomas | App desktop grátis",
     metadataDescription:
-      "Pesquise vídeos no seu idioma, descubra criadores fora da sua bolha linguística e assista com legendas traduzidas em poucos cliques. Depois faça dublagem, cortes, edição e exportação na mesma app desktop.",
+      "Encontre vídeos em outros idiomas além do que o seu algoritmo costuma mostrar, assista no seu próprio idioma e transforme os melhores em vídeos legendados ou dublados para guardar em um só app desktop.",
     eyebrow: "Não é só mais um tradutor de vídeo com IA",
     title:
       "Se estiver em outro idioma, talvez você nem encontre. O Translator ajuda você a passar primeiro por essa barreira.",
@@ -1288,6 +1288,158 @@ const homeCopy = {
     heroDiscoveryAlt: "Resultados de busca de recomendações de vídeo com IA",
     viewerAlt: "Assistindo a um vídeo com legendas traduzidas",
     actionAlt: "Analisando candidatos a clipes de destaque",
+  },
+  vi: {
+    ...baseHomeCopy.en,
+    pageTitle:
+      "Translator - Tìm, xem và bản địa hóa video nước ngoài | Ứng dụng desktop miễn phí",
+    metadataDescription:
+      "Tìm các video nước ngoài vượt ra ngoài thứ mà thuật toán quen thuộc của bạn thường hiển thị, xem chúng bằng ngôn ngữ của bạn, rồi biến những video đáng giữ nhất thành video có phụ đề hoặc lồng tiếng trong một ứng dụng desktop duy nhất.",
+    eyebrow: "Không chỉ là một công cụ dịch video AI nữa",
+    title:
+      "Nếu nội dung nằm ở một ngôn ngữ khác, có khi bạn còn không tìm thấy nó. Translator giúp bạn vượt qua rào cản đó trước tiên.",
+    subtitle:
+      "Tìm kiếm bằng chính ngôn ngữ của bạn. Khám phá video, creator, phỏng vấn, tutorial và xu hướng từ những thế giới ngôn ngữ hoàn toàn khác. Xem chúng với phụ đề dịch chỉ sau vài cú nhấp, rồi tiếp tục lồng tiếng, cắt clip hoặc bản địa hóa ngay trong cùng một ứng dụng.",
+    heroPoints: [
+      "Tìm kiếm toàn cầu bằng ngôn ngữ mẹ đẻ của bạn",
+      "Xem nhanh video nước ngoài với phụ đề dịch",
+      "Biến những gì bạn tìm thấy thành bản lồng tiếng, clip hoặc bản xuất đã bản địa hóa",
+      "Giữ tải xuống, phụ đề, lồng tiếng và xuất file trong một quy trình desktop duy nhất",
+    ],
+    heroNote:
+      "Tải xuống miễn phí. Tải video và chỉnh sửa phụ đề đều miễn phí. Tính năng AI chỉ dùng credit khi bạn thực sự chạy chúng.",
+    heroPricingLink: "Xem giá",
+    heroFaqLink: "Đọc FAQ",
+    heroScreenshotCaption:
+      "Mô tả kiểu video bạn muốn tìm, chỉ thêm quốc gia hoặc độ mới khi điều đó thực sự quan trọng. Translator sẽ trả về các kênh và video sẵn sàng để xem hoặc tải xuống.",
+    metrics: [
+      {
+        value: "39",
+        label: "ngôn ngữ phụ đề",
+        detail: "Được tạo ra để vượt qua rào cản ngôn ngữ, không chỉ để làm đẹp phụ đề.",
+      },
+      {
+        value: "Tìm trước",
+        label: "khám phá trước khi dịch",
+        detail: "Dùng chính ngôn ngữ của bạn để chạm tới những video mà feed của bạn chưa từng hiển thị.",
+      },
+      {
+        value: "Một ứng dụng",
+        label: "không phải năm công cụ rời rạc",
+        detail: "Tải xuống, chép lời, dịch, lồng tiếng, cắt clip và xuất file trong cùng một nơi.",
+      },
+      {
+        value: "Từ người xem đến người làm",
+        label: "quy trình luôn mở",
+        detail: "Bạn có thể xem cho riêng mình hoặc biến chính video đó thành tài sản sẵn sàng để đăng.",
+      },
+    ],
+    comparisonEyebrow: "Điều mà các công cụ khác bỏ lỡ",
+    comparisonTitle: "Hầu hết công cụ dịch video AI bắt đầu quá muộn.",
+    comparisonDescription:
+      "Chúng chỉ giúp khi bạn đã có video trong tay. Translator giúp bạn tìm ra nó trước, xem bằng ngôn ngữ của mình, rồi biến nó thành đầu ra hoàn chỉnh trong cùng một quy trình.",
+    typicalLabel: "Trình dịch AI thông thường",
+    translatorLabel: "Translator",
+    comparisonRows: [
+      {
+        typical: "Chỉ bắt đầu sau khi bạn đã tìm được video.",
+        translator:
+          "Cho phép bạn tìm bằng ngôn ngữ của mình và đưa lên trước những video từ các thế giới ngôn ngữ khác.",
+      },
+      {
+        typical: "Chỉ trả lại văn bản hoặc phụ đề đã dịch.",
+        translator:
+          "Cho phép bạn xem, chỉnh sửa, lồng tiếng, tóm tắt, cắt clip và xuất file trong cùng một luồng.",
+      },
+      {
+        typical: "Cần công cụ riêng cho tải xuống, chỉnh sửa, TTS và xuất file.",
+        translator:
+          "Giữ toàn bộ quy trình video trong một workspace desktop duy nhất.",
+      },
+      {
+        typical: "Cảm giác như một tiện ích đơn lẻ.",
+        translator:
+          "Cảm giác như cánh cửa mở ra một internet rộng hơn và một cách nhanh hơn để hành động trên thứ bạn tìm thấy.",
+      },
+    ],
+    sellingEyebrow: "Những gì bạn thực sự có được",
+    sellingTitle:
+      "Tìm video ngoài bong bóng ngôn ngữ của bạn, rồi xem, làm phụ đề, lồng tiếng và xuất file ngay trong một ứng dụng.",
+    sellingDescription:
+      "Translator giúp bạn tìm video bằng ngôn ngữ khác, xem chúng bằng ngôn ngữ của mình, rồi biến chúng thành video có phụ đề hoặc lồng tiếng mà không phải xoay giữa năm công cụ khác nhau.",
+    sellingPoints: [
+      {
+        title: "Tìm những video mà thuật toán YouTube của bạn sẽ không bao giờ đưa lên",
+        description:
+          "Gõ điều bạn muốn bằng chính ngôn ngữ của mình và dùng Translator để kéo lên những video mà chỉ với feed địa phương bạn sẽ không bao giờ khám phá ra.",
+        href: "/video-discovery",
+        cta: "Xem khám phá video",
+      },
+      {
+        title: "Xem trước, rồi mới quyết định thứ gì đáng giữ",
+        description:
+          "Có phụ đề dịch nhanh, giữ ngữ cảnh gốc ngay bên cạnh và quyết định xem video đó có đáng để chỉnh sâu hơn, lồng tiếng hay cắt clip hay không.",
+        href: "/subtitle-editor",
+        cta: "Xem trình chỉnh sửa",
+      },
+      {
+        title: "Hoàn thành toàn bộ quy trình trong một ứng dụng",
+        description:
+          "Tải xuống, chép lời, dịch, lồng tiếng, đốt phụ đề và xuất file mà không phải nhảy qua lại giữa tab và ứng dụng.",
+        href: "/video-downloader",
+        cta: "Xem trình tải xuống",
+      },
+      {
+        title: "Chỉ trả tiền khi AI thực sự chạy",
+        description:
+          "Ứng dụng được tải miễn phí, chỉnh phụ đề miễn phí, và đủ linh hoạt cho người dùng nâng cao muốn dùng credit hoặc khóa BYO.",
+        href: "/pricing",
+        cta: "Xem giá",
+      },
+    ],
+    socialEyebrow: "Mọi người nói gì",
+    socialTitle: "Người ta nhận ra sự khác biệt rất nhanh.",
+    socialDescription:
+      "Sản phẩm tạo cảm giác như một quy trình hoàn chỉnh có gu, chứ không phải thêm một lớp vỏ mỏng bọc quanh đầu ra mô hình.",
+    languagesEyebrow: "Độ phủ ngôn ngữ",
+    languagesTitle: "Dịch sang 39 ngôn ngữ phụ đề mà không rời khỏi quy trình.",
+    languagesDescription:
+      "Bắt đầu với những ngôn ngữ người dùng mong đợi, rồi vươn ra phần đuôi dài khi đúng video hoặc đúng khán giả nằm ở nơi khác.",
+    bottomEyebrow: "Mở ra một internet lớn hơn",
+    bottomTitle:
+      "Tải Translator và bắt đầu xem vượt ra ngoài ranh giới ngôn ngữ của bạn.",
+    bottomDescription:
+      "Tìm những video mà thuật toán YouTube chưa từng cho bạn thấy, xem chúng bằng ngôn ngữ của mình, rồi biến những video tốt nhất thành video có phụ đề hoặc lồng tiếng mà bạn có thể giữ lại.",
+    mockSearchQuery: "phỏng vấn đường phố nhật bản hay về văn hóa làm việc",
+    mockSearchTag: "Tìm bằng tiếng Việt",
+    heroBenefitTitle1: "Xem trước với phụ đề dịch",
+    heroBenefitBody1:
+      "Bạn có thể hiểu nhanh video nước ngoài trước khi quyết định liệu nó có đáng để lưu, cắt clip hay bản địa hóa hay không.",
+    heroBenefitTitle2: "Đi từ khám phá đến đầu ra trong một ứng dụng",
+    heroBenefitBody2:
+      "Khi một video thực sự quan trọng, bạn có thể tiếp tục với phụ đề, lồng tiếng, tóm tắt, highlight và xuất file mà không cần đổi công cụ.",
+    viewerEyebrow: "Xem ngay khi nó diễn ra",
+    viewerWindowTitle: "Phụ đề dịch trực tiếp",
+    viewerTitle:
+      "Phụ đề dịch xuất hiện từng dòng ngay cả khi tác vụ vẫn đang chạy.",
+    viewerDescription:
+      "Bạn có thể bắt đầu xem video bằng ngôn ngữ của mình ngay lập tức thay vì phải chờ toàn bộ tác vụ dịch hoàn thành.",
+    viewerScreenshotCaption:
+      "Mỗi khi một dòng phụ đề được dịch xong, nó sẽ hiện ngay trong trình phát. Bạn không phải đợi toàn bộ tệp hoàn tất.",
+    actionEyebrow: "Biến nó thành thứ gì đó hữu ích",
+    actionWindowTitle: "Clip nổi bật",
+    actionTitle:
+      "Lấy ra những khoảnh khắc hay nhất từ một video dài mà không cần làm thủ công.",
+    actionDescription:
+      "Khi bạn tìm được thứ đáng giữ, Translator có thể giúp làm nổi bật những đoạn đáng chú ý và biến một video dài thành các clip ngắn thực sự dùng được.",
+    actionScreenshotCaption:
+      "Các clip đề xuất hiện kèm mốc thời gian, tóm tắt và xem trước để bạn chỉ giữ lại những phần đáng chia sẻ.",
+    aboutLinkLabel: "Vì sao chúng tôi xây dựng nó",
+    sellingCardEyebrow: "Vì sao điều đó quan trọng",
+    productHuntLinkLabel: "Xem trên Product Hunt",
+    heroDiscoveryAlt: "Kết quả tìm kiếm gợi ý video bằng AI",
+    viewerAlt: "Đang xem lại video với phụ đề đã dịch",
+    actionAlt: "Đang xem lại các clip nổi bật được đề xuất",
   },
 } satisfies Record<Locale, HomeCopy>;
 

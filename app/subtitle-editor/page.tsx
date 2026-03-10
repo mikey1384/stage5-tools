@@ -39,7 +39,7 @@ const subtitleEditorScreenshot = {
   height: 1780,
 };
 
-const pageCopy: Record<Locale, SubtitleEditorPageCopy> = {
+const pageCopy: Partial<Record<Locale, SubtitleEditorPageCopy>> = {
   en: {
     heroEyebrow: "Fix the subtitles without fighting the tool",
     heroPoints: [
@@ -384,9 +384,53 @@ const pageCopy: Record<Locale, SubtitleEditorPageCopy> = {
     ctaBody:
       "Acerte as linhas, acerte o tempo e siga em frente sem transformar o trabalho de legendas em outra cadeia de ferramentas.",
   },
+  vi: {
+    heroEyebrow: "Sửa phụ đề mà không phải vật lộn với công cụ",
+    heroPoints: [
+      "Chỉnh thời gian mà vẫn bám sát video",
+      "Gộp, làm sạch và đánh bóng các track trong một luồng duy nhất",
+      "Giữ phần chỉnh sửa nối liền với dịch và xuất file cuối cùng",
+    ],
+    screenshotCaption:
+      "Làm phụ đề dễ hơn nhiều khi video, từng dòng và bước tiếp theo ở cùng một chỗ thay vì bị chia ra giữa nhiều công cụ.",
+    screenshotAlt: "Chỉnh sửa và rà soát phụ đề trong Translator",
+    outcomesEyebrow: "Bạn nhận được gì",
+    outcomesTitle:
+      "Trình chỉnh sửa phụ đề này được tạo ra để đi đến kết quả cuối sạch hơn, không chỉ để kéo chữ qua lại.",
+    workflowEyebrow: "Cách hoạt động",
+    workflowTitle:
+      "Làm sạch, đồng bộ và hoàn tất phụ đề mà không làm gãy luồng làm việc.",
+    workflowSteps: [
+      {
+        step: "01",
+        title: "Đưa phụ đề vào hoặc tạo mới",
+        body: "Bắt đầu bằng một tệp phụ đề sẵn có hoặc tạo từ video để bạn có một nền tảng cụ thể để làm việc.",
+      },
+      {
+        step: "02",
+        title: "Sửa thời gian và dọn từng dòng",
+        body: "Chỉnh đồng bộ, gộp các đoạn bị cắt vụn khó chịu và làm câu chữ dễ đọc hơn trong khi đối chiếu với video.",
+      },
+      {
+        step: "03",
+        title: "Xuất file hoặc chuyển sang bước tiếp theo",
+        body: "Rời đi với phụ đề sạch hơn, đốt chúng vào video hoặc chuyển thẳng sang dịch mà không phải dựng lại quy trình.",
+      },
+    ],
+    bridgeTitle:
+      "Cần video trước hay muốn tiếp tục sau khi chỉnh sửa xong?",
+    bridgeBody:
+      "Lấy nguồn từ một URL hoặc dùng bộ phụ đề đã làm sạch làm nền cho bản dịch và các đầu ra tiếp theo.",
+    bridgePrimary: "Xem Trình tải video",
+    bridgeSecondary: "Xem Dịch bằng AI",
+    ctaTitle:
+      "Tải Translator và dọn phụ đề ngay tại nơi bạn xem, dịch và xuất file.",
+    ctaBody:
+      "Sửa câu, sửa thời gian và tiếp tục tiến mà không biến việc làm phụ đề thành một chuỗi công cụ thứ hai.",
+  },
 };
 
-const metadataKeywords: Record<Locale, string[]> = {
+const metadataKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "subtitle editor",
     "SRT editor",
@@ -451,10 +495,18 @@ const metadataKeywords: Record<Locale, string[]> = {
     "tempo das legendas",
     "editor de legendas gratis",
   ],
+  vi: [
+    "trình chỉnh sửa phụ đề",
+    "trình chỉnh sửa SRT",
+    "đồng bộ phụ đề",
+    "gộp phụ đề",
+    "căn thời gian phụ đề",
+    "trình chỉnh sửa phụ đề miễn phí",
+  ],
 };
 
 function getPageCopy(locale: Locale): SubtitleEditorPageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -463,7 +515,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${t("subtitleEditorTitle", locale)} | Translator`,
     description: t("subtitleEditorSubtitle", locale),
     path: "/subtitle-editor",
-    keywords: metadataKeywords[locale],
+    keywords: metadataKeywords[locale] ?? metadataKeywords.en!,
     locale,
   });
 }

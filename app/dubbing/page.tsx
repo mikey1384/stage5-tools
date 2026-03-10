@@ -53,7 +53,7 @@ const dubbingScreenshot = {
   height: 1962,
 };
 
-const dubbingCopy = {
+const dubbingCopy: Partial<Record<Locale, DubbingPageCopy>> = {
   en: {
     title:
       "AI video dubbing for turning foreign videos into watchable localized versions",
@@ -772,9 +772,100 @@ const dubbingCopy = {
     ctaNote:
       "Download e edição de legendas são grátis. Os recursos de IA só usam créditos quando você os executa.",
   },
-} satisfies Record<Locale, DubbingPageCopy>;
+  vi: {
+    title:
+      "Lồng tiếng video bằng AI để biến video ngoại ngữ thành phiên bản bản địa hóa thực sự xem được",
+    description:
+      "Dùng Translator để lồng tiếng video sang ngôn ngữ của bạn, giữ toàn bộ quy trình trong một ứng dụng và xuất ra phiên bản bản địa hóa hoàn chỉnh thay vì những mảnh âm thanh rời rạc.",
+    breadcrumb: "Lồng tiếng",
+    heroEyebrow: "Biến sự hiểu thành một phiên bản mới",
+    heroTitle:
+      "Hãy lồng tiếng cho video khi bạn không muốn phải đọc phụ đề suốt cả thời gian.",
+    heroBody:
+      "Đôi khi phụ đề dịch là đủ. Đôi khi bạn muốn một phiên bản phát tự nhiên bằng ngôn ngữ của mình, dù bạn ngồi xuống để xem hay chỉ nghe khi đang đi bộ. Translator giúp bạn giữ nguyên video gốc, tạo giọng lồng tiếng và xuất ra một kết quả bản địa hóa hoàn chỉnh trong cùng một quy trình.",
+    heroPoints: [
+      "Đi từ xem bản dịch sang đầu ra lồng tiếng mà không đổi công cụ",
+      "Giữ nguyên ngữ cảnh của video gốc trong khi tạo track giọng mới",
+      "Xuất ra một video đã lồng tiếng hoàn chỉnh, không chỉ âm thanh rời",
+    ],
+    studioTitle: "Từ video gốc đến đầu ra lồng tiếng",
+    studioOriginalLabel: "Gốc",
+    studioDubbedLabel: "Lồng tiếng",
+    studioOriginal:
+      "Video gốc vẫn hiện rõ trong khi bạn chuẩn bị phiên bản lồng tiếng.",
+    studioDubbed:
+      "Đầu ra lồng tiếng trở thành thứ bạn có thể xem, lưu và chia sẻ.",
+    studioCaption:
+      "Mục tiêu không chỉ là tạo thêm một tệp âm thanh. Mục tiêu là rời đi với một video hoàn chỉnh mà bạn thực sự dùng được.",
+    outcomesEyebrow: "Bạn nhận được gì",
+    outcomesTitle:
+      "Lồng tiếng giúp video dễ theo dõi hơn vì bạn có thể nghe nó, không chỉ đọc nó.",
+    outcomes: [
+      {
+        title: "Cho phép mọi người theo video mà không phải đọc phụ đề liên tục",
+        body: "Phụ đề rất tốt cho việc rà soát và khám phá. Lồng tiếng hữu ích khi bạn muốn một thứ dễ xem hoặc dễ nghe hơn bằng ngôn ngữ khác.",
+      },
+      {
+        title: "Giữ quy trình gắn chặt với video nguồn",
+        body: "Tải xuống, dịch, lồng tiếng và xuất file trong một ứng dụng thay vì chắp vá các công cụ phụ đề, TTS và xuất file riêng lẻ.",
+      },
+      {
+        title: "Kết thúc với một thành phẩm hữu dụng",
+        body: "Đích đến là một video lồng tiếng mà bạn có thể giữ lại, gửi đi, rà soát hoặc xuất bản, chứ không phải một đống tài sản trung gian.",
+      },
+    ],
+    workflowEyebrow: "Cách hoạt động",
+    workflowTitle:
+      "Một con đường thẳng từ video nguồn đến video đã lồng tiếng.",
+    workflowSteps: [
+      {
+        step: "01",
+        title: "Bắt đầu với đúng video",
+        body: "Mở một tệp cục bộ hoặc tải thứ bạn tìm được qua khám phá để video đã nằm sẵn trong cùng quy trình.",
+      },
+      {
+        step: "02",
+        title: "Dịch trước khi lồng tiếng",
+        body: "Rà soát phụ đề đã dịch và đảm bảo nội dung nói đúng điều bạn muốn trước khi biến nó thành giọng nói.",
+      },
+      {
+        step: "03",
+        title: "Tạo và xuất phiên bản lồng tiếng",
+        body: "Tạo đầu ra lồng tiếng và rời đi với một video hoàn chỉnh sẵn sàng để xem, lưu hoặc bàn giao.",
+      },
+    ],
+    useCasesEyebrow: "Khi nào hữu ích nhất",
+    useCasesTitle:
+      "Đôi khi phụ đề là đủ. Đôi khi bạn muốn một phiên bản thực sự nghe tự nhiên.",
+    useCases: [
+      {
+        title: "Nghe tự nhiên hơn",
+        body: "Dùng lồng tiếng khi bạn muốn theo video bằng ngôn ngữ của mình mà không bị trói vào phụ đề, kể cả lúc đang đi bộ hoặc làm việc khác.",
+      },
+      {
+        title: "Chuẩn bị một phiên bản bản địa hóa để chia sẻ",
+        body: "Khi một video đáng để truyền đi, lồng tiếng cho bạn một thành phẩm mạnh hơn nhiều so với chỉ một bản chép dịch.",
+      },
+      {
+        title: "Tiếp tục đi sau bước khám phá",
+        body: "Tìm đúng video, đánh giá bằng phụ đề trước, rồi tiếp tục đưa những video tốt nhất thành đầu ra lồng tiếng mà không phải bắt đầu lại ở nơi khác.",
+      },
+    ],
+    bridgeTitle: "Cần tìm hoặc dịch video trước?",
+    bridgeBody:
+      "Tìm video, xem trước với phụ đề rồi lồng tiếng mà không phải khởi động lại trong một công cụ khác.",
+    bridgePrimary: "Xem Khám phá video",
+    bridgeSecondary: "Xem Dịch bằng AI",
+    ctaTitle:
+      "Tải Translator và biến những video phù hợp thành các phiên bản lồng tiếng bạn thực sự dùng được.",
+    ctaBody:
+      "Xem bằng phụ đề khi như vậy là đủ. Lồng tiếng cho video khi bạn muốn một phiên bản dễ xem, dễ chia sẻ hoặc dễ giữ lại hơn.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề đều miễn phí. Tính năng AI chỉ dùng credit khi bạn thực sự chạy chúng.",
+  },
+};
 
-const dubbingKeywords: Record<Locale, string[]> = {
+const dubbingKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "AI dubbing",
     "video dubbing",
@@ -831,10 +922,17 @@ const dubbingKeywords: Record<Locale, string[]> = {
     "criar vídeos dublados",
     "saída de vídeo localizada",
   ],
+  vi: [
+    "lồng tiếng bằng AI",
+    "lồng tiếng video",
+    "lồng tiếng video ngoại ngữ",
+    "tạo video lồng tiếng",
+    "đầu ra video bản địa hóa",
+  ],
 };
 
 function getDubbingCopy(locale: Locale): DubbingPageCopy {
-  return dubbingCopy[locale];
+  return dubbingCopy[locale] ?? dubbingCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -845,7 +943,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${copy.title} | Translator`,
     description: copy.description,
     path: "/dubbing",
-    keywords: dubbingKeywords[locale],
+    keywords: dubbingKeywords[locale] ?? dubbingKeywords.en!,
     locale,
   });
 }

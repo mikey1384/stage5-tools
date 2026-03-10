@@ -15,7 +15,7 @@ type LegalPageContent = {
   sections: LegalSection[];
 };
 
-export const termsContent: Record<Locale, LegalPageContent> = {
+export const termsContent: Partial<Record<Locale, LegalPageContent>> = {
   en: {
     breadcrumb: "Terms of Service",
     title: "Terms of Service",
@@ -348,9 +348,53 @@ export const termsContent: Record<Locale, LegalPageContent> = {
       },
     ],
   },
+  vi: {
+    breadcrumb: "Điều khoản dịch vụ",
+    title: "Điều khoản dịch vụ",
+    metaTitle: "Điều khoản dịch vụ | Translator",
+    metaDescription:
+      "Điều khoản dịch vụ của Translator từ Stage5 Tools. Xem quy tắc sử dụng, thanh toán và các giới hạn.",
+    keywords: [
+      "điều khoản Translator",
+      "điều khoản Stage5 Tools",
+      "điều khoản dịch vụ",
+    ],
+    intro:
+      "Các điều khoản này chi phối việc bạn sử dụng Translator và các dịch vụ liên quan từ Stage5 Tools.",
+    sections: [
+      {
+        title: "Việc sử dụng dịch vụ",
+        body: "Bạn đồng ý sử dụng Translator phù hợp với luật hiện hành và điều khoản của nền tảng đối với mọi video bạn tải xuống hoặc dịch.",
+      },
+      {
+        title: "Tài khoản",
+        body: "Bạn chịu trách nhiệm duy trì bảo mật cho tài khoản, thiết bị và thông tin xác thực của mình.",
+      },
+      {
+        title: "Thanh toán",
+        body: "Các tính năng AI dùng credit trả phí. Mọi mức giá, thuế và chính sách hoàn tiền đều được hiển thị khi thanh toán.",
+      },
+      {
+        title: "Sở hữu trí tuệ",
+        body: "Translator và nội dung liên quan thuộc sở hữu của Stage5 Tools. Bạn vẫn giữ quyền đối với video và tệp phụ đề của riêng mình.",
+      },
+      {
+        title: "Tính sẵn sàng của dịch vụ",
+        body: "Chúng tôi có thể cập nhật hoặc ngừng một số tính năng bất kỳ lúc nào. Chúng tôi nỗ lực duy trì dịch vụ hoạt động ổn định.",
+      },
+      {
+        title: "Giới hạn trách nhiệm",
+        body: 'Translator được cung cấp "nguyên trạng" mà không có bảo đảm nào. Trong phạm vi tối đa pháp luật cho phép, Stage5 Tools không chịu trách nhiệm với các thiệt hại hoặc tổn thất gián tiếp.',
+      },
+      {
+        title: "Liên hệ",
+        body: "Có câu hỏi về các điều khoản này? Hãy email tới mikey@stage5.tools.",
+      },
+    ],
+  },
 };
 
-export const privacyContent: Record<Locale, LegalPageContent> = {
+export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
   en: {
     breadcrumb: "Privacy Policy",
     title: "Privacy Policy",
@@ -680,6 +724,50 @@ export const privacyContent: Record<Locale, LegalPageContent> = {
       {
         title: "Contato",
         body: "Se você tiver dúvidas sobre esta política, envie um e-mail para mikey@stage5.tools.",
+      },
+    ],
+  },
+  vi: {
+    breadcrumb: "Chính sách quyền riêng tư",
+    title: "Chính sách quyền riêng tư",
+    metaTitle: "Chính sách quyền riêng tư | Translator",
+    metaDescription:
+      "Chính sách quyền riêng tư của Translator từ Stage5 Tools. Tìm hiểu cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu của bạn.",
+    keywords: [
+      "chính sách quyền riêng tư Translator",
+      "quyền riêng tư Stage5 Tools",
+      "chính sách dữ liệu",
+    ],
+    intro:
+      "Chính sách quyền riêng tư này giải thích cách Stage5 Tools thu thập, sử dụng và bảo vệ thông tin khi bạn dùng Translator.",
+    sections: [
+      {
+        title: "Thông tin chúng tôi thu thập",
+        body: "Chúng tôi thu thập thông tin bạn cung cấp trực tiếp, dữ liệu sử dụng để cải thiện Translator và dữ liệu kỹ thuật cần thiết để cung cấp tính năng tải xuống và AI.",
+      },
+      {
+        title: "Cách chúng tôi sử dụng thông tin",
+        body: "Chúng tôi dùng dữ liệu để vận hành ứng dụng, hỗ trợ khách hàng, xử lý thanh toán, cải thiện tính năng và giữ cho dịch vụ an toàn.",
+      },
+      {
+        title: "Chia sẻ và bên thứ ba",
+        body: "Chúng tôi chỉ chia sẻ dữ liệu với các nhà cung cấp đáng tin cậy cần thiết để cung cấp dịch vụ, chẳng hạn như lưu trữ, phân tích và xử lý thanh toán.",
+      },
+      {
+        title: "Lưu trữ dữ liệu",
+        body: "Chúng tôi chỉ lưu giữ dữ liệu trong thời gian cần thiết để cung cấp dịch vụ và tuân thủ các nghĩa vụ pháp lý.",
+      },
+      {
+        title: "Quyền của bạn",
+        body: "Bạn có thể yêu cầu truy cập, chỉnh sửa hoặc xóa dữ liệu của mình.",
+      },
+      {
+        title: "Thay đổi đối với chính sách này",
+        body: "Chúng tôi có thể cập nhật chính sách này theo thời gian. Mọi cập nhật sẽ được đăng trên trang này cùng ngày có hiệu lực mới.",
+      },
+      {
+        title: "Liên hệ",
+        body: "Nếu bạn có câu hỏi về chính sách này, hãy email tới mikey@stage5.tools.",
       },
     ],
   },

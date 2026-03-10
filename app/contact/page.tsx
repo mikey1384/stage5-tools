@@ -23,7 +23,7 @@ type ContactPageCopy = {
   ctaNote: string;
 };
 
-const pageCopy: Record<Locale, ContactPageCopy> = {
+const pageCopy: Partial<Record<Locale, ContactPageCopy>> = {
   en: {
     metadataDescription:
       "Contact Stage5 about support, pricing, partnerships, and heavier Translator workflows.",
@@ -168,9 +168,27 @@ const pageCopy: Record<Locale, ContactPageCopy> = {
     ctaNote:
       "Baixar e editar legendas e gratis. A IA so custa dinheiro quando voce realmente usa recursos de IA.",
   },
+  vi: {
+    metadataDescription:
+      "Liên hệ Stage5 về hỗ trợ, giá cả, hợp tác và các quy trình Translator nặng hơn.",
+    heroEyebrow: "Nói chuyện với người thật",
+    heroPoints: [
+      "Hỏi về sản phẩm hoặc cách thiết lập",
+      "Trao đổi về giá, BYO hoặc mức sử dụng lớn hơn",
+      "Liên hệ nếu bạn đang cố đưa Translator vào một quy trình thực tế",
+    ],
+    sectionEyebrow: "Cách liên hệ",
+    sectionTitle: "Cứ đơn giản thôi. Nếu trang web chưa trả lời, hãy hỏi.",
+    quickLinksTitle: "Những trang nên xem trước khi viết",
+    ctaTitle: "Tải Translator trước nếu bạn muốn câu trả lời nhanh nhất.",
+    ctaBody:
+      "Rất nhiều câu hỏi trở nên rõ ràng ngay khi bạn mở ứng dụng và thấy các công cụ miễn phí trước mắt. Nếu vẫn chưa rõ, hãy gửi email cho chúng tôi sau đó.",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề đều miễn phí. AI chỉ tốn tiền khi bạn thực sự chạy các tính năng AI.",
+  },
 };
 
-const metadataKeywords: Record<Locale, string[]> = {
+const metadataKeywords: Partial<Record<Locale, string[]>> = {
   en: [
     "Translator contact",
     "Stage5 Tools support",
@@ -218,10 +236,16 @@ const metadataKeywords: Record<Locale, string[]> = {
     "ajuda com traducao de video",
     "contato para traducao empresarial",
   ],
+  vi: [
+    "liên hệ Translator",
+    "hỗ trợ Stage5 Tools",
+    "hỗ trợ dịch video",
+    "liên hệ dịch thuật doanh nghiệp",
+  ],
 };
 
 function getPageCopy(locale: Locale): ContactPageCopy {
-  return pageCopy[locale];
+  return pageCopy[locale] ?? pageCopy.en!;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -232,7 +256,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${t("contactTitle", locale)} | Translator`,
     description: copy.metadataDescription,
     path: "/contact",
-    keywords: metadataKeywords[locale],
+    keywords: metadataKeywords[locale] ?? metadataKeywords.en!,
     locale,
   });
 }
