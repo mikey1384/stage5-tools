@@ -1,7 +1,10 @@
 import { NextResponse, NextRequest } from "next/server";
 import { isCrawlerUserAgent } from "./lib/crawler-detection";
 import { detectPreferredLocale } from "./lib/locale-detection";
-import { parseLocaleCookie, resolveLocaleCookieDomain } from "./lib/locale-cookie";
+import {
+  parseLocaleCookie,
+  resolveLocaleCookieDomain,
+} from "./lib/locale-cookie";
 import {
   DEFAULT_LOCALE,
   englishPathFor,
@@ -11,7 +14,6 @@ import {
   localeFromPathname,
   localizePathForLocale,
   homeHrefForLocale,
-  supportsLocalePath,
   type Locale,
 } from "./lib/locales";
 
@@ -28,17 +30,14 @@ function clearLocaleCookies(res: NextResponse, hostname: string): void {
   res.headers.append("Set-Cookie", expiredBase);
   const cookieDomain = resolveLocaleCookieDomain(hostname);
   if (cookieDomain) {
-    res.headers.append(
-      "Set-Cookie",
-      `${expiredBase}; Domain=${cookieDomain}`
-    );
+    res.headers.append("Set-Cookie", `${expiredBase}; Domain=${cookieDomain}`);
   }
 }
 
 function setLocaleCookie(
   res: NextResponse,
   hostname: string,
-  locale: Locale
+  locale: Locale,
 ): void {
   const cookieDomain = resolveLocaleCookieDomain(hostname);
   res.cookies.set(LOCALE_COOKIE, locale, {
@@ -55,9 +54,7 @@ function isCrawlerRequest(req: NextRequest): boolean {
 }
 
 function isLocaleRedirectExcludedRoute(englishPath: string): boolean {
-  return (
-    englishPath.startsWith("/echo") || englishPath.startsWith("/checkout")
-  );
+  return englishPath.startsWith("/echo") || englishPath.startsWith("/checkout");
 }
 
 export function middleware(req: NextRequest) {
@@ -115,7 +112,11 @@ export function middleware(req: NextRequest) {
   }
 
   // Render localized full-site URLs by internally rewriting to the English route tree.
-  if (isFullSiteLocale(pathLocale) && pathLocale !== DEFAULT_LOCALE && pathname.startsWith(`/${pathLocale}/`)) {
+  if (
+    isFullSiteLocale(pathLocale) &&
+    pathLocale !== DEFAULT_LOCALE &&
+    pathname.startsWith(`/${pathLocale}/`)
+  ) {
     const rewriteUrl = url.clone();
     rewriteUrl.pathname = pathname.slice(pathLocale.length + 1) || "/";
 
@@ -134,7 +135,11 @@ export function middleware(req: NextRequest) {
   }
 
   if (!isCrawler && !isLocalizedPath && !isLocaleRedirectExcluded) {
-    if (cookieLocale && isFullSiteLocale(cookieLocale) && cookieLocale !== DEFAULT_LOCALE) {
+    if (
+      cookieLocale &&
+      isFullSiteLocale(cookieLocale) &&
+      cookieLocale !== DEFAULT_LOCALE
+    ) {
       const localizedPath = localizePathForLocale(cookieLocale, pathname);
       if (localizedPath !== pathname) {
         const nextUrl = url.clone();
