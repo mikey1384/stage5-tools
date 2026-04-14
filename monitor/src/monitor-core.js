@@ -278,7 +278,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       warnings.push(
         `Using cached certificate snapshot (${ageText}) from '${
           cert.cachedFromSource || "unknown"
-        }' source because live retrieval failed this run.`
+        }' source because fresh certificate retrieval was unavailable or deferred this run.`
       );
     }
 
@@ -847,8 +847,25 @@ export async function defaultGetCertificate({
     env.TLS_CERT_CACHE_MAX_AGE_MS,
     TLS_CERT_CACHE_DEFAULT_MAX_AGE_MS
   );
+  let cachedCertificatePromise = null;
+  const getCachedCertificate = () => {
+    cachedCertificatePromise ??= readCachedCertificate({
+      stateStore,
+      host,
+      nowDate,
+      maxAgeMs: certCacheMaxAgeMs,
+    });
+    return cachedCertificatePromise;
+  };
 
   for (const source of sourceOrder) {
+    if (source !== "live_socket") {
+      const cachedCertificate = await getCachedCertificate();
+      if (cachedCertificate) {
+        return cachedCertificateFallback({ cachedCertificate, errors });
+      }
+    }
+
     try {
       let certificate;
 
@@ -871,22 +888,20 @@ export async function defaultGetCertificate({
     }
   }
 
-  const cachedCertificate = await readCachedCertificate({
-    stateStore,
-    host,
-    nowDate,
-    maxAgeMs: certCacheMaxAgeMs,
-  });
-
+  const cachedCertificate = await getCachedCertificate();
   if (cachedCertificate) {
-    return {
-      ...cachedCertificate,
-      source: "cached",
-      fallbackReason: errors.length > 0 ? errors.join(" | ") : null,
-    };
+    return cachedCertificateFallback({ cachedCertificate, errors });
   }
 
   throw new Error(`Unable to resolve certificate for '${host}'. Attempts: ${errors.join(" | ")}`);
+}
+
+function cachedCertificateFallback({ cachedCertificate, errors }) {
+  return {
+    ...cachedCertificate,
+    source: "cached",
+    fallbackReason: errors.length > 0 ? errors.join(" | ") : null,
+  };
 }
 
 async function getCertificateViaCrtSh({ host, fetchImpl, timeoutMs, nowDate }) {

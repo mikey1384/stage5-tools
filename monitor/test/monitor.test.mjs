@@ -493,11 +493,12 @@ test("monitor keeps incident open until recovery notification is delivered", asy
   assert.equal(steadyPass.notifications.length, 0);
 });
 
-test("defaultGetCertificate uses cached cert when live sources are transiently unavailable", async () => {
+test("defaultGetCertificate uses cached cert before retrying non-live sources", async () => {
   const stateStore = createMemoryStateStore();
   const host = "stage5.tools";
   const firstRunNow = new Date("2026-02-28T10:00:00.000Z");
   const secondRunNow = new Date(firstRunNow.getTime() + 5 * 60 * 1000);
+  let fallbackFetchCalls = 0;
   const crtshBody = JSON.stringify([
     {
       name_value: host,
@@ -529,6 +530,7 @@ test("defaultGetCertificate uses cached cert when live sources are transiently u
   const second = await defaultGetCertificate({
     host,
     fetchImpl: async () => {
+      fallbackFetchCalls += 1;
       throw new Error("timeout");
     },
     timeoutMs: 2000,
@@ -543,8 +545,9 @@ test("defaultGetCertificate uses cached cert when live sources are transiently u
   assert.equal(second.source, "cached");
   assert.equal(second.commonName, host);
   assert.equal(second.cachedFromSource, "crtsh");
-  assert.ok(second.fallbackReason.includes("crtsh: timeout"));
+  assert.equal(second.fallbackReason, null);
   assert.ok(second.cacheAgeMs >= 0);
+  assert.equal(fallbackFetchCalls, 0);
 });
 
 test("defaultGetCertificate ignores stale cached cert entries", async () => {
