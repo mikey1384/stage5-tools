@@ -577,11 +577,85 @@ test("defaultGetCertificate ignores stale cached cert entries", async () => {
         env: {
           TLS_CERT_SOURCE: "crtsh",
           TLS_CERT_CACHE_MAX_AGE_MS: String(60 * 60 * 1000),
+          TLS_CERT_STALE_CACHE_MAX_AGE_MS: String(60 * 60 * 1000),
         },
         stateStore,
       }),
     /Unable to resolve certificate/
   );
+});
+
+test("defaultGetCertificate uses stale cached cert after fresh sources fail", async () => {
+  const stateStore = createMemoryStateStore();
+  const host = "stage5.tools";
+  const now = new Date("2026-02-28T10:00:00.000Z");
+
+  await stateStore.putJson("tls:cert:v1:stage5.tools", {
+    fetchedAt: new Date(now.getTime() - 8 * 60 * 60 * 1000).toISOString(),
+    certificate: {
+      commonName: host,
+      issuer: "C=US, O=Google Trust Services LLC, CN=WE1",
+      source: "crtsh",
+      notAfter: "2026-04-27T09:40:59.000Z",
+    },
+  });
+
+  const cert = await defaultGetCertificate({
+    host,
+    fetchImpl: async () => {
+      throw new Error("crt.sh timeout");
+    },
+    timeoutMs: 2000,
+    nowDate: now,
+    env: {
+      TLS_CERT_SOURCE: "crtsh",
+      TLS_CERT_CACHE_MAX_AGE_MS: String(60 * 60 * 1000),
+      TLS_CERT_STALE_CACHE_MAX_AGE_MS: String(14 * 60 * 60 * 1000),
+    },
+    stateStore,
+  });
+
+  assert.equal(cert.source, "cached");
+  assert.equal(cert.stale, true);
+  assert.equal(cert.cachedFromSource, "crtsh");
+  assert.match(cert.fallbackReason, /crt\.sh timeout/);
+});
+
+test("monitor lets individual TLS checks override certificate source order", async () => {
+  let observedCertSource = null;
+  const baseline = {
+    ...BASELINE_CONFIG,
+    httpsChecks: [],
+    dnsChecks: [],
+    tlsChecks: [
+      {
+        host: "stage5.tools",
+        certSource: "crtsh",
+        minDaysRemaining: 21,
+      },
+    ],
+  };
+
+  const report = await runMonitor({
+    env: { ...buildEnv(), TLS_CERT_SOURCE: "live_socket,crtsh" },
+    baseline,
+    clients: {
+      stateStore: createMemoryStateStore(),
+      async getCertificate({ env }) {
+        observedCertSource = env.TLS_CERT_SOURCE;
+        return {
+          commonName: "stage5.tools",
+          issuer: "C=US, O=Google Trust Services LLC, CN=WE1",
+          notAfter: "2026-04-27T09:40:59.000Z",
+          source: "crtsh",
+        };
+      },
+    },
+    now: fixedNow,
+  });
+
+  assert.equal(report.status, "pass");
+  assert.equal(observedCertSource, "crtsh");
 });
 
 test("defaultGetCertificate enforces single-label wildcard matching for crt.sh fallback", async () => {

@@ -20,6 +20,7 @@ const CLOUDFLARE_IPV4_CACHE_KEY = "cloudflare:ips:v4";
 const TLS_CERT_CACHE_KEY_PREFIX = "tls:cert:v1:";
 const TLS_CERT_CACHE_DEFAULT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const TLS_CERT_CACHE_ENTRY_TTL_SECONDS = 14 * 24 * 60 * 60;
+const TLS_CERT_STALE_CACHE_DEFAULT_MAX_AGE_MS = TLS_CERT_CACHE_ENTRY_TTL_SECONDS * 1000;
 
 export async function runMonitor({
   env = {},
@@ -256,11 +257,12 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
 
 async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
   try {
+    const certEnv = check.certSource ? { ...env, TLS_CERT_SOURCE: check.certSource } : env;
     const cert = await getCertificate({
       host: check.host,
       timeoutMs,
       nowDate,
-      env,
+      env: certEnv,
     });
 
     const reasons = [];
@@ -276,7 +278,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       const ageText =
         ageMinutes === null ? "unknown age" : `${ageMinutes} minute${ageMinutes === 1 ? "" : "s"} old`;
       warnings.push(
-        `Using cached certificate snapshot (${ageText}) from '${
+        `Using ${cert.stale ? "stale " : ""}cached certificate snapshot (${ageText}) from '${
           cert.cachedFromSource || "unknown"
         }' source because fresh certificate retrieval was unavailable or deferred this run.`
       );
@@ -847,15 +849,34 @@ export async function defaultGetCertificate({
     env.TLS_CERT_CACHE_MAX_AGE_MS,
     TLS_CERT_CACHE_DEFAULT_MAX_AGE_MS
   );
+  const certStaleCacheMaxAgeMs =
+    certCacheMaxAgeMs < 1
+      ? 0
+      : parseNonNegativeInt(
+          env.TLS_CERT_STALE_CACHE_MAX_AGE_MS,
+          TLS_CERT_STALE_CACHE_DEFAULT_MAX_AGE_MS
+        );
   let cachedCertificatePromise = null;
+  let staleCachedCertificatePromise = null;
   const getCachedCertificate = () => {
     cachedCertificatePromise ??= readCachedCertificate({
       stateStore,
       host,
       nowDate,
       maxAgeMs: certCacheMaxAgeMs,
+      staleAfterMs: certCacheMaxAgeMs,
     });
     return cachedCertificatePromise;
+  };
+  const getStaleCachedCertificate = () => {
+    staleCachedCertificatePromise ??= readCachedCertificate({
+      stateStore,
+      host,
+      nowDate,
+      maxAgeMs: Math.max(certCacheMaxAgeMs, certStaleCacheMaxAgeMs),
+      staleAfterMs: certCacheMaxAgeMs,
+    });
+    return staleCachedCertificatePromise;
   };
 
   for (const source of sourceOrder) {
@@ -891,6 +912,11 @@ export async function defaultGetCertificate({
   const cachedCertificate = await getCachedCertificate();
   if (cachedCertificate) {
     return cachedCertificateFallback({ cachedCertificate, errors });
+  }
+
+  const staleCachedCertificate = await getStaleCachedCertificate();
+  if (staleCachedCertificate) {
+    return cachedCertificateFallback({ cachedCertificate: staleCachedCertificate, errors });
   }
 
   throw new Error(`Unable to resolve certificate for '${host}'. Attempts: ${errors.join(" | ")}`);
@@ -1247,7 +1273,7 @@ async function writeCachedCertificate({ stateStore, host, certificate, nowDate }
   }
 }
 
-async function readCachedCertificate({ stateStore, host, nowDate, maxAgeMs }) {
+async function readCachedCertificate({ stateStore, host, nowDate, maxAgeMs, staleAfterMs }) {
   if (!stateStore || maxAgeMs < 1) {
     return null;
   }
@@ -1275,6 +1301,7 @@ async function readCachedCertificate({ stateStore, host, nowDate, maxAgeMs }) {
       notAfter: certificate.notAfter,
       cacheAgeMs: ageMs,
       cachedFromSource: certificate.source,
+      stale: ageMs > staleAfterMs,
     };
   } catch {
     return null;

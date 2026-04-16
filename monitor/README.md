@@ -57,6 +57,7 @@ npx wrangler secret put ALERT_WEBHOOK_BEARER_TOKEN -c monitor/wrangler.toml
 - `ALERT_OPEN_AFTER_CONSECUTIVE_FAILURES` (default `1`; set to `2` to suppress one-off flaps)
 - `TLS_CERT_SOURCE` (default `live_socket,crtsh`)
 - `TLS_CERT_CACHE_MAX_AGE_MS` (default `21600000`, i.e., 6 hours; `0` disables cache fallback)
+- `TLS_CERT_STALE_CACHE_MAX_AGE_MS` (default `1209600000`, i.e., 14 days; used only after all fresh certificate sources fail)
 - optional sender fallback vars used in twinkle-api:
   - `ECHO_EMAIL_SENDER`
   - `EMAIL_SENDER`
@@ -145,7 +146,8 @@ TLS source behavior:
 
 - primary: live TLS socket handshake (`node:tls`) against each host
 - fallback: `crt.sh` only if live socket source fails
-- resilience fallback: if both live sources fail, uses the most recent cached cert snapshot from KV (up to `TLS_CERT_CACHE_MAX_AGE_MS`)
+- `stage5.tools` and `www.stage5.tools` force `crtsh` because Workers block outbound TCP sockets to Cloudflare IP ranges
+- resilience fallback: if fresh certificate sources fail, uses the most recent cached cert snapshot from KV up to `TLS_CERT_STALE_CACHE_MAX_AGE_MS`; expiry checks still run against cached `notAfter`
 - CN/issuer drift checks are enforced only with live socket source by default
 - set `ALLOW_NONLIVE_TLS_IDENTITY_CHECK=1` to also enforce CN/issuer drift when fallback source is used
 
