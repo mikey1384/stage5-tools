@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
@@ -12,7 +13,11 @@ import {
   homeHrefForLocale,
   localizePathForLocale,
 } from "../../lib/locale-routing";
-import { buildMetadata } from "../../lib/seo";
+import {
+  buildBreadcrumbStructuredData,
+  buildMetadata,
+  buildSoftwareApplicationStructuredData,
+} from "../../lib/seo";
 import { t } from "../../lib/strings";
 
 type TranslatePageCopy = {
@@ -1092,16 +1097,42 @@ export default async function TranslatePage({
   const copy = getPageCopy(locale);
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
+  const translatePath = "/translate";
+  const softwareApplicationStructuredData = buildSoftwareApplicationStructuredData({
+    description: copy.metadataDescription,
+    path: translatePath,
+    locale,
+  });
+  const breadcrumbStructuredData = buildBreadcrumbStructuredData(locale, [
+    { name: t("breadcrumbHome", locale), path: "/" },
+    { name: t("navAiTranslation", locale), path: translatePath },
+  ]);
 
   return (
     <main className="min-h-screen bg-black text-white">
+      <Script
+        id="structured-data-translate"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApplicationStructuredData),
+        }}
+      />
+      <Script
+        id="structured-data-translate-breadcrumbs"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <div className="container mx-auto px-6">
         <SiteNav locale={locale} />
 
         <Breadcrumbs
           items={[
             { label: t("breadcrumbHome", locale), href: homeHref },
-            { label: t("navAiTranslation", locale) },
+            { label: t("navAiTranslation", locale), href: localizeHref(translatePath) },
           ]}
         />
 

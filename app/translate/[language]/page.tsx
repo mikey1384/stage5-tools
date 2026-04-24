@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../../components/HeroDownloadActions";
@@ -14,7 +15,11 @@ import {
 } from "../../../lib/translate-language-page-content";
 import { isTranslatedLanguageSlug } from "../../../lib/translate-language-slugs";
 import { homeHrefForLocale, localizePathForLocale } from "../../../lib/locale-routing";
-import { buildMetadata } from "../../../lib/seo";
+import {
+  buildBreadcrumbStructuredData,
+  buildMetadata,
+  buildSoftwareApplicationStructuredData,
+} from "../../../lib/seo";
 import { t } from "../../../lib/strings";
 
 export const dynamicParams = false;
@@ -63,11 +68,38 @@ export default async function LanguagePage({
   const locale = await getLocale(queryParams);
   const content = getLanguagePageContent(locale, language);
   const homeHref = homeHrefForLocale(locale);
+  const languagePath = `/translate/${language}`;
   const translateHref = localizePathForLocale(locale, "/translate");
   const subtitleEditorHref = localizePathForLocale(locale, "/subtitle-editor");
+  const softwareApplicationStructuredData = buildSoftwareApplicationStructuredData({
+    description: content.description,
+    path: languagePath,
+    locale,
+  });
+  const breadcrumbStructuredData = buildBreadcrumbStructuredData(locale, [
+    { name: t("breadcrumbHome", locale), path: "/" },
+    { name: t("navAiTranslation", locale), path: "/translate" },
+    { name: content.name, path: languagePath },
+  ]);
 
   return (
     <main className="min-h-screen bg-black text-white">
+      <Script
+        id="structured-data-language-translate"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApplicationStructuredData),
+        }}
+      />
+      <Script
+        id="structured-data-language-breadcrumbs"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <div className="container mx-auto px-6">
         <SiteNav locale={locale} />
 

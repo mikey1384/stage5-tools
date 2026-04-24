@@ -3,7 +3,7 @@ import CancelledUI from "./CancelledUI";
 
 export const metadata: Metadata = {
   title: "Payment Cancelled - Stage5 Tools",
-  description: "Your payment was cancelled. You may safely close this window.",
+  description: "Your payment was cancelled. Return to Translator to continue.",
   robots: {
     index: false,
     follow: false,
@@ -13,15 +13,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Payment Cancelled - Stage5 Tools",
-    description:
-      "Your payment was cancelled. You may safely close this window.",
+    description: "Your payment was cancelled. Return to Translator to continue.",
     url: "https://translator.tools/checkout/cancelled",
     siteName: "Stage5 Tools",
   },
   twitter: {
     card: "summary",
     title: "Payment Cancelled - Stage5 Tools",
-    description: "Your payment was cancelled. You may safely close this window.",
+    description: "Your payment was cancelled. Return to Translator to continue.",
   },
   icons: {
     icon: "/icon.svg",

@@ -24,6 +24,17 @@ interface BuildMetadataProps {
   locale?: Locale;
 }
 
+interface BuildSoftwareApplicationStructuredDataProps {
+  description: string;
+  path: string;
+  locale?: Locale;
+}
+
+interface BreadcrumbStructuredDataItem {
+  name: string;
+  path: string;
+}
+
 export function buildMetadata({
   title,
   description,
@@ -73,6 +84,55 @@ export function buildMetadata({
       description,
       images: [defaultImage.url],
     },
+  };
+}
+
+export function absoluteSiteUrl(path: string): string {
+  return new URL(path, BASE_URL).toString();
+}
+
+export function buildSoftwareApplicationStructuredData({
+  description,
+  path,
+  locale = "en",
+}: BuildSoftwareApplicationStructuredDataProps) {
+  const englishPath = path.startsWith("/") ? path : `/${path}`;
+  const canonicalPath = localizePathForLocale(locale, englishPath);
+  const canonicalUrl = absoluteSiteUrl(canonicalPath);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Translator",
+    url: canonicalUrl,
+    inLanguage: locale,
+    description,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "macOS, Windows",
+    image: defaultImage.url,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description:
+        "Free download with optional paid AI transcription, translation, and dubbing.",
+    },
+  };
+}
+
+export function buildBreadcrumbStructuredData(
+  locale: Locale,
+  items: BreadcrumbStructuredDataItem[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteSiteUrl(localizePathForLocale(locale, item.path)),
+    })),
   };
 }
 

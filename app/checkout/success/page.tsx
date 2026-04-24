@@ -4,7 +4,7 @@ import SuccessUI from "./SuccessUI";
 export const metadata: Metadata = {
   title: "Payment Complete - Stage5 Tools",
   description:
-    "Your payment has been completed successfully. You may safely close this window.",
+    "Your payment has been completed successfully. Return to Translator to continue.",
   robots: {
     index: false,
     follow: false,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Payment Complete - Stage5 Tools",
     description:
-      "Your payment has been completed successfully. You may safely close this window.",
+      "Your payment has been completed successfully. Return to Translator to continue.",
     url: "https://translator.tools/checkout/success",
     siteName: "Stage5 Tools",
   },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Payment Complete - Stage5 Tools",
     description:
-      "Your payment has been completed successfully. You may safely close this window.",
+      "Your payment has been completed successfully. Return to Translator to continue.",
   },
   icons: {
     icon: "/icon.svg",
