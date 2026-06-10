@@ -33,6 +33,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
       links: [
         { labelKey: "footerAboutStage5" as const, href: "/about" },
         { labelKey: "navContact" as const, href: "/contact" },
+        { labelKey: "footerEcho" as const, href: "/echo" },
       ],
     },
     {

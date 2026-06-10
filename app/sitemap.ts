@@ -27,6 +27,7 @@ const routes: RouteDef[] = [
     priority: 0.8,
     changeFrequency: "weekly" as const,
   })),
+  { path: "/echo", priority: 0.8, changeFrequency: "monthly" },
   { path: "/pricing", priority: 0.7, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about", priority: 0.6, changeFrequency: "monthly" },
@@ -59,11 +60,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     };
 
-    const localizedEntries = availableLocales.map((locale) => ({
+    return availableLocales.map((locale) => ({
       url: absoluteUrl(localizePathForLocale(locale, route.path)),
       ...shared,
     }));
-
-    return localizedEntries;
   });
 }

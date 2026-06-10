@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Home, { getHomeMetadata } from "../(home)/page";
+import Home from "../(home)/page";
+import { getHomeMetadata } from "../(home)/home-copy";
 
 const locale = "ko" as const;
 

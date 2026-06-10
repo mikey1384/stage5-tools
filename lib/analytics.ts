@@ -18,3 +18,15 @@ export function trackDownload(payload: DownloadEventPayload): void {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(payload);
 }
+
+export type AppStoreEventPayload = {
+  event: "echo_appstore_click";
+  link_label: string;
+  page_path: string;
+};
+
+export function trackAppStoreClick(payload: AppStoreEventPayload): void {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(payload);
+}

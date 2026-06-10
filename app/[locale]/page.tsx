@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Home, { getHomeMetadata } from "../(home)/page";
+import Home from "../(home)/page";
+import { getHomeMetadata } from "../(home)/home-copy";
 import {
   HOME_LOCALIZED_LOCALES,
   isLocale,

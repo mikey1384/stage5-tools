@@ -30,6 +30,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/contact",
   "/privacy",
   "/terms",
+  "/echo",
 ]);
 
 export function isLocale(value: string | null | undefined): value is Locale {
