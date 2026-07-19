@@ -7,9 +7,6 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
-  alternates: {
-    canonical: "https://translator.tools/echo/privacy",
-  },
   openGraph: {
     title: "Privacy Policy - Echo",
     description: "Privacy Policy for Echo, the daily reflection app by Stage5",

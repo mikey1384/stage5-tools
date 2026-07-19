@@ -7,9 +7,6 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
-  alternates: {
-    canonical: "https://translator.tools/echo/support",
-  },
   openGraph: {
     title: "Support - Echo",
     description: "Get help with Echo, the daily reflection app by Stage5",
