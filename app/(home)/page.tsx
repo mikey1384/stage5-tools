@@ -27,9 +27,9 @@ const screenshots = {
     height: 1600,
   },
   multitab: {
-    src: "/screenshots/watch-translated-subtitles.webp",
-    width: 1536,
-    height: 1024,
+    src: "/screenshots/multitab-workspace-2026-08.webp",
+    width: 2400,
+    height: 1440,
   },
   originalClassic: {
     src: "/screenshots/subtitle-display-original-classic-2026-08.webp",
@@ -81,6 +81,7 @@ function getHomeStructuredData(locale: Locale) {
       "https://translator.tools/translator-social-card-editorial-2026-08.png",
     screenshot: [
       "https://translator.tools/screenshots/subtitle-display-translation-only-2026-08.webp",
+      "https://translator.tools/screenshots/multitab-workspace-2026-08.webp",
       "https://translator.tools/screenshots/subtitle-display-original-classic-2026-08.webp",
       "https://translator.tools/screenshots/subtitle-display-dual-linebox-2026-08.webp",
       "https://translator.tools/screenshots/download-library-2026-08.webp",
