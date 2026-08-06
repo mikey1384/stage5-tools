@@ -444,14 +444,14 @@ export default async function Home({
             </figure>
           </div>
 
-          <div className="mt-24 border-t border-black/25 pt-8">
+          <div className="mt-16 border-t border-black/25 pt-8 md:mt-20">
             <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
               <div>
                 <Eyebrow dark>{experience.stylesEyebrow}</Eyebrow>
-                <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+                <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                   {experience.stylesTitle}
                 </h2>
-                <p className="mt-6 max-w-xl text-lg leading-8 text-black/62">
+                <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
                   {experience.stylesDescription}
                 </p>
               </div>
@@ -472,7 +472,7 @@ export default async function Home({
                     {experience.classicCaption}
                   </figcaption>
                 </figure>
-                <figure className="border border-black/20 bg-[#10151f] p-2 md:mt-16 md:p-3">
+                <figure className="border border-black/20 bg-[#10151f] p-2 md:mt-10 md:p-3">
                   <HomepageScreenshotSlot
                     src={screenshots.dualLineBox.src}
                     alt={experience.dualCaption}
@@ -492,7 +492,7 @@ export default async function Home({
             </div>
           </div>
 
-          <div className="mt-24 grid gap-12 border-t border-black/25 pt-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20">
+          <div className="mt-16 grid gap-10 border-t border-black/25 pt-8 md:mt-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
             <figure className="order-2 border border-black/20 bg-[#10151f] p-2 lg:order-1 md:p-3">
               <HomepageScreenshotSlot
                 src={screenshots.library.src}
@@ -511,16 +511,16 @@ export default async function Home({
             </figure>
             <div className="order-1 lg:order-2">
               <Eyebrow dark>{experience.libraryEyebrow}</Eyebrow>
-              <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {experience.libraryTitle}
               </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-black/62">
+              <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
                 {experience.libraryDescription}
               </p>
             </div>
           </div>
 
-          <div className="mt-24 grid gap-12 border-t border-black/25 pt-8 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20">
+          <div className="mt-16 grid gap-10 border-t border-black/25 pt-8 md:mt-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
             <figure className="order-2 border border-black/20 bg-[#121826] p-2 md:order-1 md:p-3">
               <HomepageScreenshotSlot
                 src={screenshots.clips.src}
@@ -538,10 +538,10 @@ export default async function Home({
 
             <div className="order-1 md:order-2">
               <Eyebrow dark>{copy.actionEyebrow}</Eyebrow>
-              <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {copy.actionTitle}
               </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-black/62">
+              <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
                 {copy.actionDescription}
               </p>
             </div>
@@ -589,14 +589,14 @@ export default async function Home({
           </div>
         </section>
 
-        <section className="border-y border-white/20 py-24 md:py-32">
+        <section className="border-y border-white/20 py-16 md:py-24">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <Eyebrow>{copy.socialEyebrow}</Eyebrow>
-              <h2 className="mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 max-w-5xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {copy.socialTitle}
               </h2>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/55">
+              <p className="mt-5 max-w-3xl text-base leading-7 text-white/55">
                 {copy.socialDescription}
               </p>
             </div>
@@ -610,7 +610,7 @@ export default async function Home({
             </a>
           </div>
 
-          <div className="mt-16 grid border-t border-white/20 lg:grid-cols-3">
+          <div className="mt-10 grid border-t border-white/20 lg:grid-cols-3">
             {productHuntReviews.map((review, index) => (
               <blockquote
                 key={`${review.author}-${review.quote}`}
@@ -619,7 +619,7 @@ export default async function Home({
                 <span className="font-mono text-xs text-[#ff75ac]">
                   0{index + 1}
                 </span>
-                <p className="mt-6 text-2xl leading-9 tracking-[-0.025em] text-white">
+                <p className="mt-5 text-xl leading-8 tracking-[-0.02em] text-white md:text-2xl">
                   “{review.quote}”
                 </p>
                 <footer className="mt-7 text-sm text-white/40">
@@ -630,14 +630,14 @@ export default async function Home({
           </div>
         </section>
 
-        <section id="agents" className="scroll-mt-8 border-b border-white/20 py-24 md:py-32">
+        <section id="agents" className="scroll-mt-8 border-b border-white/20 py-16 md:py-24">
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
             <div>
               <Eyebrow>{experience.agentEyebrow}</Eyebrow>
-              <h2 className="mt-7 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 max-w-5xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {experience.agentTitle}
               </h2>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/55">
+              <p className="mt-5 max-w-3xl text-base leading-7 text-white/55">
                 {experience.agentDescription}
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -685,14 +685,14 @@ export default async function Home({
           </div>
         </section>
 
-        <section className="border-b border-white/20 py-24 md:py-32">
+        <section className="border-b border-white/20 py-16 md:py-24">
           <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
             <div>
               <Eyebrow>{openSourceCopy.eyebrow}</Eyebrow>
-              <h2 className="mt-7 max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 max-w-4xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {openSourceCopy.title}
               </h2>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-white/55">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/55">
                 {openSourceCopy.description}
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -737,14 +737,14 @@ export default async function Home({
           </div>
         </section>
 
-        <section className="py-24 md:py-32">
+        <section className="py-16 md:py-24">
           <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
             <div>
               <Eyebrow>{copy.languagesEyebrow}</Eyebrow>
-              <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
                 {copy.languagesTitle}
               </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
+              <p className="mt-5 max-w-xl text-base leading-7 text-white/55">
                 {copy.languagesDescription}
               </p>
             </div>
@@ -755,7 +755,7 @@ export default async function Home({
                   <Link
                     key={language.href}
                     href={localizedHref(language.href)}
-                    className="text-3xl font-semibold tracking-[-0.035em] text-white underline decoration-white/20 underline-offset-8 transition hover:text-[#a9bfff] md:text-5xl"
+                    className="text-2xl font-semibold tracking-[-0.03em] text-white underline decoration-white/20 underline-offset-8 transition hover:text-[#a9bfff] md:text-4xl"
                   >
                     {t(language.labelKey, locale)}
                   </Link>
