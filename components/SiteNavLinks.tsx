@@ -15,6 +15,7 @@ type NavLink = {
     | "navAiTranslation"
     | "navPricing"
     | "navFaq"
+    | "navOpenSource"
     | "navAbout"
     | "navContact";
   href: string;
@@ -24,16 +25,14 @@ type NavLink = {
 const primaryLinks: NavLink[] = [
   { labelKey: "navVideoDiscovery", href: "/video-discovery", match: "exact" },
   { labelKey: "navDubbing", href: "/dubbing", match: "exact" },
-  { labelKey: "navVideoDownloader", href: "/video-downloader", match: "exact" },
   { labelKey: "navSubtitleEditor", href: "/subtitle-editor", match: "exact" },
   { labelKey: "navAiTranslation", href: "/translate", match: "prefix" },
   { labelKey: "navPricing", href: "/pricing", match: "exact" },
-  { labelKey: "navFaq", href: "/faq", match: "exact" },
 ];
 
 const secondaryLinks: NavLink[] = [
-  { labelKey: "navAbout", href: "/about", match: "exact" },
-  { labelKey: "navContact", href: "/contact", match: "exact" },
+  { labelKey: "navOpenSource", href: "/open-source", match: "exact" },
+  { labelKey: "navFaq", href: "/faq", match: "exact" },
 ];
 
 function isActiveLink(currentPath: string, link: NavLink): boolean {
@@ -61,8 +60,8 @@ function NavItem({
       aria-current={isActive ? "page" : undefined}
       className={
         isActive
-          ? "text-white"
-          : "text-gray-400 transition hover:text-white"
+          ? "text-white underline decoration-[#ff75ac] decoration-2 underline-offset-8"
+          : "text-white/48 transition hover:text-white"
       }
     >
       {t(link.labelKey, locale)}
@@ -75,7 +74,7 @@ export function SiteNavLinks({ locale }: { locale: Locale }) {
   const currentPath = normalizePathname(englishPathFor(pathname));
 
   return (
-    <nav className="flex flex-wrap items-center gap-4 text-sm">
+    <nav className="flex flex-wrap items-center gap-x-5 gap-y-3 text-xs font-medium">
       {primaryLinks.map((link) => (
         <NavItem
           key={link.href}
@@ -84,7 +83,7 @@ export function SiteNavLinks({ locale }: { locale: Locale }) {
           link={link}
         />
       ))}
-      <span className="hidden text-gray-700 lg:inline">•</span>
+      <span className="hidden text-white/20 lg:inline">/</span>
       {secondaryLinks.map((link) => (
         <NavItem
           key={link.href}

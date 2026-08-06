@@ -55,7 +55,11 @@ function isCrawlerRequest(req: NextRequest): boolean {
 
 function isLocaleRedirectExcludedRoute(englishPath: string): boolean {
   // The /echo landing page is localized; /echo/* legal and support pages are English-only.
-  return englishPath.startsWith("/echo/") || englishPath.startsWith("/checkout");
+  return (
+    englishPath === "/agents" ||
+    englishPath.startsWith("/echo/") ||
+    englishPath.startsWith("/checkout")
+  );
 }
 
 export function middleware(req: NextRequest) {

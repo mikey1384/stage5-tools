@@ -2,7 +2,10 @@
 
 import { useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
-import { parseLocaleCookie, resolveLocaleCookieDomain } from "../lib/locale-cookie";
+import {
+  parseLocaleCookie,
+  resolveLocaleCookieDomain,
+} from "../lib/locale-cookie";
 import {
   DEFAULT_LOCALE,
   englishPathFor,
@@ -26,7 +29,9 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
   const pathLocale = localeFromPathname(pathname);
   const queryLocale = params.get("l");
   const cookieLocale =
-    typeof document === "undefined" ? undefined : parseLocaleCookie(document.cookie);
+    typeof document === "undefined"
+      ? undefined
+      : parseLocaleCookie(document.cookie);
   const [isChanging, setIsChanging] = useState(false);
   const englishPath = englishPathFor(pathname);
   const availableOptions = localeOptionsForPath(pathname);
@@ -48,7 +53,8 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
             : DEFAULT_LOCALE;
 
   // Hide on routes that don't support localization
-  if (pathname.startsWith("/echo") || pathname.startsWith("/checkout")) return null;
+  if (pathname.startsWith("/echo") || pathname.startsWith("/checkout"))
+    return null;
 
   /** swap locale & store cookie */
   const switchTo = (lang: Locale) => {
@@ -82,7 +88,7 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
           onChange={(e) => switchTo(e.target.value as Locale)}
           disabled={isChanging}
           aria-label="Select language"
-          className={`h-9 min-w-16 rounded-full border border-white/20 bg-white/10 pl-3 pr-2 text-[13px] leading-none text-white backdrop-blur-sm cursor-pointer transition hover:bg-white/20 sm:h-auto sm:min-w-0 sm:rounded-md sm:bg-black/60 sm:px-3 sm:py-2 sm:text-sm sm:hover:bg-black/80 ${
+          className={`h-9 min-w-16 cursor-pointer border border-white/20 bg-transparent pl-3 pr-2 font-mono text-[11px] leading-none text-white transition hover:border-white/50 sm:h-auto sm:min-w-0 sm:px-3 sm:py-2.5 ${
             isChanging ? "opacity-50 cursor-wait" : ""
           }`}
         >

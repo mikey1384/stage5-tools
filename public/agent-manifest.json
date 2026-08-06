@@ -1,0 +1,64 @@
+{
+  "document_type": "translator_agent_manifest",
+  "document_status": "publisher-maintained; not an MCP discovery standard",
+  "name": "Translator by Stage5",
+  "canonical_url": "https://translator.tools/",
+  "agent_guide": "https://translator.tools/agents",
+  "llms_summary": "https://translator.tools/llms.txt",
+  "llms_full": "https://translator.tools/llms-full.txt",
+  "source": {
+    "repository": "https://github.com/mikey1384/translator",
+    "license": "MIT",
+    "license_url": "https://github.com/mikey1384/translator/blob/master/LICENSE"
+  },
+  "installers": [
+    {
+      "platform": "macOS",
+      "architecture": "arm64",
+      "label": "Apple Silicon",
+      "url": "https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg"
+    },
+    {
+      "platform": "macOS",
+      "architecture": "x64",
+      "label": "Intel",
+      "url": "https://downloads.stage5.tools/mac/latest/Translator-x64.dmg"
+    },
+    {
+      "platform": "Windows",
+      "architecture": "x64",
+      "label": "64-bit Windows",
+      "url": "https://downloads.stage5.tools/win/latest/Translator-x64.exe"
+    }
+  ],
+  "mcp": {
+    "status": "developer_preview",
+    "included_in_installers": false,
+    "transport": "stdio",
+    "run_from": "source repository",
+    "setup": [
+      "git clone https://github.com/mikey1384/translator.git",
+      "cd translator",
+      "npm install",
+      "npm run agent:mcp"
+    ],
+    "capability_groups": [
+      "app launch, status, and semantic navigation",
+      "video URL download",
+      "ranked video search, pagination, and bounded batch download",
+      "Downloads library search, open, and re-download",
+      "local video and SRT loading",
+      "original, translation, or dual subtitle display",
+      "Default, Classic, Boxed, and LineBox subtitle styles",
+      "context-preserving SRT translation, review, editing, and export",
+      "masked Settings inspection and control",
+      "open explicit web pages and selected Stage5 checkout pages"
+    ],
+    "safety_boundaries": [
+      "Keep the MCP host's normal file-write and network approval controls enabled.",
+      "Stored provider key values are never returned.",
+      "The agent can open checkout pages but cannot read, enter, or submit payment details.",
+      "Transcription, dubbing, hosted Stage5 services, and third-party providers retain their normal costs and credentials."
+    ]
+  }
+}

@@ -34,9 +34,9 @@ type SubtitleEditorPageCopy = {
 };
 
 const subtitleEditorScreenshot = {
-  src: "/screenshots/subtitle-editor-workflow.webp",
-  width: 3022,
-  height: 1780,
+  src: "/screenshots/subtitle-editor-workflow-editorial-2026-08.webp",
+  width: 1920,
+  height: 1080,
 };
 
 const pageCopy: Partial<Record<Locale, SubtitleEditorPageCopy>> = {

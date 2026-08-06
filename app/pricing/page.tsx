@@ -6,7 +6,10 @@ import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
-import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
+import {
+  homeHrefForLocale,
+  localizePathForLocale,
+} from "../../lib/locale-routing";
 import type { Locale } from "../../lib/locales";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
@@ -111,7 +114,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packFootnote:
       "Use credits when you want convenience. Use BYO when you want the app workflow but prefer provider-direct billing.",
     byoEyebrow: "When BYO makes sense",
-    byoTitle: "BYO is for people who already pay for AI and do not want to pay twice.",
+    byoTitle:
+      "BYO is for people who already pay for AI and do not want to pay twice.",
     byoDescription:
       "If you already use paid OpenAI, Anthropic, or ElevenLabs API accounts, BYO lets you keep Translator's workflow while billing usage to those API accounts instead of consuming Stage5 credits.",
     byoItems: [
@@ -133,7 +137,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
         href: "/contact",
       },
     ],
-    ctaTitle: "Download Translator and decide later how you want to pay for AI.",
+    ctaTitle:
+      "Download Translator and decide later how you want to pay for AI.",
     ctaBody:
       "Start with the free tools, then use Stage5 credits for the easy path or BYO if you want direct provider billing.",
     ctaNote:
@@ -147,23 +152,23 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
   },
   ko: {
     metadataDescription:
-      "무료로 시작하고 AI가 실제로 돌 때만 결제하세요. Stage5 크레딧을 쓰거나 BYO를 한 번만 열고 OpenAI, Anthropic, ElevenLabs API 계정으로 직접 결제할 수 있습니다.",
+      "Translator는 무료로 설치할 수 있고 영상 다운로드, 자막 편집·병합, 기본 내보내기도 무료입니다. AI는 Stage5 크레딧 또는 내 API 키로 필요한 만큼만 사용하세요.",
     heroEyebrow: "무료로 시작",
-    heroTitle: "AI가 실제로 돌 때만 결제하세요.",
+    heroTitle: "앱은 무료. AI는 쓴 만큼만.",
     heroDescription:
-      "다운로드, 자막 편집, 자막 병합, 내보내기는 계속 무료입니다. 전사, 번역, 하이라이트, 더빙이 필요할 때만 Stage5 크레딧을 쓰거나, BYO를 한 번 열고 직접 쓰는 API 계정으로 결제할 수 있습니다.",
+      "영상 다운로드, 자막 편집·병합, 기본 내보내기는 계속 무료입니다. 음성 인식, 번역, 하이라이트, 더빙처럼 AI가 필요한 작업만 Stage5 크레딧으로 결제하거나 내 API 키로 직접 실행하세요.",
     heroPoints: [
-      "앱을 설치하고 쓰기 위해 구독할 필요가 없습니다",
-      "다운로드, 자막 편집, 병합, 내보내기 같은 핵심 도구는 무료입니다",
-      "Stage5 크레딧과 BYO 직접 결제 중에서 고를 수 있습니다",
+      "설치하거나 기본 기능을 쓰기 위해 구독할 필요가 없습니다",
+      "영상 다운로드, 자막 편집·병합, 기본 내보내기는 무료입니다",
+      "간편한 Stage5 크레딧과 내 API 키 중에서 선택할 수 있습니다",
     ],
     plansEyebrow: "결제 방식",
-    plansTitle: "무료 코어 앱 하나, AI 결제 방식은 두 가지.",
+    plansTitle: "앱은 무료로 시작하고, AI 비용은 내 방식대로.",
     plans: [
       {
         eyebrow: "무료 코어 앱",
-        title: "$0으로 시작",
-        body: "영상 가져오기와 자막 작업에 필요한 핵심 기능은 무료라서 AI에 돈을 쓰기 전에도 앱 자체로 충분한 가치를 얻을 수 있습니다.",
+        title: "$0으로 바로 시작",
+        body: "영상을 가져오고 자막을 다루는 핵심 기능은 무료입니다. AI를 결제하기 전에도 Translator가 내 작업 방식에 맞는지 충분히 확인할 수 있습니다.",
         items: [
           "URL로 영상 다운로드",
           "자막 편집과 싱크 조정",
@@ -173,29 +178,29 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
       {
         eyebrow: "Stage5 크레딧",
-        title: "가장 간단하게 AI를 쓰는 방법",
-        body: "앱 안에서 크레딧을 사고, 전사, 번역, 요약이나 하이라이트, 더빙을 돌릴 때만 씁니다. API 설정은 필요 없습니다.",
+        title: "설정 없이 AI 쓰기",
+        body: "앱에서 크레딧을 충전하고 음성 인식, 번역, 요약, 하이라이트, 더빙을 실행할 때만 사용합니다. API 계정을 따로 만들 필요가 없습니다.",
         items: [
-          "가장 간단한 경로를 원하는 사람에게 적합합니다",
-          "프로바이더 계정을 직접 관리하고 싶지 않을 때 좋습니다",
+          "복잡한 설정 없이 바로 시작하고 싶을 때 알맞습니다",
+          "여러 AI 서비스의 결제를 따로 관리할 필요가 없습니다",
           "전사, 번역, 요약, 하이라이트, 더빙에 쓸 수 있습니다",
         ],
       },
       {
         eyebrow: "BYO 모드",
-        title: "$10에 한번 잠금 해제하고 평생 내 API 키로 사용",
-        body: "프로바이더 결제를 직접 관리하고 싶다면 BYO를 한 번만 잠금 해제한 뒤 OpenAI, Anthropic, ElevenLabs API 계정으로 지원 기능을 직접 실행할 수 있습니다.",
+        title: "$10 한 번이면, 평생 내 API 키 사용",
+        body: "BYO를 한 번 잠금 해제하면 OpenAI, Anthropic, ElevenLabs의 지원 기능을 내 계정으로 직접 실행할 수 있습니다. AI 사용료도 해당 서비스에 직접 결제합니다.",
         items: [
-          "이미 API 사용량을 관리한다면 보통 크레딧보다 저렴합니다",
-          "원하는 프로바이더 경로를 직접 고를 수 있습니다",
+          "이미 API를 쓰고 있다면 비용을 더 직접 관리할 수 있습니다",
+          "지원되는 AI 서비스와 모델을 직접 선택할 수 있습니다",
           "사용량이 많은 사람에게 잘 맞습니다",
         ],
       },
     ],
-    packsEyebrow: "예시 크레딧 팩",
-    packsTitle: "Stage5 크레딧은 단순한 지갑처럼 이해하면 됩니다.",
+    packsEyebrow: "크레딧 충전 예시",
+    packsTitle: "필요할 때 충전하고, 사용한 만큼 차감됩니다.",
     packsDescription:
-      "현재 앱 추정치 기준의 대략적인 번역 환산 시간입니다. 품질 모드나 더빙, 다른 AI 경로를 쓰면 더 빨리 소모될 수 있습니다.",
+      "아래 시간은 현재 앱의 번역 예상치를 기준으로 한 대략적인 수치입니다. 품질 설정, 더빙, 선택한 AI 모델에 따라 실제 사용량은 달라질 수 있습니다.",
     packs: [
       { name: "Micro", price: "$1", value: "~50분" },
       { name: "Starter", price: "$5", value: "~8시간" },
@@ -203,39 +208,39 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Pro", price: "$50", value: "~127시간" },
     ],
     packFootnote:
-      "간편함이 중요하면 크레딧을 쓰고, 앱 흐름은 그대로 두되 프로바이더 직접 결제를 원하면 BYO를 쓰면 됩니다.",
-    byoEyebrow: "BYO가 맞는 경우",
-    byoTitle: "BYO는 이미 AI 비용을 직접 내고 있고, 이중으로 내고 싶지 않은 사람을 위한 옵션입니다.",
+      "간편하게 시작하려면 크레딧을, 기존 AI 계정으로 직접 결제하려면 BYO를 선택하세요. 작업 방식은 어느 쪽이든 같습니다.",
+    byoEyebrow: "BYO가 더 잘 맞는 경우",
+    byoTitle: "이미 API 키가 있다면 같은 AI 비용을 두 번 낼 이유가 없습니다.",
     byoDescription:
-      "이미 OpenAI, Anthropic, ElevenLabs의 유료 API 계정을 쓰고 있다면 BYO로 Translator의 흐름은 그대로 쓰면서 사용량은 Stage5 크레딧 대신 그 API 계정으로 직접 청구할 수 있습니다.",
+      "OpenAI, Anthropic, ElevenLabs API를 이미 사용하고 있다면 Translator의 작업 화면은 그대로 쓰면서 AI 사용료만 해당 계정에 직접 청구할 수 있습니다.",
     byoItems: [
-      "이미 API 비용을 직접 관리하는 헤비 유저에게 잘 맞습니다",
-      "프로바이더 직접 결제를 원하지만 앱 경험은 그대로 쓰고 싶을 때 좋습니다",
-      "어떤 때는 크레딧, 어떤 때는 내 키를 쓰고 싶을 때 유용합니다",
+      "API 사용량과 비용을 직접 관리하는 사용자에게 알맞습니다",
+      "Translator의 작업 방식은 유지하면서 AI 결제만 직접 할 수 있습니다",
+      "작업에 따라 크레딧과 내 API 키를 번갈아 사용할 수도 있습니다",
     ],
     faqCards: [
       {
         title: "무엇이 계속 무료인가요?",
-        body: "앱 다운로드, 영상 다운로드, 자막 편집, 자막 병합, 기본 내보내기 도구는 계속 무료입니다. AI 작업이 실제로 실행될 때만 비용이 생깁니다.",
+        body: "앱 설치, 영상 다운로드, 자막 편집·병합, 기본 내보내기는 계속 무료입니다. 음성 인식이나 번역처럼 AI가 실제로 실행되는 작업에만 비용이 듭니다.",
         ctaLabel: "자막 편집기 보기",
         href: "/subtitle-editor",
       },
       {
-        title: "가격표만으로 판단하기 어렵다면",
-        body: "사용량이 많거나 크레딧과 BYO 중 무엇이 맞는지 고민된다면 표만 보기보다 실제 쓰는 흐름 기준으로 이야기하는 편이 더 정확합니다.",
+        title: "크레딧과 BYO 중 고민된다면",
+        body: "가끔 간편하게 쓰는 경우에는 크레딧이, 사용량이 많거나 기존 API 계정이 있다면 BYO가 잘 맞습니다. 내 작업량을 기준으로 함께 계산해 드릴 수도 있습니다.",
         ctaLabel: "문의하기",
         href: "/contact",
       },
     ],
-    ctaTitle: "Translator를 다운로드하고, AI 결제 방식은 나중에 정하세요.",
+    ctaTitle: "먼저 무료로 써 보고, AI 결제 방식은 나중에 고르세요.",
     ctaBody:
-      "무료 도구로 먼저 시작하고, 가장 쉬운 길이 필요하면 Stage5 크레딧을, 직접 결제를 원하면 BYO를 쓰면 됩니다.",
+      "핵심 영상·자막 도구로 작업을 시작한 뒤, AI가 필요해지면 Stage5 크레딧 또는 내 API 키를 선택하면 됩니다.",
     ctaNote:
-      "다운로드와 자막 편집은 무료입니다. AI 비용은 AI 기능을 실제로 실행할 때만 생깁니다.",
+      "영상 다운로드와 자막 편집은 무료입니다. AI 비용은 해당 기능을 실행할 때만 발생합니다.",
     metadataKeywords: [
       "Translator 가격",
       "AI 번역 크레딧",
-      "비디오 번역 요금",
+      "영상 번역 앱 가격",
       "BYO API 키",
     ],
   },
@@ -287,7 +292,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
     ],
     packsEyebrow: "Packs de créditos de ejemplo",
-    packsTitle: "Los packs de créditos Stage5 siguen funcionando como una cartera simple.",
+    packsTitle:
+      "Los packs de créditos Stage5 siguen funcionando como una cartera simple.",
     packsDescription:
       "Son estimaciones aproximadas equivalentes a traducción basadas en las heurísticas actuales de la app. Los modos de calidad, el doblaje y otras rutas de IA pueden consumir más.",
     packs: [
@@ -415,7 +421,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
         href: "/contact",
       },
     ],
-    ctaTitle: "Translator をダウンロードして、AI の支払い方は後で決めてください。",
+    ctaTitle:
+      "Translator をダウンロードして、AI の支払い方は後で決めてください。",
     ctaBody:
       "まずは無料ツールから始めて、簡単な道なら Stage5 クレジット、直接課金なら BYO を選べます。",
     ctaNote:
@@ -512,8 +519,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     ctaTitle: "下载 Translator，稍后再决定你想怎么为 AI 付费。",
     ctaBody:
       "先从免费工具开始，需要省事就用 Stage5 积分，想直接由服务商计费就用 BYO。",
-    ctaNote:
-      "下载和字幕编辑一直免费。只有运行 AI 功能时才会出现 AI 成本。",
+    ctaNote: "下载和字幕编辑一直免费。只有运行 AI 功能时才会出现 AI 成本。",
     metadataKeywords: [
       "Translator 价格",
       "AI 翻译积分",
@@ -569,7 +575,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
     ],
     packsEyebrow: "Exemples de packs de credits",
-    packsTitle: "Les packs de credits Stage5 fonctionnent toujours comme un portefeuille simple.",
+    packsTitle:
+      "Les packs de credits Stage5 fonctionnent toujours comme un portefeuille simple.",
     packsDescription:
       "Ce sont des estimations grossieres equivalentes a la traduction, basees sur les heuristiques actuelles de l'app. Les modes qualite, le doublage et d'autres parcours IA peuvent consommer plus.",
     packs: [
@@ -581,7 +588,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packFootnote:
       "Utilisez les credits pour la simplicite. Utilisez BYO si vous voulez le flux de l'app mais preferez une facturation fournisseur directe.",
     byoEyebrow: "Quand BYO a du sens",
-    byoTitle: "BYO est fait pour les gens qui paient deja l'IA et ne veulent pas payer deux fois.",
+    byoTitle:
+      "BYO est fait pour les gens qui paient deja l'IA et ne veulent pas payer deux fois.",
     byoDescription:
       "Si vous utilisez deja des comptes API payants OpenAI, Anthropic ou ElevenLabs, BYO vous permet de garder le flux Translator tout en facturant l'usage a ces comptes au lieu de consommer des credits Stage5.",
     byoItems: [
@@ -663,7 +671,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
     ],
     packsEyebrow: "Beispiel-Credit-Pakete",
-    packsTitle: "Stage5-Credit-Pakete funktionieren weiter wie eine einfache Wallet.",
+    packsTitle:
+      "Stage5-Credit-Pakete funktionieren weiter wie eine einfache Wallet.",
     packsDescription:
       "Das sind grobe Ubersetzungs-Aquivalente auf Basis der aktuellen App-Heuristiken. Qualitatsmodi, Dubbing und andere KI-Wege konnen mehr verbrauchen.",
     packs: [
@@ -675,7 +684,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packFootnote:
       "Nutze Credits fur Bequemlichkeit. Nutze BYO, wenn du den App-Workflow willst, aber lieber direkt beim Provider abrechnen mochtest.",
     byoEyebrow: "Wann BYO sinnvoll ist",
-    byoTitle: "BYO ist fur Leute, die ohnehin fur KI zahlen und nicht doppelt zahlen wollen.",
+    byoTitle:
+      "BYO ist fur Leute, die ohnehin fur KI zahlen und nicht doppelt zahlen wollen.",
     byoDescription:
       "Wenn du bereits bezahlte API-Konten bei OpenAI, Anthropic oder ElevenLabs nutzt, kannst du mit BYO den Translator-Workflow behalten und die Nutzung direkt diesen Konten belasten statt Stage5-Credits zu verbrauchen.",
     byoItems: [
@@ -697,7 +707,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
         href: "/contact",
       },
     ],
-    ctaTitle: "Lade Translator herunter und entscheide spater, wie du KI bezahlen willst.",
+    ctaTitle:
+      "Lade Translator herunter und entscheide spater, wie du KI bezahlen willst.",
     ctaBody:
       "Starte mit den kostenlosen Tools, nutze dann Stage5-Credits fur den einfachen Weg oder BYO fur direkte Provider-Abrechnung.",
     ctaNote:
@@ -757,7 +768,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
     ],
     packsEyebrow: "Exemplos de pacotes de credito",
-    packsTitle: "Os pacotes de credito Stage5 continuam funcionando como uma carteira simples.",
+    packsTitle:
+      "Os pacotes de credito Stage5 continuam funcionando como uma carteira simples.",
     packsDescription:
       "Essas sao estimativas aproximadas equivalentes a traducao, baseadas nas heuristicas atuais do app. Modos de qualidade, dublagem e caminhos diferentes de IA podem consumir mais.",
     packs: [
@@ -851,7 +863,8 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       },
     ],
     packsEyebrow: "Ví dụ gói credit",
-    packsTitle: "Các gói credit Stage5 vẫn hoạt động như một chiếc ví đơn giản.",
+    packsTitle:
+      "Các gói credit Stage5 vẫn hoạt động như một chiếc ví đơn giản.",
     packsDescription:
       "Đây là các ước lượng tương đương dịch thô dựa trên heuristic hiện tại của ứng dụng. Chế độ chất lượng, lồng tiếng và các đường AI khác có thể tiêu tốn nhiều hơn.",
     packs: [

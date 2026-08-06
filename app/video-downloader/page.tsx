@@ -464,9 +464,9 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
 };
 
 const downloaderScreenshot = {
-  src: "/screenshots/video-downloader-workflow.webp",
-  width: 3024,
-  height: 1962,
+  src: "/screenshots/video-downloader-workflow-editorial-2026-08.webp",
+  width: 1920,
+  height: 1080,
 };
 
 const metadataKeywords: Partial<Record<Locale, string[]>> = {

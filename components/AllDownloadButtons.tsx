@@ -7,11 +7,13 @@ import { t, type Locale } from "../lib/strings";
 interface AllDownloadButtonsProps {
   locale: Locale;
   className?: string;
+  surface?: "dark" | "light";
 }
 
 export function AllDownloadButtons({
   locale,
   className = "",
+  surface = "dark",
 }: AllDownloadButtonsProps) {
   const { platform } = usePlatformDetection();
 
@@ -21,7 +23,7 @@ export function AllDownloadButtons({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row gap-4 justify-center ${className}`}
+      className={`flex flex-col items-center justify-center gap-4 sm:flex-row ${className}`}
     >
       {/* Mac Downloads */}
       <DownloadButton
@@ -31,6 +33,8 @@ export function AllDownloadButtons({
         trackingLabel="All Versions - Mac ARM64"
         variant={isMacUser ? "primary" : "secondary"}
         size={isMacUser ? "normal" : "small"}
+        surface={surface}
+        badge={isMacUser ? t("homeDownloadRecommended", locale) : undefined}
       />
       <DownloadButton
         label={`${t("download", locale)} (Intel)`}
@@ -39,6 +43,7 @@ export function AllDownloadButtons({
         trackingLabel="All Versions - Mac x64"
         variant="secondary"
         size="small"
+        surface={surface}
       />
       
       {/* Windows Download */}
@@ -49,6 +54,8 @@ export function AllDownloadButtons({
         trackingLabel="All Versions - Windows x64"
         variant={isWindowsUser ? "primary" : "secondary"}
         size={isWindowsUser ? "normal" : "small"}
+        surface={surface}
+        badge={isWindowsUser ? t("homeDownloadRecommended", locale) : undefined}
       />
     </div>
   );

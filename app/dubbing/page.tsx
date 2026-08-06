@@ -48,9 +48,9 @@ type DubbingPageCopy = {
 };
 
 const dubbingScreenshot = {
-  src: "/screenshots/dubbing-workflow.webp",
-  width: 3018,
-  height: 1962,
+  src: "/screenshots/dubbing-workflow-editorial-2026-08.webp",
+  width: 1920,
+  height: 1080,
 };
 
 const dubbingCopy: Partial<Record<Locale, DubbingPageCopy>> = {

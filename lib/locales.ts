@@ -32,6 +32,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/terms",
   "/echo",
 ]);
+const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
 
 export function isLocale(value: string | null | undefined): value is Locale {
   return value !== null && value !== undefined && localeSet.has(value);
@@ -100,6 +101,7 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
   const normalizedEnglishPath = normalizePathname(englishPath);
 
   if (locale === DEFAULT_LOCALE) return true;
+  if (ENGLISH_ONLY_PATHS.has(normalizedEnglishPath)) return false;
   if (locale === "ko") return true;
   if (
     locale === "es" ||

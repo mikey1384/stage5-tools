@@ -25,6 +25,10 @@ export const runtime = "edge";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://translator.tools"),
+  icons: {
+    icon: "/translator-icon.png",
+    apple: "/translator-icon.png",
+  },
 };
 
 const organizationStructuredData = {
@@ -32,7 +36,8 @@ const organizationStructuredData = {
   "@type": "Organization",
   name: "Stage5 Tools",
   url: "https://translator.tools",
-  logo: "https://translator.tools/icon.svg",
+  logo: "https://translator.tools/translator-icon.png",
+  sameAs: ["https://github.com/mikey1384/translator"],
 };
 
 const websiteStructuredData = {
@@ -58,6 +63,20 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="Translator summary for LLMs"
+        />
+        <link
+          rel="alternate"
+          type="application/json"
+          href="/agent-manifest.json"
+          title="Translator agent manifest"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
       >
@@ -94,7 +113,9 @@ export default async function RootLayout({
           id="structured-data-website"
           type="application/ld+json"
           strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
+          }}
         />
         {children}
       </body>

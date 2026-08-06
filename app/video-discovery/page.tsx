@@ -44,9 +44,9 @@ type DiscoveryPageCopy = {
 };
 
 const discoveryScreenshot = {
-  src: "/screenshots/ai-video-recommendation.webp",
-  width: 1600,
-  height: 1017,
+  src: "/screenshots/ai-video-recommendation-editorial-2026-08.webp",
+  width: 1920,
+  height: 1080,
 };
 
 const discoveryCopy: Partial<Record<Locale, DiscoveryPageCopy>> = {

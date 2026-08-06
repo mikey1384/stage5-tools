@@ -5,9 +5,16 @@ import {
   postCheckoutMessage,
   returnToTranslator,
 } from "../../../lib/checkout-messaging";
+import { trackCheckoutReturn } from "../../../lib/analytics";
 
 export default function CancelledUI() {
   useEffect(() => {
+    const url = new URL(window.location.href);
+    trackCheckoutReturn({
+      event: "checkout_return_cancelled",
+      checkout_mode: url.searchParams.get("mode") === "byo" ? "byo" : "credits",
+      page_path: window.location.pathname,
+    });
     postCheckoutMessage("stripe-cancelled");
   }, []);
 

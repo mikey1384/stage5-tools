@@ -23,6 +23,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
     {
       titleKey: "footerResources" as const,
       links: [
+        { labelKey: "navOpenSource" as const, href: "/open-source" },
         { labelKey: "footerSupportedLanguages" as const, href: "/translate" },
         { labelKey: "navFaq" as const, href: "/faq" },
         { labelKey: "navDownload" as const, href: downloadHref },

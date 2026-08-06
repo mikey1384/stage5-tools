@@ -10,10 +10,10 @@ import {
 const BASE_URL = "https://translator.tools";
 
 const defaultImage = {
-  url: `${BASE_URL}/thumb.jpg`,
+  url: `${BASE_URL}/translator-social-card-editorial-2026-08.png`,
   width: 1200,
   height: 630,
-  alt: "Translator by Stage5",
+  alt: "Translator multitab video translation workstation",
 };
 
 interface BuildMetadataProps {
@@ -49,13 +49,16 @@ export function buildMetadata({
   const languageUrls = Object.fromEntries(
     availableLocales.map((supportedLocale) => [
       supportedLocale,
-      new URL(localizePathForLocale(supportedLocale, englishPath), BASE_URL).toString(),
-    ])
+      new URL(
+        localizePathForLocale(supportedLocale, englishPath),
+        BASE_URL,
+      ).toString(),
+    ]),
   ) as Record<string, string>;
   const ogLocale = openGraphLocaleByLocale[locale];
-  const alternateOgLocale = availableLocales.filter(
-    (supportedLocale) => supportedLocale !== locale
-  ).map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
+  const alternateOgLocale = availableLocales
+    .filter((supportedLocale) => supportedLocale !== locale)
+    .map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
 
   return {
     title,
@@ -122,7 +125,7 @@ export function buildSoftwareApplicationStructuredData({
 
 export function buildBreadcrumbStructuredData(
   locale: Locale,
-  items: BreadcrumbStructuredDataItem[]
+  items: BreadcrumbStructuredDataItem[],
 ) {
   return {
     "@context": "https://schema.org",

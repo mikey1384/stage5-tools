@@ -46,9 +46,9 @@ type TranslatePageCopy = {
 };
 
 const watchSubtitleScreenshot = {
-  src: "/screenshots/watch-translated-subtitles.webp",
-  width: 1600,
-  height: 1003,
+  src: "/screenshots/subtitle-display-translation-only-2026-08.webp",
+  width: 2400,
+  height: 1600,
 };
 
 const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
@@ -534,8 +534,7 @@ const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
       },
     ],
     workflowEyebrow: "工作方式",
-    workflowTitle:
-      "从原始字幕到真正可用的翻译版本，路径很直接。",
+    workflowTitle: "从原始字幕到真正可用的翻译版本，路径很直接。",
     workflowSteps: [
       {
         step: "01",
@@ -602,8 +601,7 @@ const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
       "你可以先拿到更干净的字幕，或者如果视频还不在本机上，就先从 URL 开始。",
     bridgePrimary: "查看字幕编辑器",
     bridgeSecondary: "查看视频下载器",
-    ctaTitle:
-      "下载 Translator，把字幕变成你真的能用自己语言观看的版本。",
+    ctaTitle: "下载 Translator，把字幕变成你真的能用自己语言观看的版本。",
     ctaBody:
       "翻译视频，在上下文里检查，然后继续走到字幕输出或配音输出，全程不离开工作流。",
     metadataDescription:
@@ -628,7 +626,8 @@ const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
     ],
     screenshotCaption:
       "Les sous-titres traduits apparaissent dans le meme flux, donc vous pouvez regarder, verifier et continuer a modifier sans changer d'outil.",
-    screenshotAlt: "Visionnage d'une video avec sous-titres traduits dans Translator",
+    screenshotAlt:
+      "Visionnage d'une video avec sous-titres traduits dans Translator",
     outcomesEyebrow: "Ce que vous obtenez",
     outcomesTitle:
       "Une bonne traduction de sous-titres doit vous aider a suivre la video naturellement, sans vous forcer a lutter contre les sous-titres.",
@@ -741,7 +740,8 @@ const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
     ],
     screenshotCaption:
       "Die ubersetzten Untertitel erscheinen direkt im selben Workflow, sodass du ansehen, prufen und weiterbearbeiten kannst, ohne zwischen Tools zu springen.",
-    screenshotAlt: "Ein Video mit ubersetzten Untertiteln in Translator ansehen",
+    screenshotAlt:
+      "Ein Video mit ubersetzten Untertiteln in Translator ansehen",
     outcomesEyebrow: "Was du bekommst",
     outcomesTitle:
       "Gute Untertitelubersetzung sollte dir helfen, dem Video naturlich zu folgen, statt mit den Untertiteln kampfen zu mussen.",
@@ -854,7 +854,8 @@ const pageCopy: Partial<Record<Locale, TranslatePageCopy>> = {
     ],
     screenshotCaption:
       "As legendas traduzidas aparecem no mesmo fluxo, entao voce pode assistir, revisar e continuar editando sem ficar trocando de ferramenta.",
-    screenshotAlt: "Assistindo a um video com legendas traduzidas no Translator",
+    screenshotAlt:
+      "Assistindo a um video com legendas traduzidas no Translator",
     outcomesEyebrow: "O que voce recebe",
     outcomesTitle:
       "Uma boa traducao de legendas deve ajudar voce a acompanhar o video com naturalidade, sem obrigar voce a brigar com as legendas.",
@@ -1098,11 +1099,12 @@ export default async function TranslatePage({
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
   const translatePath = "/translate";
-  const softwareApplicationStructuredData = buildSoftwareApplicationStructuredData({
-    description: copy.metadataDescription,
-    path: translatePath,
-    locale,
-  });
+  const softwareApplicationStructuredData =
+    buildSoftwareApplicationStructuredData({
+      description: copy.metadataDescription,
+      path: translatePath,
+      locale,
+    });
   const breadcrumbStructuredData = buildBreadcrumbStructuredData(locale, [
     { name: t("breadcrumbHome", locale), path: "/" },
     { name: t("navAiTranslation", locale), path: translatePath },
@@ -1132,7 +1134,10 @@ export default async function TranslatePage({
         <Breadcrumbs
           items={[
             { label: t("breadcrumbHome", locale), href: homeHref },
-            { label: t("navAiTranslation", locale), href: localizeHref(translatePath) },
+            {
+              label: t("navAiTranslation", locale),
+              href: localizeHref(translatePath),
+            },
           ]}
         />
 
@@ -1197,7 +1202,9 @@ export default async function TranslatePage({
                 key={item.title}
                 className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6"
               >
-                <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                <h3 className="text-xl font-semibold text-white">
+                  {item.title}
+                </h3>
                 <p className="mt-3 text-sm leading-6 text-gray-400">
                   {item.body}
                 </p>
@@ -1263,7 +1270,7 @@ export default async function TranslatePage({
                   >
                     {language.label}
                   </span>
-                )
+                ),
               )}
             </div>
           </div>
@@ -1305,7 +1312,12 @@ export default async function TranslatePage({
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-gray-300">
             {copy.ctaBody}
           </p>
-          <FeatureDownloadCta locale={locale} note={t("translateCreditsNote", locale)} align="center" className="mt-8" />
+          <FeatureDownloadCta
+            locale={locale}
+            note={t("translateCreditsNote", locale)}
+            align="center"
+            className="mt-8"
+          />
         </section>
       </div>
 

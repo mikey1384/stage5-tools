@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { HOME_LOCALIZED_LOCALES, openGraphLocaleByLocale } from "../../lib/locales";
+import {
+  HOME_LOCALIZED_LOCALES,
+  openGraphLocaleByLocale,
+} from "../../lib/locales";
 import { localizePathForLocale } from "../../lib/locale-routing";
 import type { Locale } from "../../lib/strings";
 
@@ -79,21 +82,21 @@ type HomeCopy = {
 const baseHomeCopy = {
   en: {
     pageTitle:
-      "Translator - AI translated subtitles for internet videos | Free desktop app",
+      "AI Video Translator for Subtitles, Dubbing & Clips | Translator",
     metadataDescription:
-      "Download or import an internet video, generate high-quality translated subtitles, review and edit them, then export a finished subtitled video or clean SRT in one desktop app.",
-    eyebrow: "AI translated subtitles from video to export",
-    title: "Turn internet videos into finished translated subtitles.",
+      "Translate multiple videos in one desktop app with browser-style tabs: import, transcribe, review subtitles in context, dub, clip, and export. Free for macOS and Windows.",
+    eyebrow: "The complete AI video translation workflow",
+    title: "The video translator that finishes the job.",
     subtitle:
-      "Paste a video URL or import a file. Translator downloads the video, transcribes the audio, translates the subtitles, lets you review every line in context, and exports a clean SRT or subtitled video.",
+      "Paste a link or open a file. Translator takes you from video and speech to reviewed subtitles, dubbing, highlight clips, and finished exports—without the usual chain of disconnected tools.",
     heroPoints: [
-      "Download or import videos without leaving the app",
-      "Generate translated subtitles with review-ready timing",
-      "Edit wording and timing while watching the video",
-      "Export SRT files or finished subtitled videos",
+      "Start from a video URL or a file on your computer",
+      "Keep multiple videos running in their own browser-style tabs",
+      "Edit every line and timestamp against the actual video",
+      "Export SRT, subtitled video, dubbing, or ready-to-share clips",
     ],
     heroNote:
-      "Free download. Downloading and subtitle editing are free. AI features use credits only when you run them.",
+      "Free to install. Downloads, subtitle editing, merging, and standard exports stay free. Pay only when you run AI—or use your own API keys.",
     heroPricingLink: "See pricing",
     heroFaqLink: "Read the FAQ",
     heroScreenshotCaption:
@@ -102,98 +105,105 @@ const baseHomeCopy = {
       {
         value: "39",
         label: "subtitle languages",
-        detail: "Translate subtitles for audiences across the languages your videos need.",
+        detail:
+          "Reach the language your audience speaks without rebuilding the workflow.",
       },
       {
-        value: "Review first",
-        label: "editable subtitle workflow",
-        detail: "Check translated lines in context before you publish or share them.",
+        value: "Two-pass",
+        label: "translation and review",
+        detail:
+          "A first translation plus a second quality pass for wording that survives context.",
       },
       {
-        value: "One app",
-        label: "not five disconnected tools",
-        detail: "Download, transcribe, translate, edit, and export in one place.",
+        value: "$0",
+        label: "to install and start",
+        detail:
+          "Video download, subtitle editing, merging, and standard exports stay free.",
       },
       {
-        value: "Finished output",
-        label: "not just model text",
-        detail: "Leave with an SRT file or a subtitled video you can actually use.",
+        value: "Multi-tab",
+        label: "multiple jobs, one window",
+        detail:
+          "Each video keeps its own player, subtitles, edits, and live job status.",
       },
     ],
-    comparisonEyebrow: "What other tools miss",
-    comparisonTitle: "Most AI video translators stop before the subtitles are usable.",
+    comparisonEyebrow: "Translation is only the middle",
+    comparisonTitle: "Most video translators hand the hard parts back to you.",
     comparisonDescription:
-      "A rough translation is not enough when timing, wording, review, and export still need to happen. Translator keeps the whole subtitle job in one workflow.",
-    typicalLabel: "Typical AI translator",
-    translatorLabel: "Translator",
+      "A translated text file is not a finished video. Translator keeps the source, timing, review, rendering, dubbing, and clips connected until the work is ready to use.",
+    typicalLabel: "The usual toolchain",
+    translatorLabel: "One Translator workflow",
     comparisonRows: [
       {
-        typical: "Hands back translated text or a raw subtitle file.",
+        typical: "Upload a file, wait, and download detached text.",
         translator:
-          "Keeps translated subtitles connected to the video so you can review every line in context.",
+          "Keep every translated line attached to the video and the moment it belongs to.",
       },
       {
-        typical: "Breaks timing or makes review someone else’s problem.",
+        typical: "Move to another app to repair timing and awkward wording.",
         translator:
-          "Lets you edit wording and timing before the subtitles become final output.",
+          "Review, improve, and retime subtitles while watching the source in the same workspace.",
       },
       {
-        typical: "Needs separate tools for downloading, editing, and export.",
+        typical:
+          "Find separate tools for downloading, dubbing, clips, and rendering.",
         translator:
-          "Keeps the video, transcript, translation, editor, and export path in one desktop workspace.",
+          "Move from a URL to subtitles, dubbing, highlight clips, SRT, or a finished video without rebuilding context.",
       },
       {
-        typical: "Feels like a utility.",
+        typical:
+          "Pay a subscription before you know whether the workflow fits.",
         translator:
-          "Feels like a production workflow for making subtitles you would actually publish.",
+          "Install for free, keep the core tools free, and pay only when AI actually runs.",
       },
     ],
-    sellingEyebrow: "What you actually get",
-    sellingTitle: "Download, translate subtitles, review, and export in one app.",
+    sellingEyebrow: "One continuous workspace",
+    sellingTitle:
+      "Translator replaces the glue work between five different apps.",
     sellingDescription:
-      "Translator turns internet videos into reviewed translated subtitles and finished subtitled outputs without juggling a downloader, transcription tool, translator, editor, and exporter.",
+      "The video, transcript, translation, timing, voice, clips, and exports stay together. You spend time deciding what is good—not moving files between services.",
     sellingPoints: [
       {
-        title: "Start from a video URL or local file",
+        title: "Bring in almost any video",
         description:
-          "Paste a supported internet video URL or import a video from your machine, then keep the subtitle workflow moving in the same app.",
+          "Paste a supported video URL or open a local file. The source lands directly inside the same workspace where the rest of the job happens.",
         href: "/video-downloader",
         cta: "See the downloader",
       },
       {
-        title: "Generate translated subtitles you can review",
+        title: "Translate for context, not just grammar",
         description:
-          "Create subtitles, translate them, and inspect the result against the video instead of trusting detached model output.",
+          "Generate timed subtitles, run a quality review pass, and inspect every line against the people, visuals, and moment on screen.",
         href: "/translate",
         cta: "See AI translation",
       },
       {
-        title: "Fix the subtitles before export",
+        title: "Own the final edit",
         description:
-          "Adjust wording, timing, and subtitle files before you export SRT or burn subtitles into the finished video.",
+          "Fix wording and timing, mount existing subtitle files, compare original and translated lines, then export the format you actually need.",
         href: "/subtitle-editor",
         cta: "See the editor",
       },
       {
-        title: "Pay when AI runs, not before",
+        title: "Keep every video in its own tab",
         description:
-          "The app is free to download, free to edit subtitles with, and flexible enough for power users who want credits or BYO keys.",
-        href: "/pricing",
-        cta: "View pricing",
+          "Open browser-style tabs for separate videos. Running jobs continue in the background, show live progress, and signal when they finish—without losing your place in the active video.",
+        href: "/#multitab",
+        cta: "See the multitab workflow",
       },
     ],
-    socialEyebrow: "What people say",
-    socialTitle: "People notice the difference quickly.",
+    socialEyebrow: "Built like a product",
+    socialTitle: "Not an AI wrapper. A video workstation.",
     socialDescription:
-      "The product lands because it feels like a full workflow with taste, not another thin wrapper around model output.",
+      "Translator is opinionated about the work around the model: files, timing, review, playback, exports, cost control, and the decisions that make an output publishable.",
     languagesEyebrow: "Language reach",
-    languagesTitle: "Translate into 39 subtitle languages without leaving the workflow.",
+    languagesTitle: "One workflow. Thirty-nine ways to be understood.",
     languagesDescription:
       "Start with the languages people expect, then reach across the long tail when the right video or audience needs subtitles somewhere else.",
-    bottomEyebrow: "Make the subtitles",
-    bottomTitle: "Download Translator and turn a video into translated subtitles.",
+    bottomEyebrow: "One app, start to finish",
+    bottomTitle: "Translate your next video from start to finish.",
     bottomDescription:
-      "Bring in a video, generate translated subtitles, review them in context, and export something clean enough to watch, share, or publish.",
+      "Find or open a video, generate and translate subtitles, review them against the footage, then export or dub the result. Multiple jobs stay organized in tabs inside one desktop app.",
     mockSearchQuery: "internet video -> reviewed English subtitles",
     mockSearchTag: "Video to subtitles workflow",
     heroBenefitTitle1: "Review translated subtitles in context",
@@ -202,16 +212,16 @@ const baseHomeCopy = {
     heroBenefitTitle2: "Move from URL to finished output",
     heroBenefitBody2:
       "When a video matters, keep going from download to transcription, translation, subtitle editing, and export without changing tools.",
-    viewerEyebrow: "See it as it happens",
-    viewerWindowTitle: "Live translated subtitles",
-    viewerTitle: "Translated subtitles appear line by line while the job is still running.",
+    viewerEyebrow: "Multitab workspace",
+    viewerWindowTitle: "Three videos, one workspace",
+    viewerTitle: "One window. Every video still in motion.",
     viewerDescription:
-      "You can start enjoying the video in your own language right away instead of waiting for the entire translation job to finish first.",
+      "Give each video its own tab, then move between translation, review, and clipping without destroying context. Background jobs keep running and the tab strip tells you when to come back.",
     viewerScreenshotCaption:
-      "As each subtitle line is translated, it shows up in the player immediately. You do not have to wait for the entire file to finish first.",
-    actionEyebrow: "Turn it into something",
+      "Every tab is a full, independent Translator workspace. Live progress rings, completion badges, and error states stay visible while you work somewhere else.",
+    actionEyebrow: "More than subtitles",
     actionWindowTitle: "Highlight clips",
-    actionTitle: "Pull the best moments out of a long video without doing it by hand.",
+    actionTitle: "A long video can become the clips worth keeping.",
     actionDescription:
       "Once you find something worth keeping, Translator can help surface standout moments and turn a full video into short clips you can actually use.",
     actionScreenshotCaption:
@@ -220,143 +230,147 @@ const baseHomeCopy = {
     sellingCardEyebrow: "Why it matters",
     productHuntLinkLabel: "View on Product Hunt",
     heroDiscoveryAlt: "Reviewing translated subtitles inside Translator",
-    viewerAlt: "Reviewing a video with translated subtitles",
+    viewerAlt: "Translator multitab workspace with independent video jobs",
     actionAlt: "Reviewing highlight clip candidates",
   },
   ko: {
-    pageTitle:
-      "Translator - 인터넷 영상에 AI 번역 자막을 만드는 데스크톱 앱 | 무료 다운로드",
+    pageTitle: "AI 영상 번역기 - 자막 번역·더빙·클립까지 한 번에 | Translator",
     metadataDescription:
-      "인터넷 영상을 다운로드하거나 가져와서 고품질 번역 자막을 만들고, 영상 안에서 검토/수정한 뒤 SRT나 자막 입힌 영상으로 내보내세요.",
-    eyebrow: "영상에서 내보내기까지 이어지는 AI 번역 자막",
-    title: "인터넷 영상을 바로 쓸 수 있는 번역 자막으로 바꾸세요.",
+      "여러 영상을 브라우저처럼 탭에 열고 다운로드, 음성 인식, 자막 번역·검수, 더빙, 클립, 내보내기까지 한 번에. macOS·Windows용 무료 데스크톱 앱입니다.",
+    eyebrow: "영상 번역의 처음부터 끝까지",
+    title: "번역만 하고 끝내지 않는 영상 번역기.",
     subtitle:
-      "영상 URL을 붙여 넣거나 파일을 가져오세요. Translator가 영상을 다운로드하고, 음성을 전사하고, 자막을 번역한 뒤, 영상 안에서 한 줄씩 검토하고 SRT나 자막 입힌 영상으로 내보낼 수 있게 해줍니다.",
+      "영상 링크 하나를 붙여 넣거나 파일을 여세요. 다운로드, 음성 인식, 자막 번역과 검수, 더빙, 하이라이트 클립, 내보내기까지 Translator 하나면 됩니다.",
     heroPoints: [
-      "앱 안에서 영상을 다운로드하거나 가져옵니다",
-      "검토하기 좋은 타이밍의 번역 자막을 생성합니다",
-      "영상을 보면서 표현과 타이밍을 수정합니다",
-      "SRT 또는 자막 입힌 영상으로 내보냅니다",
+      "영상 URL이나 내 컴퓨터의 파일로 바로 시작",
+      "여러 영상을 탭에 열어 둔 채 번역 작업을 동시에 진행",
+      "영상을 보면서 문장과 타이밍을 한 줄씩 수정",
+      "SRT·자막 영상·더빙·하이라이트 클립으로 완성",
     ],
     heroNote:
-      "무료로 다운로드해 시작하세요. 다운로드와 자막 편집은 무료이고, AI 기능은 실행할 때만 크레딧을 사용합니다.",
+      "설치와 핵심 기능은 무료입니다. 영상 다운로드, 자막 편집·병합, 기본 내보내기는 계속 무료로 쓰고 AI를 실행할 때만 결제하세요. 내 API 키를 연결해도 됩니다.",
     heroPricingLink: "요금 보기",
     heroFaqLink: "FAQ 보기",
     heroScreenshotCaption:
-      "번역 자막이 영상 타임라인과 함께 유지되기 때문에, 한곳에서 검토하고 고치고 내보낼 수 있습니다.",
+      "영상과 원문, 번역문, 타이밍이 한 화면에 함께 있어 번역 결과를 실제 장면에 맞춰 바로 다듬을 수 있습니다.",
     metrics: [
       {
         value: "39",
-        label: "자막 지원 언어",
-        detail: "필요한 시청자에 맞춰 여러 언어로 자막을 번역할 수 있습니다.",
+        label: "자막 번역 언어",
+        detail:
+          "작업 방식을 바꾸지 않고 원하는 언어의 시청자에게 닿을 수 있습니다.",
       },
       {
-        value: "검토 먼저",
-        label: "수정 가능한 자막 흐름",
-        detail: "공유하거나 게시하기 전에 번역 자막을 영상 맥락 안에서 확인합니다.",
+        value: "2단계",
+        label: "번역 후 품질 검수",
+        detail: "초벌 번역 뒤 한 번 더 다듬어 문맥에 어울리는 표현을 만듭니다.",
       },
       {
-        value: "한 앱",
-        label: "분리된 도구가 아닙니다",
-        detail: "다운로드, 전사, 번역, 편집, 내보내기를 한곳에서 처리합니다.",
+        value: "$0",
+        label: "설치와 핵심 기능",
+        detail: "영상 다운로드, 자막 편집·병합, 기본 내보내기는 무료입니다.",
       },
       {
-        value: "완성 결과물",
-        label: "모델 텍스트가 아닙니다",
-        detail: "실제로 쓸 수 있는 SRT나 자막 입힌 영상으로 끝납니다.",
+        value: "멀티탭",
+        label: "영상마다 독립된 작업 공간",
+        detail:
+          "각 영상의 재생 화면, 자막, 편집 내용, 진행 상태를 그대로 유지합니다.",
       },
     ],
-    comparisonEyebrow: "다른 툴과 다른 점",
-    comparisonTitle: "대부분의 AI 번역기는 자막이 실제로 쓸 만해지기 전에 멈춥니다.",
+    comparisonEyebrow: "번역은 작업의 중간일 뿐",
+    comparisonTitle:
+      "대부분의 영상 번역기는 어려운 마무리를 사용자에게 넘깁니다.",
     comparisonDescription:
-      "거친 번역만으로는 부족합니다. 타이밍, 표현, 검토, 내보내기까지 끝나야 실제 자막이 됩니다. Translator는 그 전체 과정을 한 흐름으로 묶습니다.",
-    typicalLabel: "일반적인 AI 번역기",
-    translatorLabel: "Translator",
+      "번역된 텍스트 파일만으로는 완성된 영상이 되지 않습니다. Translator는 원본 영상, 타이밍, 검수, 더빙, 클립, 내보내기를 끝까지 하나의 작업으로 이어 줍니다.",
+    typicalLabel: "여러 도구를 이어 쓰는 방식",
+    translatorLabel: "Translator 하나로 끝내는 방식",
     comparisonRows: [
       {
-        typical: "번역된 텍스트나 거친 자막 파일만 돌려줍니다.",
+        typical: "파일을 올리고 기다린 뒤, 영상과 떨어진 번역문을 받습니다.",
         translator:
-          "번역 자막을 영상과 함께 유지해 한 줄씩 맥락 안에서 검토할 수 있습니다.",
+          "모든 번역 문장이 실제 영상 장면과 타이밍에 연결된 채로 유지됩니다.",
       },
       {
-        typical: "타이밍이 깨지거나 검토를 다른 도구에 맡겨야 합니다.",
+        typical: "어색한 문장과 자막 싱크를 고치려고 또 다른 앱을 엽니다.",
         translator:
-          "최종 결과물이 되기 전에 표현과 타이밍을 직접 다듬을 수 있습니다.",
+          "영상을 보면서 번역문과 타이밍을 같은 화면에서 바로 다듬습니다.",
       },
       {
-        typical: "다운로드, 편집, 내보내기를 다른 도구로 나눠야 합니다.",
-        translator: "영상, 전사, 번역, 자막 편집, 내보내기를 하나의 데스크톱 앱에 담았습니다.",
+        typical:
+          "다운로드, 더빙, 클립 제작, 렌더링을 위해 여러 서비스를 오갑니다.",
+        translator:
+          "영상 URL 하나에서 시작해 자막, 더빙, 클립, SRT, 완성 영상까지 그대로 이어 갑니다.",
       },
       {
-        typical: "단순한 유틸리티처럼 느껴집니다.",
+        typical: "나에게 맞는지 확인하기도 전에 구독부터 시작합니다.",
         translator:
-          "실제로 게시하거나 공유할 수 있는 자막을 만드는 제작 흐름처럼 느껴집니다.",
+          "무료로 설치하고 핵심 기능을 써 본 뒤, AI를 실행할 때만 비용을 냅니다.",
       },
     ],
-    sellingEyebrow: "Translator로 할 수 있는 것",
-    sellingTitle: "다운로드, 자막 번역, 검토, 내보내기를 한 앱에서 끝내세요.",
+    sellingEyebrow: "끊기지 않는 하나의 작업 공간",
+    sellingTitle: "다섯 개의 앱을 이어 붙이던 일을 Translator 하나로 끝내세요.",
     sellingDescription:
-      "Translator는 인터넷 영상을 검토 가능한 번역 자막과 완성된 자막 결과물로 바꿔줍니다. 다운로더, 전사 도구, 번역기, 자막 편집기, 내보내기 도구를 따로 오갈 필요가 없습니다.",
+      "영상, 원문, 번역문, 타이밍, 음성, 클립, 내보내기 설정이 한곳에 남아 있습니다. 파일을 옮기는 대신 결과물의 품질에 집중할 수 있습니다.",
     sellingPoints: [
       {
-        title: "영상 URL이나 로컬 파일에서 시작합니다",
+        title: "어떤 영상이든 바로 가져오세요",
         description:
-          "지원되는 인터넷 영상 URL을 붙여 넣거나 내 컴퓨터의 영상을 가져온 뒤, 같은 앱에서 자막 작업을 이어갑니다.",
+          "지원되는 영상 URL을 붙여 넣거나 내 컴퓨터의 파일을 여세요. 가져온 영상은 이후 모든 작업이 이루어지는 같은 화면에 남습니다.",
         href: "/video-downloader",
         cta: "다운로더 보기",
       },
       {
-        title: "검토할 수 있는 번역 자막을 만듭니다",
+        title: "문법보다 문맥에 맞게 번역하세요",
         description:
-          "자막을 만들고 번역한 뒤, 영상과 분리된 모델 출력이 아니라 실제 영상 안에서 결과를 확인합니다.",
+          "타이밍이 잡힌 자막을 만들고 품질 검수를 거친 뒤, 인물과 장면을 직접 보면서 문장마다 결과를 확인합니다.",
         href: "/translate",
         cta: "AI 번역 보기",
       },
       {
-        title: "내보내기 전에 자막을 고칩니다",
+        title: "마지막 편집권은 내가 가집니다",
         description:
-          "SRT로 내보내거나 영상에 자막을 입히기 전에 표현, 타이밍, 자막 파일을 정리할 수 있습니다.",
+          "원문과 번역문을 함께 보고 표현과 타이밍을 수정한 다음, 필요한 형식으로 SRT나 완성 영상을 내보냅니다.",
         href: "/subtitle-editor",
         cta: "자막 편집기 보기",
       },
       {
-        title: "AI를 쓸 때만 비용이 듭니다",
+        title: "영상마다 탭을 하나씩 열어 두세요",
         description:
-          "앱은 무료로 내려받고, 자막 편집도 무료로 쓸 수 있으며, 필요할 때만 크레딧이나 BYO 키로 AI를 사용합니다.",
-        href: "/pricing",
-        cta: "요금 보기",
+          "여러 영상을 브라우저처럼 탭에 나눠 여세요. 다른 영상을 살피는 동안에도 실행 중인 작업은 계속되고, 진행률과 완료 여부가 탭에 바로 표시됩니다.",
+        href: "/#multitab",
+        cta: "멀티탭 작업 방식 보기",
       },
     ],
-    socialEyebrow: "사용자 반응",
-    socialTitle: "사람들은 차이를 빠르게 알아챕니다.",
+    socialEyebrow: "처음부터 제품답게",
+    socialTitle: "AI를 감싼 껍데기가 아니라, 실제 영상 작업 도구입니다.",
     socialDescription:
-      "모델 출력만 감싼 얇은 도구가 아니라, 완성도 있는 워크플로우 제품처럼 느껴지기 때문입니다.",
+      "Translator는 모델 호출 전후의 일을 제대로 설계했습니다. 파일 관리, 자막 타이밍, 영상 재생, 품질 검수, 내보내기, 비용 선택까지 실제 작업에 필요한 흐름을 놓치지 않습니다.",
     languagesEyebrow: "언어 확장성",
-    languagesTitle: "39개 자막 언어로 바로 이어집니다.",
+    languagesTitle: "하나의 작업 방식으로 39개 언어에 닿으세요.",
     languagesDescription:
       "많이 찾는 언어부터 시작하고, 필요한 시청자가 다른 언어권에 있을 때 더 멀리 확장하세요.",
-    bottomEyebrow: "자막을 완성하세요",
-    bottomTitle: "Translator를 다운로드하고 영상을 번역 자막으로 바꾸세요.",
+    bottomEyebrow: "하나의 앱에서 끝까지",
+    bottomTitle: "다음 영상을 처음부터 끝까지 번역하세요.",
     bottomDescription:
-      "영상을 가져오고, 번역 자막을 만들고, 맥락 안에서 검토한 뒤, 보기 좋고 공유 가능한 결과물로 내보내세요.",
+      "영상을 찾거나 불러오고, 자막을 만들고 번역한 뒤, 영상과 함께 검토·편집하고 내보내거나 더빙하세요. 여러 작업도 하나의 데스크톱 앱에서 탭으로 관리할 수 있습니다.",
     mockSearchQuery: "인터넷 영상 -> 검토된 한국어 자막",
     mockSearchTag: "영상에서 자막까지",
-    heroBenefitTitle1: "번역 자막을 영상 안에서 검토합니다",
+    heroBenefitTitle1: "영상과 번역문을 함께 봅니다",
     heroBenefitBody1:
       "각 번역 줄을 실제 영상과 함께 보면서 무엇을 고쳐야 할지 판단할 수 있습니다.",
-    heroBenefitTitle2: "URL에서 완성 결과물까지 이어집니다",
+    heroBenefitTitle2: "URL 하나에서 완성본까지 갑니다",
     heroBenefitBody2:
       "가치 있는 영상이라면 다운로드, 전사, 번역, 자막 편집, 내보내기까지 같은 흐름에서 바로 이어갈 수 있습니다.",
-    viewerEyebrow: "기다리지 않고 보기",
-    viewerWindowTitle: "실시간 번역 자막",
-    viewerTitle: "전체 번역이 끝나기 전부터 자막이 한 줄씩 바로 올라옵니다.",
+    viewerEyebrow: "멀티탭 작업 공간",
+    viewerWindowTitle: "영상 세 개, 작업 공간 하나",
+    viewerTitle: "영상마다 탭 하나. 작업은 끊기지 않습니다.",
     viewerDescription:
-      "전체 번역이 끝날 때까지 기다릴 필요 없이, 보고 싶은 영상을 내 언어 자막과 함께 바로 즐길 수 있습니다.",
+      "각 영상을 별도 탭에 열어 두고 번역, 검수, 클립 작업 사이를 자유롭게 오가세요. 다른 탭을 보는 동안에도 작업은 계속되고, 언제 돌아가야 할지는 탭에서 바로 알 수 있습니다.",
     viewerScreenshotCaption:
-      "번역이 완료된 줄부터 플레이어에 바로 반영됩니다. 전체 자막 파일이 끝날 때까지 기다릴 필요가 없습니다.",
-    actionEyebrow: "바로 활용하기",
+      "탭마다 재생 화면, 자막, 편집 상태를 그대로 유지합니다. 진행률, 완료, 오류 표시가 탭에 남아 있어 다른 영상을 작업하면서도 놓치지 않습니다.",
+    actionEyebrow: "자막 그 이상",
     actionWindowTitle: "하이라이트 클립",
-    actionTitle: "긴 영상에서도 좋은 장면만 바로 뽑아낼 수 있습니다.",
+    actionTitle: "긴 영상에서 남길 장면까지 바로 찾아냅니다.",
     actionDescription:
       "가치 있는 영상을 찾았다면, Translator가 눈에 띄는 구간을 잡아 주고 긴 영상을 짧고 활용 가능한 클립으로 바꾸는 흐름까지 이어줍니다.",
     actionScreenshotCaption:
@@ -365,7 +379,7 @@ const baseHomeCopy = {
     sellingCardEyebrow: "핵심 장점",
     productHuntLinkLabel: "Product Hunt 보기",
     heroDiscoveryAlt: "Translator 안에서 번역 자막을 검토하는 화면",
-    viewerAlt: "번역 자막과 함께 비디오를 검토하는 화면",
+    viewerAlt: "여러 영상 작업을 독립된 탭으로 연 Translator 화면",
     actionAlt: "하이라이트 클립 후보를 검토하는 화면",
   },
 } as const;
@@ -379,7 +393,8 @@ export const homeCopy = {
     metadataDescription:
       "Descarga o importa un video de internet, genera subtítulos traducidos de alta calidad, revísalos y edítalos, y exporta un video subtitulado o un SRT limpio desde una app de escritorio.",
     eyebrow: "Subtítulos traducidos con IA, del video al export",
-    title: "Convierte videos de internet en subtítulos traducidos listos para usar.",
+    title:
+      "Convierte videos de internet en subtítulos traducidos listos para usar.",
     subtitle:
       "Pega una URL de video o importa un archivo. Translator descarga el video, transcribe el audio, traduce los subtítulos, te deja revisar cada línea en contexto y exporta un SRT limpio o un video subtitulado.",
     heroPoints: [
@@ -398,22 +413,26 @@ export const homeCopy = {
       {
         value: "39",
         label: "idiomas de subtítulos",
-        detail: "Traduce subtítulos para las audiencias que tus videos necesitan.",
+        detail:
+          "Traduce subtítulos para las audiencias que tus videos necesitan.",
       },
       {
         value: "Revisa primero",
         label: "flujo editable de subtítulos",
-        detail: "Comprueba las líneas traducidas en contexto antes de publicar o compartir.",
+        detail:
+          "Comprueba las líneas traducidas en contexto antes de publicar o compartir.",
       },
       {
         value: "Una app",
         label: "no cinco herramientas desconectadas",
-        detail: "Descarga, transcribe, traduce, edita y exporta en un solo lugar.",
+        detail:
+          "Descarga, transcribe, traduce, edita y exporta en un solo lugar.",
       },
       {
         value: "Resultado final",
         label: "no solo texto del modelo",
-        detail: "Termina con un SRT o un video subtitulado que de verdad puedes usar.",
+        detail:
+          "Termina con un SRT o un video subtitulado que de verdad puedes usar.",
       },
     ],
     comparisonEyebrow: "Lo que otras herramientas no resuelven",
@@ -425,7 +444,8 @@ export const homeCopy = {
     translatorLabel: "Translator",
     comparisonRows: [
       {
-        typical: "Devuelve texto traducido o un archivo de subtítulos sin pulir.",
+        typical:
+          "Devuelve texto traducido o un archivo de subtítulos sin pulir.",
         translator:
           "Mantiene los subtítulos traducidos conectados al video para revisar cada línea en contexto.",
       },
@@ -435,8 +455,10 @@ export const homeCopy = {
           "Te deja editar redacción y tiempos antes de convertir los subtítulos en salida final.",
       },
       {
-        typical: "Necesita herramientas aparte para descargar, editar y exportar.",
-        translator: "Mantiene video, transcripción, traducción, editor y exportación en un solo espacio de escritorio.",
+        typical:
+          "Necesita herramientas aparte para descargar, editar y exportar.",
+        translator:
+          "Mantiene video, transcripción, traducción, editor y exportación en un solo espacio de escritorio.",
       },
       {
         typical: "Se siente como una utilidad.",
@@ -445,7 +467,8 @@ export const homeCopy = {
       },
     ],
     sellingEyebrow: "Lo que realmente obtienes",
-    sellingTitle: "Descarga, traduce subtítulos, revisa y exporta en una sola app.",
+    sellingTitle:
+      "Descarga, traduce subtítulos, revisa y exporta en una sola app.",
     sellingDescription:
       "Translator convierte videos de internet en subtítulos traducidos revisados y resultados subtitulados terminados sin combinar descargador, transcriptor, traductor, editor y exportador.",
     sellingPoints: [
@@ -487,10 +510,10 @@ export const homeCopy = {
       "Traduce a 39 idiomas de subtítulos sin salir del flujo de trabajo.",
     languagesDescription:
       "Empieza con los idiomas que la gente espera y llega a la larga cola cuando el video o la audiencia necesita subtítulos en otro lugar.",
-    bottomEyebrow: "Crea los subtítulos",
-    bottomTitle: "Descarga Translator y convierte un video en subtítulos traducidos.",
+    bottomEyebrow: "Una sola app, de principio a fin",
+    bottomTitle: "Traduce tu próximo video de principio a fin.",
     bottomDescription:
-      "Importa un video, genera subtítulos traducidos, revísalos en contexto y exporta algo lo bastante limpio para ver, compartir o publicar.",
+      "Encuentra o abre un video, genera y traduce subtítulos, revísalos junto al video y exporta o dobla el resultado. Organiza varios trabajos en pestañas dentro de una sola app de escritorio.",
     mockSearchQuery: "video de internet -> subtítulos en español revisados",
     mockSearchTag: "Flujo de video a subtítulos",
     heroBenefitTitle1: "Revisa subtítulos traducidos en contexto",
@@ -509,7 +532,8 @@ export const homeCopy = {
       "Cada línea traducida aparece de inmediato en el reproductor. No tienes que esperar a que termine todo el archivo.",
     actionEyebrow: "Conviértelo en algo útil",
     actionWindowTitle: "Clips destacados",
-    actionTitle: "Saca los mejores momentos de un video largo sin hacerlo a mano.",
+    actionTitle:
+      "Saca los mejores momentos de un video largo sin hacerlo a mano.",
     actionDescription:
       "Cuando encuentras algo que vale la pena guardar, Translator puede señalar los mejores momentos y convertir un video completo en clips cortos que realmente puedes usar.",
     actionScreenshotCaption:
@@ -557,7 +581,8 @@ export const homeCopy = {
       {
         value: "1つのアプリ",
         label: "分断された5つのツールではない",
-        detail: "ダウンロード、文字起こし、翻訳、編集、書き出しを1か所で行えます。",
+        detail:
+          "ダウンロード、文字起こし、翻訳、編集、書き出しを1か所で行えます。",
       },
       {
         value: "完成した出力",
@@ -580,12 +605,12 @@ export const homeCopy = {
       },
       {
         typical: "タイミングが崩れたり、確認を別ツール任せにしたりする。",
-        translator:
-          "最終出力にする前に、表現とタイミングを編集できます。",
+        translator: "最終出力にする前に、表現とタイミングを編集できます。",
       },
       {
         typical: "ダウンロード、編集、書き出しに別ツールが必要。",
-        translator: "動画、文字起こし、翻訳、字幕編集、書き出しを1つのデスクトップ空間にまとめます。",
+        translator:
+          "動画、文字起こし、翻訳、字幕編集、書き出しを1つのデスクトップ空間にまとめます。",
       },
       {
         typical: "単なるユーティリティに感じる。",
@@ -635,10 +660,10 @@ export const homeCopy = {
     languagesTitle: "39 の字幕言語へ、ワークフローを離れずに翻訳できます。",
     languagesDescription:
       "まずは期待される主要言語から始め、必要な視聴者に合わせて長い尾まで広げられます。",
-    bottomEyebrow: "字幕を完成させる",
-    bottomTitle: "Translator をダウンロードして、動画を翻訳字幕に変えましょう。",
+    bottomEyebrow: "ひとつのアプリで最後まで",
+    bottomTitle: "次の動画を、最初から最後まで翻訳。",
     bottomDescription:
-      "動画を取り込み、翻訳字幕を作り、文脈の中で確認し、視聴、共有、公開に使える形で書き出せます。",
+      "動画を探すか読み込み、字幕を作成・翻訳し、映像を見ながら確認・編集して、書き出しや吹き替えまで。複数の作業もタブで並行して管理できます。",
     mockSearchQuery: "インターネット動画 -> 確認済み日本語字幕",
     mockSearchTag: "動画から字幕まで",
     heroBenefitTitle1: "翻訳字幕を文脈の中で確認",
@@ -649,8 +674,7 @@ export const homeCopy = {
       "価値のある動画なら、ダウンロード、文字起こし、翻訳、字幕編集、書き出しまでそのまま進めます。",
     viewerEyebrow: "その場で見始める",
     viewerWindowTitle: "ライブ翻訳字幕",
-    viewerTitle:
-      "ジョブがまだ進行中でも、翻訳字幕が1行ずつ表示されます。",
+    viewerTitle: "ジョブがまだ進行中でも、翻訳字幕が1行ずつ表示されます。",
     viewerDescription:
       "翻訳全体の完了を待たなくても、すぐに自分の言語で動画を楽しみ始められます。",
     viewerScreenshotCaption:
@@ -671,8 +695,7 @@ export const homeCopy = {
   },
   zh: {
     ...baseHomeCopy.en,
-    pageTitle:
-      "Translator - 为互联网视频生成 AI 翻译字幕 | 免费桌面应用",
+    pageTitle: "Translator - 为互联网视频生成 AI 翻译字幕 | 免费桌面应用",
     metadataDescription:
       "下载或导入互联网视频，生成高质量翻译字幕，在视频中审核和编辑，然后导出成品字幕视频或干净的 SRT。",
     eyebrow: "从视频到导出的 AI 翻译字幕",
@@ -685,8 +708,7 @@ export const homeCopy = {
       "一边看视频一边修改措辞和时间",
       "导出 SRT 文件或成品字幕视频",
     ],
-    heroNote:
-      "免费下载。下载和字幕编辑免费，AI 功能只在你实际运行时消耗积分。",
+    heroNote: "免费下载。下载和字幕编辑免费，AI 功能只在你实际运行时消耗积分。",
     heroPricingLink: "查看价格",
     heroFaqLink: "查看 FAQ",
     heroScreenshotCaption:
@@ -779,15 +801,14 @@ export const homeCopy = {
     languagesTitle: "无需离开工作流，就能翻译成 39 种字幕语言。",
     languagesDescription:
       "先覆盖大家最常用的语言，再在视频或受众需要其他字幕时延伸到长尾语言。",
-    bottomEyebrow: "完成字幕",
-    bottomTitle: "下载 Translator，把视频变成翻译字幕。",
+    bottomEyebrow: "一个应用，从开始到完成",
+    bottomTitle: "在 Translator 里完成下一段视频的全部翻译。",
     bottomDescription:
-      "导入视频，生成翻译字幕，在上下文里审核，然后导出足够干净、可以观看、分享或发布的结果。",
+      "查找或导入视频，生成并翻译字幕，对照画面审核编辑，再导出或配音。多个任务也能在同一个桌面应用中通过标签页并行管理。",
     mockSearchQuery: "互联网视频 -> 已审核中文字幕",
     mockSearchTag: "视频到字幕流程",
     heroBenefitTitle1: "在上下文中审核翻译字幕",
-    heroBenefitBody1:
-      "你可以把每一行翻译对照视频查看，再判断哪里需要修改。",
+    heroBenefitBody1: "你可以把每一行翻译对照视频查看，再判断哪里需要修改。",
     heroBenefitTitle2: "从 URL 到最终输出",
     heroBenefitBody2:
       "当视频真的有价值时，你可以一路完成下载、转写、翻译、字幕编辑和导出，不用换工具。",
@@ -819,7 +840,8 @@ export const homeCopy = {
     metadataDescription:
       "Téléchargez ou importez une vidéo internet, générez des sous-titres traduits de haute qualité, relisez-les et éditez-les, puis exportez une vidéo sous-titrée ou un SRT propre.",
     eyebrow: "Sous-titres traduits par IA, de la vidéo à l’export",
-    title: "Transformez des vidéos internet en sous-titres traduits prêts à utiliser.",
+    title:
+      "Transformez des vidéos internet en sous-titres traduits prêts à utiliser.",
     subtitle:
       "Collez une URL vidéo ou importez un fichier. Translator télécharge la vidéo, transcrit l’audio, traduit les sous-titres, vous laisse relire chaque ligne en contexte et exporte un SRT propre ou une vidéo sous-titrée.",
     heroPoints: [
@@ -838,22 +860,26 @@ export const homeCopy = {
       {
         value: "39",
         label: "langues de sous-titres",
-        detail: "Traduisez les sous-titres pour les audiences que vos vidéos doivent atteindre.",
+        detail:
+          "Traduisez les sous-titres pour les audiences que vos vidéos doivent atteindre.",
       },
       {
         value: "Relire d’abord",
         label: "workflow de sous-titres éditable",
-        detail: "Vérifiez les lignes traduites en contexte avant de publier ou partager.",
+        detail:
+          "Vérifiez les lignes traduites en contexte avant de publier ou partager.",
       },
       {
         value: "Une seule app",
         label: "pas cinq outils séparés",
-        detail: "Téléchargez, transcrivez, traduisez, éditez et exportez au même endroit.",
+        detail:
+          "Téléchargez, transcrivez, traduisez, éditez et exportez au même endroit.",
       },
       {
         value: "Résultat final",
         label: "pas seulement du texte de modèle",
-        detail: "Repartez avec un SRT ou une vidéo sous-titrée réellement utilisable.",
+        detail:
+          "Repartez avec un SRT ou une vidéo sous-titrée réellement utilisable.",
       },
     ],
     comparisonEyebrow: "Ce que les autres outils ratent",
@@ -875,8 +901,10 @@ export const homeCopy = {
           "Vous permet d’éditer formulation et timing avant d’en faire une sortie finale.",
       },
       {
-        typical: "Nécessite d’autres outils pour télécharger, éditer et exporter.",
-        translator: "Garde vidéo, transcription, traduction, éditeur et export dans un seul espace desktop.",
+        typical:
+          "Nécessite d’autres outils pour télécharger, éditer et exporter.",
+        translator:
+          "Garde vidéo, transcription, traduction, éditeur et export dans un seul espace desktop.",
       },
       {
         typical: "Donne l’impression d’un simple utilitaire.",
@@ -885,7 +913,8 @@ export const homeCopy = {
       },
     ],
     sellingEyebrow: "Ce que vous obtenez vraiment",
-    sellingTitle: "Téléchargez, traduisez les sous-titres, relisez et exportez dans une seule app.",
+    sellingTitle:
+      "Téléchargez, traduisez les sous-titres, relisez et exportez dans une seule app.",
     sellingDescription:
       "Translator transforme des vidéos internet en sous-titres traduits relus et en sorties sous-titrées terminées, sans assembler téléchargeur, transcription, traducteur, éditeur et export.",
     sellingPoints: [
@@ -927,10 +956,10 @@ export const homeCopy = {
       "Traduisez vers 39 langues de sous-titres sans quitter le workflow.",
     languagesDescription:
       "Commencez par les langues les plus attendues, puis allez vers la longue traîne quand une vidéo ou une audience a besoin de sous-titres ailleurs.",
-    bottomEyebrow: "Créez les sous-titres",
-    bottomTitle: "Téléchargez Translator et transformez une vidéo en sous-titres traduits.",
+    bottomEyebrow: "Une seule app, du début à la fin",
+    bottomTitle: "Traduisez votre prochaine vidéo du début à la fin.",
     bottomDescription:
-      "Importez une vidéo, générez des sous-titres traduits, relisez-les en contexte et exportez un résultat assez propre pour regarder, partager ou publier.",
+      "Recherchez ou ouvrez une vidéo, générez et traduisez les sous-titres, relisez-les face à l’image, puis exportez ou doublez le résultat. Plusieurs tâches restent organisées dans des onglets, au sein d’une seule application.",
     mockSearchQuery: "vidéo internet -> sous-titres français relus",
     mockSearchTag: "Workflow vidéo vers sous-titres",
     heroBenefitTitle1: "Relisez les sous-titres traduits en contexte",
@@ -988,22 +1017,26 @@ export const homeCopy = {
       {
         value: "39",
         label: "Untertitelsprachen",
-        detail: "Übersetze Untertitel für die Zielgruppen, die deine Videos erreichen sollen.",
+        detail:
+          "Übersetze Untertitel für die Zielgruppen, die deine Videos erreichen sollen.",
       },
       {
         value: "Erst prüfen",
         label: "editierbarer Untertitel-Workflow",
-        detail: "Prüfe übersetzte Zeilen im Kontext, bevor du veröffentlichst oder teilst.",
+        detail:
+          "Prüfe übersetzte Zeilen im Kontext, bevor du veröffentlichst oder teilst.",
       },
       {
         value: "Eine App",
         label: "nicht fünf getrennte Tools",
-        detail: "Download, Transkription, Übersetzung, Bearbeitung und Export an einem Ort.",
+        detail:
+          "Download, Transkription, Übersetzung, Bearbeitung und Export an einem Ort.",
       },
       {
         value: "Fertige Ausgabe",
         label: "nicht nur Modelltext",
-        detail: "Am Ende steht eine SRT-Datei oder ein untertiteltes Video, das du wirklich nutzen kannst.",
+        detail:
+          "Am Ende steht eine SRT-Datei oder ein untertiteltes Video, das du wirklich nutzen kannst.",
       },
     ],
     comparisonEyebrow: "Was andere Tools übersehen",
@@ -1020,13 +1053,15 @@ export const homeCopy = {
           "Hält übersetzte Untertitel mit dem Video verbunden, damit du jede Zeile im Kontext prüfen kannst.",
       },
       {
-        typical: "Zerstört Timing oder verschiebt die Prüfung in ein anderes Tool.",
+        typical:
+          "Zerstört Timing oder verschiebt die Prüfung in ein anderes Tool.",
         translator:
           "Lässt dich Formulierung und Timing bearbeiten, bevor daraus die finale Ausgabe wird.",
       },
       {
         typical: "Braucht separate Tools für Download, Bearbeitung und Export.",
-        translator: "Hält Video, Transkription, Übersetzung, Editor und Export in einem Desktop-Arbeitsraum.",
+        translator:
+          "Hält Video, Transkription, Übersetzung, Editor und Export in einem Desktop-Arbeitsraum.",
       },
       {
         typical: "Fühlt sich wie ein Hilfsprogramm an.",
@@ -1035,7 +1070,8 @@ export const homeCopy = {
       },
     ],
     sellingEyebrow: "Was du wirklich bekommst",
-    sellingTitle: "Herunterladen, Untertitel übersetzen, prüfen und exportieren in einer App.",
+    sellingTitle:
+      "Herunterladen, Untertitel übersetzen, prüfen und exportieren in einer App.",
     sellingDescription:
       "Translator macht aus Internetvideos geprüfte übersetzte Untertitel und fertige untertitelte Ausgaben, ohne Downloader, Transkription, Übersetzer, Editor und Exporttool zusammenzustückeln.",
     sellingPoints: [
@@ -1077,10 +1113,10 @@ export const homeCopy = {
       "Übersetze in 39 Untertitelsprachen, ohne den Workflow zu verlassen.",
     languagesDescription:
       "Starte mit den erwarteten Sprachen und geh dann in den Long Tail, wenn Video oder Publikum andere Untertitel brauchen.",
-    bottomEyebrow: "Mach die Untertitel fertig",
-    bottomTitle: "Lade Translator herunter und verwandle ein Video in übersetzte Untertitel.",
+    bottomEyebrow: "Eine App, vom Anfang bis zum Export",
+    bottomTitle: "Übersetze dein nächstes Video von Anfang bis Ende.",
     bottomDescription:
-      "Bring ein Video hinein, erzeuge übersetzte Untertitel, prüfe sie im Kontext und exportiere etwas Sauberes zum Ansehen, Teilen oder Veröffentlichen.",
+      "Finde oder öffne ein Video, erstelle und übersetze Untertitel, prüfe und bearbeite sie direkt am Bild und exportiere oder vertone das Ergebnis. Mehrere Aufgaben bleiben in Tabs in einer Desktop-App organisiert.",
     mockSearchQuery: "Internetvideo -> geprüfte deutsche Untertitel",
     mockSearchTag: "Video-zu-Untertitel-Workflow",
     heroBenefitTitle1: "Übersetzte Untertitel im Kontext prüfen",
@@ -1119,7 +1155,8 @@ export const homeCopy = {
     metadataDescription:
       "Baixe ou importe um vídeo da internet, gere legendas traduzidas de alta qualidade, revise e edite, depois exporte um vídeo legendado ou um SRT limpo em um app desktop.",
     eyebrow: "Legendas traduzidas por IA, do vídeo ao export",
-    title: "Transforme vídeos da internet em legendas traduzidas prontas para usar.",
+    title:
+      "Transforme vídeos da internet em legendas traduzidas prontas para usar.",
     subtitle:
       "Cole uma URL de vídeo ou importe um arquivo. O Translator baixa o vídeo, transcreve o áudio, traduz as legendas, permite revisar cada linha no contexto e exporta um SRT limpo ou um vídeo legendado.",
     heroPoints: [
@@ -1138,12 +1175,14 @@ export const homeCopy = {
       {
         value: "39",
         label: "idiomas de legenda",
-        detail: "Traduza legendas para os públicos que seus vídeos precisam alcançar.",
+        detail:
+          "Traduza legendas para os públicos que seus vídeos precisam alcançar.",
       },
       {
         value: "Revise primeiro",
         label: "fluxo editável de legendas",
-        detail: "Confira as linhas traduzidas no contexto antes de publicar ou compartilhar.",
+        detail:
+          "Confira as linhas traduzidas no contexto antes de publicar ou compartilhar.",
       },
       {
         value: "Um app",
@@ -1153,7 +1192,8 @@ export const homeCopy = {
       {
         value: "Resultado final",
         label: "não só texto do modelo",
-        detail: "Termine com um SRT ou vídeo legendado que você realmente pode usar.",
+        detail:
+          "Termine com um SRT ou vídeo legendado que você realmente pode usar.",
       },
     ],
     comparisonEyebrow: "O que outras ferramentas deixam passar",
@@ -1175,7 +1215,8 @@ export const homeCopy = {
           "Permite editar redação e timing antes de transformar as legendas em resultado final.",
       },
       {
-        typical: "Exige ferramentas separadas para download, edição e exportação.",
+        typical:
+          "Exige ferramentas separadas para download, edição e exportação.",
         translator:
           "Mantém vídeo, transcrição, tradução, editor e exportação no mesmo espaço desktop.",
       },
@@ -1228,10 +1269,10 @@ export const homeCopy = {
       "Traduza para 39 idiomas de legenda sem sair do fluxo de trabalho.",
     languagesDescription:
       "Comece pelos idiomas esperados e avance para a cauda longa quando o vídeo ou o público precisar de legendas em outro lugar.",
-    bottomEyebrow: "Finalize as legendas",
-    bottomTitle: "Baixe o Translator e transforme um vídeo em legendas traduzidas.",
+    bottomEyebrow: "Um app, do início ao fim",
+    bottomTitle: "Traduza seu próximo vídeo do início ao fim.",
     bottomDescription:
-      "Traga um vídeo, gere legendas traduzidas, revise no contexto e exporte algo limpo o bastante para assistir, compartilhar ou publicar.",
+      "Encontre ou abra um vídeo, gere e traduza as legendas, revise e edite junto às imagens e depois exporte ou duble o resultado. Várias tarefas ficam organizadas em abas dentro de um só aplicativo.",
     mockSearchQuery: "vídeo da internet -> legendas em português revisadas",
     mockSearchTag: "Fluxo de vídeo para legendas",
     heroBenefitTitle1: "Revise legendas traduzidas no contexto",
@@ -1294,17 +1335,20 @@ export const homeCopy = {
       {
         value: "Rà trước",
         label: "quy trình phụ đề có thể chỉnh sửa",
-        detail: "Kiểm tra từng dòng đã dịch trong ngữ cảnh trước khi đăng hoặc chia sẻ.",
+        detail:
+          "Kiểm tra từng dòng đã dịch trong ngữ cảnh trước khi đăng hoặc chia sẻ.",
       },
       {
         value: "Một ứng dụng",
         label: "không phải năm công cụ rời rạc",
-        detail: "Tải xuống, chép lời, dịch, chỉnh sửa và xuất file trong cùng một nơi.",
+        detail:
+          "Tải xuống, chép lời, dịch, chỉnh sửa và xuất file trong cùng một nơi.",
       },
       {
         value: "Đầu ra hoàn chỉnh",
         label: "không chỉ là văn bản từ mô hình",
-        detail: "Kết thúc bằng tệp SRT hoặc video có phụ đề mà bạn thật sự dùng được.",
+        detail:
+          "Kết thúc bằng tệp SRT hoặc video có phụ đề mà bạn thật sự dùng được.",
       },
     ],
     comparisonEyebrow: "Điều mà các công cụ khác bỏ lỡ",
@@ -1337,7 +1381,8 @@ export const homeCopy = {
       },
     ],
     sellingEyebrow: "Những gì bạn thực sự có được",
-    sellingTitle: "Tải xuống, dịch phụ đề, rà soát và xuất file trong một ứng dụng.",
+    sellingTitle:
+      "Tải xuống, dịch phụ đề, rà soát và xuất file trong một ứng dụng.",
     sellingDescription:
       "Translator biến video internet thành phụ đề dịch đã được rà soát và đầu ra có phụ đề hoàn chỉnh mà không phải ghép downloader, công cụ chép lời, trình dịch, trình chỉnh sửa và công cụ xuất file.",
     sellingPoints: [
@@ -1378,10 +1423,10 @@ export const homeCopy = {
     languagesTitle: "Dịch sang 39 ngôn ngữ phụ đề mà không rời khỏi quy trình.",
     languagesDescription:
       "Bắt đầu với những ngôn ngữ người dùng mong đợi, rồi vươn ra phần đuôi dài khi video hoặc khán giả cần phụ đề ở nơi khác.",
-    bottomEyebrow: "Hoàn thiện phụ đề",
-    bottomTitle: "Tải Translator và biến video thành phụ đề dịch.",
+    bottomEyebrow: "Một ứng dụng, từ đầu đến cuối",
+    bottomTitle: "Dịch video tiếp theo của bạn từ đầu đến cuối.",
     bottomDescription:
-      "Đưa video vào, tạo phụ đề dịch, rà soát trong ngữ cảnh và xuất thứ đủ sạch để xem, chia sẻ hoặc đăng.",
+      "Tìm hoặc mở video, tạo và dịch phụ đề, xem lại và chỉnh sửa ngay cùng hình ảnh, rồi xuất hoặc lồng tiếng kết quả. Nhiều công việc được sắp xếp trong các tab của cùng một ứng dụng máy tính.",
     mockSearchQuery: "video internet -> phụ đề tiếng Việt đã rà",
     mockSearchTag: "Quy trình video sang phụ đề",
     heroBenefitTitle1: "Rà phụ đề dịch trong ngữ cảnh",
@@ -1420,13 +1465,16 @@ export function getHomeSeoContext(locale: Locale) {
   const languageUrls = Object.fromEntries(
     HOME_LOCALIZED_LOCALES.map((supportedLocale) => [
       supportedLocale,
-      new URL(localizePathForLocale(supportedLocale, "/"), "https://translator.tools").toString(),
-    ])
+      new URL(
+        localizePathForLocale(supportedLocale, "/"),
+        "https://translator.tools",
+      ).toString(),
+    ]),
   ) as Record<Locale, string>;
   const canonicalUrl = languageUrls[locale];
   const ogLocale = openGraphLocaleByLocale[locale];
   const alternateOgLocale = HOME_LOCALIZED_LOCALES.filter(
-    (supportedLocale) => supportedLocale !== locale
+    (supportedLocale) => supportedLocale !== locale,
   ).map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
 
   return {
@@ -1454,7 +1502,21 @@ export function getHomeMetadata(locale: Locale): Metadata {
       "translate YouTube video",
       "burn subtitles into video",
       "video localization workflow",
+      "multi tab video translator",
+      "parallel video translation",
       "Translator app",
+      ...(locale === "ko"
+        ? [
+            "AI 영상 번역기",
+            "영상 자막 번역",
+            "유튜브 자막 번역",
+            "SRT 번역",
+            "영상 더빙 프로그램",
+            "자막 편집 프로그램",
+            "여러 영상 동시 번역",
+            "멀티탭 영상 번역기",
+          ]
+        : []),
     ],
     alternates: {
       canonical: canonicalUrl,
@@ -1473,10 +1535,10 @@ export function getHomeMetadata(locale: Locale): Metadata {
       type: "website",
       images: [
         {
-          url: "https://translator.tools/thumb.jpg",
+          url: "https://translator.tools/translator-social-card-editorial-2026-08.png",
           width: 1200,
           height: 630,
-          alt: "Translator by Stage 5",
+          alt: "Translator multitab video translation workstation",
         },
       ],
     },
@@ -1484,8 +1546,7 @@ export function getHomeMetadata(locale: Locale): Metadata {
       card: "summary_large_image",
       title: copy.pageTitle,
       description: copy.metadataDescription,
-      images: ["https://translator.tools/thumb.jpg"],
+      images: ["https://translator.tools/translator-social-card-editorial-2026-08.png"],
     },
   };
 }
-

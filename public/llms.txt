@@ -1,0 +1,52 @@
+# Translator by Stage5
+
+> Translator is an open-source desktop video workstation for macOS and Windows. It helps people and, through a source-build MCP developer preview, LLM agents discover, download, transcribe, translate, review, style, edit, dub, organize, and export video across language boundaries.
+
+The finished installers do not currently bundle the MCP server. Use the direct installers for the normal desktop app. Clone the source repository to run the local stdio MCP developer preview. There is no public remote Translator MCP endpoint.
+
+## Start here
+
+- [Agent guide](https://translator.tools/agents): Current MCP capabilities, setup, direct downloads, costs, and safety boundaries.
+- [Full LLM guide](https://translator.tools/llms-full.txt): Expanded product facts, tool coverage, and operating instructions.
+- [Machine-readable manifest](https://translator.tools/agent-manifest.json): Publisher-maintained JSON with installer URLs and MCP metadata; not presented as an MCP discovery standard.
+- [Product homepage](https://translator.tools/): Current product experience and human-facing downloads.
+- [Source repository](https://github.com/mikey1384/translator): Public MIT-licensed Electron and TypeScript code.
+
+## Direct installers
+
+- [Mac — Apple Silicon](https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg): M1, M2, M3, M4, and later Apple chips.
+- [Mac — Intel](https://downloads.stage5.tools/mac/latest/Translator-x64.dmg): Intel-based Macs.
+- [Windows x64](https://downloads.stage5.tools/win/latest/Translator-x64.exe): 64-bit Windows PCs.
+
+## Verifiable product facts
+
+- Multiple independent video workspaces stay open in browser-style tabs, including background progress and completion state.
+- Each video can show only the original transcript, only translated subtitles, or both together.
+- Subtitle presentation includes Default, Classic, Boxed, and LineBox styles with adjustable text size.
+- Downloaded videos remain in a visual in-app library so they can be watched again or reopened for more work.
+- Translator covers video discovery and downloading, transcription, two-pass subtitle translation, review and timing, SRT export, burned-in captions, AI dubbing, summaries, and highlight clips.
+- Translator currently offers 39 target translation languages.
+- Core video downloading, subtitle editing, timing, and export tools are free in the finished app.
+- Optional AI operations use Stage5 credits or supported bring-your-own provider credentials.
+
+## MCP developer preview
+
+- Run `git clone https://github.com/mikey1384/translator.git`, then `cd translator`, `npm install`, and `npm run agent:mcp`.
+- The local stdio server exposes semantic tools for app launch and navigation, explicit web-page handoff, URL downloads, ranked video search, bounded batch downloads, Downloads-library access, video and SRT loading, subtitle display and styling, SRT translation/review/export, masked Settings management, and selected Stage5 checkout-page handoff.
+- The agent may open a checkout page, but the user must enter and submit payment details. Stored provider-key values are never returned.
+- Local file-writing and network actions should remain subject to the MCP host's normal approval controls.
+- SRT translation and review can use the connected LLM session. This does not make transcription, dubbing, Stage5 services, or third-party providers free.
+
+## More product pages
+
+- [Open-source overview](https://translator.tools/open-source): Architecture, repository, and build context.
+- [Video downloader](https://translator.tools/video-downloader): URL download workflow.
+- [Subtitle editor](https://translator.tools/subtitle-editor): Subtitle editing, timing, style, and export.
+- [Video discovery](https://translator.tools/video-discovery): Built-in search and recommendation workflow.
+- [Pricing](https://translator.tools/pricing): Stage5 credits and product economics.
+- [FAQ](https://translator.tools/faq): Product answers and boundaries.
+
+## Optional
+
+- [MIT license](https://github.com/mikey1384/translator/blob/master/LICENSE): Desktop-client license.
+- [GitHub issues](https://github.com/mikey1384/translator/issues): Public bug reports and feature requests.

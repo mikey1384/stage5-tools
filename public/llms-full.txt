@@ -1,0 +1,79 @@
+# Translator by Stage5 — full agent guide
+
+> Translator is an open-source desktop video workstation for macOS and Windows. It combines video discovery and downloading, transcription, subtitle translation and review, flexible subtitle display, editing, dubbing, clips, export, and a reusable local video library. Its source build also includes a local MCP developer preview for LLM agents.
+
+## Choose the correct path
+
+- If the user wants the finished app, use one of the direct platform installers below. The current installers do not include the MCP server.
+- If the user wants an LLM agent to control Translator, clone the source repository and run the local stdio MCP developer preview.
+- There is no public remote Translator MCP endpoint. Do not invent one or send private files to translator.tools merely to use the local agent interface.
+
+## Direct installers
+
+- [Mac — Apple Silicon](https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg): For M1, M2, M3, M4, and later Apple chips.
+- [Mac — Intel](https://downloads.stage5.tools/mac/latest/Translator-x64.dmg): For Intel-based Macs.
+- [Windows x64](https://downloads.stage5.tools/win/latest/Translator-x64.exe): For 64-bit Windows PCs.
+
+## Source and MCP setup
+
+- [Source repository](https://github.com/mikey1384/translator): Public MIT-licensed Electron and TypeScript codebase.
+- [Human-readable agent guide](https://translator.tools/agents): Current capabilities, setup, direct downloads, and safety boundaries.
+- [Machine-readable agent manifest](https://translator.tools/agent-manifest.json): Publisher-maintained JSON; it is not presented as an MCP discovery standard.
+
+Run these commands from a local development environment:
+
+```text
+git clone https://github.com/mikey1384/translator.git
+cd translator
+npm install
+npm run agent:mcp
+```
+
+Configure the MCP host to run `npm run agent:mcp` with the cloned repository as its working directory.
+
+## Current MCP developer-preview capabilities
+
+- Launch the development app and report readiness and status.
+- Navigate semantically to Home, Create, Video Search, Downloads, Channels, Editor, and individual Settings sections.
+- Open an explicit HTTP or HTTPS page for the user to view.
+- Enter a supported video URL and start a download.
+- Search for ranked YouTube video recommendations, load more results, inspect search state, and batch-download up to eight selected result IDs sequentially.
+- List and search the local Downloads library using stable item IDs, open an item in a workspace, or re-download its original source.
+- Open a local video and mount a local SRT file.
+- Switch subtitle display among original-only, translation-only, and dual.
+- Switch subtitle style among Default, Classic, Boxed, and LineBox.
+- Translate and review SRT files through a context-preserving batch session with stable cue IDs.
+- Edit translations and export source, translated, or dual-language SRT files.
+- Inspect and change app Settings. Stored provider keys are masked and their values are never returned.
+- Validate, replace, or explicitly clear supported provider keys through write-only operations.
+- Open a selected Stage5 credit-pack checkout page for the user.
+
+## Product facts
+
+- Multiple independent video workspaces stay open in browser-style tabs, including background progress and completion state.
+- Each video can show only the original transcript, only translated subtitles, or both together.
+- Subtitle presentation includes Default, Classic, Boxed, and LineBox styles with adjustable text size.
+- Downloaded videos remain in a visual in-app library so they can be watched again or reopened for more work.
+- The product covers video discovery and downloading, transcription, two-pass subtitle translation, subtitle review and timing, SRT export, burned-in captions, AI dubbing, summaries, and highlight clips.
+- Translator currently offers 39 target translation languages.
+- Core video downloading, subtitle editing, timing, and export tools are free in the finished app.
+- Optional AI operations use Stage5 credits or supported bring-your-own provider credentials.
+
+## Boundaries and cost
+
+- The MCP interface is a developer preview in the source build and is not yet bundled into the finished installers.
+- Local file-writing and network actions should remain subject to the MCP host's normal approval controls.
+- An agent may open a checkout page, but the user must enter and submit payment information. The agent must not read or handle card details.
+- SRT translation and review can use the LLM session already connected to the MCP host. This route is intentionally slower than the integrated Stage5 workflow and does not add a separate Translator API inference charge.
+- This does not make transcription, dubbing, Stage5 services, third-party model accounts, or every AI operation free.
+- The desktop client is MIT licensed. Hosted APIs, model-provider accounts, payment infrastructure, and Stage5 services are separate.
+
+## Canonical product pages
+
+- [Product homepage](https://translator.tools/): Current product positioning and desktop downloads.
+- [Open-source overview](https://translator.tools/open-source): Architecture, repository, and build context.
+- [Pricing](https://translator.tools/pricing): Stage5 credit packs and product economics.
+- [FAQ](https://translator.tools/faq): Product answers and operating boundaries.
+- [Video downloader](https://translator.tools/video-downloader): URL download workflow.
+- [Subtitle editor](https://translator.tools/subtitle-editor): Subtitle editing, timing, style, and export workflow.
+- [Video discovery](https://translator.tools/video-discovery): Built-in video search and recommendation workflow.

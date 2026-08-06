@@ -14,20 +14,25 @@ export function SiteNav({ locale }: SiteNavProps) {
   const downloadHref = localizePathForLocale(locale, "/#all-downloads");
 
   return (
-    <header className="pt-10 pb-8">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+    <header className="pb-7 pt-7">
+      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-3">
           <Link
             href={homeHref}
-            className="text-xl font-montserrat font-semibold tracking-tight text-white"
+            className="group flex items-baseline gap-2 text-white"
           >
-            Stage5 Translator
+            <span className="font-[var(--font-montserrat)] text-xl font-bold lowercase tracking-[-0.045em]">
+              translator
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35 transition group-hover:text-white/60">
+              by Stage5
+            </span>
           </Link>
           <div className="flex items-center gap-2 lg:hidden">
             <LanguageMenu />
             <NavDownloadLink
               href={downloadHref}
-              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+              className="border border-[#a9bfff] bg-[#a9bfff] px-4 py-2 text-xs font-semibold text-black transition hover:border-white hover:bg-white"
             >
               {t("navDownload", locale)}
             </NavDownloadLink>
@@ -40,7 +45,7 @@ export function SiteNav({ locale }: SiteNavProps) {
           <LanguageMenu />
           <NavDownloadLink
             href={downloadHref}
-            className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
+            className="border border-[#a9bfff] bg-[#a9bfff] px-5 py-2.5 text-xs font-semibold text-black transition hover:border-white hover:bg-white"
           >
             {t("navDownload", locale)}
           </NavDownloadLink>

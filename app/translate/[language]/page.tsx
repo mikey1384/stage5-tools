@@ -14,7 +14,10 @@ import {
   translatedLanguageSlugs,
 } from "../../../lib/translate-language-page-content";
 import { isTranslatedLanguageSlug } from "../../../lib/translate-language-slugs";
-import { homeHrefForLocale, localizePathForLocale } from "../../../lib/locale-routing";
+import {
+  homeHrefForLocale,
+  localizePathForLocale,
+} from "../../../lib/locale-routing";
 import {
   buildBreadcrumbStructuredData,
   buildMetadata,
@@ -25,9 +28,9 @@ import { t } from "../../../lib/strings";
 export const dynamicParams = false;
 
 const watchSubtitleScreenshot = {
-  src: "/screenshots/watch-translated-subtitles.webp",
-  width: 1600,
-  height: 1003,
+  src: "/screenshots/subtitle-display-translation-only-2026-08.webp",
+  width: 2400,
+  height: 1600,
 };
 
 export function generateStaticParams() {
@@ -71,11 +74,12 @@ export default async function LanguagePage({
   const languagePath = `/translate/${language}`;
   const translateHref = localizePathForLocale(locale, "/translate");
   const subtitleEditorHref = localizePathForLocale(locale, "/subtitle-editor");
-  const softwareApplicationStructuredData = buildSoftwareApplicationStructuredData({
-    description: content.description,
-    path: languagePath,
-    locale,
-  });
+  const softwareApplicationStructuredData =
+    buildSoftwareApplicationStructuredData({
+      description: content.description,
+      path: languagePath,
+      locale,
+    });
   const breadcrumbStructuredData = buildBreadcrumbStructuredData(locale, [
     { name: t("breadcrumbHome", locale), path: "/" },
     { name: t("navAiTranslation", locale), path: "/translate" },
@@ -164,14 +168,14 @@ export default async function LanguagePage({
             </h2>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {content.useCases.map((useCase) => (
-                <div
-                  key={useCase}
-                  className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6"
-                >
-                  <p className="text-sm leading-6 text-gray-300">{useCase}</p>
-                </div>
-              ))}
+            {content.useCases.map((useCase) => (
+              <div
+                key={useCase}
+                className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6"
+              >
+                <p className="text-sm leading-6 text-gray-300">{useCase}</p>
+              </div>
+            ))}
           </div>
         </section>
 
