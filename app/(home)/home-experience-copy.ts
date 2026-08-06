@@ -31,7 +31,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "You choose what appears",
     displayTitle: "Original, translation, or both.",
     displayDescription:
-      "Translator does not force two subtitle tracks onto the screen. Switch the current video between the source transcript, the translation, or both together.",
+      "Choose exactly which subtitles you want to see for each video.",
     displayModes: [
       {
         label: "Original only",
@@ -76,7 +76,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "화면에 보일 자막을 직접 선택",
     displayTitle: "원문만, 번역만, 또는 둘 다.",
     displayDescription:
-      "Translator는 두 줄 자막을 억지로 띄우지 않습니다. 영상마다 원문 자막만, 번역 자막만, 또는 두 자막을 함께 표시할 수 있습니다.",
+      "영상마다 보고 싶은 자막만 바로 골라 볼 수 있습니다.",
     displayModes: [
       { label: "원문만", body: "원문 대사만 보며 내용을 확인합니다." },
       { label: "번역만", body: "번역 자막 한 줄로 영상에 집중합니다." },
@@ -113,7 +113,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "Tú decides qué se ve",
     displayTitle: "Original, traducción o ambos.",
     displayDescription:
-      "Translator no te obliga a mostrar dos pistas. En cada vídeo puedes ver solo el texto original, solo la traducción o comparar ambos.",
+      "Elige qué subtítulos quieres ver en cada vídeo.",
     displayModes: [
       {
         label: "Solo original",
@@ -158,7 +158,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "表示する字幕を選べる",
     displayTitle: "原文だけ、翻訳だけ、または両方。",
     displayDescription:
-      "Translatorは二段字幕を強制しません。動画ごとに原文、翻訳、または両方を表示できます。",
+      "動画ごとに、見たい字幕をすぐ切り替えられます。",
     displayModes: [
       { label: "原文のみ", body: "元の発話だけを字幕で確認します。" },
       { label: "翻訳のみ", body: "翻訳字幕一段で映像に集中できます。" },
@@ -194,7 +194,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "由你决定显示什么",
     displayTitle: "只看原文、只看译文，或两者都看。",
     displayDescription:
-      "Translator 不会强制显示双语字幕。每个视频都可以在原文、译文和双语对照之间切换。",
+      "每个视频都可以随时切换字幕显示方式。",
     displayModes: [
       { label: "只看原文", body: "单独查看原始转录字幕。" },
       { label: "只看译文", body: "用一行翻译字幕专心观看。" },
@@ -230,7 +230,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "Vous choisissez l’affichage",
     displayTitle: "Original, traduction ou les deux.",
     displayDescription:
-      "Translator n’impose pas deux pistes à l’écran. Pour chaque vidéo, affichez le texte original, la traduction ou les deux ensemble.",
+      "Choisissez les sous-titres à afficher pour chaque vidéo.",
     displayModes: [
       {
         label: "Original seulement",
@@ -277,7 +277,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "Du bestimmst die Anzeige",
     displayTitle: "Original, Übersetzung oder beides.",
     displayDescription:
-      "Translator zwingt dir keine zwei Untertitelspuren auf. Pro Video kannst du das Original, die Übersetzung oder beide zusammen anzeigen.",
+      "Wähle für jedes Video genau die Untertitel, die du sehen möchtest.",
     displayModes: [
       {
         label: "Nur Original",
@@ -323,7 +323,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "Você escolhe o que aparece",
     displayTitle: "Original, tradução ou os dois.",
     displayDescription:
-      "O Translator não obriga você a usar duas faixas na tela. Em cada vídeo, mostre o texto original, a tradução ou ambos juntos.",
+      "Escolha quais legendas quer ver em cada vídeo.",
     displayModes: [
       {
         label: "Só o original",
@@ -369,7 +369,7 @@ export const homeExperienceCopy: Record<Locale, ExperienceCopy> = {
     displayEyebrow: "Bạn quyết định nội dung hiển thị",
     displayTitle: "Nguyên văn, bản dịch hoặc cả hai.",
     displayDescription:
-      "Translator không bắt buộc phải hiện hai dòng phụ đề. Với mỗi video, bạn có thể chọn nguyên văn, bản dịch hoặc hiển thị cả hai.",
+      "Chọn kiểu phụ đề bạn muốn xem cho từng video.",
     displayModes: [
       { label: "Chỉ nguyên văn", body: "Theo dõi riêng phần lời gốc." },
       { label: "Chỉ bản dịch", body: "Xem video với một dòng phụ đề đã dịch." },

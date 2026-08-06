@@ -185,7 +185,34 @@ export default function AgentsPage() {
           </div>
         </section>
 
-        <section className="border-y border-white/20 py-24 md:py-32">
+        <section className="grid gap-14 border-y border-white/20 py-24 md:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+          <div>
+            <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
+              Start here
+            </div>
+            <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              Connect the local MCP server.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
+              Clone the open-source developer build, install it, and point your
+              MCP host at the final command. The interface runs locally and is
+              not yet bundled into the finished installers.
+            </p>
+          </div>
+
+          <div>
+            <pre className="overflow-x-auto border border-white/20 bg-black/45 p-6 font-mono text-sm leading-8 text-[#a9bfff]">
+              <code>{installCommands}</code>
+            </pre>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/48">
+              Configure your MCP host to run <code>npm run agent:mcp</code> from
+              the cloned repository. The server uses local stdio; there is no
+              public remote Translator MCP endpoint.
+            </p>
+          </div>
+        </section>
+
+        <section className="border-b border-white/20 py-24 md:py-32">
           <div className="grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24">
             <div>
               <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
@@ -222,49 +249,45 @@ export default function AgentsPage() {
           </div>
         </section>
 
-        <section className="grid gap-14 border-b border-white/20 py-24 md:py-32 lg:grid-cols-2 lg:gap-20">
+        <section className="grid gap-14 border-b border-white/20 py-24 md:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
           <div>
-            <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
-              Connect from source
-            </div>
-            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-0.04em] md:text-6xl">
-              Start the local MCP server.
-            </h2>
-            <pre className="mt-9 overflow-x-auto border border-white/20 bg-black/45 p-6 font-mono text-sm leading-8 text-[#a9bfff]">
-              <code>{installCommands}</code>
-            </pre>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/48">
-              This MCP interface is currently a developer preview in the source
-              build; it is not yet bundled into the downloadable installers.
-              Configure your MCP host to run the last command from the cloned
-              repository.
-            </p>
-          </div>
-
-          <div className="border-t border-white/20 pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
             <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
               Deliberate boundaries
             </div>
-            <h2 className="mt-7 text-4xl font-semibold leading-tight tracking-[-0.04em] md:text-6xl">
-              The agent helps. The user stays in control.
+            <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
+              The user stays in control.
             </h2>
-            <div className="mt-9 space-y-6 text-base leading-8 text-white/58">
-              <p>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
+              Translator gives the agent useful controls without handing it
+              payment details, stored secrets, or invisible authority.
+            </p>
+          </div>
+
+          <ol className="border-t border-white/20">
+            <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
+              <span className="font-mono text-xs text-[#ff75ac]">01</span>
+              <span>
                 File-writing and network actions remain visible to the MCP host
                 and should keep its normal approval controls.
-              </p>
-              <p>
+              </span>
+            </li>
+            <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
+              <span className="font-mono text-xs text-[#ff75ac]">02</span>
+              <span>
                 Saved provider keys are never returned. An agent can open the
                 right checkout page, but it cannot read, enter, or submit card
                 details.
-              </p>
-              <p>
+              </span>
+            </li>
+            <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
+              <span className="font-mono text-xs text-[#ff75ac]">03</span>
+              <span>
                 SRT translation and review can use the connected LLM session.
                 Transcription, dubbing, Stage5 services, and third-party model
                 accounts keep their normal costs and credentials.
-              </p>
-            </div>
-          </div>
+              </span>
+            </li>
+          </ol>
         </section>
 
         <section id="direct-downloads" className="scroll-mt-8 py-24 md:py-32">
