@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
+import { TrackedArtifactLink } from "../../components/TrackedArtifactLink";
 
 const MAC_ARM64_URL =
   "https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg";
@@ -328,11 +329,12 @@ export default function AgentsPage() {
 
           <div className="mt-12 grid border-t border-white/20 lg:grid-cols-3">
             {downloads.map((download) => (
-              <a
+              <TrackedArtifactLink
                 key={download.href}
                 href={download.href}
-                data-platform={download.platform}
-                data-architecture={download.architecture}
+                platform={download.platform}
+                architecture={download.architecture}
+                label={`Agents page — ${download.label}`}
                 className="group border-b border-white/20 py-8 transition hover:bg-white/[0.04] lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
               >
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#ff75ac]">
@@ -344,7 +346,7 @@ export default function AgentsPage() {
                 <span className="mt-3 block text-sm leading-6 text-white/45">
                   {download.detail}
                 </span>
-              </a>
+              </TrackedArtifactLink>
             ))}
           </div>
 
