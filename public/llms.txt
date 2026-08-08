@@ -14,6 +14,7 @@ The finished installers do not currently bundle the MCP server. Use the direct i
 
 ## Direct installers
 
+- macOS Homebrew: `brew install --cask mikey1384/translator/stage5-translator` from the [publisher-maintained tap](https://github.com/mikey1384/homebrew-translator). Homebrew selects Apple Silicon or Intel automatically.
 - [Mac — Apple Silicon](https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg): M1, M2, M3, M4, and later Apple chips.
 - [Mac — Intel](https://downloads.stage5.tools/mac/latest/Translator-x64.dmg): Intel-based Macs.
 - [Windows x64](https://downloads.stage5.tools/win/latest/Translator-x64.exe): 64-bit Windows PCs.

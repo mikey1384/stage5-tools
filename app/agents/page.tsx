@@ -12,6 +12,9 @@ const MAC_X64_URL =
 const WINDOWS_X64_URL =
   "https://downloads.stage5.tools/win/latest/Translator-x64.exe";
 const REPOSITORY_URL = "https://github.com/mikey1384/translator";
+const HOMEBREW_TAP_URL = "https://github.com/mikey1384/homebrew-translator";
+const HOMEBREW_INSTALL_COMMAND =
+  "brew install --cask mikey1384/translator/stage5-translator";
 
 const title = "Translator for LLM agents | Local MCP developer preview";
 const description =
@@ -302,6 +305,25 @@ export default function AgentsPage() {
               These are stable latest-version URLs. A person or agent can choose
               the platform explicitly and follow the link directly.
             </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 border border-[#a9bfff]/45 bg-[#a9bfff]/[0.06] p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#a9bfff]">
+                macOS / Homebrew
+              </div>
+              <code className="mt-4 block overflow-x-auto whitespace-nowrap font-mono text-sm text-white md:text-base">
+                {HOMEBREW_INSTALL_COMMAND}
+              </code>
+            </div>
+            <a
+              href={HOMEBREW_TAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-[#a9bfff] underline decoration-[#a9bfff]/40 underline-offset-4 transition hover:text-white"
+            >
+              Publisher-maintained tap ↗
+            </a>
           </div>
 
           <div className="mt-12 grid border-t border-white/20 lg:grid-cols-3">

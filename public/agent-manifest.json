@@ -11,6 +11,17 @@
     "license": "MIT",
     "license_url": "https://github.com/mikey1384/translator/blob/master/LICENSE"
   },
+  "package_managers": [
+    {
+      "platform": "macOS",
+      "manager": "Homebrew",
+      "status": "publisher-maintained tap",
+      "tap": "mikey1384/translator",
+      "cask": "stage5-translator",
+      "command": "brew install --cask mikey1384/translator/stage5-translator",
+      "repository": "https://github.com/mikey1384/homebrew-translator"
+    }
+  ],
   "installers": [
     {
       "platform": "macOS",
