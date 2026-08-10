@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import {
   DEFAULT_LOCALE,
-  localizedLocalesForPath,
+  indexableLocalesForPath,
   localizePathForLocale,
   openGraphLocaleByLocale,
+  shouldIndexLocalePath,
   type Locale,
 } from "./locales";
 
@@ -45,7 +46,8 @@ export function buildMetadata({
   const englishPath = path.startsWith("/") ? path : `/${path}`;
   const canonicalPath = localizePathForLocale(locale, englishPath);
   const canonicalUrl = new URL(canonicalPath, BASE_URL).toString();
-  const availableLocales = localizedLocalesForPath(englishPath);
+  const availableLocales = indexableLocalesForPath(englishPath);
+  const shouldIndex = shouldIndexLocalePath(locale, englishPath);
   const languageUrls = Object.fromEntries(
     availableLocales.map((supportedLocale) => [
       supportedLocale,
@@ -71,6 +73,12 @@ export function buildMetadata({
         ...languageUrls,
       },
     },
+    robots: shouldIndex
+      ? undefined
+      : {
+          index: false,
+          follow: true,
+        },
     openGraph: {
       title,
       description,

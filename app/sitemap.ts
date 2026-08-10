@@ -1,41 +1,32 @@
 import type { MetadataRoute } from "next";
-import {
-  localizedLocalesForPath,
-  localizePathForLocale,
-} from "../lib/locales";
+import { indexableLocalesForPath, localizePathForLocale } from "../lib/locales";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
 
 const BASE_URL = "https://translator.tools";
 
-type ChangeFreq = NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
-
 type RouteDef = {
   path: string;
-  priority: number;
-  changeFrequency: ChangeFreq;
 };
 
 const routes: RouteDef[] = [
-  { path: "/", priority: 1.0, changeFrequency: "weekly" },
-  { path: "/video-discovery", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/dubbing", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/video-downloader", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/subtitle-editor", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/translate", priority: 0.9, changeFrequency: "weekly" },
+  { path: "/" },
+  { path: "/video-discovery" },
+  { path: "/dubbing" },
+  { path: "/video-downloader" },
+  { path: "/subtitle-editor" },
+  { path: "/translate" },
   ...TRANSLATED_LANGUAGE_SLUGS.map((slug) => ({
     path: `/translate/${slug}`,
-    priority: 0.8,
-    changeFrequency: "weekly" as const,
   })),
-  { path: "/echo", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/pricing", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/open-source", priority: 0.8, changeFrequency: "weekly" },
-  { path: "/agents", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/about", priority: 0.6, changeFrequency: "monthly" },
-  { path: "/contact", priority: 0.6, changeFrequency: "monthly" },
-  { path: "/privacy", priority: 0.5, changeFrequency: "yearly" },
-  { path: "/terms", priority: 0.5, changeFrequency: "yearly" },
+  { path: "/echo" },
+  { path: "/pricing" },
+  { path: "/faq" },
+  { path: "/open-source" },
+  { path: "/agents" },
+  { path: "/about" },
+  { path: "/contact" },
+  { path: "/privacy" },
+  { path: "/terms" },
 ];
 
 function absoluteUrl(path: string): string {
@@ -43,20 +34,19 @@ function absoluteUrl(path: string): string {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
   return routes.flatMap((route) => {
-    const availableLocales = localizedLocalesForPath(route.path);
+    const availableLocales = indexableLocalesForPath(route.path);
     const englishUrl = absoluteUrl(localizePathForLocale("en", route.path));
-    const fullSiteLanguages: Record<string, string> = { "x-default": englishUrl };
+    const fullSiteLanguages: Record<string, string> = {
+      "x-default": englishUrl,
+    };
     for (const locale of availableLocales) {
-      fullSiteLanguages[locale] = absoluteUrl(localizePathForLocale(locale, route.path));
+      fullSiteLanguages[locale] = absoluteUrl(
+        localizePathForLocale(locale, route.path),
+      );
     }
 
     const shared = {
-      lastModified,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
       alternates: {
         languages: fullSiteLanguages,
       },

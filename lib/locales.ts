@@ -33,6 +33,11 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/echo",
 ]);
 const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
+const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
+  "/contact",
+  "/privacy",
+  "/terms",
+]);
 
 export function isLocale(value: string | null | undefined): value is Locale {
   return value !== null && value !== undefined && localeSet.has(value);
@@ -122,6 +127,22 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
 
 export function localizedLocalesForPath(englishPath: string): Locale[] {
   return HOME_LOCALIZED_LOCALES.filter((locale) => supportsLocalePath(locale, englishPath));
+}
+
+export function indexableLocalesForPath(englishPath: string): Locale[] {
+  const normalizedEnglishPath = normalizePathname(englishPath);
+  if (ENGLISH_INDEX_ONLY_PATHS.has(normalizedEnglishPath)) {
+    return [DEFAULT_LOCALE];
+  }
+
+  return localizedLocalesForPath(normalizedEnglishPath);
+}
+
+export function shouldIndexLocalePath(
+  locale: Locale,
+  englishPath: string,
+): boolean {
+  return indexableLocalesForPath(englishPath).includes(locale);
 }
 
 export const localeOptions: Array<{ locale: Locale; label: string }> = [
