@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { trackAppStoreClick } from "../lib/analytics";
 
 export const ECHO_APP_STORE_URL =
@@ -10,6 +11,13 @@ interface EchoAppStoreButtonProps {
   variant?: "primary" | "secondary";
   topLine?: string;
   bottomLine?: string;
+}
+
+interface EchoAppStoreLinkProps {
+  trackingLabel: string;
+  className?: string;
+  ariaLabel?: string;
+  children: ReactNode;
 }
 
 function AppleLogo({ className }: { className?: string }) {
@@ -39,19 +47,10 @@ export function EchoAppStoreButton({
       : "border border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10";
 
   return (
-    <a
-      href={ECHO_APP_STORE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <EchoAppStoreLink
+      trackingLabel={trackingLabel}
       className={`${baseClasses} ${variantClasses}`}
-      aria-label="Download Echo on the App Store"
-      onClick={() =>
-        trackAppStoreClick({
-          event: "echo_appstore_click",
-          link_label: trackingLabel,
-          page_path: window.location.pathname,
-        })
-      }
+      ariaLabel="Download Echo on the App Store"
     >
       <AppleLogo className="h-6 w-6" />
       <span className="flex flex-col items-start leading-tight">
@@ -60,6 +59,32 @@ export function EchoAppStoreButton({
         </span>
         <span className="text-lg font-semibold">{bottomLine}</span>
       </span>
+    </EchoAppStoreLink>
+  );
+}
+
+export function EchoAppStoreLink({
+  trackingLabel,
+  className,
+  ariaLabel,
+  children,
+}: EchoAppStoreLinkProps) {
+  return (
+    <a
+      href={ECHO_APP_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+      aria-label={ariaLabel}
+      onClick={() =>
+        trackAppStoreClick({
+          event: "echo_appstore_click",
+          link_label: trackingLabel,
+          page_path: window.location.pathname,
+        })
+      }
+    >
+      {children}
     </a>
   );
 }

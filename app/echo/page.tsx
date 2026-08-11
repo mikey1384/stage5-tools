@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import {
   EchoAppStoreButton,
+  EchoAppStoreLink,
   ECHO_APP_STORE_URL,
 } from "../../components/EchoAppStoreButton";
 import { getLocale } from "../../lib/get-locale";
@@ -1183,14 +1184,12 @@ export default async function EchoLandingPage() {
               by Stage5
             </Link>
           </div>
-          <a
-            href={ECHO_APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <EchoAppStoreLink
+            trackingLabel="Echo Header CTA"
             className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-gray-200"
           >
             {copy.navGetApp}
-          </a>
+          </EchoAppStoreLink>
         </header>
 
         <section className="py-10 md:py-16">

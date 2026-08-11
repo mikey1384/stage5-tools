@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
+import { EchoAppStoreLink } from "../../components/EchoAppStoreButton";
 import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
@@ -480,14 +481,12 @@ export default async function AboutPage({
                     {card.body}
                   </p>
                   {card.external ? (
-                    <a
-                      href={card.href}
-                      target="_blank"
-                      rel="noreferrer"
+                    <EchoAppStoreLink
+                      trackingLabel="About Echo CTA"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-gray-300 transition hover:text-white"
                     >
                       {card.ctaLabel}
-                    </a>
+                    </EchoAppStoreLink>
                   ) : (
                     <Link
                       href={localizeHref(card.href)}
