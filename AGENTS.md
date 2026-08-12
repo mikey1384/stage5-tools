@@ -112,3 +112,19 @@ If DNS resolution is unavailable in the execution environment, report deploy suc
 - GA4 destination IDs are configured in GTM using hostname routing:
   - `stage5.tools` and `www.stage5.tools` -> `G-5BJ3FXGGBS`
   - `translator.tools` and `www.translator.tools` -> `G-P85K20ZXE0`
+
+## Landing Page Experiment Log
+
+- `docs/landing-page-experiments.md` is the durable record for material
+  Translator landing-page, funnel, and landing-page measurement changes.
+- Update the log in the same commit as every such change. Record a stable ID,
+  date, commit, exact change, falsifiable hypothesis, locked pre-change GA4
+  baseline, primary metric, guardrails, deployment evidence, and evaluation
+  dates.
+- On later GA4 reviews, append the observed result and status to the original
+  entry. Do not rewrite its hypothesis or baseline after seeing the outcome.
+- Evaluate by hostname and landing-page path. Page title may identify a release
+  cohort but must not be treated as a separate landing page.
+- Do not call an update a winner from raw traffic, impressions, or partial-day
+  data. Prefer download intent, app activation, purchase, and settled revenue;
+  state small-sample and cross-device limitations explicitly.
