@@ -1,3 +1,5 @@
+import type { LandingIntentEventPayload } from "./analytics-events";
+
 export type DownloadEventPayload = {
   event: "download_mac_click" | "download_windows_click";
   platform: "mac" | "windows";
@@ -20,6 +22,10 @@ function pushAnalyticsEvent(payload: Record<string, unknown>): void {
 }
 
 export function trackDownload(payload: DownloadEventPayload): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackLandingIntent(payload: LandingIntentEventPayload): void {
   pushAnalyticsEvent(payload);
 }
 

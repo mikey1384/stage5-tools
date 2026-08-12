@@ -4,6 +4,7 @@ import Script from "next/script";
 import { AllDownloadButtons } from "../../components/AllDownloadButtons";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { GitHubRepositoryLink } from "../../components/GitHubRepositoryLink";
+import { HomeIntentLinks } from "../../components/HomeIntentLinks";
 import { HomepageScreenshotSlot } from "../../components/HomepageScreenshotSlot";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
@@ -194,6 +195,26 @@ export default async function Home({
   const openSourceCopy = openSourceProofCopy[locale];
   const localizedHref = (href: string) => localizePathForLocale(locale, href);
   const structuredData = getHomeStructuredData(locale);
+  const sellingPointLabel = (href: string) =>
+    copy.sellingPoints.find((point) => point.href === href)?.cta ??
+    copy.heroFaqLink;
+  const homeIntentLinks = [
+    {
+      destination: "translate" as const,
+      href: localizedHref("/translate"),
+      label: sellingPointLabel("/translate"),
+    },
+    {
+      destination: "video_downloader" as const,
+      href: localizedHref("/video-downloader"),
+      label: sellingPointLabel("/video-downloader"),
+    },
+    {
+      destination: "faq" as const,
+      href: localizedHref("/faq"),
+      label: copy.heroFaqLink,
+    },
+  ];
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080a] text-[#f3f1e9] selection:bg-[#ff5a9d] selection:text-black">
@@ -239,6 +260,7 @@ export default async function Home({
                   {copy.heroPricingLink}
                 </Link>
               </p>
+              <HomeIntentLinks links={homeIntentLinks} />
             </div>
           </div>
 

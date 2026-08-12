@@ -8,6 +8,7 @@ authoritative, and what must never enter analytics.
 | Question                                          | Authoritative source                                  | Analytics event                                        |
 | ------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------ |
 | Did a visitor request a download?                 | Translator website data layer, including `/agents`    | `download_mac_click`, `download_windows_click`         |
+| Did a visitor choose a homepage workflow?         | Translator website data layer                         | `landing_intent_click`                                 |
 | Did a visitor inspect the source or Echo listing? | Translator website data layer                         | `github_repository_click`, `echo_appstore_click`       |
 | Did Stripe return the browser to Translator?      | Translator website data layer                         | `checkout_return_success`, `checkout_return_cancelled` |
 | Did checkout begin?                               | Authenticated Stage5 API session creation             | `begin_checkout`                                       |
@@ -41,6 +42,8 @@ checkout return IDs, Stripe customer IDs, or other customer content.
   `file_download` event to prevent Windows downloads from counting twice.
 - Mark `purchase` as a key event. `begin_checkout` and checkout-return events are
   funnel diagnostics, not revenue.
+- Keep `landing_intent_click` as a diagnostic event, not a key event. Segment its
+  stable `destination` value by locale-bearing `page_path` and source/medium.
 - Add `checkout.stripe.com` to unwanted referrals so Stripe does not overwrite the
   visitor's original acquisition source on the return page.
 - The Stage5 API sends retryable Measurement Protocol events from a D1 outbox.
