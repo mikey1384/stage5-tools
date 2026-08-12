@@ -1,4 +1,8 @@
-import type { LandingIntentEventPayload } from "./analytics-events";
+import type {
+  FaqIntentEventPayload,
+  LandingIntentEventPayload,
+  WindowsInstallHelpEventPayload,
+} from "./analytics-events";
 
 export type DownloadEventPayload = {
   event: "download_mac_click" | "download_windows_click";
@@ -26,6 +30,16 @@ export function trackDownload(payload: DownloadEventPayload): void {
 }
 
 export function trackLandingIntent(payload: LandingIntentEventPayload): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackFaqIntent(payload: FaqIntentEventPayload): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWindowsInstallHelp(
+  payload: WindowsInstallHelpEventPayload,
+): void {
   pushAnalyticsEvent(payload);
 }
 

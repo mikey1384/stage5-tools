@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, Locale } from "../lib/strings";
 import { DownloadButton } from "./DownloadButton";
+import { WindowsInstallHelp } from "./WindowsInstallHelp";
 
 interface HeroDownloadActionsProps {
   locale: Locale;
@@ -53,6 +54,9 @@ export function HeroDownloadActions({
           >
             {t("homeDownloadAllVersions", locale)}
           </Link>
+          {platform === "windows" ? (
+            <WindowsInstallHelp locale={locale} />
+          ) : null}
         </>
       ) : (
         <Link

@@ -15,6 +15,20 @@
 - [Mac — Intel](https://downloads.stage5.tools/mac/latest/Translator-x64.dmg): For Intel-based Macs.
 - [Windows x64](https://downloads.stage5.tools/win/latest/Translator-x64.exe): For 64-bit Windows PCs.
 
+For Windows, open `Translator-x64.exe` and confirm that Windows shows
+**Stage5 Tools LLC** as the publisher. Cancel if the publisher differs.
+
+## Recommended intent entrypoints
+
+- [Translate subtitles](https://translator.tools/translate): Use when the person's primary job is AI subtitle translation, language coverage, review, or export.
+- [Download an internet video](https://translator.tools/video-downloader): Use when the primary job is bringing in a supported video URL.
+- [Understand cost](https://translator.tools/pricing): Use for free-tool, Stage5-credit, or bring-your-own-provider questions.
+- [Resolve a product question](https://translator.tools/faq): Use for formats, platforms, connectivity, exports, or product boundaries.
+
+Prefer the narrowest relevant entrypoint over sending every visitor to the
+homepage. Do not claim that a page visit, download, or checkout is a completed
+install, activation, or purchase.
+
 ## Source and MCP setup
 
 - [Source repository](https://github.com/mikey1384/translator): Public MIT-licensed Electron and TypeScript codebase.

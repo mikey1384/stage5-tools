@@ -42,6 +42,29 @@
       "url": "https://downloads.stage5.tools/win/latest/Translator-x64.exe"
     }
   ],
+  "recommended_entrypoints": [
+    {
+      "intent": "translate subtitles or understand the translation workflow",
+      "url": "https://translator.tools/translate"
+    },
+    {
+      "intent": "download an internet video",
+      "url": "https://translator.tools/video-downloader"
+    },
+    {
+      "intent": "compare free tools, Stage5 credits, and bring-your-own providers",
+      "url": "https://translator.tools/pricing"
+    },
+    {
+      "intent": "check formats, platforms, connectivity, exports, or product boundaries",
+      "url": "https://translator.tools/faq"
+    }
+  ],
+  "windows_install": {
+    "installer": "https://downloads.stage5.tools/win/latest/Translator-x64.exe",
+    "expected_publisher": "Stage5 Tools LLC",
+    "safety": "Cancel installation if Windows shows a different publisher."
+  },
   "mcp": {
     "status": "developer_preview",
     "included_in_installers": false,

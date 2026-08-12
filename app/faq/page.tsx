@@ -3,6 +3,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
+import { FaqIntentLinks } from "../../components/FaqIntentLinks";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
@@ -455,6 +456,7 @@ export default async function FAQPage({
               <p className="mt-5 max-w-2xl text-base leading-7 text-gray-300 md:text-lg">
                 {t("faqSubtitle", locale)}
               </p>
+              <FaqIntentLinks locale={locale} />
               <ul className="mt-8 space-y-3 text-sm text-gray-200 md:text-base">
                 {copy.heroPoints.map((point) => (
                   <li key={point} className="flex items-start gap-3">

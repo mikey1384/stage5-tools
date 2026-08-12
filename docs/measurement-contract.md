@@ -9,6 +9,8 @@ authoritative, and what must never enter analytics.
 | ------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------ |
 | Did a visitor request a download?                 | Translator website data layer, including `/agents`    | `download_mac_click`, `download_windows_click`         |
 | Did a visitor choose a homepage workflow?         | Translator website data layer                         | `landing_intent_click`                                 |
+| Did a FAQ visitor choose a product action?        | Translator website data layer                         | `faq_intent_click`                                     |
+| Did a Windows visitor open install guidance?      | Translator website data layer                         | `windows_install_help_open`                            |
 | Did a visitor inspect the source or Echo listing? | Translator website data layer                         | `github_repository_click`, `echo_appstore_click`       |
 | Did Stripe return the browser to Translator?      | Translator website data layer                         | `checkout_return_success`, `checkout_return_cancelled` |
 | Did checkout begin?                               | Authenticated Stage5 API session creation             | `begin_checkout`                                       |
@@ -44,6 +46,13 @@ checkout return IDs, Stripe customer IDs, or other customer content.
   funnel diagnostics, not revenue.
 - Keep `landing_intent_click` as a diagnostic event, not a key event. Segment its
   stable `destination` value by locale-bearing `page_path` and source/medium.
+- Keep `faq_intent_click` and `windows_install_help_open` as diagnostics, not key
+  events. Use them to identify handoff and install-friction demand; do not treat
+  either as a completed download, install, or activation.
+- Desktop checkout events include `commerce_surface=translator_desktop`.
+  `begin_checkout` and `checkout_cancelled` use
+  `attribution_scope=server_checkout`; `purchase` uses
+  `attribution_scope=server_settlement`.
 - Add `checkout.stripe.com` to unwanted referrals so Stripe does not overwrite the
   visitor's original acquisition source on the return page.
 - The Stage5 API sends retryable Measurement Protocol events from a D1 outbox.
@@ -57,3 +66,11 @@ The website-to-desktop transition is a real boundary. Download clicks show inten
 stages use anonymous pseudonyms and are not presented as deterministic user-level
 attribution across devices. Aggregate conversion rates are valid; identity joins
 are not inferred.
+
+The server-authoritative `purchase` event does not inherit the visitor's browser
+client or GA session. A landing page, browser, operating system, source, or medium
+of `(not set)` on `purchase` is therefore expected—not a lost website session.
+Use the browser's deduplicated `checkout_return_success` event for session-level
+acquisition analysis and `purchase` for settled revenue. Never copy a browser
+client ID into the desktop API or emit a second browser purchase merely to fill a
+GA dimension.

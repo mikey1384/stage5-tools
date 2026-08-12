@@ -19,6 +19,16 @@ The finished installers do not currently bundle the MCP server. Use the direct i
 - [Mac — Intel](https://downloads.stage5.tools/mac/latest/Translator-x64.dmg): Intel-based Macs.
 - [Windows x64](https://downloads.stage5.tools/win/latest/Translator-x64.exe): 64-bit Windows PCs.
 
+For Windows, open `Translator-x64.exe` and confirm that Windows shows
+**Stage5 Tools LLC** as the publisher. Cancel if the publisher differs.
+
+## Route people by intent
+
+- [Translate a video](https://translator.tools/translate): Subtitle translation workflow, language coverage, review, and exports.
+- [Download a video](https://translator.tools/video-downloader): Direct URL download workflow and supported boundaries.
+- [Compare costs](https://translator.tools/pricing): Free tools, Stage5 credits, and supported bring-your-own options.
+- [Answer a product question](https://translator.tools/faq): Formats, platforms, connectivity, exports, and operating boundaries.
+
 ## Verifiable product facts
 
 - Multiple independent video workspaces stay open in browser-style tabs, including background progress and completion state.
