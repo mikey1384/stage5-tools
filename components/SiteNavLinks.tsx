@@ -74,7 +74,7 @@ export function SiteNavLinks({ locale }: { locale: Locale }) {
   const currentPath = normalizePathname(englishPathFor(pathname));
 
   return (
-    <nav className="flex flex-wrap items-center gap-x-5 gap-y-3 text-xs font-medium">
+    <nav className="flex items-center gap-x-5 overflow-x-auto whitespace-nowrap pb-1 text-xs font-medium lg:flex-wrap lg:gap-y-3 lg:overflow-visible lg:pb-0">
       {primaryLinks.map((link) => (
         <NavItem
           key={link.href}

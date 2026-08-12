@@ -88,7 +88,7 @@ const baseHomeCopy = {
     eyebrow: "The complete AI video translation workflow",
     title: "The video translator that finishes the job.",
     subtitle:
-      "Paste a link or open a file. Translator takes you from video and speech to reviewed subtitles, dubbing, highlight clips, and finished exports—without the usual chain of disconnected tools.",
+      "Paste a link or open a file. Download, transcribe, translate, review, dub, clip, and export—in one desktop app.",
     heroPoints: [
       "Start from a video URL or a file on your computer",
       "Keep multiple videos running in their own browser-style tabs",
