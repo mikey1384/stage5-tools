@@ -118,9 +118,10 @@ If DNS resolution is unavailable in the execution environment, report deploy suc
 - `docs/landing-page-experiments.md` is the durable record for material
   Translator landing-page, funnel, and landing-page measurement changes.
 - Update the log in the same commit as every such change. Record a stable ID,
-  date, commit, exact change, falsifiable hypothesis, locked pre-change GA4
-  baseline, primary metric, guardrails, deployment evidence, and evaluation
-  dates.
+  timezone-explicit commit timestamp, verified production-live timestamp,
+  commit, exact change, falsifiable hypothesis, locked pre-change GA4 baseline,
+  primary metric, guardrails, deployment evidence, and evaluation dates. Use
+  `Not preserved` for an unknown historical release time; never guess it.
 - On later GA4 reviews, append the observed result and status to the original
   entry. Do not rewrite its hypothesis or baseline after seeing the outcome.
 - Evaluate by hostname and landing-page path. Page title may identify a release

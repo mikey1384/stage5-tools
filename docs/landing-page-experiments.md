@@ -3,14 +3,34 @@
 This is the durable record for Translator acquisition-page changes. It exists so
 later GA4 reviews can distinguish a plausible story from an observed result.
 
+## Release timeline
+
+All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
+**production live** time when it is known; the commit time is only a fallback.
+
+| Change committed | Production live | ID | What changed | Commit |
+| --- | --- | --- | --- | --- |
+| 2026-08-12 07:30 | 2026-08-12 07:35 | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ | `4eb8148` |
+| 2026-08-12 07:15 | By 2026-08-12 07:33 | LP-2026-08-12-01 | Kept the recommended mobile download CTA above the fold | `e23b44a` |
+| 2026-08-06 10:16 | Not preserved | LP-2026-08-06-03 | Replaced abstract proof with the real multitab workspace | `e40ab14` |
+| 2026-08-06 09:47 | Not preserved | LP-2026-08-06-02 | Clarified the homepage feature hierarchy | `272efd5` |
+| 2026-08-06 09:00 | Not preserved | LP-2026-08-06-01 | Refreshed homepage positioning and agent discovery | `0e056b9` |
+| 2026-06-10 12:55 | Not preserved | Historical | Added localized Echo page and homepage conversion work | `a495dc5` |
+| 2026-04-25 09:23 | Not preserved | Historical | Repositioned the homepage around translated subtitles | `f718876` |
+| 2026-03-10 17:32 | Not preserved | Historical | Improved homepage copy | `12ec25d` |
+| 2026-03-09 16:29 | Not preserved | Historical | Major presentation update | `0752ccb` |
+| 2026-03-05 17:55 | Not preserved | Historical | SEO improvements | `e30c964` |
+
 ## Operating rule
 
 - Add an entry in the same commit as every material landing-page, funnel, or
   landing-page measurement change.
 - Lock the pre-change baseline before release. Use hostname plus landing-page
   path as the cohort; use page title only to identify a release cohort.
-- Record the hypothesis, primary metric, guardrails, deployment evidence, and
-  the earliest useful 7- and 28-day read dates.
+- Record the commit timestamp, verified production-live timestamp, hypothesis,
+  primary metric, guardrails, deployment evidence, and the earliest useful 7-
+  and 28-day read dates. State the timezone and write `Not preserved` instead of
+  guessing a missing historical release time.
 - Append results to the original entry. Do not rewrite its hypothesis or
   baseline after seeing the outcome.
 - Do not call a change a winner on impressions, raw traffic, or a partial-day
