@@ -10,7 +10,7 @@ All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 
 | Change committed | Production live      | ID               | What changed                                                     | Commit      |
 | ---------------- | -------------------- | ---------------- | ---------------------------------------------------------------- | ----------- |
-| 2026-08-12 11:43 | Pending verification | LP-2026-08-12-03 | Added measured Windows, FAQ, commerce-origin, and agent handoffs | This commit |
+| 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                  | `2504290`   |
 | 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ   | `4eb8148`   |
 | 2026-08-12 07:15 | By 2026-08-12 07:33  | LP-2026-08-12-01 | Kept the recommended mobile download CTA above the fold          | `e23b44a`   |
 | 2026-08-06 10:16 | Not preserved        | LP-2026-08-06-03 | Replaced abstract proof with the real multitab workspace         | `e40ab14`   |
@@ -88,9 +88,10 @@ a recorded next step.
   unchanged. Added platform-specific Windows install guidance beneath the
   existing recommended download, with diagnostic `windows_install_help_open`;
   added localized, early FAQ links to translation, downloading, and pricing,
-  with diagnostic `faq_intent_click`; classified server commerce events with
-  `commerce_surface` and `attribution_scope`; and added explicit intent routes
-  plus Windows publisher guidance to the agent manifest and LLM guides.
+  with diagnostic `faq_intent_click`; documented the honest split between
+  browser-session attribution and server-settled revenue; and added explicit
+  intent routes plus Windows publisher guidance to the agent manifest and LLM
+  guides.
 - Hypothesis: clearer next steps will reduce Windows install uncertainty and
   convert answer-seeking FAQ and AI-assistant visitors into qualified product
   actions without weakening the existing homepage download path.
@@ -118,7 +119,15 @@ ai-assistant`, segmented by landing page. Treat machine-readable routing as a
   build, 159-URL indexing audit, agent-manifest JSON parse, and all 87 API tests
   passed. CLI-first visual checks at 1440×900 and 390×844 preserved the current
   homepage hierarchy and kept the Chinese FAQ links above its download CTA.
-  Production-live evidence remains pending.
+  Cloudflare Pages completed commit `2504290`; cache-busted production checks
+  verified the FAQ marker, agent entrypoints, expected publisher, LLM routing,
+  and Windows guidance/event bundle by 11:54 +07:00.
+- Purchase-classification follow-up: the tested API worktree adds
+  `commerce_surface` and `attribution_scope` to checkout and settlement events,
+  but that worktree already contained older uncommitted payment, analytics,
+  internal-device, and retired-pilot changes. The API classification was not
+  committed or deployed from this site release; do not report those parameters
+  as live until that existing work is reconciled into a safe API release.
 - Earliest reads: 2026-08-19 for a full seven days; 2026-09-09 for a full 28
   days. Require at least 100 eligible sessions before interpreting a zero or
   small diagnostic count.

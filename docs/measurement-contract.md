@@ -49,10 +49,11 @@ checkout return IDs, Stripe customer IDs, or other customer content.
 - Keep `faq_intent_click` and `windows_install_help_open` as diagnostics, not key
   events. Use them to identify handoff and install-friction demand; do not treat
   either as a completed download, install, or activation.
-- Desktop checkout events include `commerce_surface=translator_desktop`.
-  `begin_checkout` and `checkout_cancelled` use
-  `attribution_scope=server_checkout`; `purchase` uses
-  `attribution_scope=server_settlement`.
+- The checkout-classification rollout adds
+  `commerce_surface=translator_desktop`. `begin_checkout` and
+  `checkout_cancelled` use `attribution_scope=server_checkout`; `purchase` uses
+  `attribution_scope=server_settlement`. Do not report these custom parameters
+  as live until the matching API deployment is verified.
 - Add `checkout.stripe.com` to unwanted referrals so Stripe does not overwrite the
   visitor's original acquisition source on the return page.
 - The Stage5 API sends retryable Measurement Protocol events from a D1 outbox.
