@@ -10,7 +10,7 @@ All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 
 | Change committed | Production live      | ID               | What changed                                                      | Commit    |
 | ---------------- | -------------------- | ---------------- | ----------------------------------------------------------------- | --------- |
-| 2026-08-15 06:08 | Pending verification | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | Pending   |
+| 2026-08-15 06:08 | 2026-08-15 06:18     | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | `42e4b59` |
 | 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                   | `2504290` |
 | 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ    | `4eb8148` |
 | 2026-08-12 07:15 | By 2026-08-12 07:33  | LP-2026-08-12-01 | Kept the recommended mobile download CTA above the fold           | `e23b44a` |
@@ -84,7 +84,7 @@ a recorded next step.
 
 ## LP-2026-08-15-01 — Measured agent workflow routing
 
-- Commit: pending release commit — `Measure agent workflow demand`
+- Commit: `42e4b59` — `Measure agent workflow demand`
 - Change: preserved the agent-page MCP and direct-download paths, then added an
   early, truthful choice among subtitle translation, SRT editing, and dubbing.
   Added those differentiated routes to the publisher-maintained agent manifest
@@ -108,6 +108,12 @@ a recorded next step.
 - Guardrails: no reduction in agent-page repository or direct-download access,
   no claim that MCP is bundled or remote, valid machine-readable artifacts,
   159-URL indexing integrity, and no duplicate event emission.
+- Verification: the bounded analytics payload test, nine-locale audit,
+  production build, type checks, 159-URL indexing audit, manifest JSON parse,
+  and adversarial privacy/authority review passed. Cloudflare Pages completed
+  commit `42e4b59`; cache-busted production checks found the visible workflow
+  row, the explicit pay-per-call boundary, both differentiated routes in the
+  manifest and LLM guide, and HTTP 200 health by 06:18 +07:00.
 - Earliest reads: 2026-08-22 for seven full days and 2026-09-12 for 28 full days.
   Treat results as directional until at least 100 eligible `/agents` sessions.
 - Outcome: pending.
