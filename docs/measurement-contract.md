@@ -10,6 +10,7 @@ authoritative, and what must never enter analytics.
 | Did a visitor request a download?                 | Translator website data layer, including `/agents`    | `download_mac_click`, `download_windows_click`         |
 | Did a visitor choose a homepage workflow?         | Translator website data layer                         | `landing_intent_click`                                 |
 | Did a FAQ visitor choose a product action?        | Translator website data layer                         | `faq_intent_click`                                     |
+| Did an agent-page visitor choose a workflow?      | Translator website data layer                         | `agent_workflow_click`                                 |
 | Did a Windows visitor open install guidance?      | Translator website data layer                         | `windows_install_help_open`                            |
 | Did a visitor inspect the source or Echo listing? | Translator website data layer                         | `github_repository_click`, `echo_appstore_click`       |
 | Did Stripe return the browser to Translator?      | Translator website data layer                         | `checkout_return_success`, `checkout_return_cancelled` |
@@ -49,6 +50,9 @@ checkout return IDs, Stripe customer IDs, or other customer content.
 - Keep `faq_intent_click` and `windows_install_help_open` as diagnostics, not key
   events. Use them to identify handoff and install-friction demand; do not treat
   either as a completed download, install, or activation.
+- Keep `agent_workflow_click` as a diagnostic event, not a key event. Segment it
+  by destination and source; it records routing intent, not remote API demand,
+  app activation, or payment.
 - The checkout-classification rollout adds
   `commerce_surface=translator_desktop`. `begin_checkout` and
   `checkout_cancelled` use `attribution_scope=server_checkout`; `purchase` uses

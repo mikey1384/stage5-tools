@@ -40,6 +40,28 @@ export function createFaqIntentEvent(
   };
 }
 
+export type AgentWorkflowDestination =
+  "translate" | "subtitle_editor" | "dubbing";
+
+export type AgentWorkflowEventPayload = {
+  event: "agent_workflow_click";
+  destination: AgentWorkflowDestination;
+  placement: "agents_hero";
+  page_path: string;
+};
+
+export function createAgentWorkflowEvent(
+  destination: AgentWorkflowDestination,
+  pagePath: string,
+): AgentWorkflowEventPayload {
+  return {
+    event: "agent_workflow_click",
+    destination,
+    placement: "agents_hero",
+    page_path: pagePath,
+  };
+}
+
 export type WindowsInstallHelpEventPayload = {
   event: "windows_install_help_open";
   placement: "hero_download";

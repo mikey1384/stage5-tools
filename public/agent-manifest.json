@@ -48,6 +48,14 @@
       "url": "https://translator.tools/translate"
     },
     {
+      "intent": "edit, time, style, review, or export an SRT subtitle file",
+      "url": "https://translator.tools/subtitle-editor"
+    },
+    {
+      "intent": "create translated speech or dub a video",
+      "url": "https://translator.tools/dubbing"
+    },
+    {
       "intent": "download an internet video",
       "url": "https://translator.tools/video-downloader"
     },

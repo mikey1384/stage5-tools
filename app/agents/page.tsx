@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { AgentWorkflowLinks } from "../../components/AgentWorkflowLinks";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
@@ -51,7 +52,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["https://translator.tools/translator-social-card-editorial-2026-08.png"],
+    images: [
+      "https://translator.tools/translator-social-card-editorial-2026-08.png",
+    ],
   },
 };
 
@@ -142,7 +145,9 @@ export default function AgentsPage() {
 
       <div className="mx-auto max-w-[1500px] px-5 md:px-8">
         <SiteNav locale={locale} />
-        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "For agents" }]} />
+        <Breadcrumbs
+          items={[{ label: "Home", href: "/" }, { label: "For agents" }]}
+        />
 
         <section className="pb-24 pt-10 md:pb-32 md:pt-16">
           <div className="border-t border-white/20 pt-5">
@@ -189,6 +194,26 @@ export default function AgentsPage() {
           </div>
         </section>
 
+        <section
+          aria-labelledby="agent-workflow-heading"
+          className="pb-24 md:pb-32"
+        >
+          <div className="mb-6 grid gap-3 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+            <h2
+              id="agent-workflow-heading"
+              className="text-2xl font-semibold tracking-[-0.03em] text-white"
+            >
+              Route the job before choosing the tool.
+            </h2>
+            <p className="max-w-2xl text-sm leading-6 text-white/48 md:justify-self-end">
+              Start with the narrowest workflow. These pages describe the
+              current product; they do not imply a remote agent service or live
+              pay-per-call endpoint.
+            </p>
+          </div>
+          <AgentWorkflowLinks />
+        </section>
+
         <section className="grid gap-14 border-y border-white/20 py-24 md:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
           <div>
             <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
@@ -227,8 +252,8 @@ export default function AgentsPage() {
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
                 The tools have named inputs and structured results. An agent
-                does not need to hunt through the interface or depend on where
-                a button happens to be today.
+                does not need to hunt through the interface or depend on where a
+                button happens to be today.
               </p>
             </div>
 
@@ -351,10 +376,16 @@ export default function AgentsPage() {
           </div>
 
           <div className="mt-12 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/20 pt-6 font-mono text-xs text-white/50">
-            <a className="underline underline-offset-4 hover:text-white" href="/llms.txt">
+            <a
+              className="underline underline-offset-4 hover:text-white"
+              href="/llms.txt"
+            >
               llms.txt
             </a>
-            <a className="underline underline-offset-4 hover:text-white" href="/llms-full.txt">
+            <a
+              className="underline underline-offset-4 hover:text-white"
+              href="/llms-full.txt"
+            >
               llms-full.txt
             </a>
             <a

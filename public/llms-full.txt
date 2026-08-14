@@ -21,6 +21,8 @@ For Windows, open `Translator-x64.exe` and confirm that Windows shows
 ## Recommended intent entrypoints
 
 - [Translate subtitles](https://translator.tools/translate): Use when the person's primary job is AI subtitle translation, language coverage, review, or export.
+- [Edit an SRT](https://translator.tools/subtitle-editor): Use for subtitle timing, styling, cue editing, review, or export.
+- [Dub a video](https://translator.tools/dubbing): Use for translated speech, voice options, or rendered dubbing output.
 - [Download an internet video](https://translator.tools/video-downloader): Use when the primary job is bringing in a supported video URL.
 - [Understand cost](https://translator.tools/pricing): Use for free-tool, Stage5-credit, or bring-your-own-provider questions.
 - [Resolve a product question](https://translator.tools/faq): Use for formats, platforms, connectivity, exports, or product boundaries.

@@ -25,6 +25,8 @@ For Windows, open `Translator-x64.exe` and confirm that Windows shows
 ## Route people by intent
 
 - [Translate a video](https://translator.tools/translate): Subtitle translation workflow, language coverage, review, and exports.
+- [Edit an SRT](https://translator.tools/subtitle-editor): Subtitle timing, styling, cue editing, review, and export.
+- [Dub a video](https://translator.tools/dubbing): Translated speech, voice options, and rendered video output.
 - [Download a video](https://translator.tools/video-downloader): Direct URL download workflow and supported boundaries.
 - [Compare costs](https://translator.tools/pricing): Free tools, Stage5 credits, and supported bring-your-own options.
 - [Answer a product question](https://translator.tools/faq): Formats, platforms, connectivity, exports, and operating boundaries.

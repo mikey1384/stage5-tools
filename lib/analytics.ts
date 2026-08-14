@@ -1,4 +1,5 @@
 import type {
+  AgentWorkflowEventPayload,
   FaqIntentEventPayload,
   LandingIntentEventPayload,
   WindowsInstallHelpEventPayload,
@@ -34,6 +35,10 @@ export function trackLandingIntent(payload: LandingIntentEventPayload): void {
 }
 
 export function trackFaqIntent(payload: FaqIntentEventPayload): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackAgentWorkflow(payload: AgentWorkflowEventPayload): void {
   pushAnalyticsEvent(payload);
 }
 

@@ -8,19 +8,20 @@ later GA4 reviews can distinguish a plausible story from an observed result.
 All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 **production live** time when it is known; the commit time is only a fallback.
 
-| Change committed | Production live      | ID               | What changed                                                     | Commit      |
-| ---------------- | -------------------- | ---------------- | ---------------------------------------------------------------- | ----------- |
-| 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                  | `2504290`   |
-| 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ   | `4eb8148`   |
-| 2026-08-12 07:15 | By 2026-08-12 07:33  | LP-2026-08-12-01 | Kept the recommended mobile download CTA above the fold          | `e23b44a`   |
-| 2026-08-06 10:16 | Not preserved        | LP-2026-08-06-03 | Replaced abstract proof with the real multitab workspace         | `e40ab14`   |
-| 2026-08-06 09:47 | Not preserved        | LP-2026-08-06-02 | Clarified the homepage feature hierarchy                         | `272efd5`   |
-| 2026-08-06 09:00 | Not preserved        | LP-2026-08-06-01 | Refreshed homepage positioning and agent discovery               | `0e056b9`   |
-| 2026-06-10 12:55 | Not preserved        | Historical       | Added localized Echo page and homepage conversion work           | `a495dc5`   |
-| 2026-04-25 09:23 | Not preserved        | Historical       | Repositioned the homepage around translated subtitles            | `f718876`   |
-| 2026-03-10 17:32 | Not preserved        | Historical       | Improved homepage copy                                           | `12ec25d`   |
-| 2026-03-09 16:29 | Not preserved        | Historical       | Major presentation update                                        | `0752ccb`   |
-| 2026-03-05 17:55 | Not preserved        | Historical       | SEO improvements                                                 | `e30c964`   |
+| Change committed | Production live      | ID               | What changed                                                      | Commit    |
+| ---------------- | -------------------- | ---------------- | ----------------------------------------------------------------- | --------- |
+| 2026-08-15 06:08 | Pending verification | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | Pending   |
+| 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                   | `2504290` |
+| 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ    | `4eb8148` |
+| 2026-08-12 07:15 | By 2026-08-12 07:33  | LP-2026-08-12-01 | Kept the recommended mobile download CTA above the fold           | `e23b44a` |
+| 2026-08-06 10:16 | Not preserved        | LP-2026-08-06-03 | Replaced abstract proof with the real multitab workspace          | `e40ab14` |
+| 2026-08-06 09:47 | Not preserved        | LP-2026-08-06-02 | Clarified the homepage feature hierarchy                          | `272efd5` |
+| 2026-08-06 09:00 | Not preserved        | LP-2026-08-06-01 | Refreshed homepage positioning and agent discovery                | `0e056b9` |
+| 2026-06-10 12:55 | Not preserved        | Historical       | Added localized Echo page and homepage conversion work            | `a495dc5` |
+| 2026-04-25 09:23 | Not preserved        | Historical       | Repositioned the homepage around translated subtitles             | `f718876` |
+| 2026-03-10 17:32 | Not preserved        | Historical       | Improved homepage copy                                            | `12ec25d` |
+| 2026-03-09 16:29 | Not preserved        | Historical       | Major presentation update                                         | `0752ccb` |
+| 2026-03-05 17:55 | Not preserved        | Historical       | SEO improvements                                                  | `e30c964` |
 
 ## Operating rule
 
@@ -80,6 +81,36 @@ Seven-day landing-page signals:
 Small localized samples are directional, not proof. The Chinese FAQ is the
 clearest measurable handoff gap: it attracts search demand but has not yet shown
 a recorded next step.
+
+## LP-2026-08-15-01 — Measured agent workflow routing
+
+- Commit: pending release commit — `Measure agent workflow demand`
+- Change: preserved the agent-page MCP and direct-download paths, then added an
+  early, truthful choice among subtitle translation, SRT editing, and dubbing.
+  Added those differentiated routes to the publisher-maintained agent manifest
+  and LLM guides. Added bounded diagnostic `agent_workflow_click` with
+  `destination`, `placement`, and `page_path`; the copy explicitly says that no
+  remote agent service or pay-per-call endpoint is live.
+- Hypothesis: qualified AI-assistant visitors will self-select a concrete video
+  workflow, revealing whether the observed agent-discovery traffic includes
+  demand for structure-preserving subtitle work or dubbing rather than only
+  generic translation and downloads.
+- Locked baseline: no `agent_workflow_click` event existed before this release.
+  Through 2026-08-11, `chatgpt.com / ai-assistant` produced 119 sessions and 52
+  key events over 28 days. A path-specific `/agents` session baseline was not
+  preserved and must not be guessed. Through 2026-08-13, all download events
+  were 17 events / 11 users over 7 days, 75 / 43 over 28 days, and 183 / 85 over
+  90 days.
+- Primary read: `agent_workflow_click / /agents session`, segmented by
+  destination, source/medium, device, and country. Downstream reads remain
+  download clicks, released `app_open`, `app_meaningful_use`, and settled
+  `purchase`; never equate a route click with API or payment demand.
+- Guardrails: no reduction in agent-page repository or direct-download access,
+  no claim that MCP is bundled or remote, valid machine-readable artifacts,
+  159-URL indexing integrity, and no duplicate event emission.
+- Earliest reads: 2026-08-22 for seven full days and 2026-09-12 for 28 full days.
+  Treat results as directional until at least 100 eligible `/agents` sessions.
+- Outcome: pending.
 
 ## LP-2026-08-12-03 — Measured Windows, FAQ, and agent handoffs
 
