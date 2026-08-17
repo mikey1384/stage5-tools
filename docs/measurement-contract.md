@@ -18,12 +18,16 @@ authoritative, and what must never enter analytics.
 | Was checkout abandoned in the desktop app?        | Authenticated client report checked against Stripe    | `checkout_cancelled`                                   |
 | Was money collected?                              | Stripe-signed webhook after fulfillment               | `purchase`                                             |
 | Did Translator start?                             | Authenticated desktop app, anonymous server pseudonym | `app_open`                                             |
-| Did Translator first deliver product value?       | Successful local open/download, once per installation | `app_meaningful_use`                                   |
+| Did Translator first deliver product value?       | Successful local use, once per installation            | `app_meaningful_use`                                   |
 | Is an Echo subscription active?                   | RevenueCat and the app-store receipt                  | RevenueCat/App Store reporting                         |
 
 The browser success page is deliberately not a purchase authority. Reloading it
 cannot create revenue. Stripe transaction IDs deduplicate purchase events across
 `checkout.session.completed` and `payment_intent.succeeded` webhook deliveries.
+
+For Translator, successful local use means a video was opened or downloaded, or
+a full-SRT translation completed successfully. A cancellation, failure, or
+credit block is not meaningful use.
 
 ## Data minimization
 
