@@ -160,10 +160,10 @@ DNS checks:
 
 ## Outbound connection budget
 
-HTTPS, TLS, and DNS check families run in sequence. Checks inside each family still
-run concurrently. This keeps the Worker below Cloudflare's simultaneous outbound
-connection limit and prevents a queued probe from exhausting its timeout before
-it can connect.
+All HTTPS, TLS, and DNS checks share a five-check concurrency budget. Each check
+owns at most one outbound operation at a time, keeping the Worker below
+Cloudflare's six-connection limit while allowing unrelated check families to
+make progress together during a partial outage.
 
 ## Local test/demo commands
 

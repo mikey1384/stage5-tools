@@ -21,6 +21,7 @@ const TLS_CERT_CACHE_KEY_PREFIX = "tls:cert:v1:";
 const TLS_CERT_CACHE_DEFAULT_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 const TLS_CERT_CACHE_ENTRY_TTL_SECONDS = 14 * 24 * 60 * 60;
 const TLS_CERT_STALE_CACHE_DEFAULT_MAX_AGE_MS = TLS_CERT_CACHE_ENTRY_TTL_SECONDS * 1000;
+const MAX_CONCURRENT_CHECKS = 5;
 
 export async function runMonitor({
   env = {},
@@ -98,38 +99,37 @@ export async function runMonitor({
         fetchImpl,
       }));
 
-  // Cloudflare Workers allow only a bounded number of simultaneous outbound
-  // connections per invocation. Keep each check family concurrent, but run the
-  // families in sequence so queued probes do not consume their timeout before
-  // they are allowed to connect.
-  const httpsResults = await Promise.all(
-    (baseline.httpsChecks ?? []).map((check) => runHttpsCheck({ check, fetchImpl, timeoutMs }))
-  );
-  const tlsResults = await Promise.all(
-    (baseline.tlsChecks ?? []).map((check) =>
-      runTlsCheck({
-        check,
-        getCertificate,
-        timeoutMs: certTimeoutMs,
-        nowDate,
-        env,
-      })
-    )
-  );
-  const dnsResults = await Promise.all(
-    (baseline.dnsChecks ?? []).map((check) =>
-      runDnsCheck({
-        check,
-        baseline,
-        resolveDns,
-        timeoutMs: dnsTimeoutMs,
-        cloudflareIpv4Context,
-        requireLiveCloudflareFeed: env.REQUIRE_CLOUDFLARE_FEED === "1",
-      })
-    )
-  );
-
-  const checks = [...httpsResults, ...tlsResults, ...dnsResults];
+  // Cloudflare Workers permit six simultaneous outbound connections per
+  // invocation. Each check owns at most one outbound operation at a time, so a
+  // five-check budget leaves one slot of headroom while allowing unrelated
+  // check families to make progress together during a partial outage.
+  const checkTasks = [
+    ...(baseline.httpsChecks ?? []).map(
+      (check) => () => runHttpsCheck({ check, fetchImpl, timeoutMs })
+    ),
+    ...(baseline.tlsChecks ?? []).map(
+      (check) => () =>
+        runTlsCheck({
+          check,
+          getCertificate,
+          timeoutMs: certTimeoutMs,
+          nowDate,
+          env,
+        })
+    ),
+    ...(baseline.dnsChecks ?? []).map(
+      (check) => () =>
+        runDnsCheck({
+          check,
+          baseline,
+          resolveDns,
+          timeoutMs: dnsTimeoutMs,
+          cloudflareIpv4Context,
+          requireLiveCloudflareFeed: env.REQUIRE_CLOUDFLARE_FEED === "1",
+        })
+    ),
+  ];
+  const checks = await runWithConcurrency(checkTasks, MAX_CONCURRENT_CHECKS);
   const failures = checks.filter((item) => !item.pass);
 
   if (forceAlert) {
@@ -256,6 +256,27 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
       reasons: [normalizeError(error)],
     };
   }
+}
+
+async function runWithConcurrency(tasks, concurrency) {
+  if (tasks.length === 0) {
+    return [];
+  }
+
+  const results = new Array(tasks.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(concurrency, tasks.length);
+
+  async function runWorker() {
+    while (nextIndex < tasks.length) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      results[currentIndex] = await tasks[currentIndex]();
+    }
+  }
+
+  await Promise.all(Array.from({ length: workerCount }, () => runWorker()));
+  return results;
 }
 
 async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {

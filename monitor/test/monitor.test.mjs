@@ -193,62 +193,74 @@ test("monitor pass path", async () => {
   assert.equal(sent.length, 0);
 });
 
-test("monitor runs outbound check families sequentially", async () => {
-  const httpsGate = createDeferred();
-  const httpsStarted = createDeferred();
-  const tlsGate = createDeferred();
-  const tlsStarted = createDeferred();
-  const order = [];
+test("monitor caps simultaneous outbound checks below the Worker connection limit", async () => {
+  const gate = createDeferred();
+  const budgetFilled = createDeferred();
+  let activeChecks = 0;
+  let maxActiveChecks = 0;
+  let startedChecks = 0;
   const baseline = {
-    httpsChecks: [{ name: "HTTP", url: "https://example.test/healthz" }],
-    tlsChecks: [{ host: "example.test", minDaysRemaining: 1 }],
-    dnsChecks: [{ host: "example.test", type: "A", mustInclude: ["192.0.2.1"] }],
+    httpsChecks: Array.from({ length: 4 }, (_, index) => ({
+      name: `HTTP ${index}`,
+      url: `https://example.test/healthz/${index}`,
+    })),
+    tlsChecks: Array.from({ length: 3 }, (_, index) => ({
+      host: `tls-${index}.example.test`,
+      minDaysRemaining: 1,
+    })),
+    dnsChecks: Array.from({ length: 2 }, (_, index) => ({
+      host: `dns-${index}.example.test`,
+      type: "A",
+      mustInclude: ["192.0.2.1"],
+    })),
     dnsResolvers: ["test"],
   };
+
+  async function trackCheck(value) {
+    activeChecks += 1;
+    startedChecks += 1;
+    maxActiveChecks = Math.max(maxActiveChecks, activeChecks);
+    if (startedChecks === 5) {
+      budgetFilled.resolve();
+    }
+    await gate.promise;
+    activeChecks -= 1;
+    return value;
+  }
 
   const monitorPromise = runMonitor({
     baseline,
     clients: {
       stateStore: createMemoryStateStore(),
       async fetch() {
-        order.push("https:start");
-        httpsStarted.resolve();
-        await httpsGate.promise;
-        order.push("https:end");
-        return new Response("ok", { status: 200 });
+        return trackCheck(new Response("ok", { status: 200 }));
       },
-      async getCertificate() {
-        order.push("tls:start");
-        tlsStarted.resolve();
-        await tlsGate.promise;
-        order.push("tls:end");
-        return {
-          commonName: "example.test",
+      async getCertificate({ host }) {
+        return trackCheck({
+          commonName: host,
           issuer: "Example CA",
           notAfter: "2027-02-28T00:00:00.000Z",
           source: "live-tls-socket",
-        };
+        });
       },
       async resolveDns() {
-        order.push("dns");
-        return ["192.0.2.1"];
+        return trackCheck(["192.0.2.1"]);
       },
     },
     emitAlerts: false,
     now: fixedNow,
   });
 
-  await httpsStarted.promise;
-  assert.deepEqual(order, ["https:start"]);
+  await budgetFilled.promise;
+  await Promise.resolve();
+  assert.equal(startedChecks, 5);
+  assert.equal(activeChecks, 5);
 
-  httpsGate.resolve();
-  await tlsStarted.promise;
-  assert.deepEqual(order, ["https:start", "https:end", "tls:start"]);
-
-  tlsGate.resolve();
+  gate.resolve();
   const report = await monitorPromise;
 
-  assert.deepEqual(order, ["https:start", "https:end", "tls:start", "tls:end", "dns"]);
+  assert.equal(startedChecks, 9);
+  assert.equal(maxActiveChecks, 5);
   assert.equal(report.status, "pass");
 });
 
