@@ -6,6 +6,7 @@ Cloudflare Worker cron monitor for:
 - TLS certificate expiry + CN/issuer drift
 - DNS drift checks via 1.1.1.1 and 8.8.8.8
 - Incident alert policy with KV-backed dedupe, reminders, and recovery alerts
+- Persisted structured run logs with per-check latency and failure details
 
 ## Files
 
@@ -105,6 +106,7 @@ Query params:
 ## Email provider behavior
 
 - provider: SendGrid (`SENDGRID_API_KEY`)
+- click tracking is disabled per message so alert endpoints remain readable
 - sender resolution order:
   1. `ALERT_EMAIL_FROM`
   2. `ECHO_EMAIL_SENDER`
@@ -155,6 +157,13 @@ DNS checks:
 
 - `api.echo.stage5.tools` must include `18.182.90.49`
 - `www.stage5.tools` must resolve to Cloudflare edge IP ranges and never blocked parked IPs
+
+## Outbound connection budget
+
+HTTPS, TLS, and DNS check families run in sequence. Checks inside each family still
+run concurrently. This keeps the Worker below Cloudflare's simultaneous outbound
+connection limit and prevents a queued probe from exhausting its timeout before
+it can connect.
 
 ## Local test/demo commands
 

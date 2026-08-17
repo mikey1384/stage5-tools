@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { BASELINE_CONFIG } from "../config/baseline.config.js";
-import { defaultGetCertificate, runMonitor } from "../src/monitor-core.js";
+import { defaultGetCertificate, defaultSendEmail, runMonitor } from "../src/monitor-core.js";
 
 const fixedNow = new Date("2026-02-28T00:00:00.000Z");
 
@@ -167,6 +167,14 @@ function buildEnv() {
   };
 }
 
+function createDeferred() {
+  let resolve;
+  const promise = new Promise((resolvePromise) => {
+    resolve = resolvePromise;
+  });
+  return { promise, resolve };
+}
+
 test("monitor pass path", async () => {
   const { clients, sent } = buildClients();
 
@@ -183,6 +191,133 @@ test("monitor pass path", async () => {
   assert.equal(report.alertPolicy.reason, "pass-suppressed");
   assert.equal(report.alertPolicy.shouldNotify, false);
   assert.equal(sent.length, 0);
+});
+
+test("monitor runs outbound check families sequentially", async () => {
+  const httpsGate = createDeferred();
+  const httpsStarted = createDeferred();
+  const tlsGate = createDeferred();
+  const tlsStarted = createDeferred();
+  const order = [];
+  const baseline = {
+    httpsChecks: [{ name: "HTTP", url: "https://example.test/healthz" }],
+    tlsChecks: [{ host: "example.test", minDaysRemaining: 1 }],
+    dnsChecks: [{ host: "example.test", type: "A", mustInclude: ["192.0.2.1"] }],
+    dnsResolvers: ["test"],
+  };
+
+  const monitorPromise = runMonitor({
+    baseline,
+    clients: {
+      stateStore: createMemoryStateStore(),
+      async fetch() {
+        order.push("https:start");
+        httpsStarted.resolve();
+        await httpsGate.promise;
+        order.push("https:end");
+        return new Response("ok", { status: 200 });
+      },
+      async getCertificate() {
+        order.push("tls:start");
+        tlsStarted.resolve();
+        await tlsGate.promise;
+        order.push("tls:end");
+        return {
+          commonName: "example.test",
+          issuer: "Example CA",
+          notAfter: "2027-02-28T00:00:00.000Z",
+          source: "live-tls-socket",
+        };
+      },
+      async resolveDns() {
+        order.push("dns");
+        return ["192.0.2.1"];
+      },
+    },
+    emitAlerts: false,
+    now: fixedNow,
+  });
+
+  await httpsStarted.promise;
+  assert.deepEqual(order, ["https:start"]);
+
+  httpsGate.resolve();
+  await tlsStarted.promise;
+  assert.deepEqual(order, ["https:start", "https:end", "tls:start"]);
+
+  tlsGate.resolve();
+  const report = await monitorPromise;
+
+  assert.deepEqual(order, ["https:start", "https:end", "tls:start", "tls:end", "dns"]);
+  assert.equal(report.status, "pass");
+});
+
+test("HTTP failure alerts identify the check and elapsed timeout", async () => {
+  let alertPayload;
+  const report = await runMonitor({
+    env: {
+      MONITOR_NAME: "stage5-tools-dns-tls-monitor",
+      SENDGRID_API_KEY: "demo-key",
+      ALERT_EMAIL_FROM: "monitor@stage5.tools",
+      ALERT_EMAIL_TO: "ops@stage5.tools",
+    },
+    baseline: {
+      httpsChecks: [{ name: "Echo health", method: "GET", url: "https://api.echo.test/healthz" }],
+      tlsChecks: [],
+      dnsChecks: [],
+    },
+    clients: {
+      stateStore: createMemoryStateStore(),
+      async fetch() {
+        throw new Error("timeout");
+      },
+      async sendEmail({ payload }) {
+        alertPayload = payload;
+        return { mocked: true };
+      },
+    },
+    now: fixedNow,
+  });
+
+  assert.equal(report.status, "alert");
+  assert.equal(alertPayload.failures[0].name, "Echo health");
+  assert.equal(alertPayload.failures[0].method, "GET");
+  assert.ok(Number.isFinite(alertPayload.failures[0].latencyMs));
+  assert.match(
+    alertPayload.text,
+    /https:Echo health: GET https:\/\/api\.echo\.test\/healthz \(\d+ ms\) -> timeout/
+  );
+});
+
+test("SendGrid email disables click tracking for readable alert endpoints", async () => {
+  let requestBody;
+
+  const result = await defaultSendEmail({
+    env: {
+      SENDGRID_API_KEY: "demo-key",
+      ALERT_EMAIL_FROM: "monitor@stage5.tools",
+      ALERT_EMAIL_TO: "ops@stage5.tools",
+    },
+    payload: {
+      monitor: "stage5-tools-dns-tls-monitor",
+      status: "alert",
+      alertPolicy: { reason: "incident-opened" },
+      text: "https://api.echo.stage5.tools/healthz",
+    },
+    fetchImpl: async (_url, init) => {
+      requestBody = JSON.parse(init.body);
+      return new Response("", { status: 202 });
+    },
+    timeoutMs: 1000,
+  });
+
+  assert.equal(result.provider, "sendgrid");
+  assert.deepEqual(requestBody.tracking_settings, {
+    click_tracking: {
+      enable: false,
+      enable_text: false,
+    },
+  });
 });
 
 test("monitor forced alert path", async () => {

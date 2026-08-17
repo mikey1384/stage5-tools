@@ -98,34 +98,36 @@ export async function runMonitor({
         fetchImpl,
       }));
 
-  const [httpsResults, tlsResults, dnsResults] = await Promise.all([
-    Promise.all(
-      (baseline.httpsChecks ?? []).map((check) => runHttpsCheck({ check, fetchImpl, timeoutMs }))
-    ),
-    Promise.all(
-      (baseline.tlsChecks ?? []).map((check) =>
-        runTlsCheck({
-          check,
-          getCertificate,
-          timeoutMs: certTimeoutMs,
-          nowDate,
-          env,
-        })
-      )
-    ),
-    Promise.all(
-      (baseline.dnsChecks ?? []).map((check) =>
-        runDnsCheck({
-          check,
-          baseline,
-          resolveDns,
-          timeoutMs: dnsTimeoutMs,
-          cloudflareIpv4Context,
-          requireLiveCloudflareFeed: env.REQUIRE_CLOUDFLARE_FEED === "1",
-        })
-      )
-    ),
-  ]);
+  // Cloudflare Workers allow only a bounded number of simultaneous outbound
+  // connections per invocation. Keep each check family concurrent, but run the
+  // families in sequence so queued probes do not consume their timeout before
+  // they are allowed to connect.
+  const httpsResults = await Promise.all(
+    (baseline.httpsChecks ?? []).map((check) => runHttpsCheck({ check, fetchImpl, timeoutMs }))
+  );
+  const tlsResults = await Promise.all(
+    (baseline.tlsChecks ?? []).map((check) =>
+      runTlsCheck({
+        check,
+        getCertificate,
+        timeoutMs: certTimeoutMs,
+        nowDate,
+        env,
+      })
+    )
+  );
+  const dnsResults = await Promise.all(
+    (baseline.dnsChecks ?? []).map((check) =>
+      runDnsCheck({
+        check,
+        baseline,
+        resolveDns,
+        timeoutMs: dnsTimeoutMs,
+        cloudflareIpv4Context,
+        requireLiveCloudflareFeed: env.REQUIRE_CLOUDFLARE_FEED === "1",
+      })
+    )
+  );
 
   const checks = [...httpsResults, ...tlsResults, ...dnsResults];
   const failures = checks.filter((item) => !item.pass);
@@ -250,12 +252,15 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
       name: check.name,
       method: String(check.method || "GET").toUpperCase(),
       pass: false,
+      latencyMs: Date.now() - started,
       reasons: [normalizeError(error)],
     };
   }
 }
 
 async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
+  const started = Date.now();
+
   try {
     const certEnv = check.certSource ? { ...env, TLS_CERT_SOURCE: check.certSource } : env;
     const cert = await getCertificate({
@@ -332,6 +337,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       issuer: cert.issuer,
       notAfter: cert.notAfter,
       daysRemaining,
+      latencyMs: Date.now() - started,
       warnings,
       reasons,
     };
@@ -340,6 +346,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       category: "tls",
       target: check.host,
       pass: false,
+      latencyMs: Date.now() - started,
       reasons: [normalizeError(error)],
     };
   }
@@ -353,6 +360,7 @@ async function runDnsCheck({
   cloudflareIpv4Context,
   requireLiveCloudflareFeed,
 }) {
+  const started = Date.now();
   const resolvers = baseline.dnsResolvers ?? ["cloudflare", "google"];
   const answersByResolver = {};
   const reasons = [];
@@ -422,6 +430,7 @@ async function runDnsCheck({
     mergedAnswers,
     cidrSource: cidrRequirement.source,
     allowedCidrCount: cidrRequirement.cidrs.length,
+    latencyMs: Date.now() - started,
     warnings,
     reasons,
   };
@@ -673,6 +682,10 @@ function buildAlertPayload(report) {
     failures: report.failures.map((failure) => ({
       category: failure.category,
       target: failure.target,
+      name: failure.name,
+      method: failure.method,
+      statusCode: failure.statusCode,
+      latencyMs: failure.latencyMs,
       reasons: failure.reasons,
     })),
     text: buildPlainAlertText(report),
@@ -689,7 +702,10 @@ function buildPlainAlertText(report) {
   const failureLines = report.failures
     .map((failure) => {
       const joined = Array.isArray(failure.reasons) ? failure.reasons.join(" | ") : "Unknown failure";
-      return `- ${failure.category}:${failure.target} -> ${joined}`;
+      const name = failure.name ? `${failure.name}: ` : "";
+      const method = failure.method ? `${failure.method} ` : "";
+      const latency = Number.isFinite(failure.latencyMs) ? ` (${failure.latencyMs} ms)` : "";
+      return `- ${failure.category}:${name}${method}${failure.target}${latency} -> ${joined}`;
     })
     .join("\n");
 
@@ -1125,6 +1141,12 @@ export async function defaultSendEmail({ env, payload, fetchImpl, timeoutMs }) {
               value: payload.text,
             },
           ],
+          tracking_settings: {
+            click_tracking: {
+              enable: false,
+              enable_text: false,
+            },
+          },
         }),
       },
       timeoutMs

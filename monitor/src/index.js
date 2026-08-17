@@ -17,7 +17,26 @@ export default {
         env,
         forceAlert: env.FORCE_ALERT === "1",
       }).then((report) => {
-        const line = `[${report.monitor}] ${report.status.toUpperCase()} (${report.failedChecks}/${report.totalChecks} failed)`;
+        const line = JSON.stringify({
+          event: "monitor-run",
+          monitor: report.monitor,
+          status: report.status,
+          generatedAt: report.generatedAt,
+          failedChecks: report.failedChecks,
+          totalChecks: report.totalChecks,
+          policy: report.alertPolicy?.reason,
+          checks: report.checks.map((check) => ({
+            category: check.category,
+            name: check.name,
+            target: check.target,
+            method: check.method,
+            pass: check.pass,
+            statusCode: check.statusCode,
+            latencyMs: check.latencyMs,
+            reasons: check.reasons,
+            warnings: check.warnings,
+          })),
+        });
         if (report.status === "alert") {
           console.error(line);
         } else {
