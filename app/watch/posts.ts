@@ -47,4 +47,12 @@ export const posts: PostCard[] = [
     language: "Korean",
     topic: "Film",
   },
+  {
+    slug: "kore-eda-piarchia",
+    title: "Hirokazu Kore-eda on Lee Dong-jin's Piarchia",
+    description:
+      "Director Hirokazu Kore-eda discusses his film career with critic Lee Dong-jin. A Korean-language interview about filmmaking craft, looking back at works like Shoplifters, Nobody Knows, After Life, and Broker.",
+    language: "Korean",
+    topic: "Film",
+  },
 ];
