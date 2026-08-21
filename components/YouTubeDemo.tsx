@@ -95,14 +95,14 @@ export function YouTubeDemo({
       }
     }
     
-    // If page locale is a supported track, use it
-    if (availableTracks.includes(locale as TrackLang)) {
-      return locale as TrackLang;
-    }
-    
     // If page locale is the source language, default to "off"
     if (locale === sourceLang) {
       return "off";
+    }
+    
+    // If page locale is a supported track, use it
+    if (availableTracks.includes(locale as TrackLang)) {
+      return locale as TrackLang;
     }
     
     // Default to "en" if available, else first track
