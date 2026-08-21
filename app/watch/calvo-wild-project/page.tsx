@@ -102,6 +102,7 @@ export default async function CalvoWildProjectPage({
               sourceLang={post.sourceLang}
               availableTracks={post.tracks}
               videoDownloaderHref={localizeHref("/video-downloader")}
+              vttSlug="Wk_4tQOvdWU"
             />
 
             <div className="prose prose-invert mt-12 max-w-none">

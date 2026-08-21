@@ -61,6 +61,7 @@ interface YouTubeDemoProps {
   sourceLang: TrackLang;
   availableTracks: TrackLang[];
   videoDownloaderHref: string;
+  vttSlug?: string;
 }
 
 export function YouTubeDemo({
@@ -70,6 +71,7 @@ export function YouTubeDemo({
   sourceLang,
   availableTracks,
   videoDownloaderHref,
+  vttSlug,
 }: YouTubeDemoProps) {
   const playerRef = useRef<YouTubePlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -118,7 +120,8 @@ export function YouTubeDemo({
 
     const loadCaptions = async () => {
       try {
-        const response = await fetch(`/watch/${slug}.${selectedLang}.30s.vtt`);
+        const vttPath = vttSlug || slug;
+        const response = await fetch(`/watch/${vttPath}.${selectedLang}.30s.vtt`);
         if (response.ok) {
           const vttText = await response.text();
           const parsed = parseVTT(vttText);
@@ -133,7 +136,7 @@ export function YouTubeDemo({
     };
 
     loadCaptions();
-  }, [selectedLang, slug]);
+  }, [selectedLang, slug, vttSlug]);
 
   useEffect(() => {
     if (typeof window.YT !== "undefined") {
