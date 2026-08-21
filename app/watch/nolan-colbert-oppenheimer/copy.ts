@@ -9,6 +9,7 @@ interface WatchPageCopy {
   howToTitle: string;
   howToBody: string;
   howToSteps: Array<{ title: string; body: string }>;
+  howToNote: string;
   pricingTitle: string;
   pricingFree: string;
   pricingPaid: string;
@@ -64,6 +65,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
         body: "The app plays the video with your translated subtitles. You can edit the subtitle text, adjust timing, change styles, and export the final SRT file when you're done.",
       },
     ],
+    howToNote: "The video stays on your computer. You're not streaming it through a web app or uploading it to someone else's server. Translator works locally.",
     pricingTitle: "What's free, what costs money",
     pricingFree:
       "Downloading videos, organizing your library, editing subtitles manually, and exporting SRT files.",
@@ -119,6 +121,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
         body: "La app reproduce el video con tus subtítulos traducidos. Puedes editar el texto, ajustar el tiempo, cambiar estilos y exportar el archivo SRT final.",
       },
     ],
+    howToNote: "El video permanece en tu computadora. No lo estás transmitiendo a través de una aplicación web ni subiéndolo al servidor de otra persona. Translator funciona localmente.",
     pricingTitle: "Qué es gratis, qué cuesta dinero",
     pricingFree:
       "Descargar videos, organizar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
@@ -174,6 +177,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
         body: "앱이 번역된 자막과 함께 비디오를 재생합니다. 자막 텍스트를 편집하고, 타이밍을 조정하고, 스타일을 변경하고, 완료되면 최종 SRT 파일을 내보낼 수 있습니다.",
       },
     ],
+    howToNote: "비디오는 컴퓨터에 남아 있습니다. 웹 앱을 통해 스트리밍하거나 다른 사람의 서버에 업로드하는 것이 아닙니다. Translator는 로컬에서 작동합니다.",
     pricingTitle: "무료 항목, 유료 항목",
     pricingFree:
       "비디오 다운로드, 라이브러리 정리, 수동 자막 편집, SRT 파일 내보내기.",
@@ -229,6 +233,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
         body: "O aplicativo reproduz o vídeo com suas legendas traduzidas. Você pode editar o texto, ajustar o tempo, mudar estilos e exportar o arquivo SRT final.",
       },
     ],
+    howToNote: "O vídeo fica no seu computador. Você não está transmitindo através de um aplicativo web nem enviando para o servidor de outra pessoa. O Translator funciona localmente.",
     pricingTitle: "O que é grátis, o que custa dinheiro",
     pricingFree:
       "Baixar vídeos, organizar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",

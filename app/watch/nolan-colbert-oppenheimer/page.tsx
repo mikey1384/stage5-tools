@@ -131,7 +131,7 @@ export default async function NolanColbertOppenheimerPage({
               </ol>
 
               <p className="mt-8 text-lg leading-8 text-gray-300">
-                The video stays on your computer. You&apos;re not streaming it through a web app or uploading it to someone else&apos;s server. Translator works locally.
+                {copy.howToNote}
               </p>
 
               <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
