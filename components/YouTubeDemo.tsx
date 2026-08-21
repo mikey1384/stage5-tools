@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
+import { FeatureDownloadCta } from "./FeatureDownloadCta";
+import type { Locale } from "../lib/locales";
+import type { TrackLang } from "../app/watch/posts";
 
 declare global {
   interface Window {
@@ -45,21 +47,30 @@ interface Caption {
 
 const CUTOFF_TIME = 30;
 
-type SupportedLang = "en" | "ko" | "pt";
-
-const LANGUAGE_LABELS: Record<SupportedLang, string> = {
+const LANGUAGE_LABELS: Record<TrackLang, string> = {
   en: "English",
+  es: "Español",
   ko: "한국어",
   pt: "Português",
 };
 
+interface YouTubeDemoProps {
+  locale: Locale;
+  slug: string;
+  videoId: string;
+  sourceLang: TrackLang;
+  availableTracks: TrackLang[];
+  videoDownloaderHref: string;
+}
+
 export function YouTubeDemo({
   locale,
-  initialLang = "en",
-}: {
-  locale: "en";
-  initialLang?: SupportedLang;
-}) {
+  slug,
+  videoId,
+  sourceLang,
+  availableTracks,
+  videoDownloaderHref,
+}: YouTubeDemoProps) {
   const playerRef = useRef<YouTubePlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -67,14 +78,47 @@ export function YouTubeDemo({
   const captionsRef = useRef<Caption[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
-  const [selectedLang, setSelectedLang] = useState<SupportedLang>(initialLang);
+  
+  // Determine initial selected language
+  const getInitialLang = (): TrackLang | "off" => {
+    // Check URL param
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const langParam = params.get("lang");
+      if (langParam) {
+        if (langParam === "off") return "off";
+        if (availableTracks.includes(langParam as TrackLang)) {
+          return langParam as TrackLang;
+        }
+      }
+    }
+    
+    // If page locale is a supported track, use it
+    if (availableTracks.includes(locale as TrackLang)) {
+      return locale as TrackLang;
+    }
+    
+    // If page locale is the source language, default to "off"
+    if (locale === sourceLang) {
+      return "off";
+    }
+    
+    // Default to "en" if available, else first track
+    return availableTracks.includes("en") ? "en" : availableTracks[0];
+  };
+
+  const [selectedLang, setSelectedLang] = useState<TrackLang | "off">(getInitialLang);
 
   useEffect(() => {
+    if (selectedLang === "off") {
+      captionsRef.current = [];
+      setCurrentCaption("");
+      return;
+    }
+
     const loadCaptions = async () => {
       try {
-        const response = await fetch(
-          `/watch/ferran-adria-wild-project.${selectedLang}.30s.vtt`
-        );
+        const response = await fetch(`/watch/${slug}.${selectedLang}.30s.vtt`);
         if (response.ok) {
           const vttText = await response.text();
           const parsed = parseVTT(vttText);
@@ -89,7 +133,7 @@ export function YouTubeDemo({
     };
 
     loadCaptions();
-  }, [selectedLang]);
+  }, [selectedLang, slug]);
 
   useEffect(() => {
     if (typeof window.YT !== "undefined") {
@@ -160,8 +204,8 @@ export function YouTubeDemo({
   const initPlayer = () => {
     if (!window.YT || playerRef.current) return;
 
-    playerRef.current = new window.YT.Player("youtube-player", {
-      videoId: "xzSOmaZGtiI",
+    playerRef.current = new window.YT.Player(`youtube-player-${slug}`, {
+      videoId,
       playerVars: {
         rel: 0,
         modestbranding: 1,
@@ -189,11 +233,13 @@ export function YouTubeDemo({
 
       const currentTime = playerRef.current.getCurrentTime();
 
-      if (captionsRef.current.length > 0) {
+      if (captionsRef.current.length > 0 && selectedLang !== "off") {
         const caption = captionsRef.current.find(
           (c) => currentTime >= c.start && currentTime <= c.end
         );
         setCurrentCaption(caption ? caption.text : "");
+      } else {
+        setCurrentCaption("");
       }
 
       if (currentTime >= CUTOFF_TIME && !showOverlayRef.current) {
@@ -223,21 +269,30 @@ export function YouTubeDemo({
     setShowOverlay(false);
   };
 
-  const handleLanguageChange = (lang: SupportedLang) => {
+  const handleLanguageChange = (lang: TrackLang | "off") => {
     setSelectedLang(lang);
     setCurrentCaption("");
     const url = new URL(window.location.href);
-    url.searchParams.set("lang", lang);
+    if (lang === "off") {
+      url.searchParams.set("lang", "off");
+    } else {
+      url.searchParams.set("lang", lang);
+    }
     window.history.replaceState({}, "", url.toString());
   };
+
+  const allLanguageOptions: Array<TrackLang | "off"> = [
+    ...availableTracks,
+    "off",
+  ];
 
   return (
     <div ref={containerRef} className="relative">
       <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
-        <div id="youtube-player" className="h-full w-full" />
+        <div id={`youtube-player-${slug}`} className="h-full w-full" />
 
         <div className="pointer-events-auto absolute right-4 top-4 flex gap-1 rounded-lg bg-black/80 p-1 shadow-lg">
-          {(["en", "ko", "pt"] as SupportedLang[]).map((lang) => (
+          {allLanguageOptions.map((lang) => (
             <button
               key={lang}
               onClick={() => handleLanguageChange(lang)}
@@ -247,12 +302,12 @@ export function YouTubeDemo({
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              {LANGUAGE_LABELS[lang]}
+              {lang === "off" ? "Off" : LANGUAGE_LABELS[lang]}
             </button>
           ))}
         </div>
 
-        {currentCaption && !showOverlay && (
+        {currentCaption && !showOverlay && selectedLang !== "off" && (
           <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center px-4">
             <div className="rounded-lg bg-black/90 px-3 py-1.5 text-center text-sm font-medium text-white shadow-lg sm:px-4 sm:py-2 sm:text-base">
               {currentCaption}
@@ -277,7 +332,7 @@ export function YouTubeDemo({
                   align="center"
                 />
                 <Link
-                  href="/es/video-downloader"
+                  href={videoDownloaderHref}
                   className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
                 >
                   Learn about video downloading →

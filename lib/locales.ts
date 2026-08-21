@@ -32,7 +32,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/terms",
   "/echo",
 ]);
-const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/watch"]);
+const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
   "/contact",
   "/privacy",
@@ -102,6 +102,31 @@ export function localizePathForLocale(locale: Locale, href: string): string {
   return `${englishPath}${suffix}`;
 }
 
+function getWatchPageLocales(englishPath: string): Locale[] | null {
+  if (englishPath === "/watch") {
+    return ["en", "es", "ko", "pt"];
+  }
+  
+  if (englishPath.startsWith("/watch/")) {
+    const slug = englishPath.slice(7);
+    
+    // All current watch posts support en, es, ko, pt
+    const watchSlugs = [
+      "ferran-adria-wild-project",
+      "pique-la-resistencia",
+      "park-chan-wook-lee-dong-jin",
+      "lee-jung-jae-hunt-piarchia",
+      "yoo-ji-tae-piarchia",
+    ];
+    
+    if (watchSlugs.includes(slug)) {
+      return ["en", "es", "ko", "pt"];
+    }
+  }
+  
+  return null;
+}
+
 export function supportsLocalePath(locale: Locale, englishPath: string): boolean {
   const normalizedEnglishPath = normalizePathname(englishPath);
 
@@ -110,6 +135,13 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
   for (const englishOnlyPath of ENGLISH_ONLY_PATHS) {
     if (normalizedEnglishPath.startsWith(englishOnlyPath + "/")) return false;
   }
+  
+  // Check for /watch pages
+  const watchLocales = getWatchPageLocales(normalizedEnglishPath);
+  if (watchLocales !== null) {
+    return watchLocales.includes(locale);
+  }
+  
   if (locale === "ko") return true;
   if (
     locale === "es" ||
