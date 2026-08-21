@@ -1,7 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { trackDownload } from "../lib/analytics";
+import { trackDownload, trackWatchAppCta } from "../lib/analytics";
+import { createWatchAppCtaEvent } from "../lib/analytics-events";
+import type { WatchAppCtaPlacement } from "../lib/analytics-events";
+
+interface WatchContext {
+  slug: string;
+  videoId: string;
+  sourceLang: string;
+  selectedLang: string;
+  placement: WatchAppCtaPlacement;
+}
 
 interface DownloadButtonProps {
   className?: string;
@@ -13,6 +23,7 @@ interface DownloadButtonProps {
   size?: "normal" | "small";
   surface?: "dark" | "light";
   badge?: string;
+  watchContext?: WatchContext;
 }
 
 export function DownloadButton({
@@ -25,6 +36,7 @@ export function DownloadButton({
   size = "normal",
   surface = "dark",
   badge,
+  watchContext,
 }: DownloadButtonProps) {
   const baseUrl = `https://downloads.stage5.tools/${platform}/latest`;
 
@@ -54,6 +66,29 @@ export function DownloadButton({
       link_label: trackingLabel ?? label,
       page_path: window.location.pathname,
     });
+
+    if (watchContext) {
+      const pagePath = window.location.pathname;
+      trackWatchAppCta(
+        createWatchAppCtaEvent({
+          pagePath,
+          slug: watchContext.slug,
+          videoId: watchContext.videoId,
+          locale: pagePath.startsWith("/en")
+            ? "en"
+            : pagePath.startsWith("/es")
+              ? "es"
+              : pagePath.startsWith("/ko")
+                ? "ko"
+                : pagePath.startsWith("/pt")
+                  ? "pt"
+                  : "en",
+          sourceLang: watchContext.sourceLang,
+          selectedLang: watchContext.selectedLang,
+          placement: watchContext.placement,
+        })
+      );
+    }
   };
 
   const isPrimary = variant === "primary";
