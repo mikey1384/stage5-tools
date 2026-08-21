@@ -55,4 +55,12 @@ export const posts: PostCard[] = [
     language: "Korean",
     topic: "Film",
   },
+  {
+    slug: "calvo-wild-project",
+    title: "Alejandro G. Calvo on The Wild Project",
+    description:
+      "Spanish film critic Alejandro G. Calvo discusses the TOP 60 películas with Jordi Wild. A Spanish-language conversation about cinema that English speakers rarely get to hear.",
+    language: "Spanish",
+    topic: "Film",
+  },
 ];
