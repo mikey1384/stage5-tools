@@ -63,141 +63,162 @@ export const parkChanWookLeeDongJinCopy: Record<SupportedLocale, WatchPageCopy> 
   ]
 },
   es: {
-  "title": "Ver Entrevista | Translator",
-  "description": "Entrevista en español",
+  "title": "Ver a Park Chan-wook en Piarchia de Lee Dong-jin con Subtítulos en Español | Translator",
+  "description": "El director Park Chan-wook habla sobre La Decisión de Partir con el crítico de cine Lee Dong-jin. Una entrevista en coreano sobre cine, malentendidos y oficio.",
   "keywords": [
-    "entrevista"
+    "Park Chan-wook entrevista",
+    "La Decisión de Partir",
+    "Lee Dong-jin",
+    "director de Oldboy"
   ],
-  "h1": "Ver Entrevista",
-  "intro": "Una conversación interesante.",
-  "section1Title": "Sobre la entrevista",
+  "h1": "Ver a Park Chan-wook Hablar sobre La Decisión de Partir",
+  "intro": "El director Park Chan-wook habla sobre La Decisión de Partir con el crítico de cine Lee Dong-jin. Una entrevista en coreano sobre cine, malentendidos y oficio que los hispanohablantes rara vez tienen la oportunidad de ver.",
+  "section1Title": "Un director y un crítico",
   "section1Body": [
-    "Contenido en español."
+    "Park Chan-wook dirigió Oldboy, La Doncella y La Decisión de Partir. Sus películas son conocidas por su meticulosa composición visual y complejidad narrativa.",
+    "Lee Dong-jin es uno de los críticos de cine más respetados de Corea. Esta entrevista discute La Decisión de Partir, malentendidos sobre el trabajo de Park y su enfoque hacia la realización cinematográfica.",
+    "La entrevista está en coreano. Los hispanohablantes que se interesan por el trabajo de Park o el cine coreano no tienen acceso a esta conversación a menos que hablen el idioma o encuentren subtítulos."
   ],
-  "howToTitle": "Cómo ver con subtítulos",
-  "howToBody": "Translator descarga videos y añade subtítulos.",
+  "howToTitle": "Cómo ver la entrevista completa con subtítulos en español",
+  "howToBody": "Translator es una aplicación de escritorio que te permite descargar videos, añadir subtítulos traducidos y verlos en tu idioma.",
   "howToSteps": [
     {
-      "title": "Pega URL",
-      "body": "Copia el enlace."
+      "title": "Pega la URL de YouTube",
+      "body": "Copia el enlace del video y pégalo en el campo de descarga de Translator."
     },
     {
-      "title": "Descarga",
-      "body": "Baja el video."
+      "title": "Descarga el video",
+      "body": "Translator descarga el video y cualquier subtítulo disponible."
     },
     {
-      "title": "Traduce",
-      "body": "Usa IA."
+      "title": "Transcribe o traduce",
+      "body": "Usa IA para transcribir o traducir los subtítulos."
     },
     {
-      "title": "Ve",
-      "body": "Edita subtítulos."
+      "title": "Ve con subtítulos que controlas",
+      "body": "Edita el tiempo, corrige traducciones y exporta el archivo SRT final."
     }
   ],
-  "pricingTitle": "Gratis y de pago",
-  "pricingFree": "Descargar, editar, exportar.",
-  "pricingPaid": "IA requiere créditos.",
-  "section2Title": "Contenido",
+  "pricingTitle": "Qué es gratis, qué es de pago",
+  "pricingFree": "Descargar videos, gestionar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
+  "pricingPaid": "Transcripción y traducción con IA. Usa créditos Stage5 o desbloquea BYO una vez por $10.",
+  "section2Title": "Contenido de cine coreano en español",
   "section2Body": [
-    "Translator da control."
+    "El cine coreano ha producido algunos de los contenidos cinematográficos más interesantes en YouTube. La mayoría no tiene subtítulos en español.",
+    "Translator te da el control: elige tu modelo de traducción, edita los subtítulos línea por línea y exporta el archivo final."
   ],
   "downloadTitle": "Descarga Translator",
-  "downloadBody": "Funciona en macOS y Windows.",
+  "downloadBody": "Translator funciona en macOS y Windows. Descárgalo, pega la URL de este video y prueba cómo funciona el flujo de trabajo.",
   "aboutTitle": "Sobre este post",
   "aboutBody": [
-    "Video oficial de YouTube."
+    "El video de YouTube está incrustado directamente desde la fuente oficial. Los primeros 30 segundos de subtítulos se pueden mostrar en inglés, español o portugués.",
+    "Fuente: Piarchia de Lee Dong-jin, con el director Park Chan-wook. El video está en coreano."
   ]
 },
   ko: {
-  "title": "인터뷰 보기 | Translator",
-  "description": "인터뷰",
+  "title": "박찬욱 감독 이동진의 파이아르키아 인터뷰를 한국어 자막으로 시청하기 | Translator",
+  "description": "박찬욱 감독이 영화평론가 이동진과 헤어질 결심에 대해 이야기합니다. 영화 제작, 오해, 그리고 작업 과정에 관한 한국어 인터뷰입니다.",
   "keywords": [
-    "인터뷰"
+    "박찬욱 인터뷰",
+    "헤어질 결심",
+    "이동진",
+    "올드보이 감독"
   ],
-  "h1": "인터뷰 보기",
-  "intro": "흥미로운 대화입니다.",
-  "section1Title": "인터뷰 소개",
+  "h1": "박찬욱 감독의 헤어질 결심 인터뷰 시청하기",
+  "intro": "박찬욱 감독이 영화평론가 이동진과 헤어질 결심에 대해 이야기합니다. 영화 제작, 오해, 그리고 작업 과정에 관한 한국어 인터뷰로, 영어 사용자들은 거의 볼 기회가 없습니다.",
+  "section1Title": "감독과 평론가",
   "section1Body": [
-    "내용"
+    "박찬욱은 올드보이, 아가씨, 헤어질 결심을 연출했습니다. 그의 영화는 세밀한 시각적 구성과 서사적 복잡성으로 유명합니다.",
+    "이동진은 한국에서 가장 존경받는 영화평론가 중 한 명입니다. 이 인터뷰에서는 헤어질 결심, 박찬욱의 작품에 대한 오해, 그리고 그의 영화 제작 접근 방식에 대해 이야기합니다.",
+    "인터뷰는 한국어로 진행됩니다. 영어 사용자들은 한국어를 하거나 자막을 찾지 않는 한 이 대화를 들을 수 없습니다."
   ],
-  "howToTitle": "자막과 함께 보기",
-  "howToBody": "Translator는 영상을 다운로드하고 자막을 추가합니다.",
+  "howToTitle": "한국어 자막으로 전체 인터뷰를 시청하는 방법",
+  "howToBody": "Translator는 영상을 다운로드하고, 번역된 자막을 추가하며, 원하는 언어로 시청할 수 있는 데스크톱 앱입니다.",
   "howToSteps": [
     {
-      "title": "URL",
-      "body": "링크 복사."
+      "title": "YouTube URL 붙여넣기",
+      "body": "영상 링크를 복사하여 Translator의 다운로드 필드에 붙여넣습니다."
     },
     {
-      "title": "다운로드",
-      "body": "영상 가져오기."
+      "title": "영상 다운로드",
+      "body": "Translator가 영상과 사용 가능한 자막을 다운로드합니다."
     },
     {
-      "title": "번역",
-      "body": "AI 사용."
+      "title": "전사 또는 번역",
+      "body": "AI를 사용하여 자막을 전사하거나 번역합니다."
     },
     {
-      "title": "시청",
-      "body": "편집."
+      "title": "제어 가능한 자막으로 시청",
+      "body": "타이밍을 편집하고, 번역을 수정하며, 최종 SRT 파일을 내보냅니다."
     }
   ],
-  "pricingTitle": "무료와 유료",
-  "pricingFree": "다운로드, 편집, 내보내기.",
-  "pricingPaid": "AI는 크레딧 필요.",
-  "section2Title": "콘텐츠",
+  "pricingTitle": "무료와 유료 기능",
+  "pricingFree": "영상 다운로드, 라이브러리 관리, 수동 자막 편집, SRT 파일 내보내기는 무료입니다.",
+  "pricingPaid": "AI 전사 및 번역. Stage5 크레딧을 사용하거나 $10에 BYO를 한 번 잠금 해제하세요.",
+  "section2Title": "한국 영화 콘텐츠를 한국어로",
   "section2Body": [
-    "Translator는 제어권 제공."
+    "한국 영화계는 YouTube에서 가장 흥미로운 영화 콘텐츠를 제작했습니다. 대부분은 한국어 자막이 없습니다.",
+    "Translator는 제어권을 제공합니다: 번역 모델을 선택하고, 자막을 한 줄씩 편집하며, 최종 파일을 내보냅니다."
   ],
   "downloadTitle": "Translator 다운로드",
-  "downloadBody": "macOS와 Windows 지원.",
-  "aboutTitle": "게시물 정보",
+  "downloadBody": "Translator는 macOS와 Windows에서 작동합니다. 다운로드하고, 이 영상의 URL을 붙여넣고, 워크플로를 체험해보세요.",
+  "aboutTitle": "이 게시물에 대하여",
   "aboutBody": [
-    "공식 YouTube 영상."
+    "YouTube 영상은 공식 출처에서 직접 삽입되었습니다. 처음 30초의 자막은 영어, 스페인어 또는 포르투갈어로 표시할 수 있습니다.",
+    "출처: 이동진의 파이아르키아, 박찬욱 감독 출연. 영상은 한국어입니다."
   ]
 },
   pt: {
-  "title": "Assistir Entrevista | Translator",
-  "description": "Entrevista",
+  "title": "Assistir Park Chan-wook em Piarchia de Lee Dong-jin com Legendas em Português | Translator",
+  "description": "O diretor Park Chan-wook discute Decisão de Partir com o crítico de cinema Lee Dong-jin. Uma entrevista em coreano sobre cinema, mal-entendidos e ofício.",
   "keywords": [
-    "entrevista"
+    "Park Chan-wook entrevista",
+    "Decisão de Partir",
+    "Lee Dong-jin",
+    "diretor de Oldboy"
   ],
-  "h1": "Assistir Entrevista",
-  "intro": "Uma conversa interessante.",
-  "section1Title": "Sobre a entrevista",
+  "h1": "Assistir Park Chan-wook Falar sobre Decisão de Partir",
+  "intro": "O diretor Park Chan-wook discute Decisão de Partir com o crítico de cinema Lee Dong-jin. Uma entrevista em coreano sobre cinema, mal-entendidos e ofício que falantes de português raramente têm a oportunidade de ver.",
+  "section1Title": "Um diretor e um crítico",
   "section1Body": [
-    "Conteúdo."
+    "Park Chan-wook dirigiu Oldboy, A Criada e Decisão de Partir. Seus filmes são conhecidos pela composição visual meticulosa e complexidade narrativa.",
+    "Lee Dong-jin é um dos críticos de cinema mais respeitados da Coreia. Esta entrevista discute Decisão de Partir, mal-entendidos sobre o trabalho de Park e sua abordagem à realização cinematográfica.",
+    "A entrevista está em coreano. Falantes de português que se interessam pelo trabalho de Park ou pelo cinema coreano não têm acesso a esta conversa a menos que falem o idioma ou encontrem legendas."
   ],
-  "howToTitle": "Como assistir com legendas",
-  "howToBody": "Translator baixa vídeos e adiciona legendas.",
+  "howToTitle": "Como assistir a entrevista completa com legendas em português",
+  "howToBody": "Translator é um aplicativo de desktop que permite baixar vídeos, adicionar legendas traduzidas e assisti-los no seu idioma.",
   "howToSteps": [
     {
-      "title": "Cole URL",
-      "body": "Copie o link."
+      "title": "Cole a URL do YouTube",
+      "body": "Copie o link do vídeo e cole no campo de download do Translator."
     },
     {
-      "title": "Baixe",
-      "body": "Baixe o vídeo."
+      "title": "Baixe o vídeo",
+      "body": "O Translator baixa o vídeo e quaisquer legendas disponíveis."
     },
     {
-      "title": "Traduza",
-      "body": "Use IA."
+      "title": "Transcreva ou traduza",
+      "body": "Use IA para transcrever ou traduzir as legendas."
     },
     {
-      "title": "Assista",
-      "body": "Edite legendas."
+      "title": "Assista com legendas que você controla",
+      "body": "Edite o tempo, corrija traduções e exporte o arquivo SRT final."
     }
   ],
-  "pricingTitle": "Grátis e pago",
-  "pricingFree": "Baixar, editar, exportar.",
-  "pricingPaid": "IA requer créditos.",
-  "section2Title": "Conteúdo",
+  "pricingTitle": "O que é grátis, o que é pago",
+  "pricingFree": "Baixar vídeos, gerenciar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",
+  "pricingPaid": "Transcrição e tradução com IA. Use créditos Stage5 ou desbloqueie BYO uma vez por $10.",
+  "section2Title": "Conteúdo de cinema coreano em português",
   "section2Body": [
-    "Translator dá controle."
+    "O cinema coreano produziu alguns dos conteúdos cinematográficos mais interessantes no YouTube. A maioria não tem legendas em português.",
+    "O Translator dá controle: escolha seu modelo de tradução, edite as legendas linha por linha e exporte o arquivo final."
   ],
-  "downloadTitle": "Baixe Translator",
-  "downloadBody": "Funciona no macOS e Windows.",
+  "downloadTitle": "Baixe o Translator",
+  "downloadBody": "O Translator funciona no macOS e Windows. Baixe, cole a URL deste vídeo e veja como o fluxo de trabalho funciona.",
   "aboutTitle": "Sobre este post",
   "aboutBody": [
-    "Vídeo oficial do YouTube."
+    "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, espanhol ou português.",
+    "Fonte: Piarchia de Lee Dong-jin, com o diretor Park Chan-wook. O vídeo está em coreano."
   ]
 }
 };
