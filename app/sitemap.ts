@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { indexableLocalesForPath, localizePathForLocale } from "../lib/locales";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
+import { posts as watchPosts } from "../app/watch/posts";
 
 const BASE_URL = "https://translator.tools";
 
@@ -24,9 +25,9 @@ const routes: RouteDef[] = [
   { path: "/open-source" },
   { path: "/agents" },
   { path: "/watch" },
-  { path: "/watch/ferran-adria-wild-project" },
-  { path: "/watch/pique-la-resistencia" },
-  { path: "/watch/park-chan-wook-lee-dong-jin" },
+  ...watchPosts.map((post) => ({
+    path: `/watch/${post.slug}`,
+  })),
   { path: "/about" },
   { path: "/contact" },
   { path: "/privacy" },
