@@ -29,6 +29,10 @@ type VideoDownloaderPageCopy = {
   workflowTitle: string;
   workflowSteps: Array<{ step: string; title: string; body: string }>;
   utilityEyebrow: string;
+  exampleEyebrow: string;
+  exampleTitle: string;
+  exampleBody: string;
+  exampleLinkText: string;
   bridgeTitle: string;
   bridgeBody: string;
   bridgePrimary: string;
@@ -75,6 +79,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Useful details",
+    exampleEyebrow: "Worked example",
+    exampleTitle: "Watch Ferran Adrià's Wild Project interview with English subtitles",
+    exampleBody:
+      "See how the downloader fits into a real workflow: download this Spanish-language interview, add translated subtitles, and watch one of the best food conversations on YouTube.",
+    exampleLinkText: "See the worked example →",
     bridgeTitle: "Want to do more once the file is inside the app?",
     bridgeBody:
       "The downloader is strongest when it hands off directly into subtitle editing or translation instead of ending the workflow.",
@@ -122,6 +131,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "실용적인 디테일",
+    exampleEyebrow: "실제 예시",
+    exampleTitle: "The Wild Project의 Ferran Adrià 인터뷰를 영어 자막으로 보기",
+    exampleBody:
+      "다운로더가 실제 워크플로우에 어떻게 들어가는지 보세요: 이 스페인어 인터뷰를 다운로드하고, 번역된 자막을 추가하고, YouTube에서 가장 좋은 음식 대화 중 하나를 시청하세요.",
+    exampleLinkText: "예시 보기 →",
     bridgeTitle: "파일이 앱 안에 들어온 뒤에도 계속 가고 싶다면",
     bridgeBody:
       "이 다운로더는 여기서 끝나는 것보다 자막 편집이나 번역으로 바로 이어질 때 가장 강합니다.",
@@ -169,6 +183,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Detalles utiles",
+    exampleEyebrow: "Ejemplo practico",
+    exampleTitle: "Ve la entrevista de Ferran Adrià en The Wild Project con subtítulos en inglés",
+    exampleBody:
+      "Mira como el descargador encaja en un flujo real: descarga esta entrevista en español, añade subtítulos traducidos y ve una de las mejores conversaciones sobre comida en YouTube.",
+    exampleLinkText: "Ver el ejemplo →",
     bridgeTitle: "Quieres hacer mas cuando el archivo ya esta dentro de la app?",
     bridgeBody:
       "El descargador funciona mejor cuando pasa directo a la edicion de subtitulos o a la traduccion en vez de cortar el flujo.",
@@ -216,6 +235,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "実用的なポイント",
+    exampleEyebrow: "実例",
+    exampleTitle: "The Wild ProjectのFerran Adriàインタビューを英語字幕で視聴",
+    exampleBody:
+      "ダウンローダーが実際のワークフローにどう組み込まれるか見てみましょう：このスペイン語インタビューをダウンロードし、翻訳字幕を追加して、YouTubeで最高の食に関する対話の一つを視聴できます。",
+    exampleLinkText: "実例を見る →",
     bridgeTitle: "ファイルをアプリに入れたあとも続けたいですか。",
     bridgeBody:
       "このダウンローダーは、そこで終わるより、字幕編集や翻訳へそのまま渡すときに最も力を発揮します。",
@@ -263,6 +287,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "实用细节",
+    exampleEyebrow: "实际案例",
+    exampleTitle: "观看 The Wild Project 的 Ferran Adrià 访谈（配英文字幕）",
+    exampleBody:
+      "看看下载器如何融入真实工作流程：下载这个西班牙语访谈，添加翻译字幕，观看 YouTube 上最佳美食对话之一。",
+    exampleLinkText: "查看案例 →",
     bridgeTitle: "文件进了应用之后，还想继续往下做？",
     bridgeBody:
       "这个下载器最强的地方，是把文件直接交给字幕编辑或翻译，而不是在下载这一步就结束。",
@@ -310,6 +339,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Details utiles",
+    exampleEyebrow: "Exemple concret",
+    exampleTitle: "Regardez l'interview de Ferran Adrià sur The Wild Project avec des sous-titres anglais",
+    exampleBody:
+      "Voyez comment le téléchargeur s'intègre dans un flux réel : téléchargez cette interview en espagnol, ajoutez des sous-titres traduits et regardez l'une des meilleures conversations culinaires sur YouTube.",
+    exampleLinkText: "Voir l'exemple →",
     bridgeTitle: "Envie d'aller plus loin une fois le fichier dans l'app ?",
     bridgeBody:
       "Le telechargeur est le plus utile quand il passe directement a l'edition de sous-titres ou a la traduction au lieu de couper le flux.",
@@ -357,6 +391,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Nuetzliche Details",
+    exampleEyebrow: "Praxisbeispiel",
+    exampleTitle: "Schau dir das Ferran Adrià Interview auf The Wild Project mit englischen Untertiteln an",
+    exampleBody:
+      "Sieh, wie der Downloader in einen echten Workflow passt: Lade dieses spanischsprachige Interview herunter, füge übersetzte Untertitel hinzu und schau dir eines der besten Food-Gespräche auf YouTube an.",
+    exampleLinkText: "Beispiel ansehen →",
     bridgeTitle: "Willst du mehr machen, sobald die Datei in der App ist?",
     bridgeBody:
       "Der Downloader ist am staerksten, wenn er direkt an Untertitelbearbeitung oder Uebersetzung uebergibt statt den Ablauf zu beenden.",
@@ -404,6 +443,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Detalhes uteis",
+    exampleEyebrow: "Exemplo pratico",
+    exampleTitle: "Assista a entrevista de Ferran Adrià no The Wild Project com legendas em inglês",
+    exampleBody:
+      "Veja como o downloader se encaixa num fluxo real: baixe esta entrevista em espanhol, adicione legendas traduzidas e assista uma das melhores conversas sobre comida no YouTube.",
+    exampleLinkText: "Ver o exemplo →",
     bridgeTitle: "Quer fazer mais quando o arquivo ja estiver dentro do app?",
     bridgeBody:
       "O downloader fica mais forte quando entrega direto para a edicao de legendas ou para a traducao em vez de encerrar o fluxo.",
@@ -451,6 +495,11 @@ const pageCopy: Partial<Record<Locale, VideoDownloaderPageCopy>> = {
       },
     ],
     utilityEyebrow: "Chi tiết hữu ích",
+    exampleEyebrow: "Ví dụ thực tế",
+    exampleTitle: "Xem phỏng vấn Ferran Adrià trên The Wild Project với phụ đề tiếng Anh",
+    exampleBody:
+      "Xem trình tải xuống khớp vào quy trình thực tế như thế nào: tải phỏng vấn tiếng Tây Ban Nha này xuống, thêm phụ đề đã dịch và xem một trong những cuộc trò chuyện về ẩm thực hay nhất trên YouTube.",
+    exampleLinkText: "Xem ví dụ →",
     bridgeTitle: "Muốn làm thêm sau khi tệp đã nằm trong ứng dụng?",
     bridgeBody:
       "Trình tải xuống mạnh nhất khi nó bàn giao thẳng sang chỉnh sửa phụ đề hoặc dịch thay vì kết thúc quy trình ở đó.",
@@ -733,6 +782,30 @@ export default async function VideoDownloaderPage({
                   </ul>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-white/10 py-20">
+          <div className="max-w-3xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+              {copy.exampleEyebrow}
+            </div>
+            <div className="mt-8 rounded-[28px] border border-emerald-500/20 bg-gradient-to-br from-emerald-500/[0.08] to-sky-500/[0.05] p-8">
+              <h3 className="text-2xl font-semibold text-white">
+                {copy.exampleTitle}
+              </h3>
+              <p className="mt-4 text-base leading-7 text-gray-300">
+                {copy.exampleBody}
+              </p>
+              <div className="mt-6">
+                <Link
+                  href={localizeHref("/watch/ferran-adria-wild-project")}
+                  className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-200 transition hover:border-emerald-300 hover:bg-emerald-500/20"
+                >
+                  {copy.exampleLinkText}
+                </Link>
+              </div>
             </div>
           </div>
         </section>

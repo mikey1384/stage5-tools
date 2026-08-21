@@ -231,10 +231,7 @@ export default function FerranAdriaWildProjectPage() {
                 actually happening in that kitchen.
               </p>
 
-              <h2 className="mt-12 text-3xl font-semibold text-white">
-                Why this matters for Translator
-              </h2>
-              <p className="text-lg leading-8 text-gray-300">
+              <p className="mt-12 text-lg leading-8 text-gray-300">
                 YouTube&apos;s auto-generated English subtitles for foreign
                 videos are often incomplete or missing entirely. Even when they
                 exist, they&apos;re not always accurate. Translator gives you
