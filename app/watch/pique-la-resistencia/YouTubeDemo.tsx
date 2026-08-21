@@ -81,6 +81,9 @@ export function YouTubeDemo({
           const parsed = parseVTT(vttText);
           setCaptions(parsed);
           captionsRef.current = parsed;
+          if (playerRef.current) {
+            startTimeCheck();
+          }
         }
       } catch {
         // No captions available, continue without
