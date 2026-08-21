@@ -2,6 +2,25 @@
 
 import Link from "next/link";
 import { trackDownload } from "../lib/analytics";
+import type { TrackLang } from "../app/watch/posts";
+
+declare global {
+  interface Window {
+    gtag?: (
+      command: string,
+      eventName: string,
+      params: Record<string, unknown>
+    ) => void;
+  }
+}
+
+interface WatchContext {
+  slug: string;
+  videoId: string;
+  sourceLang: TrackLang;
+  selectedLang: TrackLang | "off";
+  placement: string;
+}
 
 interface DownloadButtonProps {
   className?: string;
@@ -13,6 +32,7 @@ interface DownloadButtonProps {
   size?: "normal" | "small";
   surface?: "dark" | "light";
   badge?: string;
+  watchContext?: WatchContext;
 }
 
 export function DownloadButton({
@@ -25,6 +45,7 @@ export function DownloadButton({
   size = "normal",
   surface = "dark",
   badge,
+  watchContext,
 }: DownloadButtonProps) {
   const baseUrl = `https://downloads.stage5.tools/${platform}/latest`;
 
@@ -54,6 +75,19 @@ export function DownloadButton({
       link_label: trackingLabel ?? label,
       page_path: window.location.pathname,
     });
+
+    // Fire watch_app_cta when watchContext is provided
+    if (watchContext && typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "watch_app_cta", {
+        slug: watchContext.slug,
+        video_id: watchContext.videoId,
+        source_lang: watchContext.sourceLang,
+        selected_lang: watchContext.selectedLang,
+        placement: watchContext.placement,
+        platform: normalizedPlatform,
+        architecture,
+      });
+    }
   };
 
   const isPrimary = variant === "primary";

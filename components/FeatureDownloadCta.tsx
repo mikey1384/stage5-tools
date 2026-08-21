@@ -2,12 +2,22 @@
 
 import { AllDownloadButtons } from "./AllDownloadButtons";
 import type { Locale } from "../lib/strings";
+import type { TrackLang } from "../app/watch/posts";
+
+interface WatchContext {
+  slug: string;
+  videoId: string;
+  sourceLang: TrackLang;
+  selectedLang: TrackLang | "off";
+  placement: string;
+}
 
 interface FeatureDownloadCtaProps {
   locale: Locale;
   note?: string;
   align?: "start" | "center";
   className?: string;
+  watchContext?: WatchContext;
 }
 
 export function FeatureDownloadCta({
@@ -15,6 +25,7 @@ export function FeatureDownloadCta({
   note,
   align = "start",
   className = "",
+  watchContext,
 }: FeatureDownloadCtaProps) {
   const isCentered = align === "center";
 
@@ -29,6 +40,7 @@ export function FeatureDownloadCta({
       <AllDownloadButtons
         locale={locale}
         className={isCentered ? "justify-center" : "justify-start"}
+        watchContext={watchContext}
       />
       {note ? (
         <p

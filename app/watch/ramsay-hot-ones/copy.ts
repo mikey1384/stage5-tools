@@ -1,5 +1,3 @@
-import type { Locale } from "../../../lib/locales";
-
 interface WatchPageCopy {
   title: string;
   description: string;
@@ -27,7 +25,9 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
+type SupportedLocale = "en" | "es" | "ko" | "pt";
+
+export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
     title: "Watch Gordon Ramsay on Hot Ones with English Subtitles | Translator",
     description:
@@ -49,7 +49,7 @@ export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
       "Hot Ones is the show where celebrities eat increasingly spicy chicken wings while answering questions. It's a format that's disarmed some of the most guarded interviews on the internet. When people are focused on managing heat, they tend to give straighter answers.",
       "This is season eight. Ramsay is known for his blunt critiques of food and cooking, which makes his appearance on a show about eating progressively hotter wings particularly interesting. The first 30 seconds are just the setup—the full interview is where he evaluates the wings themselves.",
     ],
-    section2Title: "Why this format works",
+    section2Title: "Ramsay critiques the wings",
     section2Body: [
       "Hot Ones became popular because it puts people in a situation where polished media training doesn't help. The wings get hotter, the guest gets more honest, and the questions get better. Sean Evans is known for doing serious research—guests are often surprised by the depth of the questions.",
       "For food professionals like Ramsay, there's an added layer: they're being asked to critique the wings while dealing with the heat. It's not just an interview format—it's a test of composure and a chance to watch someone who's usually in control lose some of that control.",
@@ -116,7 +116,7 @@ export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
       "Hot Ones es el programa donde las celebridades comen alitas de pollo cada vez más picantes mientras responden preguntas. Es un formato que ha desarmado algunas de las entrevistas más controladas de internet. Cuando la gente está concentrada en manejar el picante, tiende a dar respuestas más directas.",
       "Esta es la temporada ocho. Ramsay es conocido por sus críticas directas sobre comida y cocina, lo que hace que su aparición en un programa sobre comer alitas cada vez más picantes sea particularmente interesante. Los primeros 30 segundos son solo la preparación—la entrevista completa es donde él evalúa las alitas en sí.",
     ],
-    section2Title: "Por qué funciona este formato",
+    section2Title: "Ramsay critica las alitas",
     section2Body: [
       "Hot Ones se hizo popular porque pone a la gente en una situación donde el entrenamiento mediático pulido no ayuda. Las alitas se vuelven más picantes, el invitado se vuelve más honesto, y las preguntas mejoran. Sean Evans es conocido por hacer una investigación seria—los invitados a menudo se sorprenden por la profundidad de las preguntas.",
       "Para profesionales de la comida como Ramsay, hay una capa adicional: se les pide que critiquen las alitas mientras lidian con el picante. No es solo un formato de entrevista—es una prueba de compostura y una oportunidad de ver a alguien que usualmente está en control perder parte de ese control.",
@@ -183,7 +183,7 @@ export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
       "Hot Ones는 유명인들이 점점 더 매운 치킨 윙을 먹으면서 질문에 답하는 프로그램입니다. 인터넷에서 가장 통제된 인터뷰들을 무장해제시킨 포맷입니다. 사람들이 매운맛을 관리하는 데 집중할 때, 더 솔직한 답변을 하는 경향이 있습니다.",
       "이것은 시즌 8입니다. Ramsay는 음식과 요리에 대한 직설적인 비평으로 유명한데, 이것이 점점 더 매운 윙을 먹는 쇼에 그가 출연한다는 것을 특히 흥미롭게 만듭니다. 처음 30초는 단지 준비 과정일 뿐—전체 인터뷰는 그가 윙 자체를 평가하는 부분입니다.",
     ],
-    section2Title: "이 포맷이 효과적인 이유",
+    section2Title: "Ramsay가 윙을 평가하다",
     section2Body: [
       "Hot Ones가 인기를 얻은 이유는 사람들을 세련된 미디어 트레이닝이 도움이 되지 않는 상황에 놓기 때문입니다. 윙이 더 매워지면, 게스트는 더 정직해지고, 질문은 더 좋아집니다. Sean Evans는 진지한 리서치를 하는 것으로 유명합니다—게스트들은 종종 질문의 깊이에 놀랍니다.",
       "Ramsay 같은 음식 전문가에게는 추가적인 레이어가 있습니다: 매운맛을 다루면서 윙을 비평하라는 요청을 받습니다. 단순한 인터뷰 포맷이 아닙니다—침착함의 테스트이고, 보통 통제력을 가진 사람이 그 통제력의 일부를 잃는 모습을 볼 기회입니다.",
@@ -249,7 +249,7 @@ export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
       "Hot Ones é o programa onde celebridades comem asinhas de frango cada vez mais picantes enquanto respondem perguntas. É um formato que desarmou algumas das entrevistas mais controladas da internet. Quando as pessoas estão focadas em gerenciar o calor, tendem a dar respostas mais diretas.",
       "Esta é a oitava temporada. Ramsay é conhecido por suas críticas diretas sobre comida e culinária, o que torna sua aparição em um programa sobre comer asinhas progressivamente mais picantes particularmente interessante. Os primeiros 30 segundos são apenas a preparação—a entrevista completa é onde ele avalia as asinhas em si.",
     ],
-    section2Title: "Por que este formato funciona",
+    section2Title: "Ramsay critica as asinhas",
     section2Body: [
       "Hot Ones se tornou popular porque coloca as pessoas em uma situação onde o treinamento de mídia polido não ajuda. As asinhas ficam mais picantes, o convidado fica mais honesto e as perguntas melhoram. Sean Evans é conhecido por fazer pesquisas sérias—os convidados frequentemente se surpreendem com a profundidade das perguntas.",
       "Para profissionais de comida como Ramsay, há uma camada adicional: eles são solicitados a criticar as asinhas enquanto lidam com o calor. Não é apenas um formato de entrevista—é um teste de compostura e uma chance de ver alguém que geralmente está no controle perder parte desse controle.",
@@ -296,9 +296,4 @@ export const ramsayHotOnesCopy: Record<Locale, WatchPageCopy> = {
       "Fonte: Hot Ones temporada 8, apresentado por Sean Evans, com Gordon Ramsay. First We Feast. Publicado em 22 de agosto de 2026. O vídeo está em inglês.",
     ],
   },
-  ja: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [] },
-  zh: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [] },
-  fr: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [] },
-  de: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [] },
-  vi: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [] },
 };

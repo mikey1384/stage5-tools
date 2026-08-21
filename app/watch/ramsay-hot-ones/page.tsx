@@ -18,12 +18,18 @@ import { ramsayHotOnesCopy } from "./copy";
 
 const post = posts.find((p) => p.slug === "ramsay-hot-ones")!;
 
+type SupportedLocale = "en" | "es" | "ko" | "pt";
+
+function isSupportedLocale(locale: string): locale is SupportedLocale {
+  return ["en", "es", "ko", "pt"].includes(locale);
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const copy = ramsayHotOnesCopy[locale];
-  if (!copy) {
+  if (!isSupportedLocale(locale)) {
     notFound();
   }
+  const copy = ramsayHotOnesCopy[locale];
   return buildMetadata({
     title: copy.title,
     description: copy.description,
@@ -40,10 +46,10 @@ export default async function RamsayHotOnesPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const copy = ramsayHotOnesCopy[locale];
-  if (!copy) {
+  if (!isSupportedLocale(locale)) {
     notFound();
   }
+  const copy = ramsayHotOnesCopy[locale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
@@ -211,6 +217,13 @@ export default async function RamsayHotOnesPage({
                 note={copy.ctaNote}
                 align="start"
                 className="mt-8"
+                watchContext={{
+                  slug: post.slug,
+                  videoId: "U9DyHthJ6LA",
+                  sourceLang: post.sourceLang,
+                  selectedLang: "off",
+                  placement: "body",
+                }}
               />
             </div>
 
