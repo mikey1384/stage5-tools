@@ -107,6 +107,9 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
 
   if (locale === DEFAULT_LOCALE) return true;
   if (ENGLISH_ONLY_PATHS.has(normalizedEnglishPath)) return false;
+  for (const englishOnlyPath of ENGLISH_ONLY_PATHS) {
+    if (normalizedEnglishPath.startsWith(englishOnlyPath + "/")) return false;
+  }
   if (locale === "ko") return true;
   if (
     locale === "es" ||

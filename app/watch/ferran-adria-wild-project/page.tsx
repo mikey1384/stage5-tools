@@ -174,8 +174,7 @@ export default function FerranAdriaWildProjectPage() {
                   — If the video doesn&apos;t have Spanish captions, you can
                   transcribe it using AI. If it does, you can translate those
                   captions to English. You can use Stage5 credits (pay per
-                  minute) or bring your own API key from OpenAI, Anthropic, or
-                  Google.
+                  minute) or bring your own API key from OpenAI or Anthropic.
                 </li>
                 <li>
                   <strong className="text-white">
@@ -206,9 +205,9 @@ export default function FerranAdriaWildProjectPage() {
                   <li>
                     <strong className="text-white">Paid:</strong> AI
                     transcription and translation. You can use Stage5 credits
-                    (pay as you go, around $10 for 100 minutes) or bring your
-                    own API key from OpenAI, Anthropic, or Google and pay them
-                    directly.
+                    (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock
+                    BYO once for $10 and bring your own API key from OpenAI or
+                    Anthropic to pay them directly.
                   </li>
                 </ul>
               </div>
