@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Script from "next/script";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
@@ -17,6 +18,9 @@ const post = posts.find((p) => p.slug === "park-chan-wook-lee-dong-jin")!;
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
+  if (!copy) {
+    notFound();
+  }
   return buildMetadata({
     title: copy.title,
     description: copy.description,
@@ -34,6 +38,9 @@ export default async function ParkChanWookLeeDongJinPage({
   const params = await searchParams;
   const locale = await getLocale(params);
   const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
+  if (!copy) {
+    notFound();
+  }
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 

@@ -63,141 +63,162 @@ export const piqueLaResistenciaCopy: Record<SupportedLocale, WatchPageCopy> = {
   ]
 },
   es: {
-  "title": "Ver Entrevista | Translator",
-  "description": "Entrevista en español",
+  "title": "Ver a Gerard Piqué en La Resistencia con Subtítulos en Español | Translator",
+  "description": "El defensa del Barcelona Gerard Piqué se sienta con David Broncano para una entrevista nocturna española que empieza cruda y se vuelve interesante.",
   "keywords": [
-    "entrevista"
+    "Gerard Piqué entrevista",
+    "La Resistencia",
+    "David Broncano",
+    "entrevista española"
   ],
-  "h1": "Ver Entrevista",
-  "intro": "Una conversación interesante.",
-  "section1Title": "Sobre la entrevista",
+  "h1": "Ver a Gerard Piqué en la Televisión Nocturna Española",
+  "intro": "El defensa del Barcelona Gerard Piqué se autoinvitó al programa de David Broncano vía Twitter, apareció en el Teatro Arlequín y se sometió a una entrevista española que empieza con bromas que la mayoría de los hispanohablantes no escucharán nunca.",
+  "section1Title": "Un futbolista entra en un programa nocturno",
   "section1Body": [
-    "Contenido en español."
+    "La Resistencia es uno de los programas nocturnos de comedia más vistos de España. El presentador David Broncano es conocido por su humor crudo y entrevistas impredecibles. Gerard Piqué—en ese momento todavía jugando para el FC Barcelona—vio un intercambio de bromas en Twitter y se autoinvitó.",
+    "La conversación recorre el fútbol, el dinero, la fama y los negocios de Piqué. La apertura de Broncano es deliberadamente provocativa, lo cual es parte del formato del programa. Más adelante en la entrevista, Piqué hizo titulares al decir que su patrimonio neto era mayor que el presupuesto del RCD Espanyol—un comentario que se convirtió en su propio ciclo de noticias en los medios deportivos españoles.",
+    "La entrevista está en español. Los hispanohablantes pierden el tono, el timing y toda la configuración que hace que la comedia nocturna española funcione."
   ],
-  "howToTitle": "Cómo ver con subtítulos",
-  "howToBody": "Translator descarga videos y añade subtítulos.",
+  "howToTitle": "Cómo ver la entrevista completa con subtítulos en español",
+  "howToBody": "Translator es una aplicación de escritorio que te permite descargar videos, añadir subtítulos traducidos y verlos en tu idioma.",
   "howToSteps": [
     {
-      "title": "Pega URL",
-      "body": "Copia el enlace."
+      "title": "Pega la URL de YouTube",
+      "body": "Copia el enlace del video y pégalo en el campo de descarga de Translator."
     },
     {
-      "title": "Descarga",
-      "body": "Baja el video."
+      "title": "Descarga el video",
+      "body": "Translator descarga el video y cualquier subtítulo disponible."
     },
     {
-      "title": "Traduce",
-      "body": "Usa IA."
+      "title": "Transcribe o traduce",
+      "body": "Usa IA para transcribir o traducir los subtítulos."
     },
     {
-      "title": "Ve",
-      "body": "Edita subtítulos."
+      "title": "Ve con subtítulos que controlas",
+      "body": "Edita el tiempo, corrige traducciones y exporta el archivo SRT final."
     }
   ],
-  "pricingTitle": "Gratis y de pago",
-  "pricingFree": "Descargar, editar, exportar.",
-  "pricingPaid": "IA requiere créditos.",
-  "section2Title": "Contenido",
+  "pricingTitle": "Qué es gratis, qué es de pago",
+  "pricingFree": "Descargar videos, gestionar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
+  "pricingPaid": "Transcripción y traducción con IA. Usa créditos Stage5 o desbloquea BYO una vez por $10.",
+  "section2Title": "Medios deportivos españoles en español",
   "section2Body": [
-    "Translator da control."
+    "España produce algunos de los mejores contenidos de fútbol en YouTube—entrevistas, análisis, documentales. La mayoría no tiene subtítulos en español.",
+    "Translator te da el control: elige tu modelo de traducción, edita los subtítulos línea por línea y exporta el archivo final."
   ],
   "downloadTitle": "Descarga Translator",
-  "downloadBody": "Funciona en macOS y Windows.",
+  "downloadBody": "Translator funciona en macOS y Windows. Descárgalo, pega la URL de este video y prueba cómo funciona el flujo de trabajo.",
   "aboutTitle": "Sobre este post",
   "aboutBody": [
-    "Video oficial de YouTube."
+    "El video de YouTube está incrustado directamente desde la fuente oficial. Los primeros 30 segundos de subtítulos se pueden mostrar en inglés, coreano o portugués.",
+    "Fuente: La Resistencia, presentado por David Broncano, con Gerard Piqué. Publicado el 28 de marzo de 2019. El video está en español."
   ]
 },
   ko: {
-  "title": "인터뷰 보기 | Translator",
-  "description": "인터뷰",
+  "title": "제라르 피케 라 레시스텐시아 인터뷰를 한국어 자막으로 시청하기 | Translator",
+  "description": "바르셀로나 수비수 제라르 피케가 다비드 브론카노와 함께하는 스페인 심야 인터뷰로, 거칠게 시작해서 흥미로워집니다.",
   "keywords": [
-    "인터뷰"
+    "제라르 피케 인터뷰",
+    "라 레시스텐시아",
+    "다비드 브론카노",
+    "스페인 인터뷰"
   ],
-  "h1": "인터뷰 보기",
-  "intro": "흥미로운 대화입니다.",
-  "section1Title": "인터뷰 소개",
+  "h1": "스페인 심야 텔레비전에 출연한 제라르 피케 시청하기",
+  "intro": "바르셀로나 수비수 제라르 피케가 트위터를 통해 자신을 초대하고, 테아트로 아를레킨에 나타나, 대부분의 한국어 사용자들이 절대 듣지 못할 농담으로 시작하는 스페인 인터뷰를 받았습니다.",
+  "section1Title": "축구선수가 심야 프로그램에 출연하다",
   "section1Body": [
-    "내용"
+    "라 레시스텐시아는 스페인에서 가장 많이 시청되는 심야 코미디 프로그램 중 하나입니다. 진행자 다비드 브론카노는 거친 유머와 예측 불가능한 인터뷰로 유명합니다. 제라르 피케는—당시 여전히 FC 바르셀로나에서 뛰고 있던—트위터에서 농담을 주고받다가 스스로 초대했습니다.",
+    "대화는 축구, 돈, 유명인, 피케의 사업 벤처를 다룹니다. 브론카노의 오프닝은 의도적으로 도발적이며, 이는 프로그램 형식의 일부입니다. 인터뷰 후반부에서 피케는 자신의 순자산이 RCD 에스파뇰의 예산보다 크다고 말하여 헤드라인을 장식했습니다—이 발언은 스페인 스포츠 미디어에서 자체 뉴스 사이클이 되었습니다.",
+    "인터뷰는 스페인어로 진행됩니다. 한국어 사용자들은 톤, 타이밍, 그리고 스페인 심야 코미디를 작동하게 만드는 전체 설정을 놓치게 됩니다."
   ],
-  "howToTitle": "자막과 함께 보기",
-  "howToBody": "Translator는 영상을 다운로드하고 자막을 추가합니다.",
+  "howToTitle": "한국어 자막으로 전체 인터뷰를 시청하는 방법",
+  "howToBody": "Translator는 영상을 다운로드하고, 번역된 자막을 추가하며, 원하는 언어로 시청할 수 있는 데스크톱 앱입니다.",
   "howToSteps": [
     {
-      "title": "URL",
-      "body": "링크 복사."
+      "title": "YouTube URL 붙여넣기",
+      "body": "영상 링크를 복사하여 Translator의 다운로드 필드에 붙여넣습니다."
     },
     {
-      "title": "다운로드",
-      "body": "영상 가져오기."
+      "title": "영상 다운로드",
+      "body": "Translator가 영상과 사용 가능한 자막을 다운로드합니다."
     },
     {
-      "title": "번역",
-      "body": "AI 사용."
+      "title": "전사 또는 번역",
+      "body": "AI를 사용하여 자막을 전사하거나 번역합니다."
     },
     {
-      "title": "시청",
-      "body": "편집."
+      "title": "제어 가능한 자막으로 시청",
+      "body": "타이밍을 편집하고, 번역을 수정하며, 최종 SRT 파일을 내보냅니다."
     }
   ],
-  "pricingTitle": "무료와 유료",
-  "pricingFree": "다운로드, 편집, 내보내기.",
-  "pricingPaid": "AI는 크레딧 필요.",
-  "section2Title": "콘텐츠",
+  "pricingTitle": "무료와 유료 기능",
+  "pricingFree": "영상 다운로드, 라이브러리 관리, 수동 자막 편집, SRT 파일 내보내기는 무료입니다.",
+  "pricingPaid": "AI 전사 및 번역. Stage5 크레딧을 사용하거나 $10에 BYO를 한 번 잠금 해제하세요.",
+  "section2Title": "스페인 스포츠 미디어를 한국어로",
   "section2Body": [
-    "Translator는 제어권 제공."
+    "스페인은 YouTube에서 최고의 축구 콘텐츠를 제작합니다—인터뷰, 분석, 다큐멘터리. 대부분은 한국어 자막이 없습니다.",
+    "Translator는 제어권을 제공합니다: 번역 모델을 선택하고, 자막을 한 줄씩 편집하며, 최종 파일을 내보냅니다."
   ],
   "downloadTitle": "Translator 다운로드",
-  "downloadBody": "macOS와 Windows 지원.",
-  "aboutTitle": "게시물 정보",
+  "downloadBody": "Translator는 macOS와 Windows에서 작동합니다. 다운로드하고, 이 영상의 URL을 붙여넣고, 워크플로를 체험해보세요.",
+  "aboutTitle": "이 게시물에 대하여",
   "aboutBody": [
-    "공식 YouTube 영상."
+    "YouTube 영상은 공식 출처에서 직접 삽입되었습니다. 처음 30초의 자막은 영어, 한국어 또는 포르투갈어로 표시할 수 있습니다.",
+    "출처: 라 레시스텐시아, 다비드 브론카노 진행, 제라르 피케 출연. 2019년 3월 28일 게시. 영상은 스페인어입니다."
   ]
 },
   pt: {
-  "title": "Assistir Entrevista | Translator",
-  "description": "Entrevista",
+  "title": "Assistir Gerard Piqué em La Resistencia com Legendas em Português | Translator",
+  "description": "O defensor do Barcelona Gerard Piqué se senta com David Broncano para uma entrevista noturna espanhola que começa crua e fica interessante.",
   "keywords": [
-    "entrevista"
+    "Gerard Piqué entrevista",
+    "La Resistencia",
+    "David Broncano",
+    "entrevista espanhola"
   ],
-  "h1": "Assistir Entrevista",
-  "intro": "Uma conversa interessante.",
-  "section1Title": "Sobre a entrevista",
+  "h1": "Assistir Gerard Piqué na Televisão Noturna Espanhola",
+  "intro": "O defensor do Barcelona Gerard Piqué se autoconvidou para o programa de David Broncano via Twitter, apareceu no Teatro Arlequín e passou por uma entrevista espanhola que começa com piadas que a maioria dos falantes de português nunca ouvirá.",
+  "section1Title": "Um jogador de futebol entra em um programa noturno",
   "section1Body": [
-    "Conteúdo."
+    "La Resistencia é um dos programas noturnos de comédia mais assistidos da Espanha. O apresentador David Broncano é conhecido por seu humor cru e entrevistas imprevisíveis. Gerard Piqué—na época ainda jogando pelo FC Barcelona—viu uma troca de piadas no Twitter e se autoconvidou.",
+    "A conversa percorre futebol, dinheiro, celebridade e os empreendimentos comerciais de Piqué. A abertura de Broncano é deliberadamente provocativa, o que faz parte do formato do programa. Mais tarde na entrevista, Piqué fez manchetes ao dizer que seu patrimônio líquido era maior que o orçamento do RCD Espanyol—um comentário que se tornou seu próprio ciclo de notícias na mídia esportiva espanhola.",
+    "A entrevista está em espanhol. Falantes de português perdem o tom, o timing e toda a configuração que faz a comédia noturna espanhola funcionar."
   ],
-  "howToTitle": "Como assistir com legendas",
-  "howToBody": "Translator baixa vídeos e adiciona legendas.",
+  "howToTitle": "Como assistir a entrevista completa com legendas em português",
+  "howToBody": "Translator é um aplicativo de desktop que permite baixar vídeos, adicionar legendas traduzidas e assisti-los no seu idioma.",
   "howToSteps": [
     {
-      "title": "Cole URL",
-      "body": "Copie o link."
+      "title": "Cole a URL do YouTube",
+      "body": "Copie o link do vídeo e cole no campo de download do Translator."
     },
     {
-      "title": "Baixe",
-      "body": "Baixe o vídeo."
+      "title": "Baixe o vídeo",
+      "body": "O Translator baixa o vídeo e quaisquer legendas disponíveis."
     },
     {
-      "title": "Traduza",
-      "body": "Use IA."
+      "title": "Transcreva ou traduza",
+      "body": "Use IA para transcrever ou traduzir as legendas."
     },
     {
-      "title": "Assista",
-      "body": "Edite legendas."
+      "title": "Assista com legendas que você controla",
+      "body": "Edite o tempo, corrija traduções e exporte o arquivo SRT final."
     }
   ],
-  "pricingTitle": "Grátis e pago",
-  "pricingFree": "Baixar, editar, exportar.",
-  "pricingPaid": "IA requer créditos.",
-  "section2Title": "Conteúdo",
+  "pricingTitle": "O que é grátis, o que é pago",
+  "pricingFree": "Baixar vídeos, gerenciar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",
+  "pricingPaid": "Transcrição e tradução com IA. Use créditos Stage5 ou desbloqueie BYO uma vez por $10.",
+  "section2Title": "Mídia esportiva espanhola em português",
   "section2Body": [
-    "Translator dá controle."
+    "A Espanha produz alguns dos melhores conteúdos de futebol no YouTube—entrevistas, análises, documentários. A maioria não tem legendas em português.",
+    "O Translator dá controle: escolha seu modelo de tradução, edite as legendas linha por linha e exporte o arquivo final."
   ],
-  "downloadTitle": "Baixe Translator",
-  "downloadBody": "Funciona no macOS e Windows.",
+  "downloadTitle": "Baixe o Translator",
+  "downloadBody": "O Translator funciona no macOS e Windows. Baixe, cole a URL deste vídeo e veja como o fluxo de trabalho funciona.",
   "aboutTitle": "Sobre este post",
   "aboutBody": [
-    "Vídeo oficial do YouTube."
+    "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, coreano ou português.",
+    "Fonte: La Resistencia, apresentado por David Broncano, com Gerard Piqué. Publicado em 28 de março de 2019. O vídeo está em espanhol."
   ]
 }
 };
