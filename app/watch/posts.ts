@@ -102,4 +102,15 @@ export const posts: PostCard[] = [
     tracks: ["en", "es", "ko", "pt"],
     supportedLocales: ["en", "es", "ko", "pt"],
   },
+  {
+    slug: "ramsay-hot-ones",
+    title: "Gordon Ramsay on Hot Ones",
+    description:
+      "Gordon Ramsay sits down with Sean Evans on First We Feast's Hot Ones for season eight: spicy wings, hot questions, and a chef who does not hold back.",
+    language: "English",
+    topic: "Food & Craft",
+    sourceLang: "en",
+    tracks: ["en", "es", "ko", "pt"],
+    supportedLocales: ["en", "es", "ko", "pt"],
+  },
 ];
