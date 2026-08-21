@@ -1,4 +1,4 @@
-import type { Locale } from "../lib/locales";
+import type { Locale } from "../../lib/locales";
 
 export type TrackLang = "en" | "es" | "ko" | "pt";
 

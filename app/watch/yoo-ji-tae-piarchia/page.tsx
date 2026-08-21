@@ -87,7 +87,7 @@ export default async function YooJiTaePiarchiaPage({
               <span className="text-gray-700">·</span>
               <span>{post.topic}</span>
               <span className="text-gray-700">·</span>
-              <span>Lee Dong-jin\'s Piarchia</span>
+              <span>Lee Dong-jin&apos;s Piarchia</span>
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
               {copy.h1}

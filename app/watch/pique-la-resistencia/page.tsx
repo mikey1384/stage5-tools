@@ -50,7 +50,7 @@ export default async function PiqueLaResistenciaPage({
       { "@type": "Person", name: "Gerard Piqué", description: "Barcelona footballer" },
       {
         "@type": "VideoObject",
-        name: "PIQUÉ: "SOY MÁS RICO QUE EL ESPANYOL" - La Resistencia",
+        name: "PIQUÉ: \"SOY MÁS RICO QUE EL ESPANYOL\" - La Resistencia",
         description: copy.description,
         contentUrl: "https://www.youtube.com/watch?v=AcGwBcHPMPQ",
         embedUrl: "https://www.youtube.com/embed/AcGwBcHPMPQ",

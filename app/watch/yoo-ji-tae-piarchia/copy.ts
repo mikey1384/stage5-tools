@@ -1,5 +1,3 @@
-import type { Locale } from "../../../lib/locales";
-
 interface WatchPageCopy {
   title: string; description: string; keywords: string[];
   h1: string; intro: string;
