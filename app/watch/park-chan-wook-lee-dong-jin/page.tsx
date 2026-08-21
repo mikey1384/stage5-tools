@@ -7,46 +7,21 @@ import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { YouTubeDemo } from "../../../components/YouTubeDemo";
 import { getLocale } from "../../../lib/get-locale";
-import {
-  homeHrefForLocale,
-  localizePathForLocale,
-} from "../../../lib/locale-routing";
+import { homeHrefForLocale, localizePathForLocale } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
 import { posts } from "../posts";
+import { parkChanWookLeeDongJinCopy } from "./copy";
 
 const post = posts.find((p) => p.slug === "park-chan-wook-lee-dong-jin")!;
 
-const copy: Record<string, { title: string; h1: string; intro: string }> = {
-  en: {
-    title: "Watch Park Chan-wook on Lee Dong-jin's Piarchia with English Subtitles | Translator",
-    h1: "Watch Park Chan-wook Discuss Decision to Leave",
-    intro: "Director Park Chan-wook discusses Decision to Leave with film critic Lee Dong-jin. A Korean-language interview about filmmaking, misunderstandings, and craft that English speakers rarely get to see.",
-  },
-  es: {
-    title: "Ve a Park Chan-wook en Piarchia con Subtítulos | Translator",
-    h1: "Park Chan-wook Habla Sobre Decision to Leave",
-    intro: "El director Park Chan-wook discute Decision to Leave con el crítico de cine Lee Dong-jin. Una entrevista en coreano sobre cine, malentendidos y oficio.",
-  },
-  ko: {
-    title: "박찬욱 감독의 이동진의 파이아키아 인터뷰 보기 | Translator",
-    h1: "박찬욱 감독의 헤어질결심 이야기",
-    intro: "박찬욱 감독이 영화평론가 이동진과 헤어질결심에 대해 이야기합니다. 영화 제작, 오해, 그리고 장인정신에 대한 한국어 인터뷰입니다.",
-  },
-  pt: {
-    title: "Assista Park Chan-wook no Piarchia com Legendas | Translator",
-    h1: "Park Chan-wook Fala Sobre Decision to Leave",
-    intro: "O diretor Park Chan-wook discute Decision to Leave com o crítico de cinema Lee Dong-jin. Uma entrevista em coreano sobre cinema, mal-entendidos e ofício.",
-  },
-};
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const localeCopy = copy[locale] || copy.en;
+  const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
   return buildMetadata({
-    title: localeCopy.title,
-    description: localeCopy.intro,
+    title: copy.title,
+    description: copy.description,
     path: "/watch/park-chan-wook-lee-dong-jin",
-    keywords: ["Park Chan-wook", "Decision to Leave", "Lee Dong-jin", "Korean film interview"],
+    keywords: copy.keywords,
     locale,
   });
 }
@@ -58,29 +33,29 @@ export default async function ParkChanWookLeeDongJinPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const localeCopy = copy[locale] || copy.en;
+  const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: localeCopy.h1,
-    description: localeCopy.intro,
+    headline: copy.h1,
+    description: copy.description,
     url: `https://translator.tools${localizeHref("/watch/park-chan-wook-lee-dong-jin")}`,
     datePublished: "2026-08-21",
     author: { "@type": "Organization", name: "Stage5 Tools" },
     publisher: { "@type": "Organization", name: "Stage5 Tools", url: "https://translator.tools" },
     about: [
-      { "@type": "Person", name: "Park Chan-wook", description: "Film director known for Oldboy, The Handmaiden, and Decision to Leave" },
+      { "@type": "Person", name: "Park Chan-wook", description: "Director known for Oldboy, The Handmaiden, Decision to Leave" },
       {
         "@type": "VideoObject",
-        name: "박찬욱 감독에 대한 오해와 진실",
-        description: "Interview with director Park Chan-wook about misunderstandings and Decision to Leave",
-        uploadDate: "2022-06-15",
-        contentUrl: "https://www.youtube.com/watch?v=5s7st9scmlo",
-        embedUrl: "https://www.youtube.com/embed/5s7st9scmlo",
+        name: "박찬욱 감독님을 모셨습니다!!!",
+        description: copy.description,
+        contentUrl: "https://www.youtube.com/watch?v=CjVz6F62T4w",
+        embedUrl: "https://www.youtube.com/embed/CjVz6F62T4w",
         inLanguage: "ko",
+        duration: "PT1H11M46S",
       },
     ],
   };
@@ -112,39 +87,87 @@ export default async function ParkChanWookLeeDongJinPage({
               <span className="text-gray-700">·</span>
               <span>{post.topic}</span>
               <span className="text-gray-700">·</span>
-              <span>Lee Dong-jin&apos;s Piarchia</span>
+              <span>Lee Dong-jin\'s Piarchia</span>
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
-              {localeCopy.h1}
+              {copy.h1}
             </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-300">
-              {localeCopy.intro}
-            </p>
+            <p className="mt-6 text-xl leading-8 text-gray-300">{copy.intro}</p>
           </header>
 
           <div className="mx-auto max-w-4xl">
             <YouTubeDemo
               locale={locale}
               slug={post.slug}
-              videoId="5s7st9scmlo"
+              videoId="CjVz6F62T4w"
               sourceLang={post.sourceLang}
               availableTracks={post.tracks}
               videoDownloaderHref={localizeHref("/video-downloader")}
             />
 
-            <div className="mt-16 border-t border-white/10 pt-12">
-              <h2 className="text-3xl font-semibold text-white">
-                Download Translator
-              </h2>
-              <p className="mt-4 text-lg leading-8 text-gray-300">
-                Translator works on macOS and Windows. Download the video and add translated subtitles.
+            <div className="prose prose-invert mt-12 max-w-none">
+              <h2 className="text-3xl font-semibold text-white">{copy.section1Title}</h2>
+              {copy.section1Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">{paragraph}</p>
+              ))}
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">{copy.howToTitle}</h2>
+              <p className="text-lg leading-8 text-gray-300">{copy.howToBody}</p>
+
+              <ol className="mt-6 space-y-4 text-lg leading-8 text-gray-300">
+                {copy.howToSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong className="text-white">{step.title}</strong> — {step.body}
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-8 text-lg leading-8 text-gray-300">
+                The video stays on your computer. You&apos;re not streaming it through a web app or uploading it to someone else&apos;s server. Translator works locally.
               </p>
+
+              <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
+                <h3 className="text-xl font-semibold text-white">{copy.pricingTitle}</h3>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-gray-300">
+                  <li>
+                    <strong className="text-white">Free:</strong> {copy.pricingFree}
+                  </li>
+                  <li>
+                    <strong className="text-white">Paid:</strong> {copy.pricingPaid}
+                  </li>
+                </ul>
+              </div>
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">{copy.section2Title}</h2>
+              {copy.section2Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="mt-16 border-t border-white/10 pt-12">
+              <h2 className="text-3xl font-semibold text-white">{copy.downloadTitle}</h2>
+              <p className="mt-4 text-lg leading-8 text-gray-300">{copy.downloadBody}</p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href={localizeHref("/video-downloader")}
+                  className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
+                >
+                  Learn about video downloading →
+                </Link>
+              </div>
               <FeatureDownloadCta
                 locale={locale}
                 note="Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key."
                 align="start"
                 className="mt-8"
               />
+            </div>
+
+            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+              <h3 className="text-xl font-semibold text-white">{copy.aboutTitle}</h3>
+              {copy.aboutBody.map((paragraph, i) => (
+                <p key={i} className="mt-3 text-base leading-7 text-gray-400">{paragraph}</p>
+              ))}
             </div>
           </div>
         </article>

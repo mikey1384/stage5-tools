@@ -8,11 +8,12 @@ import {
   homeHrefForLocale,
   localizePathForLocale,
 } from "../../lib/locale-routing";
-import type { Locale } from "../../lib/locales";
 import { buildMetadata } from "../../lib/seo";
 import { posts } from "./posts";
 
-const pageCopy: Record<Locale, {
+type WatchSupportedLocale = "en" | "es" | "ko" | "pt";
+
+const pageCopy: Record<WatchSupportedLocale, {
   title: string;
   description: string;
   eyebrow: string;
@@ -55,16 +56,11 @@ const pageCopy: Record<Locale, {
     intro:
       "Esses posts mostram como o Translator ajuda você a encontrar e assistir vídeos em idiomas estrangeiros que valem seu tempo. Cada exemplo percorre o fluxo real: cole uma URL, baixe o vídeo, transcreva ou traduza, e assista com legendas que você pode editar.",
   },
-  ja: { title: "", description: "", eyebrow: "", h1: "", intro: "" },
-  zh: { title: "", description: "", eyebrow: "", h1: "", intro: "" },
-  fr: { title: "", description: "", eyebrow: "", h1: "", intro: "" },
-  de: { title: "", description: "", eyebrow: "", h1: "", intro: "" },
-  vi: { title: "", description: "", eyebrow: "", h1: "", intro: "" },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const copy = pageCopy[locale];
+  const copy = pageCopy[locale as WatchSupportedLocale];
   return buildMetadata({
     title: copy.title,
     description: copy.description,
@@ -86,7 +82,7 @@ export default async function WatchIndexPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const copy = pageCopy[locale];
+  const copy = pageCopy[locale as WatchSupportedLocale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 

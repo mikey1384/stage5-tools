@@ -117,6 +117,7 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
       "park-chan-wook-lee-dong-jin",
       "lee-jung-jae-hunt-piarchia",
       "yoo-ji-tae-piarchia",
+      "kore-eda-piarchia",
     ];
     
     if (watchSlugs.includes(slug)) {

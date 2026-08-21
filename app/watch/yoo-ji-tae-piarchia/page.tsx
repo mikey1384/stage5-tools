@@ -7,46 +7,21 @@ import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { YouTubeDemo } from "../../../components/YouTubeDemo";
 import { getLocale } from "../../../lib/get-locale";
-import {
-  homeHrefForLocale,
-  localizePathForLocale,
-} from "../../../lib/locale-routing";
+import { homeHrefForLocale, localizePathForLocale } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
 import { posts } from "../posts";
+import { yooJiTaePiarchiaCopy } from "./copy";
 
 const post = posts.find((p) => p.slug === "yoo-ji-tae-piarchia")!;
 
-const copy: Record<string, { title: string; h1: string; intro: string }> = {
-  en: {
-    title: "Watch Yoo Ji-tae on Lee Dong-jin's Piarchia with English Subtitles | Translator",
-    h1: "Watch Yoo Ji-tae Discuss One Fine Spring Day and Oldboy",
-    intro: "Actor Yoo Ji-tae discusses One Fine Spring Day and Oldboy with film critic Lee Dong-jin. A Korean-language interview about improvisation, love scenes, and creating Lee Woo-jin.",
-  },
-  es: {
-    title: "Ve a Yoo Ji-tae en Piarchia con Subtítulos | Translator",
-    h1: "Yoo Ji-tae Habla Sobre One Fine Spring Day y Oldboy",
-    intro: "El actor Yoo Ji-tae discute One Fine Spring Day y Oldboy con el crítico de cine Lee Dong-jin. Una entrevista en coreano sobre improvisación, escenas de amor y la creación de Lee Woo-jin.",
-  },
-  ko: {
-    title: "유지태 배우의 이동진의 파이아키아 인터뷰 보기 | Translator",
-    h1: "유지태 배우의 봄날은 간다와 올드보이 이야기",
-    intro: "유지태 배우가 영화평론가 이동진과 봄날은 간다와 올드보이에 대해 이야기합니다. 즉흥 연기, 러브 신, 그리고 이우진 캐릭터 창조에 대한 한국어 인터뷰입니다.",
-  },
-  pt: {
-    title: "Assista Yoo Ji-tae no Piarchia com Legendas | Translator",
-    h1: "Yoo Ji-tae Fala Sobre One Fine Spring Day e Oldboy",
-    intro: "O ator Yoo Ji-tae discute One Fine Spring Day e Oldboy com o crítico de cinema Lee Dong-jin. Uma entrevista em coreano sobre improvisação, cenas de amor e a criação de Lee Woo-jin.",
-  },
-};
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const localeCopy = copy[locale] || copy.en;
+  const copy = yooJiTaePiarchiaCopy[locale as keyof typeof yooJiTaePiarchiaCopy];
   return buildMetadata({
-    title: localeCopy.title,
-    description: localeCopy.intro,
+    title: copy.title,
+    description: copy.description,
     path: "/watch/yoo-ji-tae-piarchia",
-    keywords: ["Yoo Ji-tae", "Oldboy", "One Fine Spring Day", "Lee Dong-jin", "Korean film interview"],
+    keywords: copy.keywords,
     locale,
   });
 }
@@ -58,15 +33,15 @@ export default async function YooJiTaePiarchiaPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const localeCopy = copy[locale] || copy.en;
+  const copy = yooJiTaePiarchiaCopy[locale as keyof typeof yooJiTaePiarchiaCopy];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: localeCopy.h1,
-    description: localeCopy.intro,
+    headline: copy.h1,
+    description: copy.description,
     url: `https://translator.tools${localizeHref("/watch/yoo-ji-tae-piarchia")}`,
     datePublished: "2026-08-21",
     author: { "@type": "Organization", name: "Stage5 Tools" },
@@ -76,7 +51,7 @@ export default async function YooJiTaePiarchiaPage({
       {
         "@type": "VideoObject",
         name: "20주년에 이어 앞으로 영원히 고전이 될 두 작품",
-        description: "Interview with actor Yoo Ji-tae about One Fine Spring Day and Oldboy",
+        description: copy.description,
         contentUrl: "https://www.youtube.com/watch?v=PYY10Yq50bA",
         embedUrl: "https://www.youtube.com/embed/PYY10Yq50bA",
         inLanguage: "ko",
@@ -112,14 +87,12 @@ export default async function YooJiTaePiarchiaPage({
               <span className="text-gray-700">·</span>
               <span>{post.topic}</span>
               <span className="text-gray-700">·</span>
-              <span>Lee Dong-jin&apos;s Piarchia</span>
+              <span>Lee Dong-jin\'s Piarchia</span>
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
-              {localeCopy.h1}
+              {copy.h1}
             </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-300">
-              {localeCopy.intro}
-            </p>
+            <p className="mt-6 text-xl leading-8 text-gray-300">{copy.intro}</p>
           </header>
 
           <div className="mx-auto max-w-4xl">
@@ -132,19 +105,69 @@ export default async function YooJiTaePiarchiaPage({
               videoDownloaderHref={localizeHref("/video-downloader")}
             />
 
-            <div className="mt-16 border-t border-white/10 pt-12">
-              <h2 className="text-3xl font-semibold text-white">
-                Download Translator
-              </h2>
-              <p className="mt-4 text-lg leading-8 text-gray-300">
-                Translator works on macOS and Windows. Download the video and add translated subtitles.
+            <div className="prose prose-invert mt-12 max-w-none">
+              <h2 className="text-3xl font-semibold text-white">{copy.section1Title}</h2>
+              {copy.section1Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">{paragraph}</p>
+              ))}
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">{copy.howToTitle}</h2>
+              <p className="text-lg leading-8 text-gray-300">{copy.howToBody}</p>
+
+              <ol className="mt-6 space-y-4 text-lg leading-8 text-gray-300">
+                {copy.howToSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong className="text-white">{step.title}</strong> — {step.body}
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-8 text-lg leading-8 text-gray-300">
+                The video stays on your computer. You&apos;re not streaming it through a web app or uploading it to someone else&apos;s server. Translator works locally.
               </p>
+
+              <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
+                <h3 className="text-xl font-semibold text-white">{copy.pricingTitle}</h3>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-gray-300">
+                  <li>
+                    <strong className="text-white">Free:</strong> {copy.pricingFree}
+                  </li>
+                  <li>
+                    <strong className="text-white">Paid:</strong> {copy.pricingPaid}
+                  </li>
+                </ul>
+              </div>
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">{copy.section2Title}</h2>
+              {copy.section2Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="mt-16 border-t border-white/10 pt-12">
+              <h2 className="text-3xl font-semibold text-white">{copy.downloadTitle}</h2>
+              <p className="mt-4 text-lg leading-8 text-gray-300">{copy.downloadBody}</p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href={localizeHref("/video-downloader")}
+                  className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
+                >
+                  Learn about video downloading →
+                </Link>
+              </div>
               <FeatureDownloadCta
                 locale={locale}
                 note="Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key."
                 align="start"
                 className="mt-8"
               />
+            </div>
+
+            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+              <h3 className="text-xl font-semibold text-white">{copy.aboutTitle}</h3>
+              {copy.aboutBody.map((paragraph, i) => (
+                <p key={i} className="mt-3 text-base leading-7 text-gray-400">{paragraph}</p>
+              ))}
             </div>
           </div>
         </article>

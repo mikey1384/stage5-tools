@@ -13,40 +13,18 @@ import {
 } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
 import { posts } from "../posts";
+import { leeJungJaeHuntPiarchiaCopy } from "./copy";
 
 const post = posts.find((p) => p.slug === "lee-jung-jae-hunt-piarchia")!;
 
-const copy: Record<string, { title: string; h1: string; intro: string }> = {
-  en: {
-    title: "Watch Lee Jung-jae on Lee Dong-jin's Piarchia with English Subtitles | Translator",
-    h1: "Watch Lee Jung-jae Talk About Making Hunt",
-    intro: "Actor-turned-director Lee Jung-jae sits down with critic Lee Dong-jin to discuss his directorial debut Hunt, a spy thriller set during South Korea's turbulent 1980s. A conversation about directing for the first time that most English speakers miss because it's in Korean.",
-  },
-  es: {
-    title: "Ve a Lee Jung-jae en Piarchia con Subtítulos | Translator",
-    h1: "Lee Jung-jae Habla Sobre Hunt",
-    intro: "El actor convertido en director Lee Jung-jae se sienta con el crítico Lee Dong-jin para discutir su debut como director Hunt, un thriller de espías ambientado en la turbulenta década de 1980 de Corea del Sur.",
-  },
-  ko: {
-    title: "이정재 감독의 이동진의 파이아키아 인터뷰 보기 | Translator",
-    h1: "이정재 감독의 헌트 이야기",
-    intro: "배우에서 감독이 된 이정재가 영화평론가 이동진과 함께 그의 감독 데뷔작 헌트에 대해 이야기합니다. 1980년대 한국의 격동기를 배경으로 한 스파이 스릴러에 대한 대화입니다.",
-  },
-  pt: {
-    title: "Assista Lee Jung-jae no Piarchia com Legendas | Translator",
-    h1: "Lee Jung-jae Fala Sobre Hunt",
-    intro: "O ator que virou diretor Lee Jung-jae se senta com o crítico Lee Dong-jin para discutir sua estreia na direção Hunt, um thriller de espionagem ambientado nos turbulentos anos 1980 da Coreia do Sul.",
-  },
-};
-
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const localeCopy = copy[locale] || copy.en;
+  const copy = leeJungJaeHuntPiarchiaCopy[locale as keyof typeof leeJungJaeHuntPiarchiaCopy];
   return buildMetadata({
-    title: localeCopy.title,
-    description: localeCopy.intro,
+    title: copy.title,
+    description: copy.description,
     path: "/watch/lee-jung-jae-hunt-piarchia",
-    keywords: ["Lee Jung-jae", "Hunt", "Lee Dong-jin", "Korean film interview"],
+    keywords: copy.keywords,
     locale,
   });
 }
@@ -58,15 +36,15 @@ export default async function LeeJungJaeHuntPiarchiaPage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const localeCopy = copy[locale] || copy.en;
+  const copy = leeJungJaeHuntPiarchiaCopy[locale as keyof typeof leeJungJaeHuntPiarchiaCopy];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: localeCopy.h1,
-    description: localeCopy.intro,
+    headline: copy.h1,
+    description: copy.description,
     url: `https://translator.tools${localizeHref("/watch/lee-jung-jae-hunt-piarchia")}`,
     datePublished: "2026-08-21",
     author: { "@type": "Organization", name: "Stage5 Tools" },
@@ -115,10 +93,10 @@ export default async function LeeJungJaeHuntPiarchiaPage({
               <span>Lee Dong-jin&apos;s Piarchia</span>
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
-              {localeCopy.h1}
+              {copy.h1}
             </h1>
             <p className="mt-6 text-xl leading-8 text-gray-300">
-              {localeCopy.intro}
+              {copy.intro}
             </p>
           </header>
 
@@ -132,19 +110,93 @@ export default async function LeeJungJaeHuntPiarchiaPage({
               videoDownloaderHref={localizeHref("/video-downloader")}
             />
 
+            <div className="prose prose-invert mt-12 max-w-none">
+              <h2 className="text-3xl font-semibold text-white">
+                {copy.section1Title}
+              </h2>
+              {copy.section1Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">
+                  {paragraph}
+                </p>
+              ))}
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">
+                {copy.howToTitle}
+              </h2>
+              <p className="text-lg leading-8 text-gray-300">
+                {copy.howToBody}
+              </p>
+
+              <ol className="mt-6 space-y-4 text-lg leading-8 text-gray-300">
+                {copy.howToSteps.map((step, i) => (
+                  <li key={i}>
+                    <strong className="text-white">{step.title}</strong> — {step.body}
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-8 text-lg leading-8 text-gray-300">
+                The video stays on your computer. You&apos;re not streaming it
+                through a web app or uploading it to someone else&apos;s server.
+                Translator works locally.
+              </p>
+
+              <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
+                <h3 className="text-xl font-semibold text-white">
+                  {copy.pricingTitle}
+                </h3>
+                <ul className="mt-4 space-y-3 text-base leading-7 text-gray-300">
+                  <li>
+                    <strong className="text-white">Free:</strong> {copy.pricingFree}
+                  </li>
+                  <li>
+                    <strong className="text-white">Paid:</strong> {copy.pricingPaid}
+                  </li>
+                </ul>
+              </div>
+
+              <h2 className="mt-12 text-3xl font-semibold text-white">
+                {copy.section2Title}
+              </h2>
+              {copy.section2Body.map((paragraph, i) => (
+                <p key={i} className="text-lg leading-8 text-gray-300">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
             <div className="mt-16 border-t border-white/10 pt-12">
               <h2 className="text-3xl font-semibold text-white">
-                Download Translator
+                {copy.downloadTitle}
               </h2>
               <p className="mt-4 text-lg leading-8 text-gray-300">
-                Translator works on macOS and Windows. Download the video and add translated subtitles.
+                {copy.downloadBody}
               </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <Link
+                  href={localizeHref("/video-downloader")}
+                  className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
+                >
+                  Learn about video downloading →
+                </Link>
+              </div>
               <FeatureDownloadCta
                 locale={locale}
                 note="Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key."
                 align="start"
                 className="mt-8"
               />
+            </div>
+
+            <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
+              <h3 className="text-xl font-semibold text-white">
+                {copy.aboutTitle}
+              </h3>
+              {copy.aboutBody.map((paragraph, i) => (
+                <p key={i} className="mt-3 text-base leading-7 text-gray-400">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </article>
