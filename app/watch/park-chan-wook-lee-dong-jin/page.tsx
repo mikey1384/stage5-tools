@@ -6,7 +6,6 @@ import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { buildMetadata } from "../../../lib/seo";
-import { AdSlot } from "../AdSlot";
 import { YouTubeDemo } from "./YouTubeDemo";
 
 const title =
@@ -246,8 +245,6 @@ export default async function ParkChanWookLeeDongJinPage({
                 ability to control them matters.
               </p>
             </div>
-
-            <AdSlot />
 
             <div className="mt-16 border-t border-white/10 pt-12">
               <h2 className="text-3xl font-semibold text-white">
