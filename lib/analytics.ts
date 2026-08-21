@@ -2,6 +2,10 @@ import type {
   AgentWorkflowEventPayload,
   FaqIntentEventPayload,
   LandingIntentEventPayload,
+  WatchAppCtaEventPayload,
+  WatchCutoffEventPayload,
+  WatchLangChangeEventPayload,
+  WatchPlayEventPayload,
   WindowsInstallHelpEventPayload,
 } from "./analytics-events";
 
@@ -92,5 +96,43 @@ export function trackCheckoutReturn(payload: CheckoutReturnEventPayload): void {
     // Tracking remains best-effort when storage is unavailable.
   }
 
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWatchPlay(payload: WatchPlayEventPayload): void {
+  if (typeof window === "undefined") return;
+
+  const dedupeKey = `stage5:watch_play:${payload.slug}`;
+  try {
+    if (window.sessionStorage.getItem(dedupeKey) === "1") return;
+    window.sessionStorage.setItem(dedupeKey, "1");
+  } catch {
+    // Tracking remains best-effort when storage is unavailable.
+  }
+
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWatchCutoff(payload: WatchCutoffEventPayload): void {
+  if (typeof window === "undefined") return;
+
+  const dedupeKey = `stage5:watch_cutoff:${payload.slug}`;
+  try {
+    if (window.sessionStorage.getItem(dedupeKey) === "1") return;
+    window.sessionStorage.setItem(dedupeKey, "1");
+  } catch {
+    // Tracking remains best-effort when storage is unavailable.
+  }
+
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWatchLangChange(
+  payload: WatchLangChangeEventPayload,
+): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWatchAppCta(payload: WatchAppCtaEventPayload): void {
   pushAnalyticsEvent(payload);
 }

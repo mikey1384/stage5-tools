@@ -5,6 +5,10 @@ import {
   createAgentWorkflowEvent,
   createFaqIntentEvent,
   createHomeLandingIntentEvent,
+  createWatchAppCtaEvent,
+  createWatchCutoffEvent,
+  createWatchLangChangeEvent,
+  createWatchPlayEvent,
   createWindowsInstallHelpEvent,
 } from "../lib/analytics-events.ts";
 
@@ -41,4 +45,98 @@ test("creates the bounded Windows install-help payload", () => {
     placement: "hero_download",
     page_path: "/",
   });
+});
+
+test("creates the bounded watch play payload", () => {
+  assert.deepEqual(
+    createWatchPlayEvent({
+      pagePath: "/watch/ferran-adria-wild-project",
+      slug: "ferran-adria-wild-project",
+      videoId: "xzSOmaZGtiI",
+      locale: "en",
+      sourceLang: "es",
+      selectedLang: "en",
+    }),
+    {
+      event: "watch_play",
+      page_path: "/watch/ferran-adria-wild-project",
+      slug: "ferran-adria-wild-project",
+      video_id: "xzSOmaZGtiI",
+      locale: "en",
+      source_lang: "es",
+      selected_lang: "en",
+    }
+  );
+});
+
+test("creates the bounded watch cutoff payload", () => {
+  assert.deepEqual(
+    createWatchCutoffEvent({
+      pagePath: "/watch/pique-la-resistencia",
+      slug: "pique-la-resistencia",
+      videoId: "AcGwBcHPMPQ",
+      locale: "es",
+      sourceLang: "es",
+      selectedLang: "off",
+    }),
+    {
+      event: "watch_cutoff",
+      page_path: "/watch/pique-la-resistencia",
+      slug: "pique-la-resistencia",
+      video_id: "AcGwBcHPMPQ",
+      locale: "es",
+      source_lang: "es",
+      selected_lang: "off",
+    }
+  );
+});
+
+test("creates the bounded watch language change payload", () => {
+  assert.deepEqual(
+    createWatchLangChangeEvent({
+      pagePath: "/watch/park-chan-wook-lee-dong-jin",
+      slug: "park-chan-wook-lee-dong-jin",
+      videoId: "CjVz6F62T4w",
+      locale: "ko",
+      sourceLang: "ko",
+      selectedLang: "en",
+      fromLang: "ko",
+      toLang: "en",
+    }),
+    {
+      event: "watch_lang_change",
+      page_path: "/watch/park-chan-wook-lee-dong-jin",
+      slug: "park-chan-wook-lee-dong-jin",
+      video_id: "CjVz6F62T4w",
+      locale: "ko",
+      source_lang: "ko",
+      selected_lang: "en",
+      from_lang: "ko",
+      to_lang: "en",
+    }
+  );
+});
+
+test("creates the bounded watch app CTA payload", () => {
+  assert.deepEqual(
+    createWatchAppCtaEvent({
+      pagePath: "/watch/kore-eda-piarchia",
+      slug: "kore-eda-piarchia",
+      videoId: "j29oHrGMmtY",
+      locale: "en",
+      sourceLang: "ko",
+      selectedLang: "en",
+      placement: "cutoff",
+    }),
+    {
+      event: "watch_app_cta",
+      page_path: "/watch/kore-eda-piarchia",
+      slug: "kore-eda-piarchia",
+      video_id: "j29oHrGMmtY",
+      locale: "en",
+      source_lang: "ko",
+      selected_lang: "en",
+      placement: "cutoff",
+    }
+  );
 });

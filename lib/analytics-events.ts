@@ -77,3 +77,161 @@ export function createWindowsInstallHelpEvent(
     page_path: pagePath,
   };
 }
+
+export type WatchPlayEventPayload = {
+  event: "watch_play";
+  page_path: string;
+  slug: string;
+  video_id: string;
+  locale: string;
+  source_lang: string;
+  selected_lang: string;
+};
+
+export function createWatchPlayEvent({
+  pagePath,
+  slug,
+  videoId,
+  locale,
+  sourceLang,
+  selectedLang,
+}: {
+  pagePath: string;
+  slug: string;
+  videoId: string;
+  locale: string;
+  sourceLang: string;
+  selectedLang: string;
+}): WatchPlayEventPayload {
+  return {
+    event: "watch_play",
+    page_path: pagePath,
+    slug,
+    video_id: videoId,
+    locale,
+    source_lang: sourceLang,
+    selected_lang: selectedLang,
+  };
+}
+
+export type WatchCutoffEventPayload = {
+  event: "watch_cutoff";
+  page_path: string;
+  slug: string;
+  video_id: string;
+  locale: string;
+  source_lang: string;
+  selected_lang: string;
+};
+
+export function createWatchCutoffEvent({
+  pagePath,
+  slug,
+  videoId,
+  locale,
+  sourceLang,
+  selectedLang,
+}: {
+  pagePath: string;
+  slug: string;
+  videoId: string;
+  locale: string;
+  sourceLang: string;
+  selectedLang: string;
+}): WatchCutoffEventPayload {
+  return {
+    event: "watch_cutoff",
+    page_path: pagePath,
+    slug,
+    video_id: videoId,
+    locale,
+    source_lang: sourceLang,
+    selected_lang: selectedLang,
+  };
+}
+
+export type WatchLangChangeEventPayload = {
+  event: "watch_lang_change";
+  page_path: string;
+  slug: string;
+  video_id: string;
+  locale: string;
+  source_lang: string;
+  selected_lang: string;
+  from_lang: string;
+  to_lang: string;
+};
+
+export function createWatchLangChangeEvent({
+  pagePath,
+  slug,
+  videoId,
+  locale,
+  sourceLang,
+  selectedLang,
+  fromLang,
+  toLang,
+}: {
+  pagePath: string;
+  slug: string;
+  videoId: string;
+  locale: string;
+  sourceLang: string;
+  selectedLang: string;
+  fromLang: string;
+  toLang: string;
+}): WatchLangChangeEventPayload {
+  return {
+    event: "watch_lang_change",
+    page_path: pagePath,
+    slug,
+    video_id: videoId,
+    locale,
+    source_lang: sourceLang,
+    selected_lang: selectedLang,
+    from_lang: fromLang,
+    to_lang: toLang,
+  };
+}
+
+export type WatchAppCtaPlacement = "cutoff" | "body" | "footer";
+
+export type WatchAppCtaEventPayload = {
+  event: "watch_app_cta";
+  page_path: string;
+  slug: string;
+  video_id: string;
+  locale: string;
+  source_lang: string;
+  selected_lang: string;
+  placement: WatchAppCtaPlacement;
+};
+
+export function createWatchAppCtaEvent({
+  pagePath,
+  slug,
+  videoId,
+  locale,
+  sourceLang,
+  selectedLang,
+  placement,
+}: {
+  pagePath: string;
+  slug: string;
+  videoId: string;
+  locale: string;
+  sourceLang: string;
+  selectedLang: string;
+  placement: WatchAppCtaPlacement;
+}): WatchAppCtaEventPayload {
+  return {
+    event: "watch_app_cta",
+    page_path: pagePath,
+    slug,
+    video_id: videoId,
+    locale,
+    source_lang: sourceLang,
+    selected_lang: selectedLang,
+    placement,
+  };
+}

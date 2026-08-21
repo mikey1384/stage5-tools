@@ -3,17 +3,28 @@
 import { DownloadButton } from "./DownloadButton";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, type Locale } from "../lib/strings";
+import type { WatchAppCtaPlacement } from "../lib/analytics-events";
+
+interface WatchContext {
+  slug: string;
+  videoId: string;
+  sourceLang: string;
+  selectedLang: string;
+  placement: WatchAppCtaPlacement;
+}
 
 interface AllDownloadButtonsProps {
   locale: Locale;
   className?: string;
   surface?: "dark" | "light";
+  watchContext?: WatchContext;
 }
 
 export function AllDownloadButtons({
   locale,
   className = "",
   surface = "dark",
+  watchContext,
 }: AllDownloadButtonsProps) {
   const { platform } = usePlatformDetection();
 
@@ -35,6 +46,7 @@ export function AllDownloadButtons({
         size={isMacUser ? "normal" : "small"}
         surface={surface}
         badge={isMacUser ? t("homeDownloadRecommended", locale) : undefined}
+        watchContext={watchContext}
       />
       <DownloadButton
         label={`${t("download", locale)} (Intel)`}
@@ -44,6 +56,7 @@ export function AllDownloadButtons({
         variant="secondary"
         size="small"
         surface={surface}
+        watchContext={watchContext}
       />
       
       {/* Windows Download */}
@@ -56,6 +69,7 @@ export function AllDownloadButtons({
         size={isWindowsUser ? "normal" : "small"}
         surface={surface}
         badge={isWindowsUser ? t("homeDownloadRecommended", locale) : undefined}
+        watchContext={watchContext}
       />
     </div>
   );
