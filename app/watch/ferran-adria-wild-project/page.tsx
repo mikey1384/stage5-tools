@@ -274,11 +274,12 @@ export default function FerranAdriaWildProjectPage() {
                 About this post
               </h3>
               <p className="mt-3 text-base leading-7 text-gray-400">
-                This is a worked example showing how Translator helps you watch
-                foreign-language videos. The YouTube video is embedded directly
-                from the official source. We have not transcribed or translated
-                this video yet—this post explains the workflow so you can do it
-                yourself.
+                The YouTube video is embedded directly from the official source.
+                The first 30 seconds of English captions shown in the player are
+                YouTube&apos;s automatic captions, translated using Translator.
+                This is not a fresh transcription. The rest of the episode is not
+                published here—this post explains the workflow so you can
+                translate the full video yourself.
               </p>
               <p className="mt-3 text-base leading-7 text-gray-400">
                 Source: <em>The Wild Project</em> #287, hosted by Jordi Wild,
