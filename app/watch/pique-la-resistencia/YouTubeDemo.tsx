@@ -64,9 +64,9 @@ export function YouTubeDemo({
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const showOverlayRef = useRef(false);
+  const captionsRef = useRef<Caption[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
-  const [captions, setCaptions] = useState<Caption[]>([]);
   const [selectedLang, setSelectedLang] = useState<SupportedLang>(initialLang);
 
   useEffect(() => {
@@ -78,7 +78,10 @@ export function YouTubeDemo({
         if (response.ok) {
           const vttText = await response.text();
           const parsed = parseVTT(vttText);
-          setCaptions(parsed);
+          captionsRef.current = parsed;
+          if (playerRef.current) {
+            startTimeCheck();
+          }
         }
       } catch {
         // No captions available, continue without
@@ -186,8 +189,8 @@ export function YouTubeDemo({
 
       const currentTime = playerRef.current.getCurrentTime();
 
-      if (captions.length > 0) {
-        const caption = captions.find(
+      if (captionsRef.current.length > 0) {
+        const caption = captionsRef.current.find(
           (c) => currentTime >= c.start && currentTime <= c.end
         );
         setCurrentCaption(caption ? caption.text : "");
