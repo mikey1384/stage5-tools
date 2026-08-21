@@ -45,7 +45,21 @@ interface Caption {
 
 const CUTOFF_TIME = 30;
 
-export function YouTubeDemo({ locale }: { locale: "en" }) {
+type SupportedLang = "en" | "ko" | "pt";
+
+const LANGUAGE_LABELS: Record<SupportedLang, string> = {
+  en: "English",
+  ko: "한국어",
+  pt: "Português",
+};
+
+export function YouTubeDemo({
+  locale,
+  initialLang = "en",
+}: {
+  locale: "en";
+  initialLang?: SupportedLang;
+}) {
   const playerRef = useRef<YouTubePlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -53,12 +67,13 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
   const [captions, setCaptions] = useState<Caption[]>([]);
+  const [selectedLang, setSelectedLang] = useState<SupportedLang>(initialLang);
 
   useEffect(() => {
     const loadCaptions = async () => {
       try {
         const response = await fetch(
-          "/watch/ferran-adria-wild-project.en.30s.vtt"
+          `/watch/ferran-adria-wild-project.${selectedLang}.30s.vtt`
         );
         if (response.ok) {
           const vttText = await response.text();
@@ -71,7 +86,7 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
     };
 
     loadCaptions();
-  }, []);
+  }, [selectedLang]);
 
   useEffect(() => {
     if (typeof window.YT !== "undefined") {
@@ -205,10 +220,34 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
     setShowOverlay(false);
   };
 
+  const handleLanguageChange = (lang: SupportedLang) => {
+    setSelectedLang(lang);
+    setCurrentCaption("");
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", lang);
+    window.history.replaceState({}, "", url.toString());
+  };
+
   return (
     <div ref={containerRef} className="relative">
       <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
         <div id="youtube-player" className="h-full w-full" />
+
+        <div className="pointer-events-auto absolute right-4 top-4 flex gap-1 rounded-lg bg-black/80 p-1 shadow-lg">
+          {(["en", "ko", "pt"] as SupportedLang[]).map((lang) => (
+            <button
+              key={lang}
+              onClick={() => handleLanguageChange(lang)}
+              className={`rounded px-3 py-1 text-sm font-medium transition ${
+                selectedLang === lang
+                  ? "bg-white/20 text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {LANGUAGE_LABELS[lang]}
+            </button>
+          ))}
+        </div>
 
         {currentCaption && !showOverlay && (
           <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center px-4">

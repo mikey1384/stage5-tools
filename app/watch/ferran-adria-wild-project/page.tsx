@@ -64,8 +64,16 @@ const structuredData = {
   ],
 };
 
-export default function FerranAdriaWildProjectPage() {
+export default async function FerranAdriaWildProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const locale = "en" as const;
+  const params = await searchParams;
+  const rawLang = typeof params.lang === "string" ? params.lang : undefined;
+  const initialLang =
+    rawLang === "ko" || rawLang === "pt" ? rawLang : ("en" as const);
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -108,7 +116,7 @@ export default function FerranAdriaWildProjectPage() {
           </header>
 
           <div className="mx-auto max-w-4xl">
-            <YouTubeDemo locale={locale} />
+            <YouTubeDemo locale={locale} initialLang={initialLang} />
 
             <div className="prose prose-invert mt-12 max-w-none">
               <h2 className="text-3xl font-semibold text-white">
@@ -275,11 +283,12 @@ export default function FerranAdriaWildProjectPage() {
               </h3>
               <p className="mt-3 text-base leading-7 text-gray-400">
                 The YouTube video is embedded directly from the official source.
-                The first 30 seconds of English captions shown in the player are
-                YouTube&apos;s automatic captions, translated using Translator.
-                This is not a fresh transcription. The rest of the episode is not
-                published here—this post explains the workflow so you can
-                translate the full video yourself.
+                The first 30 seconds of captions shown in the player can be
+                displayed in English, Korean (한국어), or Portuguese (Português).
+                All three caption tracks are YouTube&apos;s automatic captions,
+                translated using Translator. This is not a fresh transcription.
+                The rest of the episode is not published here—this post explains
+                the workflow so you can translate the full video yourself.
               </p>
               <p className="mt-3 text-base leading-7 text-gray-400">
                 Source: <em>The Wild Project</em> #287, hosted by Jordi Wild,
