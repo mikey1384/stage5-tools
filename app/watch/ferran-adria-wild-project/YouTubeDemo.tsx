@@ -254,7 +254,7 @@ export function YouTubeDemo({
 
         {currentCaption && !showOverlay && (
           <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center px-4">
-            <div className="rounded-lg bg-black/90 px-4 py-2 text-center text-lg font-medium text-white shadow-lg">
+            <div className="rounded-lg bg-black/90 px-3 py-1.5 text-center text-sm font-medium text-white shadow-lg sm:px-4 sm:py-2 sm:text-base">
               {currentCaption}
             </div>
           </div>
