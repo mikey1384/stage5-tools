@@ -6,6 +6,7 @@ import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { buildMetadata } from "../../../lib/seo";
+import { YouTubeDemo } from "./YouTubeDemo";
 
 const title =
   "Watch Ferran Adrià's Wild Project Interview with English Subtitles | Translator";
@@ -107,18 +108,7 @@ export default function FerranAdriaWildProjectPage() {
           </header>
 
           <div className="mx-auto max-w-4xl">
-            <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/xzSOmaZGtiI"
-                title="The Wild Project #287 - Ferran Adrià"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                className="h-full w-full"
-              />
-            </div>
+            <YouTubeDemo locale={locale} />
 
             <div className="prose prose-invert mt-12 max-w-none">
               <h2 className="text-3xl font-semibold text-white">
@@ -146,7 +136,7 @@ export default function FerranAdriaWildProjectPage() {
               </p>
 
               <h2 className="mt-12 text-3xl font-semibold text-white">
-                How to watch it with English subtitles
+                How to watch the full interview with English subtitles
               </h2>
               <p className="text-lg leading-8 text-gray-300">
                 Translator is a desktop app that lets you download videos, add
