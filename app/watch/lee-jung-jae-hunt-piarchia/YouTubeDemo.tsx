@@ -67,7 +67,6 @@ export function YouTubeDemo({
   const captionsRef = useRef<Caption[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
-  const [captions, setCaptions] = useState<Caption[]>([]);
   const [selectedLang, setSelectedLang] = useState<SupportedLang>(initialLang);
 
   useEffect(() => {
@@ -79,7 +78,6 @@ export function YouTubeDemo({
         if (response.ok) {
           const vttText = await response.text();
           const parsed = parseVTT(vttText);
-          setCaptions(parsed);
           captionsRef.current = parsed;
           if (playerRef.current) {
             startTimeCheck();
