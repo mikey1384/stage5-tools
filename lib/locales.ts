@@ -118,6 +118,7 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
       "lee-jung-jae-hunt-piarchia",
       "yoo-ji-tae-piarchia",
       "kore-eda-piarchia",
+      "calvo-wild-project",
     ];
     
     if (watchSlugs.includes(slug)) {

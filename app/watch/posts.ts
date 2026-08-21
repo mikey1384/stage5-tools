@@ -76,6 +76,9 @@ export const posts: PostCard[] = [
       "Director Hirokazu Kore-eda discusses his film career with critic Lee Dong-jin. A Korean-language interview about filmmaking craft, looking back at works like Shoplifters, Nobody Knows, After Life, and Broker.",
     language: "Korean",
     topic: "Film",
+    sourceLang: "ko",
+    tracks: ["en", "es", "pt"],
+    supportedLocales: ["en", "es", "ko", "pt"],
   },
   {
     slug: "calvo-wild-project",
@@ -84,5 +87,8 @@ export const posts: PostCard[] = [
       "Spanish film critic Alejandro G. Calvo discusses the TOP 60 películas with Jordi Wild. A Spanish-language conversation about cinema that English speakers rarely get to hear.",
     language: "Spanish",
     topic: "Film",
+    sourceLang: "es",
+    tracks: ["en", "ko", "pt"],
+    supportedLocales: ["en", "es", "ko", "pt"],
   },
 ];
