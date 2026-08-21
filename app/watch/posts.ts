@@ -92,6 +92,17 @@ export const posts: PostCard[] = [
     supportedLocales: ["en", "es", "ko", "pt"],
   },
   {
+    slug: "nolan-colbert-oppenheimer",
+    title: "Christopher Nolan on The Late Show",
+    description:
+      "Director Christopher Nolan discusses Oppenheimer with Stephen Colbert during the 2024 awards season. The film received 13 Oscar nominations including Best Picture, Best Director, and Best Adapted Screenplay.",
+    language: "English",
+    topic: "Film",
+    sourceLang: "en",
+    tracks: ["en", "es", "ko", "pt"],
+    supportedLocales: ["en", "es", "ko", "pt"],
+  },
+  {
     slug: "ramsay-hot-ones",
     title: "Gordon Ramsay on Hot Ones",
     description:
