@@ -130,8 +130,8 @@ export default async function YooJiTaePiarchiaPage({
                 are Korean cinema landmarks. They&apos;re also the kind of
                 roles actors point to when explaining what they learned about
                 craft. Yoo Ji-tae was in both, playing wildly different
-                characters: the improv-driven relationship in Hong
-                Sang-soo&apos;s <em>One Fine Spring Day</em>, and the
+                characters: the improv-driven relationship in Hur
+                Jin-ho&apos;s <em>One Fine Spring Day</em>, and the
                 meticulously controlled antagonist Lee Woo-jin in Park
                 Chan-wook&apos;s <em>Oldboy</em>.
               </p>
@@ -140,11 +140,11 @@ export default async function YooJiTaePiarchiaPage({
                 critics. His YouTube show <em>Piarchia</em> (파이아키아) gives
                 actors and directors space to talk about their process without
                 the usual press junket constraints. This interview digs into
-                how Yoo approached these roles—improvising dialogue on set with
-                director Hong Sang-soo, the decision to drink during filming,
-                how to play a love scene sincerely, and building Lee Woo-jin as
-                a villain who stayed with viewers long after <em>Oldboy</em>{" "}
-                ended.
+                how Yoo approached these roles—improvising dialogue on set for{" "}
+                <em>One Fine Spring Day</em>, the decision to drink during
+                filming, how to play a love scene sincerely, and building Lee
+                Woo-jin as a villain who stayed with viewers long after{" "}
+                <em>Oldboy</em> ended.
               </p>
               <p className="text-lg leading-8 text-gray-300">
                 It&apos;s not promotional fluff. It&apos;s a conversation
