@@ -122,7 +122,7 @@ export default function FerranAdriaWildProjectPage() {
 
             <div className="prose prose-invert mt-12 max-w-none">
               <h2 className="text-3xl font-semibold text-white">
-                Why this interview matters
+                It&apos;s in Spanish
               </h2>
               <p className="text-lg leading-8 text-gray-300">
                 Ferran Adrià ran El Bulli, the restaurant that redefined what
@@ -140,9 +140,9 @@ export default function FerranAdriaWildProjectPage() {
                 what happens when that craft becomes art.
               </p>
               <p className="text-lg leading-8 text-gray-300">
-                The interview is in Spanish. If you don&apos;t speak Spanish,
-                you&apos;re missing one of the best food conversations
-                available on YouTube. That&apos;s where Translator comes in.
+                The interview is in Spanish, which means English speakers
+                bounce—and miss one of the best food conversations available
+                on YouTube.
               </p>
 
               <h2 className="mt-12 text-3xl font-semibold text-white">
