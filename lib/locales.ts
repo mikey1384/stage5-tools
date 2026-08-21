@@ -119,6 +119,7 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
       "yoo-ji-tae-piarchia",
       "kore-eda-piarchia",
       "calvo-wild-project",
+      "nolan-colbert-oppenheimer",
     ];
     
     if (watchSlugs.includes(slug)) {
