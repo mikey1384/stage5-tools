@@ -285,10 +285,10 @@ export default async function FerranAdriaWildProjectPage({
                 The YouTube video is embedded directly from the official source.
                 The first 30 seconds of captions shown in the player can be
                 displayed in English, Korean (한국어), or Portuguese (Português).
-                All three caption tracks are YouTube&apos;s automatic captions,
-                translated using Translator. This is not a fresh transcription.
-                The rest of the episode is not published here—this post explains
-                the workflow so you can translate the full video yourself.
+                All three caption tracks were transcribed and translated in
+                Translator (first 30 seconds only). The rest of the episode is not
+                published here—this post explains the workflow so you can
+                translate the full video yourself.
               </p>
               <p className="mt-3 text-base leading-7 text-gray-400">
                 Source: <em>The Wild Project</em> #287, hosted by Jordi Wild,
