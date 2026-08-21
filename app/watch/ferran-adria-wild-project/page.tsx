@@ -64,13 +64,14 @@ const structuredData = {
   ],
 };
 
-export default function FerranAdriaWildProjectPage({
+export default async function FerranAdriaWildProjectPage({
   searchParams,
 }: {
-  searchParams: { lang?: string };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const locale = "en" as const;
-  const rawLang = searchParams?.lang;
+  const params = await searchParams;
+  const rawLang = typeof params.lang === "string" ? params.lang : undefined;
   const initialLang =
     rawLang === "ko" || rawLang === "pt" ? rawLang : ("en" as const);
 
