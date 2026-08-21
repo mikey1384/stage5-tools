@@ -33,6 +33,7 @@ interface YouTubePlayer {
   playVideo: () => void;
   pauseVideo: () => void;
   getCurrentTime: () => number;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   destroy: () => void;
 }
 
@@ -48,6 +49,7 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
   const playerRef = useRef<YouTubePlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const showOverlayRef = useRef(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
   const [captions, setCaptions] = useState<Caption[]>([]);
@@ -176,8 +178,9 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
         setCurrentCaption(caption ? caption.text : "");
       }
 
-      if (currentTime >= CUTOFF_TIME && !showOverlay) {
+      if (currentTime >= CUTOFF_TIME && !showOverlayRef.current) {
         playerRef.current.pauseVideo();
+        showOverlayRef.current = true;
         setShowOverlay(true);
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
@@ -188,14 +191,17 @@ export function YouTubeDemo({ locale }: { locale: "en" }) {
 
   const handleReplay = () => {
     if (playerRef.current) {
+      showOverlayRef.current = false;
       setShowOverlay(false);
       setCurrentCaption("");
+      playerRef.current.seekTo(0, true);
       playerRef.current.playVideo();
       startTimeCheck();
     }
   };
 
   const handleDismiss = () => {
+    showOverlayRef.current = false;
     setShowOverlay(false);
   };
 
