@@ -39,4 +39,12 @@ export const posts: PostCard[] = [
     language: "Korean",
     topic: "Film",
   },
+  {
+    slug: "yoo-ji-tae-piarchia",
+    title: "Yoo Ji-tae on Lee Dong-jin's Piarchia",
+    description:
+      "Actor Yoo Ji-tae discusses One Fine Spring Day and Oldboy with film critic Lee Dong-jin. A Korean-language interview about improvisation, love scenes, and creating Lee Woo-jin.",
+    language: "Korean",
+    topic: "Film",
+  },
 ];
