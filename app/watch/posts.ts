@@ -23,4 +23,12 @@ export const posts: PostCard[] = [
     language: "Spanish",
     topic: "Sports",
   },
+  {
+    slug: "park-chan-wook-lee-dong-jin",
+    title: "Park Chan-wook on Lee Dong-jin's Piarchia",
+    description:
+      "Director Park Chan-wook discusses Decision to Leave with film critic Lee Dong-jin. A Korean-language interview about filmmaking, misunderstandings, and craft that English speakers rarely get to see.",
+    language: "Korean",
+    topic: "Film",
+  },
 ];
