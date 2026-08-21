@@ -4,6 +4,7 @@ import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { buildMetadata } from "../../lib/seo";
+import { posts } from "./posts";
 
 const title = "Watch: Worked examples | Translator";
 const description =
@@ -22,33 +23,6 @@ export const metadata: Metadata = buildMetadata({
   ],
   locale: "en",
 });
-
-interface PostCard {
-  slug: string;
-  title: string;
-  description: string;
-  language: string;
-  topic: string;
-}
-
-const posts: PostCard[] = [
-  {
-    slug: "ferran-adria-wild-project",
-    title: "Ferran Adrià on The Wild Project",
-    description:
-      "The legendary El Bulli chef talks about creativity, craft, and building something that changes how people think about food.",
-    language: "Spanish",
-    topic: "Food & Craft",
-  },
-  {
-    slug: "pique-la-resistencia",
-    title: "Gerard Piqué on La Resistencia",
-    description:
-      "Barcelona defender invited himself onto Spanish late-night TV via Twitter. Most English speakers bounce off because it's in Spanish—they miss Broncano's crude opening, football talk, and the net worth comment that became a headline.",
-    language: "Spanish",
-    topic: "Sports",
-  },
-];
 
 export default function WatchIndexPage() {
   const locale = "en" as const;
