@@ -11,33 +11,33 @@ import { getLocale } from "../../../lib/get-locale";
 import { homeHrefForLocale, localizePathForLocale } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
 import { posts } from "../posts";
-import { parkChanWookLeeDongJinCopy } from "./copy";
+import { nolanColbertOppenheimerCopy } from "./copy";
 
-const post = posts.find((p) => p.slug === "park-chan-wook-lee-dong-jin")!;
+const post = posts.find((p) => p.slug === "nolan-colbert-oppenheimer")!;
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
+  const copy = nolanColbertOppenheimerCopy[locale as keyof typeof nolanColbertOppenheimerCopy];
   if (!copy) {
     notFound();
   }
   return buildMetadata({
     title: copy.title,
     description: copy.description,
-    path: "/watch/park-chan-wook-lee-dong-jin",
+    path: "/watch/nolan-colbert-oppenheimer",
     keywords: copy.keywords,
     locale,
   });
 }
 
-export default async function ParkChanWookLeeDongJinPage({
+export default async function NolanColbertOppenheimerPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  const copy = parkChanWookLeeDongJinCopy[locale as keyof typeof parkChanWookLeeDongJinCopy];
+  const copy = nolanColbertOppenheimerCopy[locale as keyof typeof nolanColbertOppenheimerCopy];
   if (!copy) {
     notFound();
   }
@@ -49,20 +49,20 @@ export default async function ParkChanWookLeeDongJinPage({
     "@type": "Article",
     headline: copy.h1,
     description: copy.description,
-    url: `https://translator.tools${localizeHref("/watch/park-chan-wook-lee-dong-jin")}`,
+    url: `https://translator.tools${localizeHref("/watch/nolan-colbert-oppenheimer")}`,
     datePublished: "2026-08-21",
     author: { "@type": "Organization", name: "Stage5 Tools" },
     publisher: { "@type": "Organization", name: "Stage5 Tools", url: "https://translator.tools" },
     about: [
-      { "@type": "Person", name: "Park Chan-wook", description: "Director known for Oldboy, The Handmaiden, Decision to Leave" },
+      { "@type": "Person", name: "Christopher Nolan", description: "Film director, writer, and producer" },
+      { "@type": "Person", name: "Stephen Colbert", description: "Host of The Late Show" },
       {
         "@type": "VideoObject",
-        name: "박찬욱 감독님을 모셨습니다!!!",
+        name: "Why \"Oppenheimer\" Writer And Director Christopher Nolan Carries A Burner Phone | The Late Show with Stephen Colbert",
         description: copy.description,
-        contentUrl: "https://www.youtube.com/watch?v=CjVz6F62T4w",
-        embedUrl: "https://www.youtube.com/embed/CjVz6F62T4w",
-        inLanguage: "ko",
-        duration: "PT1H11M46S",
+        contentUrl: "https://www.youtube.com/watch?v=WGH8RMbrGLM",
+        embedUrl: "https://www.youtube.com/embed/WGH8RMbrGLM",
+        inLanguage: "en",
       },
     ],
   };
@@ -94,7 +94,7 @@ export default async function ParkChanWookLeeDongJinPage({
               <span className="text-gray-700">·</span>
               <span>{post.topic}</span>
               <span className="text-gray-700">·</span>
-              <span>Lee Dong-jin&apos;s Piarchia</span>
+              <span>The Late Show</span>
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
               {copy.h1}
@@ -106,10 +106,11 @@ export default async function ParkChanWookLeeDongJinPage({
             <YouTubeDemo
               locale={locale}
               slug={post.slug}
-              videoId="CjVz6F62T4w"
+              videoId="WGH8RMbrGLM"
               sourceLang={post.sourceLang}
               availableTracks={post.tracks}
               videoDownloaderHref={localizeHref("/video-downloader")}
+              vttSlug="WGH8RMbrGLM"
             />
 
             <div className="prose prose-invert mt-12 max-w-none">
@@ -130,7 +131,7 @@ export default async function ParkChanWookLeeDongJinPage({
               </ol>
 
               <p className="mt-8 text-lg leading-8 text-gray-300">
-                The video stays on your computer. You&apos;re not streaming it through a web app or uploading it to someone else&apos;s server. Translator works locally.
+                {copy.howToNote}
               </p>
 
               <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
@@ -169,7 +170,7 @@ export default async function ParkChanWookLeeDongJinPage({
                 className="mt-8"
                 watchContext={{
                   slug: post.slug,
-                  videoId: "CjVz6F62T4w",
+                  videoId: "WGH8RMbrGLM",
                   sourceLang: post.sourceLang,
                   selectedLang: "off",
                   placement: "body",

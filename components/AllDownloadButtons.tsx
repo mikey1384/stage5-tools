@@ -3,14 +3,14 @@
 import { DownloadButton } from "./DownloadButton";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, type Locale } from "../lib/strings";
-import type { TrackLang } from "../app/watch/posts";
+import type { WatchAppCtaPlacement } from "../lib/analytics-events";
 
 interface WatchContext {
   slug: string;
   videoId: string;
-  sourceLang: TrackLang;
-  selectedLang: TrackLang | "off";
-  placement: string;
+  sourceLang: string;
+  selectedLang: string;
+  placement: WatchAppCtaPlacement;
 }
 
 interface AllDownloadButtonsProps {

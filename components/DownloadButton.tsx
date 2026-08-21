@@ -1,25 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { trackDownload } from "../lib/analytics";
-import type { TrackLang } from "../app/watch/posts";
-
-declare global {
-  interface Window {
-    gtag?: (
-      command: string,
-      eventName: string,
-      params: Record<string, unknown>
-    ) => void;
-  }
-}
+import { trackDownload, trackWatchAppCta } from "../lib/analytics";
+import { createWatchAppCtaEvent } from "../lib/analytics-events";
+import type { WatchAppCtaPlacement } from "../lib/analytics-events";
 
 interface WatchContext {
   slug: string;
   videoId: string;
-  sourceLang: TrackLang;
-  selectedLang: TrackLang | "off";
-  placement: string;
+  sourceLang: string;
+  selectedLang: string;
+  placement: WatchAppCtaPlacement;
 }
 
 interface DownloadButtonProps {
@@ -76,17 +67,27 @@ export function DownloadButton({
       page_path: window.location.pathname,
     });
 
-    // Fire watch_app_cta when watchContext is provided
-    if (watchContext && typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "watch_app_cta", {
-        slug: watchContext.slug,
-        video_id: watchContext.videoId,
-        source_lang: watchContext.sourceLang,
-        selected_lang: watchContext.selectedLang,
-        placement: watchContext.placement,
-        platform: normalizedPlatform,
-        architecture,
-      });
+    if (watchContext) {
+      const pagePath = window.location.pathname;
+      trackWatchAppCta(
+        createWatchAppCtaEvent({
+          pagePath,
+          slug: watchContext.slug,
+          videoId: watchContext.videoId,
+          locale: pagePath.startsWith("/en")
+            ? "en"
+            : pagePath.startsWith("/es")
+              ? "es"
+              : pagePath.startsWith("/ko")
+                ? "ko"
+                : pagePath.startsWith("/pt")
+                  ? "pt"
+                  : "en",
+          sourceLang: watchContext.sourceLang,
+          selectedLang: watchContext.selectedLang,
+          placement: watchContext.placement,
+        })
+      );
     }
   };
 

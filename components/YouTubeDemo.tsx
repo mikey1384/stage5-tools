@@ -5,6 +5,16 @@ import Link from "next/link";
 import { FeatureDownloadCta } from "./FeatureDownloadCta";
 import type { Locale } from "../lib/locales";
 import type { TrackLang } from "../app/watch/posts";
+import {
+  createWatchCutoffEvent,
+  createWatchLangChangeEvent,
+  createWatchPlayEvent,
+} from "../lib/analytics-events";
+import {
+  trackWatchCutoff,
+  trackWatchLangChange,
+  trackWatchPlay,
+} from "../lib/analytics";
 
 declare global {
   interface Window {
@@ -110,6 +120,7 @@ export function YouTubeDemo({
   };
 
   const [selectedLang, setSelectedLang] = useState<TrackLang | "off">(getInitialLang);
+  const hasPlayedRef = useRef(false);
 
   useEffect(() => {
     if (selectedLang === "off") {
@@ -220,6 +231,20 @@ export function YouTubeDemo({
         onStateChange: (event) => {
           if (event.data === window.YT.PlayerState.PLAYING) {
             startTimeCheck();
+            if (!hasPlayedRef.current) {
+              hasPlayedRef.current = true;
+              const pagePath = typeof window !== "undefined" ? window.location.pathname : "";
+              trackWatchPlay(
+                createWatchPlayEvent({
+                  pagePath,
+                  slug,
+                  videoId,
+                  locale,
+                  sourceLang,
+                  selectedLang: selectedLang === "off" ? "off" : selectedLang,
+                })
+              );
+            }
           }
         },
       },
@@ -252,6 +277,17 @@ export function YouTubeDemo({
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
+        const pagePath = typeof window !== "undefined" ? window.location.pathname : "";
+        trackWatchCutoff(
+          createWatchCutoffEvent({
+            pagePath,
+            slug,
+            videoId,
+            locale,
+            sourceLang,
+            selectedLang: selectedLang === "off" ? "off" : selectedLang,
+          })
+        );
       }
     }, 100);
   };
@@ -273,6 +309,7 @@ export function YouTubeDemo({
   };
 
   const handleLanguageChange = (lang: TrackLang | "off") => {
+    const fromLang = selectedLang;
     setSelectedLang(lang);
     setCurrentCaption("");
     const url = new URL(window.location.href);
@@ -282,6 +319,22 @@ export function YouTubeDemo({
       url.searchParams.set("lang", lang);
     }
     window.history.replaceState({}, "", url.toString());
+    
+    if (fromLang !== lang) {
+      const pagePath = typeof window !== "undefined" ? window.location.pathname : "";
+      trackWatchLangChange(
+        createWatchLangChangeEvent({
+          pagePath,
+          slug,
+          videoId,
+          locale,
+          sourceLang,
+          selectedLang: lang === "off" ? "off" : lang,
+          fromLang: fromLang === "off" ? "off" : fromLang,
+          toLang: lang === "off" ? "off" : lang,
+        })
+      );
+    }
   };
 
   const allLanguageOptions: Array<TrackLang | "off"> = [
@@ -333,6 +386,13 @@ export function YouTubeDemo({
                   locale={locale}
                   note="Download the video and add translated subtitles"
                   align="center"
+                  watchContext={{
+                    slug,
+                    videoId,
+                    sourceLang,
+                    selectedLang: selectedLang === "off" ? "off" : selectedLang,
+                    placement: "cutoff",
+                  }}
                 />
                 <Link
                   href={videoDownloaderHref}

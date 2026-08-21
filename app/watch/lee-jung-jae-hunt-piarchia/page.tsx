@@ -192,6 +192,13 @@ export default async function LeeJungJaeHuntPiarchiaPage({
                 note="Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key."
                 align="start"
                 className="mt-8"
+                watchContext={{
+                  slug: post.slug,
+                  videoId: "mF6xumJOVss",
+                  sourceLang: post.sourceLang,
+                  selectedLang: "off",
+                  placement: "body",
+                }}
               />
             </div>
 
