@@ -211,13 +211,6 @@ export default async function RamsayHotOnesPage({
                 note={copy.ctaNote}
                 align="start"
                 className="mt-8"
-                watchContext={{
-                  slug: post.slug,
-                  videoId: "U9DyHthJ6LA",
-                  sourceLang: post.sourceLang,
-                  selectedLang: "off",
-                  placement: "body",
-                }}
               />
             </div>
 
