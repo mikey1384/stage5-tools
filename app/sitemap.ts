@@ -25,6 +25,8 @@ const routes: RouteDef[] = [
   { path: "/agents" },
   { path: "/watch" },
   { path: "/watch/ferran-adria-wild-project" },
+  { path: "/watch/pique-la-resistencia" },
+  { path: "/watch/park-chan-wook-lee-dong-jin" },
   { path: "/about" },
   { path: "/contact" },
   { path: "/privacy" },
