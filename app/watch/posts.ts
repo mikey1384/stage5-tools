@@ -31,4 +31,12 @@ export const posts: PostCard[] = [
     language: "Korean",
     topic: "Film",
   },
+  {
+    slug: "lee-jung-jae-hunt-piarchia",
+    title: "Lee Jung-jae on Lee Dong-jin's Piarchia",
+    description:
+      "Actor-turned-director Lee Jung-jae discusses Hunt, his directorial debut, with film critic Lee Dong-jin. A Korean-language interview about directing for the first time, action sequences, and working with actors.",
+    language: "Korean",
+    topic: "Film",
+  },
 ];
