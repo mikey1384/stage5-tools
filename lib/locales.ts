@@ -32,7 +32,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/terms",
   "/echo",
 ]);
-const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
+const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/watch"]);
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
   "/contact",
   "/privacy",
