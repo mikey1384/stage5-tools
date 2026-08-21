@@ -23,6 +23,8 @@ const routes: RouteDef[] = [
   { path: "/faq" },
   { path: "/open-source" },
   { path: "/agents" },
+  { path: "/watch" },
+  { path: "/watch/ferran-adria-wild-project" },
   { path: "/about" },
   { path: "/contact" },
   { path: "/privacy" },

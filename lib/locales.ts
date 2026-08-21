@@ -32,7 +32,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/terms",
   "/echo",
 ]);
-const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
+const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/watch"]);
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
   "/contact",
   "/privacy",
@@ -107,6 +107,9 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
 
   if (locale === DEFAULT_LOCALE) return true;
   if (ENGLISH_ONLY_PATHS.has(normalizedEnglishPath)) return false;
+  for (const englishOnlyPath of ENGLISH_ONLY_PATHS) {
+    if (normalizedEnglishPath.startsWith(englishOnlyPath + "/")) return false;
+  }
   if (locale === "ko") return true;
   if (
     locale === "es" ||
