@@ -13,15 +13,18 @@ import {
   localizePathForLocale,
 } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
-import { getVideo, getAllSlugs, type WatchLocale } from "../../../lib/watch";
+import { getCatalogEntry, getAllCatalogSlugsSync } from "../../../lib/watch/catalog-loader";
+import type { WatchLocale } from "../../../lib/watch";
 
+// Enable on-demand rendering for new slugs from R2 without rebuild
 export const dynamicParams = true;
+export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const slugs = getAllSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
+export function generateStaticParams() {
+  // Pre-generate known slugs from bundled catalog as a warm set
+  // New slugs from R2 will work via dynamicParams=true
+  const slugs = getAllCatalogSlugsSync();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +33,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const video = getVideo({ slug });
+  const video = await getCatalogEntry(slug);
   
   if (!video) {
     notFound();
@@ -63,7 +66,7 @@ export default async function WatchPage({
   const searchParamsValue = await searchParams;
   const locale = await getLocale(searchParamsValue);
   
-  const video = getVideo({ slug });
+  const video = await getCatalogEntry(slug);
   
   if (!video) {
     notFound();
@@ -149,11 +152,12 @@ export default async function WatchPage({
           <div className="mx-auto max-w-4xl">
             <YouTubeDemo
               locale={locale}
-              slug={video.slug}
+              slug={slug}
               videoId={video.videoId}
               sourceLang={video.sourceLang}
               availableTracks={video.tracks}
               videoDownloaderHref={localizeHref("/video-downloader")}
+              vttSlug={video.vttSlug}
             />
 
             <div className="prose prose-invert mt-12 max-w-none">
@@ -204,6 +208,19 @@ export default async function WatchPage({
                 </ul>
               </div>
 
+              {copy.contentTitle && (
+                <>
+                  <h2 className="mt-12 text-3xl font-semibold text-white">
+                    {copy.contentTitle}
+                  </h2>
+                  {copy.contentBody && copy.contentBody.map((paragraph, i) => (
+                    <p key={i} className="text-lg leading-8 text-gray-300">
+                      {paragraph}
+                    </p>
+                  ))}
+                </>
+              )}
+
               <h2 className="mt-12 text-3xl font-semibold text-white">
                 {copy.section2Title}
               </h2>
@@ -212,19 +229,6 @@ export default async function WatchPage({
                   {paragraph}
                 </p>
               ))}
-
-              {copy.contentTitle && (
-                <>
-                  <h2 className="mt-12 text-3xl font-semibold text-white">
-                    {copy.contentTitle}
-                  </h2>
-                  {copy.contentBody?.map((paragraph, i) => (
-                    <p key={i} className="text-lg leading-8 text-gray-300">
-                      {paragraph}
-                    </p>
-                  ))}
-                </>
-              )}
             </div>
 
             <div className="mt-16 border-t border-white/10 pt-12">
@@ -248,7 +252,7 @@ export default async function WatchPage({
                 align="start"
                 className="mt-8"
                 watchContext={{
-                  slug: video.slug,
+                  slug,
                   videoId: video.videoId,
                   sourceLang: video.sourceLang,
                   selectedLang: "off",

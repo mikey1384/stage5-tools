@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { indexableLocalesForPath, localizePathForLocale } from "../lib/locales";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
-import { posts as watchPosts } from "../app/watch/posts";
+import { getAllCatalogSlugsSync } from "../lib/watch/catalog-loader";
 
 const BASE_URL = "https://translator.tools";
 
@@ -9,6 +9,7 @@ type RouteDef = {
   path: string;
 };
 
+// Use sync bundled catalog for sitemap generation
 const routes: RouteDef[] = [
   { path: "/" },
   { path: "/video-discovery" },
@@ -25,8 +26,8 @@ const routes: RouteDef[] = [
   { path: "/open-source" },
   { path: "/agents" },
   { path: "/watch" },
-  ...watchPosts.map((post) => ({
-    path: `/watch/${post.slug}`,
+  ...getAllCatalogSlugsSync().map((slug) => ({
+    path: `/watch/${slug}`,
   })),
   { path: "/about" },
   { path: "/contact" },

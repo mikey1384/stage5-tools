@@ -132,7 +132,7 @@ export function YouTubeDemo({
     const loadCaptions = async () => {
       try {
         const vttPath = vttSlug || slug;
-        const response = await fetch(`/watch/${vttPath}.${selectedLang}.30s.vtt`);
+        const response = await fetch(`/api/watch-vtt/${vttPath}.${selectedLang}.30s.vtt`);
         if (response.ok) {
           const vttText = await response.text();
           const parsed = parseVTT(vttText);
@@ -147,6 +147,7 @@ export function YouTubeDemo({
     };
 
     loadCaptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLang, slug, vttSlug]);
 
   useEffect(() => {
@@ -172,6 +173,7 @@ export function YouTubeDemo({
         playerRef.current.destroy();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const parseVTT = (vtt: string): Caption[] => {
