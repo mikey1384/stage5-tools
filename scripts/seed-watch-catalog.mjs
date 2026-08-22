@@ -4,10 +4,9 @@
  * Seed the R2 watch catalog with all current watch pages.
  * 
  * This one-time script:
- * 1. Scans app/watch/* directories for existing pages
- * 2. Reads copy.ts files to build catalog entries
- * 3. Uploads all public/watch/*.vtt files to R2
- * 4. Uploads the complete catalog.json to R2
+ * 1. Loads the real catalog from lib/watch (with correct IDs + real locale copy)
+ * 2. Uploads all public/watch/*.vtt files to R2
+ * 3. Uploads the complete catalog.json to R2
  * 
  * Usage:
  *   node scripts/seed-watch-catalog.mjs
@@ -21,7 +20,12 @@
 
 import { readFile, readdir } from "fs/promises";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const projectRoot = join(__dirname, "..");
 
 const R2_BUCKET = process.env.R2_BUCKET || "ai-translator-downloads";
 const R2_ENDPOINT = process.env.R2_ENDPOINT;
@@ -44,107 +48,40 @@ const s3 = new S3Client({
   },
 });
 
-// Hardcoded mappings from existing pages
-const watchEntries = [
-  {
-    slug: "ferran-adria-wild-project",
-    videoId: "ferran-adria-wild-project",
-    vttSlug: "ferran-adria-wild-project",
-    sourceLang: "es",
-    tracks: ["en", "ko", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "pique-la-resistencia",
-    videoId: "pique-la-resistencia",
-    vttSlug: "pique-la-resistencia",
-    sourceLang: "es",
-    tracks: ["en", "ko", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "park-chan-wook-lee-dong-jin",
-    videoId: "park-chan-wook-lee-dong-jin",
-    vttSlug: "park-chan-wook-lee-dong-jin",
-    sourceLang: "ko",
-    tracks: ["en", "es", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "lee-jung-jae-hunt-piarchia",
-    videoId: "lee-jung-jae-hunt-piarchia",
-    vttSlug: "lee-jung-jae-hunt-piarchia",
-    sourceLang: "ko",
-    tracks: ["en", "es", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "yoo-ji-tae-piarchia",
-    videoId: "yoo-ji-tae-piarchia",
-    vttSlug: "yoo-ji-tae-piarchia",
-    sourceLang: "ko",
-    tracks: ["en", "es", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "kore-eda-piarchia",
-    videoId: "kore-eda-piarchia",
-    vttSlug: "kore-eda-piarchia",
-    sourceLang: "ko",
-    tracks: ["en", "es", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "calvo-wild-project",
-    videoId: "WGH8RMbrGLM",
-    vttSlug: "WGH8RMbrGLM",
-    sourceLang: "es",
-    tracks: ["en", "ko", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "nolan-colbert-oppenheimer",
-    videoId: "WGH8RMbrGLM",
-    vttSlug: "WGH8RMbrGLM",
-    sourceLang: "en",
-    tracks: ["en", "es", "ko", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-  {
-    slug: "ramsay-hot-ones",
-    videoId: "U9DyHthJ6LA",
-    vttSlug: "U9DyHthJ6LA",
-    sourceLang: "en",
-    tracks: ["en", "es", "ko", "pt"],
-    supportedLocales: ["en", "es", "ko", "pt"],
-  },
-];
-
-async function loadCopyFile(slug) {
-  try {
-    const copyPath = join(process.cwd(), "app", "watch", slug, "copy.ts");
-    const copyContent = await readFile(copyPath, "utf-8");
-    
-    // Extract the copy object using a simple regex
-    // This is a hack for the seed script - in production, copy would be in JSON
-    const match = copyContent.match(/export const \w+Copy: Record<SupportedLocale, WatchPageCopy> = ({[\s\S]*?});[\s]*$/m);
-    if (!match) {
-      console.warn(`Could not parse copy file for ${slug}`);
-      return null;
-    }
-    
-    // For the seed script, we'll just create placeholder copy
-    // In a real scenario, this would be converted to JSON ahead of time
-    return {
-      en: { title: slug, description: slug, keywords: [], h1: slug, intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-      es: { title: slug, description: slug, keywords: [], h1: slug, intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-      ko: { title: slug, description: slug, keywords: [], h1: slug, intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-      pt: { title: slug, description: slug, keywords: [], h1: slug, intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-    };
-  } catch (error) {
-    console.warn(`Could not load copy file for ${slug}:`, error.message);
-    return null;
+async function loadCatalogFromLib() {
+  // Import the catalog module dynamically
+  const catalogModule = await import(join(projectRoot, "lib/watch/index.ts"));
+  const getAllVideos = catalogModule.getAllVideos;
+  
+  if (typeof getAllVideos !== "function") {
+    throw new Error("Could not load getAllVideos from lib/watch");
   }
+  
+  const catalog = getAllVideos();
+  console.log(`Loaded ${catalog.length} videos from lib/watch catalog`);
+  
+  // Verify IDs match expected table
+  const expectedIds = {
+    "ferran-adria-wild-project": "xzSOmaZGtiI",
+    "pique-la-resistencia": "AcGwBcHPMPQ",
+    "park-chan-wook-lee-dong-jin": "CjVz6F62T4w",
+    "lee-jung-jae-hunt-piarchia": "mF6xumJOVss",
+    "yoo-ji-tae-piarchia": "PYY10Yq50bA",
+    "kore-eda-piarchia": "j29oHrGMmtY",
+    "calvo-wild-project": "Wk_4tQOvdWU",
+    "nolan-colbert-oppenheimer": "WGH8RMbrGLM",
+    "ramsay-hot-ones": "U9DyHthJ6LA",
+  };
+  
+  for (const video of catalog) {
+    if (expectedIds[video.slug] && video.videoId !== expectedIds[video.slug]) {
+      console.error(`ERROR: ${video.slug} has videoId ${video.videoId}, expected ${expectedIds[video.slug]}`);
+      process.exit(1);
+    }
+  }
+  
+  console.log("✓ All video IDs verified against expected table");
+  return catalog;
 }
 
 async function uploadVtt(vttPath, fileName) {
@@ -174,30 +111,12 @@ async function uploadCatalog(catalog) {
 }
 
 async function seed() {
-  console.log("Building catalog from existing watch pages...");
-  
-  const catalog = [];
-  
-  for (const entry of watchEntries) {
-    console.log(`Processing ${entry.slug}...`);
-    const copy = await loadCopyFile(entry.slug);
-    
-    catalog.push({
-      ...entry,
-      copy: copy || {
-        en: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-        es: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-        ko: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-        pt: { title: "", description: "", keywords: [], h1: "", intro: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], howToNote: "", pricingTitle: "", pricingFree: "", pricingPaid: "", freeLabel: "", paidLabel: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", ctaNote: "", aboutTitle: "", aboutBody: [], language: "", topic: "" },
-      },
-    });
-  }
-  
-  console.log(`\nBuilt catalog with ${catalog.length} entries`);
+  console.log("Loading catalog from lib/watch (real IDs + real locale copy)...");
+  const catalog = await loadCatalogFromLib();
   
   // Upload VTT files
   console.log("\nUploading VTT files from public/watch...");
-  const publicWatchDir = join(process.cwd(), "public", "watch");
+  const publicWatchDir = join(projectRoot, "public", "watch");
   const files = await readdir(publicWatchDir);
   const vttFiles = files.filter((f) => f.endsWith(".vtt"));
   
@@ -212,8 +131,11 @@ async function seed() {
   await uploadCatalog(catalog);
   
   console.log("\n✓ Seed complete");
-  console.log(`Catalog: ${catalog.length} entries`);
+  console.log(`Catalog: ${catalog.length} entries with real IDs and real locale copy`);
   console.log(`VTT files: ${vttFiles.length}`);
+  console.log("\nPublic URLs:");
+  console.log("  Catalog: https://downloads.stage5.tools/watch/catalog.json");
+  console.log("  VTTs: https://downloads.stage5.tools/watch/vtt/{vttSlug}.{lang}.30s.vtt");
 }
 
 seed().catch((error) => {

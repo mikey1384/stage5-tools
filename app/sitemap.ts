@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { indexableLocalesForPath, localizePathForLocale } from "../lib/locales";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
-import { getAllCatalogSlugs } from "../lib/watch/catalog-loader";
+import { getAllCatalogSlugsSync } from "../lib/watch/catalog-loader";
 
 const BASE_URL = "https://translator.tools";
 
@@ -9,41 +9,37 @@ type RouteDef = {
   path: string;
 };
 
-async function getRoutes(): Promise<RouteDef[]> {
-  const watchSlugs = await getAllCatalogSlugs();
-  
-  return [
-    { path: "/" },
-    { path: "/video-discovery" },
-    { path: "/dubbing" },
-    { path: "/video-downloader" },
-    { path: "/subtitle-editor" },
-    { path: "/translate" },
-    ...TRANSLATED_LANGUAGE_SLUGS.map((slug) => ({
-      path: `/translate/${slug}`,
-    })),
-    { path: "/echo" },
-    { path: "/pricing" },
-    { path: "/faq" },
-    { path: "/open-source" },
-    { path: "/agents" },
-    { path: "/watch" },
-    ...watchSlugs.map((slug) => ({
-      path: `/watch/${slug}`,
-    })),
-    { path: "/about" },
-    { path: "/contact" },
-    { path: "/privacy" },
-    { path: "/terms" },
-  ];
-}
+// Use sync bundled catalog for sitemap generation
+const routes: RouteDef[] = [
+  { path: "/" },
+  { path: "/video-discovery" },
+  { path: "/dubbing" },
+  { path: "/video-downloader" },
+  { path: "/subtitle-editor" },
+  { path: "/translate" },
+  ...TRANSLATED_LANGUAGE_SLUGS.map((slug) => ({
+    path: `/translate/${slug}`,
+  })),
+  { path: "/echo" },
+  { path: "/pricing" },
+  { path: "/faq" },
+  { path: "/open-source" },
+  { path: "/agents" },
+  { path: "/watch" },
+  ...getAllCatalogSlugsSync().map((slug) => ({
+    path: `/watch/${slug}`,
+  })),
+  { path: "/about" },
+  { path: "/contact" },
+  { path: "/privacy" },
+  { path: "/terms" },
+];
 
 function absoluteUrl(path: string): string {
   return new URL(path, BASE_URL).toString();
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const routes = await getRoutes();
+export default function sitemap(): MetadataRoute.Sitemap {
   return routes.flatMap((route) => {
     const availableLocales = indexableLocalesForPath(route.path);
     const englishUrl = absoluteUrl(localizePathForLocale("en", route.path));

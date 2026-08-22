@@ -1,5 +1,6 @@
-import type { WatchCatalogEntry } from "./types";
+import type { WatchCatalogEntry } from "./catalog";
 import { getBundledCatalog } from "./bundled-catalog";
+import { getVideo as getBundledVideo, getAllSlugs as getBundledSlugs } from "./index";
 
 // Runtime catalog cache
 let catalogCache: WatchCatalogEntry[] | null = null;
@@ -47,10 +48,19 @@ export async function loadWatchCatalog(): Promise<WatchCatalogEntry[]> {
 
 /**
  * Get catalog entry by slug (async).
+ * Tries R2 first, falls back to bundled catalog.
  */
-export async function getCatalogEntry(slug: string): Promise<WatchCatalogEntry | null> {
+export async function getCatalogEntry(slug: string): Promise<WatchCatalogEntry | undefined> {
   const catalog = await loadWatchCatalog();
-  return catalog.find(entry => entry.slug === slug) || null;
+  return catalog.find(entry => entry.slug === slug);
+}
+
+/**
+ * Get catalog entry by slug (sync fallback only).
+ * Only uses bundled catalog - for use in sync contexts.
+ */
+export function getCatalogEntrySync(slug: string): WatchCatalogEntry | undefined {
+  return getBundledVideo({ slug });
 }
 
 /**
@@ -59,4 +69,11 @@ export async function getCatalogEntry(slug: string): Promise<WatchCatalogEntry |
 export async function getAllCatalogSlugs(): Promise<string[]> {
   const catalog = await loadWatchCatalog();
   return catalog.map(entry => entry.slug);
+}
+
+/**
+ * Get all slugs from bundled catalog (sync).
+ */
+export function getAllCatalogSlugsSync(): string[] {
+  return getBundledSlugs();
 }
