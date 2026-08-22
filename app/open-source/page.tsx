@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import type { Metadata } from "next";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { GitHubRepositoryLink } from "../../components/GitHubRepositoryLink";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
+import { serializeJsonLd } from "../../lib/json-ld";
 import {
   TRANSLATOR_ISSUES_URL,
   TRANSLATOR_LICENSE_URL,
@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "https://translator.tools/open-source",
+    languages: {
+      "x-default": "https://translator.tools/open-source",
+      en: "https://translator.tools/open-source",
+    },
   },
   openGraph: {
     title,
@@ -130,12 +134,11 @@ export default function OpenSourcePage() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080a] text-[#f3f1e9] selection:bg-[#ff5a9d] selection:text-black">
-      <Script
+      <script
         id="open-source-structured-data"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(sourceStructuredData),
+          __html: serializeJsonLd(sourceStructuredData),
         }}
       />
 

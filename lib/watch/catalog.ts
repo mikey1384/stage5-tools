@@ -1,7 +1,11 @@
-import type { Locale } from "../locales";
+import { isLocale, type Locale } from "../locales";
+import {
+  getWatchSourceLanguageLabel,
+  getWatchTopicLabel,
+} from "./ui-copy";
 
-export type WatchLocale = "en" | "es" | "ko" | "pt" | "vi";
-export type TrackLang = WatchLocale;
+export type WatchLocale = Locale;
+export type TrackLang = Locale;
 
 export interface WatchPageCopy {
   title: string;
@@ -9,6 +13,7 @@ export interface WatchPageCopy {
   keywords: string[];
   h1: string;
   intro: string;
+  eyebrow?: string;
   section1Title: string;
   section1Body: string[];
   section2Title: string;
@@ -36,8 +41,8 @@ export interface WatchVideoMetadata {
   slug: string;
   videoId: string;
   vttSlug: string;
-  sourceLang: WatchLocale;
-  tracks: WatchLocale[];
+  sourceLang: TrackLang;
+  tracks: TrackLang[];
   supportedLocales: Locale[];
   language: string;
   topic: string;
@@ -47,21 +52,133 @@ export interface WatchVideoMetadata {
 }
 
 export interface WatchCatalogEntry extends WatchVideoMetadata {
-  copy: Record<WatchLocale, WatchPageCopy>;
+  copy: Partial<Record<WatchLocale, WatchPageCopy>> & {
+    en: WatchPageCopy;
+  };
 }
 
 export interface PostCard {
   slug: string;
   title: string;
   description: string;
+  eyebrow?: string;
   language: string;
   topic: string;
-  sourceLang: WatchLocale;
-  tracks: WatchLocale[];
+  sourceLang: TrackLang;
+  tracks: TrackLang[];
   supportedLocales: Locale[];
 }
 
 const catalog: Record<string, WatchCatalogEntry> = {};
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isStringArray(value: unknown, allowEmpty = false): value is string[] {
+  return (
+    Array.isArray(value) &&
+    (allowEmpty || value.length > 0) &&
+    value.every(isNonEmptyString)
+  );
+}
+
+function isOptionalNonEmptyString(value: unknown): boolean {
+  return value === undefined || isNonEmptyString(value);
+}
+
+export function isCompleteWatchPageCopy(
+  value: unknown,
+): value is WatchPageCopy {
+  if (!value || typeof value !== "object") return false;
+  const copy = value as Record<string, unknown>;
+  const requiredStrings = [
+    "title",
+    "description",
+    "h1",
+    "intro",
+    "section1Title",
+    "section2Title",
+    "howToTitle",
+    "howToBody",
+    "pricingTitle",
+    "pricingFree",
+    "pricingPaid",
+    "downloadTitle",
+    "downloadBody",
+    "aboutTitle",
+  ];
+  if (!requiredStrings.every((field) => isNonEmptyString(copy[field]))) {
+    return false;
+  }
+  if (!isStringArray(copy.keywords)) return false;
+  if (!isStringArray(copy.section1Body)) return false;
+  if (!isStringArray(copy.section2Body)) return false;
+  if (!isStringArray(copy.aboutBody)) return false;
+  if (
+    ![
+      "eyebrow",
+      "howToNote",
+      "freeLabel",
+      "paidLabel",
+      "contentTitle",
+      "downloadLinkText",
+      "ctaNote",
+    ].every((field) => isOptionalNonEmptyString(copy[field]))
+  ) {
+    return false;
+  }
+  if (
+    !Array.isArray(copy.howToSteps) ||
+    copy.howToSteps.length === 0 ||
+    !copy.howToSteps.every(
+      (step) =>
+        !!step &&
+        typeof step === "object" &&
+        isNonEmptyString((step as Record<string, unknown>).title) &&
+        isNonEmptyString((step as Record<string, unknown>).body),
+    )
+  ) {
+    return false;
+  }
+  const hasContentTitle = copy.contentTitle !== undefined;
+  const hasContentBody = copy.contentBody !== undefined;
+  if (hasContentTitle !== hasContentBody) return false;
+  if (hasContentBody && !isStringArray(copy.contentBody)) {
+    return false;
+  }
+  return true;
+}
+
+export function getWatchSupportedLocales(
+  video: WatchCatalogEntry,
+): Locale[] {
+  return [...new Set(video.supportedLocales)].filter(
+    (locale) =>
+      isLocale(locale) && isCompleteWatchPageCopy(video.copy[locale]),
+  );
+}
+
+export function getPostCardForLocale(
+  video: WatchCatalogEntry,
+  locale: Locale,
+): PostCard | undefined {
+  if (!getWatchSupportedLocales(video).includes(locale)) return undefined;
+  const copy = video.copy[locale];
+  if (!copy) return undefined;
+
+  return {
+    slug: video.slug,
+    title: copy.h1,
+    description: copy.description,
+    eyebrow: copy.eyebrow,
+    language: getWatchSourceLanguageLabel(locale, video.language),
+    topic: getWatchTopicLabel(locale, video.topic),
+    sourceLang: video.sourceLang,
+    tracks: video.tracks,
+    supportedLocales: getWatchSupportedLocales(video),
+  };
+}
 
 export function registerVideo({ entry }: { entry: WatchCatalogEntry }): void {
   catalog[entry.slug] = entry;

@@ -14,11 +14,13 @@ import {
   localeFromPathname,
   localizePathForLocale,
   homeHrefForLocale,
+  isEnglishOnlyPath,
   type Locale,
 } from "./lib/locales";
 
 const LOCALE_COOKIE = "lang";
 const LOCALE_HEADER = "x-stage5-locale";
+const LOCALE_REWRITE_HEADER = "x-stage5-locale-rewrite";
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
 function getCookieLocale(req: NextRequest): Locale | undefined {
@@ -56,7 +58,7 @@ function isCrawlerRequest(req: NextRequest): boolean {
 function isLocaleRedirectExcludedRoute(englishPath: string): boolean {
   // The /echo landing page is localized; /echo/* legal and support pages are English-only.
   return (
-    englishPath === "/agents" ||
+    isEnglishOnlyPath(englishPath) ||
     englishPath.startsWith("/echo/") ||
     englishPath.startsWith("/checkout")
   );
@@ -127,6 +129,7 @@ export function middleware(req: NextRequest) {
 
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set(LOCALE_HEADER, pathLocale);
+    requestHeaders.set(LOCALE_REWRITE_HEADER, "1");
 
     const res = NextResponse.rewrite(rewriteUrl, {
       request: {
@@ -202,6 +205,10 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next|favicon.ico|icon.svg|robots.txt|sitemap.xml|.*\\..*).*)",
+    {
+      source:
+        "/((?!api|_next|favicon.ico|icon.svg|robots.txt|sitemap.xml|.*\\..*).*)",
+      missing: [{ type: "header", key: "x-stage5-locale-rewrite" }],
+    },
   ],
 };

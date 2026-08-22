@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { trackDownload, trackWatchAppCta } from "../lib/analytics";
-import { createWatchAppCtaEvent } from "../lib/analytics-events";
+import {
+  createWatchAppCtaEvent,
+  resolveWatchSelectedLanguage,
+} from "../lib/analytics-events";
 import type { WatchAppCtaPlacement } from "../lib/analytics-events";
 
 interface WatchContext {
   slug: string;
   videoId: string;
+  locale: string;
   sourceLang: string;
   selectedLang: string;
   placement: WatchAppCtaPlacement;
@@ -69,22 +73,18 @@ export function DownloadButton({
 
     if (watchContext) {
       const pagePath = window.location.pathname;
+      const selectedLang = resolveWatchSelectedLanguage(
+        new URLSearchParams(window.location.search).get("lang"),
+        watchContext.selectedLang,
+      );
       trackWatchAppCta(
         createWatchAppCtaEvent({
           pagePath,
           slug: watchContext.slug,
           videoId: watchContext.videoId,
-          locale: pagePath.startsWith("/en")
-            ? "en"
-            : pagePath.startsWith("/es")
-              ? "es"
-              : pagePath.startsWith("/ko")
-                ? "ko"
-                : pagePath.startsWith("/pt")
-                  ? "pt"
-                  : "en",
+          locale: watchContext.locale,
           sourceLang: watchContext.sourceLang,
-          selectedLang: watchContext.selectedLang,
+          selectedLang,
           placement: watchContext.placement,
         })
       );

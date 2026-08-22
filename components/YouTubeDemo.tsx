@@ -4,17 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { FeatureDownloadCta } from "./FeatureDownloadCta";
 import type { Locale } from "../lib/locales";
-import type { TrackLang } from "../app/watch/posts";
+import type { TrackLang } from "../lib/watch";
 import {
+  createWatchCaptionLoadEvent,
   createWatchCutoffEvent,
   createWatchLangChangeEvent,
   createWatchPlayEvent,
 } from "../lib/analytics-events";
 import {
+  trackWatchCaptionLoad,
   trackWatchCutoff,
   trackWatchLangChange,
   trackWatchPlay,
 } from "../lib/analytics";
+import {
+  getWatchUiCopy,
+  WATCH_LANGUAGE_LABELS,
+} from "../lib/watch/ui-copy";
 
 declare global {
   interface Window {
@@ -57,20 +63,13 @@ interface Caption {
 
 const CUTOFF_TIME = 30;
 
-const LANGUAGE_LABELS: Record<TrackLang, string> = {
-  en: "English",
-  es: "Español",
-  ko: "한국어",
-  pt: "Português",
-  vi: "Tiếng Việt",
-};
-
 interface YouTubeDemoProps {
   locale: Locale;
   slug: string;
   videoId: string;
   sourceLang: TrackLang;
   availableTracks: TrackLang[];
+  initialSelectedLang: TrackLang | "off";
   videoDownloaderHref: string;
   vttSlug?: string;
 }
@@ -81,9 +80,11 @@ export function YouTubeDemo({
   videoId,
   sourceLang,
   availableTracks,
+  initialSelectedLang,
   videoDownloaderHref,
   vttSlug,
 }: YouTubeDemoProps) {
+  const uiCopy = getWatchUiCopy(locale);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -91,37 +92,15 @@ export function YouTubeDemo({
   const captionsRef = useRef<Caption[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
-  
-  // Determine initial selected language
-  const getInitialLang = (): TrackLang | "off" => {
-    // Check URL param
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const langParam = params.get("lang");
-      if (langParam) {
-        if (langParam === "off") return "off";
-        if (availableTracks.includes(langParam as TrackLang)) {
-          return langParam as TrackLang;
-        }
-      }
-    }
-    
-    // If page locale is the source language, default to "off"
-    if (locale === sourceLang) {
-      return "off";
-    }
-    
-    // If page locale is a supported track, use it
-    if (availableTracks.includes(locale as TrackLang)) {
-      return locale as TrackLang;
-    }
-    
-    // Default to "en" if available, else first track
-    return availableTracks.includes("en") ? "en" : availableTracks[0];
-  };
 
-  const [selectedLang, setSelectedLang] = useState<TrackLang | "off">(getInitialLang);
+  const [selectedLang, setSelectedLang] =
+    useState<TrackLang | "off">(initialSelectedLang);
+  const selectedLangRef = useRef<TrackLang | "off">(selectedLang);
   const hasPlayedRef = useRef(false);
+
+  useEffect(() => {
+    selectedLangRef.current = selectedLang;
+  }, [selectedLang]);
 
   useEffect(() => {
     if (selectedLang === "off") {
@@ -130,41 +109,99 @@ export function YouTubeDemo({
       return;
     }
 
+    const controller = new AbortController();
+    let isCurrentRequest = true;
+
     const loadCaptions = async () => {
+      captionsRef.current = [];
       try {
         const vttPath = vttSlug || slug;
-        const response = await fetch(`/api/watch-vtt/${vttPath}.${selectedLang}.30s.vtt`);
+        const response = await fetch(
+          `/api/watch-vtt/${vttPath}.${selectedLang}.30s.vtt`,
+          { signal: controller.signal },
+        );
+        if (!isCurrentRequest) return;
         if (response.ok) {
           const vttText = await response.text();
+          if (!isCurrentRequest) return;
           const parsed = parseVTT(vttText);
           captionsRef.current = parsed;
+          trackWatchCaptionLoad(
+            createWatchCaptionLoadEvent({
+              pagePath: window.location.pathname,
+              slug,
+              videoId,
+              locale,
+              sourceLang,
+              selectedLang,
+              loadStatus: parsed.length > 0 ? "success" : "empty",
+              httpStatus: response.status,
+            }),
+          );
           if (playerRef.current) {
             startTimeCheck();
           }
+        } else {
+          trackWatchCaptionLoad(
+            createWatchCaptionLoadEvent({
+              pagePath: window.location.pathname,
+              slug,
+              videoId,
+              locale,
+              sourceLang,
+              selectedLang,
+              loadStatus: "http_error",
+              httpStatus: response.status,
+            }),
+          );
         }
       } catch {
-        // No captions available, continue without
+        if (!isCurrentRequest || controller.signal.aborted) return;
+        trackWatchCaptionLoad(
+          createWatchCaptionLoadEvent({
+            pagePath: window.location.pathname,
+            slug,
+            videoId,
+            locale,
+            sourceLang,
+            selectedLang,
+            loadStatus: "network_error",
+          }),
+        );
       }
     };
 
-    loadCaptions();
+    void loadCaptions();
+    return () => {
+      isCurrentRequest = false;
+      controller.abort();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedLang, slug, vttSlug]);
+  }, [locale, selectedLang, slug, sourceLang, videoId, vttSlug]);
 
   useEffect(() => {
+    const previousReadyHandler = window.onYouTubeIframeAPIReady;
+    let installedReadyHandler:
+      | (() => void)
+      | undefined;
+
     if (typeof window.YT !== "undefined") {
       initPlayer();
-      return;
+    } else {
+      if (!document.getElementById("youtube-iframe-api")) {
+        const tag = document.createElement("script");
+        tag.id = "youtube-iframe-api";
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+      }
+
+      installedReadyHandler = () => {
+        previousReadyHandler?.();
+        initPlayer();
+      };
+      window.onYouTubeIframeAPIReady = installedReadyHandler;
     }
-
-    const tag = document.createElement("script");
-    tag.src = "https://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName("script")[0];
-    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-    window.onYouTubeIframeAPIReady = () => {
-      initPlayer();
-    };
 
     return () => {
       if (intervalRef.current) {
@@ -172,6 +209,13 @@ export function YouTubeDemo({
       }
       if (playerRef.current) {
         playerRef.current.destroy();
+        playerRef.current = null;
+      }
+      if (
+        installedReadyHandler &&
+        window.onYouTubeIframeAPIReady === installedReadyHandler
+      ) {
+        window.onYouTubeIframeAPIReady = previousReadyHandler;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -244,7 +288,7 @@ export function YouTubeDemo({
                   videoId,
                   locale,
                   sourceLang,
-                  selectedLang: selectedLang === "off" ? "off" : selectedLang,
+                  selectedLang: selectedLangRef.current,
                 })
               );
             }
@@ -264,7 +308,7 @@ export function YouTubeDemo({
 
       const currentTime = playerRef.current.getCurrentTime();
 
-      if (captionsRef.current.length > 0 && selectedLang !== "off") {
+      if (captionsRef.current.length > 0 && selectedLangRef.current !== "off") {
         const caption = captionsRef.current.find(
           (c) => currentTime >= c.start && currentTime <= c.end
         );
@@ -288,7 +332,7 @@ export function YouTubeDemo({
             videoId,
             locale,
             sourceLang,
-            selectedLang: selectedLang === "off" ? "off" : selectedLang,
+            selectedLang: selectedLangRef.current,
           })
         );
       }
@@ -313,6 +357,7 @@ export function YouTubeDemo({
 
   const handleLanguageChange = (lang: TrackLang | "off") => {
     const fromLang = selectedLang;
+    selectedLangRef.current = lang;
     setSelectedLang(lang);
     setCurrentCaption("");
     const url = new URL(window.location.href);
@@ -350,7 +395,10 @@ export function YouTubeDemo({
       <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
         <div id={`youtube-player-${slug}`} className="h-full w-full" />
 
-        <div className="pointer-events-auto absolute right-4 top-4 flex gap-1 rounded-lg bg-black/80 p-1 shadow-lg">
+        <div
+          aria-label={uiCopy.captionLanguageLabel}
+          className="pointer-events-auto absolute right-4 top-4 flex gap-1 rounded-lg bg-black/80 p-1 shadow-lg"
+        >
           {allLanguageOptions.map((lang) => (
             <button
               key={lang}
@@ -361,7 +409,7 @@ export function YouTubeDemo({
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              {lang === "off" ? "Off" : LANGUAGE_LABELS[lang]}
+              {lang === "off" ? uiCopy.off : WATCH_LANGUAGE_LABELS[lang]}
             </button>
           ))}
         </div>
@@ -378,20 +426,21 @@ export function YouTubeDemo({
           <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
             <div className="mx-4 max-w-2xl rounded-2xl border border-white/10 bg-black/90 p-8 text-center">
               <h3 className="text-2xl font-semibold text-white">
-                First 30 seconds
+                {uiCopy.firstThirtySeconds}
               </h3>
               <p className="mt-4 text-lg text-gray-300">
-                The rest of the translation happens in Translator.
+                {uiCopy.restInTranslator}
               </p>
 
               <div className="mt-8 flex flex-col gap-4">
                 <FeatureDownloadCta
                   locale={locale}
-                  note="Download the video and add translated subtitles"
+                  note={uiCopy.playerDownloadNote}
                   align="center"
                   watchContext={{
                     slug,
                     videoId,
+                    locale,
                     sourceLang,
                     selectedLang: selectedLang === "off" ? "off" : selectedLang,
                     placement: "cutoff",
@@ -401,7 +450,7 @@ export function YouTubeDemo({
                   href={videoDownloaderHref}
                   className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
                 >
-                  Learn about video downloading →
+                  {uiCopy.learnVideoDownloading}
                 </Link>
               </div>
 
@@ -410,14 +459,14 @@ export function YouTubeDemo({
                   onClick={handleReplay}
                   className="text-gray-400 transition hover:text-white"
                 >
-                  Replay first 30s
+                  {uiCopy.replay}
                 </button>
                 <span className="text-gray-700">·</span>
                 <button
                   onClick={handleDismiss}
                   className="text-gray-400 transition hover:text-white"
                 >
-                  Dismiss
+                  {uiCopy.dismiss}
                 </button>
               </div>
             </div>

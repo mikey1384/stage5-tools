@@ -7,6 +7,7 @@ import type { WatchAppCtaPlacement } from "../lib/analytics-events";
 interface WatchContext {
   slug: string;
   videoId: string;
+  locale: string;
   sourceLang: string;
   selectedLang: string;
   placement: WatchAppCtaPlacement;

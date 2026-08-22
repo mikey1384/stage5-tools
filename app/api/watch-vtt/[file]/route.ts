@@ -12,8 +12,8 @@ export async function GET(
 ) {
   const { file } = await params;
 
-  // Sanitize filename: must be alphanumeric + dots/hyphens/underscores, ending in .30s.vtt
-  if (!/^[A-Za-z0-9._-]+\.30s\.vtt$/.test(file)) {
+  // Match the catalog naming contract exactly and reject traversal/unknown locales.
+  if (!/^[A-Za-z0-9_-]+\.(?:en|ko|es|ja|zh|fr|de|pt|vi)\.30s\.vtt$/.test(file)) {
     return new NextResponse("Invalid VTT file format", { status: 400 });
   }
 
@@ -32,10 +32,13 @@ export async function GET(
           status: 200,
           headers: {
             "Content-Type": "text/vtt",
-            "Cache-Control": "public, max-age=3600",
+            "Cache-Control":
+              "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+            "X-Watch-VTT-Source": "r2",
           },
         });
       }
+      console.warn(`VTT request failed with HTTP ${response.status}: ${file}`);
     } catch (error) {
       console.warn(`Failed to fetch VTT from R2: ${file}`, error);
       // Fall through to public fallback
@@ -53,7 +56,9 @@ export async function GET(
         status: 200,
         headers: {
           "Content-Type": "text/vtt",
-          "Cache-Control": "public, max-age=3600",
+          "Cache-Control":
+            "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+          "X-Watch-VTT-Source": "bundled",
         },
       });
     }

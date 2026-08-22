@@ -10,6 +10,7 @@ All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 
 | Change committed | Production live      | ID               | What changed                                                      | Commit    |
 | ---------------- | -------------------- | ---------------- | ----------------------------------------------------------------- | --------- |
+| 2026-08-22 20:26 | Not deployed         | LP-2026-08-22-01 | Made the complete R2 Watch catalog discoverable and measurable    | This release |
 | 2026-08-15 06:08 | 2026-08-15 06:18     | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | `42e4b59` |
 | 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                   | `2504290` |
 | 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ    | `4eb8148` |
@@ -81,6 +82,47 @@ Seven-day landing-page signals:
 Small localized samples are directional, not proof. The Chinese FAQ is the
 clearest measurable handoff gap: it attracts search demand but has not yet shown
 a recorded next step.
+
+## LP-2026-08-22-01 — R2 Watch discovery and preview measurement
+
+- Commit: this release commit — `Harden R2 watch SEO localization and telemetry`.
+- Change: made every valid R2 catalog entry available on the localized Watch
+  indexes and detail routes without requiring a rebuild. Added exact canonical
+  and language alternates, server-rendered Article and VideoObject structured
+  data, localized navigation and preview controls, exhaustive sitemap output,
+  strict VTT/catalog validation, and bounded playback, cutoff, language,
+  caption-delivery, and app-CTA diagnostics. AdSense remains a separate rollout
+  gate and is not part of the pre-release measurement claim.
+- Hypothesis: search visitors who land on a correctly localized, playable Watch
+  preview will reach the desktop-app CTA at a measurable rate, while catalog and
+  caption health telemetry will distinguish acquisition friction from delivery
+  failures.
+- Locked baseline: the production sitemap exposed 50 Watch URLs (five indexes
+  plus nine bundled entries in five page locales) while R2 contained 39 entries.
+  No reliable Watch funnel baseline exists: the published GTM trigger did not
+  forward any of the Watch data-layer events before this release. Do not infer a
+  zero-event conversion rate from that instrumentation gap.
+- Primary read: `watch_app_cta / Watch detail session`, segmented by placement,
+  locale, selected caption language, landing source/medium, and device. Supporting
+  reads are organic Watch landing sessions, `watch_play`, `watch_cutoff`, and
+  `watch_caption_load` success/error mix. None is a download, activation, or
+  purchase authority.
+- Guardrails: every catalog-backed sitemap URL returns 200 with an exact
+  canonical and hreflang set; unsupported locale/copy combinations return 404;
+  every declared VTT returns nonempty `text/vtt`; no customer content enters
+  telemetry; Watch indexes remain free of the AdSense loader; and app downloads,
+  `app_open`, `app_meaningful_use`, and settled `purchase` remain authoritative
+  downstream measures.
+- Verification: analytics tests passed 10/10, Watch validation/runtime tests
+  passed 7/7, JSON-LD safety passed 1/1, the production build and Cloudflare
+  adapter build passed, and an exhaustive Pages-artifact audit using the live R2
+  binding passed 358 sitemap URLs, 195 Watch detail URLs, all 39 index cards per
+  locale, and all 123 declared caption files. No production deployment or GTM
+  publication has occurred.
+- Earliest reads: seven and 28 full days after both the Pages release and the
+  corresponding GTM event-forwarding version are verified live. Require at least
+  100 eligible Watch detail sessions before interpreting a small CTA rate.
+- Outcome: pending.
 
 ## LP-2026-08-15-01 — Measured agent workflow routing
 

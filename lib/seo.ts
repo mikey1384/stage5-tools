@@ -3,6 +3,7 @@ import {
   DEFAULT_LOCALE,
   indexableLocalesForPath,
   localizePathForLocale,
+  localizeSupportedPathForLocale,
   openGraphLocaleByLocale,
   shouldIndexLocalePath,
   type Locale,
@@ -23,6 +24,7 @@ interface BuildMetadataProps {
   path: string;
   keywords: string[];
   locale?: Locale;
+  availableLocales?: readonly Locale[];
 }
 
 interface BuildSoftwareApplicationStructuredDataProps {
@@ -42,23 +44,32 @@ export function buildMetadata({
   path,
   keywords,
   locale = "en",
+  availableLocales,
 }: BuildMetadataProps): Metadata {
   const englishPath = path.startsWith("/") ? path : `/${path}`;
-  const canonicalPath = localizePathForLocale(locale, englishPath);
+  const canonicalPath = availableLocales
+    ? localizeSupportedPathForLocale(locale, englishPath)
+    : localizePathForLocale(locale, englishPath);
   const canonicalUrl = new URL(canonicalPath, BASE_URL).toString();
-  const availableLocales = indexableLocalesForPath(englishPath);
-  const shouldIndex = shouldIndexLocalePath(locale, englishPath);
+  const resolvedAvailableLocales = availableLocales
+    ? [...new Set([DEFAULT_LOCALE, ...availableLocales])]
+    : indexableLocalesForPath(englishPath);
+  const shouldIndex = availableLocales
+    ? resolvedAvailableLocales.includes(locale)
+    : shouldIndexLocalePath(locale, englishPath);
   const languageUrls = Object.fromEntries(
-    availableLocales.map((supportedLocale) => [
+    resolvedAvailableLocales.map((supportedLocale) => [
       supportedLocale,
       new URL(
-        localizePathForLocale(supportedLocale, englishPath),
+        availableLocales
+          ? localizeSupportedPathForLocale(supportedLocale, englishPath)
+          : localizePathForLocale(supportedLocale, englishPath),
         BASE_URL,
       ).toString(),
     ]),
   ) as Record<string, string>;
   const ogLocale = openGraphLocaleByLocale[locale];
-  const alternateOgLocale = availableLocales
+  const alternateOgLocale = resolvedAvailableLocales
     .filter((supportedLocale) => supportedLocale !== locale)
     .map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
 

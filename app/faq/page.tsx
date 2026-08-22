@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { FaqIntentLinks } from "../../components/FaqIntentLinks";
@@ -8,6 +7,7 @@ import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { serializeJsonLd } from "../../lib/json-ld";
 import { homeHrefForLocale, localizePathForLocale } from "../../lib/locale-routing";
 import type { Locale } from "../../lib/locales";
 import { buildMetadata } from "../../lib/seo";
@@ -427,11 +427,10 @@ export default async function FAQPage({
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Script
+      <script
         id="faq-structured-data"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqStructuredData) }}
       />
 
       <div className="container mx-auto px-6">

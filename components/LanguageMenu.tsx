@@ -13,17 +13,23 @@ import {
   isLocale,
   isFullSiteLocale,
   localeFromPathname,
+  localeOptions,
   localeOptionsForPath,
   localizePathForLocale,
+  localizeSupportedPathForLocale,
   supportsLocalePath,
   type Locale,
 } from "../lib/locales";
 
 interface LanguageMenuProps {
   className?: string;
+  supportedLocales?: readonly Locale[];
 }
 
-export function LanguageMenu({ className }: LanguageMenuProps) {
+export function LanguageMenu({
+  className,
+  supportedLocales,
+}: LanguageMenuProps) {
   const pathname = usePathname();
   const params = useSearchParams();
   const pathLocale = localeFromPathname(pathname);
@@ -34,9 +40,14 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
       : parseLocaleCookie(document.cookie);
   const [isChanging, setIsChanging] = useState(false);
   const englishPath = englishPathFor(pathname);
-  const availableOptions = localeOptionsForPath(pathname);
+  const availableOptions = supportedLocales
+    ? localeOptions.filter(({ locale }) => supportedLocales.includes(locale))
+    : localeOptionsForPath(pathname);
   const supportsCurrentRoute = (locale: Locale | undefined): locale is Locale =>
-    !!locale && supportsLocalePath(locale, englishPath);
+    !!locale &&
+    (supportedLocales
+      ? supportedLocales.includes(locale)
+      : supportsLocalePath(locale, englishPath));
   const domLocale =
     typeof document !== "undefined"
       ? ((document.documentElement.lang as Locale) ?? DEFAULT_LOCALE)
@@ -70,7 +81,9 @@ export function LanguageMenu({ className }: LanguageMenuProps) {
     nextParams.delete("l");
 
     const newPathname = isFullSiteLocale(lang)
-      ? localizePathForLocale(lang, pathname)
+      ? supportedLocales?.includes(lang)
+        ? localizeSupportedPathForLocale(lang, pathname)
+        : localizePathForLocale(lang, pathname)
       : homeHrefForLocale(lang);
 
     const queryString = nextParams.toString();

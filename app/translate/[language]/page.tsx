@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../../components/HeroDownloadActions";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { getLocale } from "../../../lib/get-locale";
+import { serializeJsonLd } from "../../../lib/json-ld";
 import {
   getLanguagePageContent,
   translatedLanguageSlugs,
@@ -88,20 +88,18 @@ export default async function LanguagePage({
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Script
+      <script
         id="structured-data-language-translate"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(softwareApplicationStructuredData),
+          __html: serializeJsonLd(softwareApplicationStructuredData),
         }}
       />
-      <Script
+      <script
         id="structured-data-language-breadcrumbs"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbStructuredData),
+          __html: serializeJsonLd(breadcrumbStructuredData),
         }}
       />
       <div className="container mx-auto px-6">

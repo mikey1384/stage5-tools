@@ -3,6 +3,7 @@ import type { Locale } from "./locales";
 type LegalSection = {
   title: string;
   body: string;
+  links?: Array<{ label: string; href: string }>;
 };
 
 type LegalPageContent = {
@@ -418,6 +419,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         body: "We only share data with trusted providers needed to deliver services (such as hosting, analytics, and payment processing).",
       },
       {
+        title: "Advertising, cookies, and your choices",
+        body: "Translator Watch pages may display ads served by Google and its advertising partners. Those parties may place or read cookies, or use web beacons, IP addresses, and other identifiers, to deliver, measure, and personalize ads based on visits to this and other sites, subject to your consent choices and applicable law. You can manage personalized advertising in Google Ads Settings.",
+        links: [
+          {
+            label: "How Google uses data on partner sites",
+            href: "https://policies.google.com/technologies/partner-sites",
+          },
+          {
+            label: "Google Ads Settings",
+            href: "https://adssettings.google.com/",
+          },
+        ],
+      },
+      {
         title: "Data retention",
         body: "We retain data only as long as needed to provide the service and comply with legal obligations.",
       },
@@ -456,6 +471,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         title: "제3자 제공",
         body: "호스팅, 분석, 결제 처리 등 서비스 제공에 필요한 범위에서 신뢰할 수 있는 파트너에게만 정보를 공유합니다.",
+      },
+      {
+        title: "광고, 쿠키 및 선택권",
+        body: "Translator의 Watch 페이지에는 Google 및 Google의 광고 파트너가 제공하는 광고가 표시될 수 있습니다. 해당 업체는 사용자의 동의 선택과 관련 법률에 따라 이 사이트 및 다른 사이트 방문을 기반으로 광고를 제공, 측정, 맞춤설정하기 위해 쿠키를 저장하거나 읽고 웹 비콘, IP 주소 및 기타 식별자를 사용할 수 있습니다. Google 광고 설정에서 맞춤 광고를 관리할 수 있습니다.",
+        links: [
+          {
+            label: "Google 파트너 사이트에서의 데이터 사용 방식",
+            href: "https://policies.google.com/technologies/partner-sites?hl=ko",
+          },
+          {
+            label: "Google 광고 설정",
+            href: "https://adssettings.google.com/",
+          },
+        ],
       },
       {
         title: "보관 기간",
@@ -502,6 +531,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         body: "Solo compartimos datos con proveedores de confianza necesarios para prestar el servicio, como alojamiento, analítica y procesamiento de pagos.",
       },
       {
+        title: "Publicidad, cookies y tus opciones",
+        body: "Las páginas Watch de Translator pueden mostrar anuncios de Google y sus socios publicitarios. Estas partes pueden colocar o leer cookies, o utilizar balizas web, direcciones IP y otros identificadores, para publicar, medir y personalizar anuncios según las visitas a este y otros sitios, de acuerdo con tus opciones de consentimiento y la legislación aplicable. Puedes administrar la publicidad personalizada en la Configuración de anuncios de Google.",
+        links: [
+          {
+            label: "Cómo utiliza Google los datos en sitios asociados",
+            href: "https://policies.google.com/technologies/partner-sites?hl=es",
+          },
+          {
+            label: "Configuración de anuncios de Google",
+            href: "https://adssettings.google.com/",
+          },
+        ],
+      },
+      {
         title: "Conservación de datos",
         body: "Conservamos los datos solo durante el tiempo necesario para prestar el servicio y cumplir con obligaciones legales.",
       },
@@ -542,6 +585,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         body: "当社は、ホスティング、分析、決済処理など、サービス提供に必要な信頼できる事業者とのみデータを共有します。",
       },
       {
+        title: "広告、Cookie、および選択肢",
+        body: "Translator の Watch ページには、Google およびその広告パートナーが配信する広告が表示される場合があります。これらの事業者は、利用者の同意設定および適用法に従い、このサイトや他のサイトへの訪問に基づいて広告を配信、測定、パーソナライズするため、Cookie の保存や読み取り、ウェブビーコン、IP アドレス、その他の識別子を使用することがあります。パーソナライズ広告は Google の広告設定で管理できます。",
+        links: [
+          {
+            label: "パートナーサイトでの Google によるデータ使用",
+            href: "https://policies.google.com/technologies/partner-sites?hl=ja",
+          },
+          {
+            label: "Google 広告設定",
+            href: "https://adssettings.google.com/",
+          },
+        ],
+      },
+      {
         title: "データの保持",
         body: "当社は、サービス提供および法的義務の履行に必要な期間に限りデータを保持します。",
       },
@@ -580,6 +637,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         title: "共享与第三方",
         body: "我们只会与提供服务所必需的可信合作方共享数据，例如托管、分析和支付处理服务商。",
+      },
+      {
+        title: "广告、Cookie 与你的选择",
+        body: "Translator 的 Watch 页面可能会显示由 Google 及其广告合作伙伴投放的广告。在遵循你的同意选择和适用法律的前提下，这些第三方可能会放置或读取 Cookie，或使用网络信标、IP 地址及其他标识符，根据你对本网站及其他网站的访问来投放、衡量和个性化广告。你可以在 Google 广告设置中管理个性化广告。",
+        links: [
+          {
+            label: "Google 如何使用合作伙伴网站的数据",
+            href: "https://policies.google.com/technologies/partner-sites?hl=zh-CN",
+          },
+          {
+            label: "Google 广告设置",
+            href: "https://adssettings.google.com/",
+          },
+        ],
       },
       {
         title: "数据保留",
@@ -626,6 +697,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         body: "Nous ne partageons les données qu’avec des prestataires de confiance nécessaires à la fourniture du service, notamment pour l’hébergement, l’analytique et le paiement.",
       },
       {
+        title: "Publicité, cookies et vos choix",
+        body: "Les pages Watch de Translator peuvent afficher des annonces diffusées par Google et ses partenaires publicitaires. Ces tiers peuvent déposer ou lire des cookies, ou utiliser des balises web, des adresses IP et d’autres identifiants, afin de diffuser, mesurer et personnaliser les annonces selon les visites effectuées sur ce site et d’autres sites, sous réserve de vos choix de consentement et du droit applicable. Vous pouvez gérer la publicité personnalisée dans les paramètres des annonces Google.",
+        links: [
+          {
+            label: "Utilisation des données par Google sur les sites partenaires",
+            href: "https://policies.google.com/technologies/partner-sites?hl=fr",
+          },
+          {
+            label: "Paramètres des annonces Google",
+            href: "https://adssettings.google.com/",
+          },
+        ],
+      },
+      {
         title: "Conservation des données",
         body: "Nous conservons les données uniquement pendant la durée nécessaire à la fourniture du service et au respect de nos obligations légales.",
       },
@@ -664,6 +749,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         title: "Weitergabe und Drittanbieter",
         body: "Wir geben Daten nur an vertrauenswürdige Anbieter weiter, die für die Bereitstellung des Dienstes erforderlich sind, etwa für Hosting, Analytik und Zahlungsabwicklung.",
+      },
+      {
+        title: "Werbung, Cookies und deine Auswahlmöglichkeiten",
+        body: "Auf den Watch-Seiten von Translator können Anzeigen von Google und dessen Werbepartnern erscheinen. Diese Anbieter können Cookies setzen oder lesen sowie Web-Beacons, IP-Adressen und andere Kennungen verwenden, um Anzeigen anhand von Besuchen auf dieser und anderen Websites auszuliefern, zu messen und zu personalisieren – vorbehaltlich deiner Einwilligungsentscheidungen und des geltenden Rechts. Personalisierte Werbung kannst du in den Google-Anzeigeneinstellungen verwalten.",
+        links: [
+          {
+            label: "Wie Google Daten auf Partner-Websites verwendet",
+            href: "https://policies.google.com/technologies/partner-sites?hl=de",
+          },
+          {
+            label: "Google-Anzeigeneinstellungen",
+            href: "https://adssettings.google.com/",
+          },
+        ],
       },
       {
         title: "Speicherdauer",
@@ -710,6 +809,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         body: "Compartilhamos dados apenas com provedores confiáveis necessários para prestar o serviço, como hospedagem, análise e processamento de pagamentos.",
       },
       {
+        title: "Publicidade, cookies e suas escolhas",
+        body: "As páginas Watch do Translator podem exibir anúncios fornecidos pelo Google e seus parceiros de publicidade. Essas partes podem inserir ou ler cookies, ou usar web beacons, endereços IP e outros identificadores, para veicular, medir e personalizar anúncios com base em visitas a este e a outros sites, de acordo com suas escolhas de consentimento e a legislação aplicável. Você pode gerenciar a publicidade personalizada nas Configurações de anúncios do Google.",
+        links: [
+          {
+            label: "Como o Google usa dados em sites parceiros",
+            href: "https://policies.google.com/technologies/partner-sites?hl=pt-BR",
+          },
+          {
+            label: "Configurações de anúncios do Google",
+            href: "https://adssettings.google.com/",
+          },
+        ],
+      },
+      {
         title: "Retenção de dados",
         body: "Mantemos os dados apenas pelo tempo necessário para prestar o serviço e cumprir obrigações legais.",
       },
@@ -752,6 +865,20 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         title: "Chia sẻ và bên thứ ba",
         body: "Chúng tôi chỉ chia sẻ dữ liệu với các nhà cung cấp đáng tin cậy cần thiết để cung cấp dịch vụ, chẳng hạn như lưu trữ, phân tích và xử lý thanh toán.",
+      },
+      {
+        title: "Quảng cáo, cookie và lựa chọn của bạn",
+        body: "Các trang Watch của Translator có thể hiển thị quảng cáo do Google và các đối tác quảng cáo của Google cung cấp. Các bên này có thể đặt hoặc đọc cookie, hoặc sử dụng beacon web, địa chỉ IP và các mã nhận dạng khác, để phân phối, đo lường và cá nhân hóa quảng cáo dựa trên lượt truy cập vào trang web này và các trang web khác, tùy theo lựa chọn đồng ý của bạn và luật hiện hành. Bạn có thể quản lý quảng cáo được cá nhân hóa trong phần Cài đặt quảng cáo của Google.",
+        links: [
+          {
+            label: "Cách Google sử dụng dữ liệu trên các trang web đối tác",
+            href: "https://policies.google.com/technologies/partner-sites?hl=vi",
+          },
+          {
+            label: "Cài đặt quảng cáo của Google",
+            href: "https://adssettings.google.com/",
+          },
+        ],
       },
       {
         title: "Lưu trữ dữ liệu",

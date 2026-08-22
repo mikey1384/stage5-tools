@@ -1,12 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import Script from "next/script";
 import {
   EchoAppStoreButton,
   EchoAppStoreLink,
   ECHO_APP_STORE_URL,
 } from "../../components/EchoAppStoreButton";
 import { getLocale } from "../../lib/get-locale";
+import { serializeJsonLd } from "../../lib/json-ld";
 import {
   localizedLocalesForPath,
   localizePathForLocale,
@@ -1148,20 +1148,18 @@ export default async function EchoLandingPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
-      <Script
+      <script
         id="echo-structured-data-app"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData.app),
+          __html: serializeJsonLd(structuredData.app),
         }}
       />
-      <Script
+      <script
         id="echo-structured-data-faq"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData.faq),
+          __html: serializeJsonLd(structuredData.faq),
         }}
       />
 

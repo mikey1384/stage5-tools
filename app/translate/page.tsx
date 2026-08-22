@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { serializeJsonLd } from "../../lib/json-ld";
 import type { Locale } from "../../lib/locales";
 import {
   homeHrefForLocale,
@@ -1112,20 +1112,18 @@ export default async function TranslatePage({
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Script
+      <script
         id="structured-data-translate"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(softwareApplicationStructuredData),
+          __html: serializeJsonLd(softwareApplicationStructuredData),
         }}
       />
-      <Script
+      <script
         id="structured-data-translate-breadcrumbs"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbStructuredData),
+          __html: serializeJsonLd(breadcrumbStructuredData),
         }}
       />
       <div className="container mx-auto px-6">

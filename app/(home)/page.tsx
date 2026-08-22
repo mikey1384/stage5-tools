@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { AllDownloadButtons } from "../../components/AllDownloadButtons";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { GitHubRepositoryLink } from "../../components/GitHubRepositoryLink";
@@ -9,6 +8,7 @@ import { HomepageScreenshotSlot } from "../../components/HomepageScreenshotSlot"
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { getLocale } from "../../lib/get-locale";
+import { serializeJsonLd } from "../../lib/json-ld";
 import { HOME_LOCALIZED_LOCALES } from "../../lib/locales";
 import { localizePathForLocale } from "../../lib/locale-routing";
 import {
@@ -218,11 +218,10 @@ export default async function Home({
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080a] text-[#f3f1e9] selection:bg-[#ff5a9d] selection:text-black">
-      <Script
+      <script
         id="structured-data"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
 
       <div className="mx-auto max-w-[1500px] px-5 md:px-8">

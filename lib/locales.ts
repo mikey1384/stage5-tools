@@ -1,6 +1,5 @@
 import { isTranslatedLanguageDetailPath } from "./translate-language-slugs";
 import { normalizePathname } from "./pathname-utils";
-import { getAllSlugs } from "./watch";
 
 const FULL_SITE_LOCALES = ["en", "ko", "es", "ja", "zh", "fr", "de", "pt", "vi"] as const;
 const HOME_ONLY_LOCALES = [] as const;
@@ -14,6 +13,14 @@ export const HOME_LOCALIZED_LOCALES = [
 ] as const;
 
 export type Locale = (typeof HOME_LOCALIZED_LOCALES)[number];
+
+export const WATCH_LOCALIZED_LOCALES = [
+  "en",
+  "ko",
+  "es",
+  "pt",
+  "vi",
+] as const satisfies readonly Locale[];
 
 const localeSet = new Set<string>(HOME_LOCALIZED_LOCALES);
 const fullSiteLocaleSet = new Set<string>(FULL_SITE_LOCALES);
@@ -33,7 +40,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/terms",
   "/echo",
 ]);
-const ENGLISH_ONLY_PATHS = new Set<string>(["/agents"]);
+const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/open-source"]);
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
   "/contact",
   "/privacy",
@@ -79,7 +86,10 @@ export function homeHrefForLocale(locale: Locale): string {
   return locale === DEFAULT_LOCALE ? "/" : `/${locale}`;
 }
 
-export function localizePathForLocale(locale: Locale, href: string): string {
+export function localizeSupportedPathForLocale(
+  locale: Locale,
+  href: string,
+): string {
   if (!href.startsWith("/")) return href;
 
   const splitIndex = href.search(/[?#]/);
@@ -91,7 +101,7 @@ export function localizePathForLocale(locale: Locale, href: string): string {
     return `${englishPath}${suffix}`;
   }
 
-  if (isFullSiteLocale(locale) && supportsLocalePath(locale, englishPath)) {
+  if (isFullSiteLocale(locale)) {
     const localizedPath = englishPath === "/" ? `/${locale}` : `/${locale}${englishPath}`;
     return `${localizedPath}${suffix}`;
   }
@@ -103,31 +113,47 @@ export function localizePathForLocale(locale: Locale, href: string): string {
   return `${englishPath}${suffix}`;
 }
 
+export function localizePathForLocale(locale: Locale, href: string): string {
+  if (!href.startsWith("/")) return href;
+
+  const splitIndex = href.search(/[?#]/);
+  const basePath = splitIndex === -1 ? href : href.slice(0, splitIndex);
+  const suffix = splitIndex === -1 ? "" : href.slice(splitIndex);
+  const englishPath = englishPathFor(basePath);
+
+  if (
+    locale === DEFAULT_LOCALE ||
+    (isFullSiteLocale(locale) && supportsLocalePath(locale, englishPath)) ||
+    englishPath === "/"
+  ) {
+    return localizeSupportedPathForLocale(locale, `${englishPath}${suffix}`);
+  }
+
+  return `${englishPath}${suffix}`;
+}
+
 function getWatchPageLocales(englishPath: string): Locale[] | null {
-  if (englishPath === "/watch") {
-    return ["en", "es", "ko", "pt", "vi"];
+  if (englishPath === "/watch" || englishPath.startsWith("/watch/")) {
+    return [...WATCH_LOCALIZED_LOCALES];
   }
-  
-  if (englishPath.startsWith("/watch/")) {
-    const slug = englishPath.slice(7);
-    const watchSlugs = getAllSlugs();
-    
-    if (watchSlugs.includes(slug)) {
-      return ["en", "es", "ko", "pt", "vi"];
-    }
-  }
-  
+
   return null;
+}
+
+export function isEnglishOnlyPath(englishPath: string): boolean {
+  const normalizedEnglishPath = normalizePathname(englishPath);
+  if (ENGLISH_ONLY_PATHS.has(normalizedEnglishPath)) return true;
+  for (const englishOnlyPath of ENGLISH_ONLY_PATHS) {
+    if (normalizedEnglishPath.startsWith(`${englishOnlyPath}/`)) return true;
+  }
+  return false;
 }
 
 export function supportsLocalePath(locale: Locale, englishPath: string): boolean {
   const normalizedEnglishPath = normalizePathname(englishPath);
 
   if (locale === DEFAULT_LOCALE) return true;
-  if (ENGLISH_ONLY_PATHS.has(normalizedEnglishPath)) return false;
-  for (const englishOnlyPath of ENGLISH_ONLY_PATHS) {
-    if (normalizedEnglishPath.startsWith(englishOnlyPath + "/")) return false;
-  }
+  if (isEnglishOnlyPath(normalizedEnglishPath)) return false;
   
   // Check for /watch pages
   const watchLocales = getWatchPageLocales(normalizedEnglishPath);

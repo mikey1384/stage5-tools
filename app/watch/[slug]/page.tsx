@@ -1,20 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { YouTubeDemo } from "../../../components/YouTubeDemo";
 import { getLocale } from "../../../lib/get-locale";
+import { serializeJsonLd } from "../../../lib/json-ld";
 import {
   homeHrefForLocale,
   localizePathForLocale,
 } from "../../../lib/locale-routing";
+import { localizeSupportedPathForLocale } from "../../../lib/locales";
 import { buildMetadata } from "../../../lib/seo";
-import { getCatalogEntry, getAllCatalogSlugsSync } from "../../../lib/watch/catalog-loader";
-import type { WatchLocale } from "../../../lib/watch";
+import {
+  getCatalogEntry,
+  getAllCatalogSlugsSync,
+} from "../../../lib/watch/catalog-loader";
+import {
+  getPostCardForLocale,
+  getWatchSupportedLocales,
+} from "../../../lib/watch/catalog";
+import { getWatchUiCopy } from "../../../lib/watch/ui-copy";
 
 // Enable on-demand rendering for new slugs from R2 without rebuild
 export const dynamicParams = true;
@@ -40,9 +48,10 @@ export async function generateMetadata({
   }
 
   const locale = await getLocale();
-  const copy = video.copy[locale as WatchLocale];
+  const supportedLocales = getWatchSupportedLocales(video);
+  const copy = video.copy[locale];
   
-  if (!copy) {
+  if (!supportedLocales.includes(locale) || !copy) {
     notFound();
   }
 
@@ -52,6 +61,7 @@ export async function generateMetadata({
     path: `/watch/${slug}`,
     keywords: copy.keywords,
     locale,
+    availableLocales: supportedLocales,
   });
 }
 
@@ -72,75 +82,126 @@ export default async function WatchPage({
     notFound();
   }
 
-  const copy = video.copy[locale as WatchLocale];
+  const supportedLocales = getWatchSupportedLocales(video);
+  const copy = video.copy[locale];
+  const postCard = getPostCardForLocale(video, locale);
   
-  if (!copy) {
+  if (!supportedLocales.includes(locale) || !copy || !postCard) {
     notFound();
   }
 
+  const uiCopy = getWatchUiCopy(locale);
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
+  const pagePath = `/watch/${slug}`;
+  const pageUrl = `https://translator.tools${localizeSupportedPathForLocale(locale, pagePath)}`;
+  const videoNodeId = `${pageUrl}#video`;
+  const catalogVideoData = video.structuredDataAbout?.find(
+    (item) => item["@type"] === "VideoObject",
+  );
+  const articleAbout = video.structuredDataAbout?.filter(
+    (item) => item["@type"] !== "VideoObject",
+  );
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: copy.h1,
-    description: copy.description,
-    url: `https://translator.tools${localizeHref(`/watch/${slug}`)}`,
-    datePublished: video.datePublished,
-    author: {
-      "@type": "Organization",
-      name: "Stage5 Tools",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Stage5 Tools",
-      url: "https://translator.tools",
-    },
-    about: video.structuredDataAbout || [],
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${pageUrl}#article`,
+        headline: copy.h1,
+        description: copy.description,
+        url: pageUrl,
+        mainEntityOfPage: pageUrl,
+        mainEntity: { "@id": videoNodeId },
+        inLanguage: locale,
+        datePublished: video.datePublished,
+        image: `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
+        author: {
+          "@type": "Organization",
+          name: "Stage5 Tools",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Stage5 Tools",
+          url: "https://translator.tools",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://translator.tools/translator-icon.png",
+          },
+        },
+        ...(articleAbout?.length ? { about: articleAbout } : {}),
+      },
+      {
+        ...catalogVideoData,
+        "@type": "VideoObject",
+        "@id": videoNodeId,
+        name: copy.h1,
+        description: copy.description,
+        uploadDate: video.datePublished,
+        thumbnailUrl: `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
+        contentUrl: `https://www.youtube.com/watch?v=${video.videoId}`,
+        embedUrl: `https://www.youtube.com/embed/${video.videoId}`,
+        inLanguage: video.sourceLang,
+      },
+    ],
   };
 
-  const postCard = {
-    slug: video.slug,
-    title: video.copy.en.h1,
-    language: video.language,
-    topic: video.topic,
-  };
-
-  const freeLabel = copy.freeLabel || "Free:";
-  const paidLabel = copy.paidLabel || "Paid:";
-  const downloadLinkText = copy.downloadLinkText || "Learn about video downloading →";
-  const ctaNote = copy.ctaNote || "Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key.";
+  const requestedLang = Array.isArray(searchParamsValue.lang)
+    ? searchParamsValue.lang[0]
+    : searchParamsValue.lang;
+  const requestedTrack = video.tracks.find((track) => track === requestedLang);
+  const initialSelectedLang: (typeof video.tracks)[number] | "off" =
+    requestedLang === "off"
+      ? "off"
+      : requestedTrack
+        ? requestedTrack
+        : locale === video.sourceLang
+          ? "off"
+          : video.tracks.includes(locale)
+            ? locale
+            : video.tracks.includes("en")
+              ? "en"
+              : (video.tracks[0] ?? "off");
+  const freeLabel = copy.freeLabel || uiCopy.freeLabel;
+  const paidLabel = copy.paidLabel || uiCopy.paidLabel;
+  const downloadLinkText = copy.downloadLinkText || uiCopy.downloadLinkText;
+  const ctaNote = copy.ctaNote || uiCopy.ctaNote;
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Script
+      <script
         id="article-structured-data"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
 
       <div className="container mx-auto px-6">
-        <SiteNav locale={locale} />
+        <SiteNav locale={locale} supportedLocales={supportedLocales} />
 
         <Breadcrumbs
           items={[
-            { label: "Home", href: homeHref },
-            { label: "Watch", href: localizeHref("/watch") },
+            { label: uiCopy.home, href: homeHref },
+            { label: uiCopy.watch, href: localizeHref("/watch") },
             { label: postCard.title },
           ]}
         />
 
         <article className="pb-24">
           <header className="mx-auto max-w-4xl pb-12 pt-10">
-            <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
-              <span>{postCard.language}</span>
-              <span className="text-gray-700">·</span>
-              <span>{postCard.topic}</span>
-              <span className="text-gray-700">·</span>
-              <span>{video.showName}</span>
-            </div>
+            {copy.eyebrow ? (
+              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
+                {copy.eyebrow}
+              </div>
+            ) : (
+              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
+                <span>{postCard.language}</span>
+                <span className="text-gray-700">·</span>
+                <span>{postCard.topic}</span>
+                <span className="text-gray-700">·</span>
+                <span>{video.showName}</span>
+              </div>
+            )}
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
               {copy.h1}
             </h1>
@@ -156,6 +217,7 @@ export default async function WatchPage({
               videoId={video.videoId}
               sourceLang={video.sourceLang}
               availableTracks={video.tracks}
+              initialSelectedLang={initialSelectedLang}
               videoDownloaderHref={localizeHref("/video-downloader")}
               vttSlug={video.vttSlug}
             />
@@ -266,8 +328,9 @@ export default async function WatchPage({
                 watchContext={{
                   slug,
                   videoId: video.videoId,
+                  locale,
                   sourceLang: video.sourceLang,
-                  selectedLang: "off",
+                  selectedLang: initialSelectedLang,
                   placement: "body",
                 }}
               />

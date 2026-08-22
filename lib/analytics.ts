@@ -3,6 +3,7 @@ import type {
   FaqIntentEventPayload,
   LandingIntentEventPayload,
   WatchAppCtaEventPayload,
+  WatchCaptionLoadEventPayload,
   WatchCutoffEventPayload,
   WatchLangChangeEventPayload,
   WatchPlayEventPayload,
@@ -129,6 +130,12 @@ export function trackWatchCutoff(payload: WatchCutoffEventPayload): void {
 
 export function trackWatchLangChange(
   payload: WatchLangChangeEventPayload,
+): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackWatchCaptionLoad(
+  payload: WatchCaptionLoadEventPayload,
 ): void {
   pushAnalyticsEvent(payload);
 }

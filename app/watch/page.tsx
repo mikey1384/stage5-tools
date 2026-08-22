@@ -9,10 +9,15 @@ import {
   homeHrefForLocale,
   localizePathForLocale,
 } from "../../lib/locale-routing";
+import { WATCH_LOCALIZED_LOCALES } from "../../lib/locales";
 import { buildMetadata } from "../../lib/seo";
-import { posts } from "./posts";
+import { loadWatchCatalog } from "../../lib/watch/catalog-loader";
+import { getPostCardForLocale } from "../../lib/watch/catalog";
+import { getWatchUiCopy } from "../../lib/watch/ui-copy";
 
 type WatchSupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
+
+export const revalidate = 60;
 
 const pageCopy: Record<WatchSupportedLocale, {
   title: string;
@@ -87,6 +92,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "subtitle translation workflow",
     ],
     locale,
+    availableLocales: WATCH_LOCALIZED_LOCALES,
   });
 }
 
@@ -102,19 +108,28 @@ export default async function WatchIndexPage({
   if (!copy) {
     notFound();
   }
-  
+
+  const catalog = await loadWatchCatalog();
+  const posts = catalog.flatMap((video) => {
+    const card = getPostCardForLocale(video, locale);
+    return card ? [card] : [];
+  });
+  const ui = getWatchUiCopy(locale);
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
   return (
     <main className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-6">
-        <SiteNav locale={locale} />
+        <SiteNav
+          locale={locale}
+          supportedLocales={WATCH_LOCALIZED_LOCALES}
+        />
 
         <Breadcrumbs
           items={[
-            { label: "Home", href: homeHref },
-            { label: "Watch" },
+            { label: ui.home, href: homeHref },
+            { label: ui.watch },
           ]}
         />
 
@@ -139,9 +154,15 @@ export default async function WatchIndexPage({
                 className="group rounded-[28px] border border-white/10 bg-white/[0.04] p-8 transition hover:border-white/20 hover:bg-white/[0.06]"
               >
                 <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
-                  <span>{post.language}</span>
-                  <span className="text-gray-700">·</span>
-                  <span>{post.topic}</span>
+                  {post.eyebrow ? (
+                    <span>{post.eyebrow}</span>
+                  ) : (
+                    <>
+                      <span>{post.language}</span>
+                      <span className="text-gray-700">·</span>
+                      <span>{post.topic}</span>
+                    </>
+                  )}
                 </div>
                 <h2 className="mt-4 text-2xl font-semibold text-white group-hover:text-sky-200">
                   {post.title}
@@ -150,7 +171,7 @@ export default async function WatchIndexPage({
                   {post.description}
                 </p>
                 <span className="mt-5 inline-block text-sm font-semibold text-gray-300 transition group-hover:text-white">
-                  Read more →
+                  {ui.readMore}
                 </span>
               </Link>
             ))}

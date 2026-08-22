@@ -55,6 +55,22 @@ export default async function PrivacyPage({
               <div key={section.title}>
                 <h2 className="text-xl font-semibold text-white">{section.title}</h2>
                 <p className="mt-3">{section.body}</p>
+                {section.links?.length ? (
+                  <ul className="mt-3 space-y-2">
+                    {section.links.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-300 underline decoration-sky-300/40 underline-offset-4 transition hover:text-sky-200"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             ))}
           </div>

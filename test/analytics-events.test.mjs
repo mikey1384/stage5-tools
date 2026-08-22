@@ -6,9 +6,11 @@ import {
   createFaqIntentEvent,
   createHomeLandingIntentEvent,
   createWatchAppCtaEvent,
+  createWatchCaptionLoadEvent,
   createWatchCutoffEvent,
   createWatchLangChangeEvent,
   createWatchPlayEvent,
+  resolveWatchSelectedLanguage,
   createWindowsInstallHelpEvent,
 } from "../lib/analytics-events.ts";
 
@@ -139,4 +141,40 @@ test("creates the bounded watch app CTA payload", () => {
       placement: "cutoff",
     }
   );
+});
+
+test("creates the bounded watch caption-load payload", () => {
+  assert.deepEqual(
+    createWatchCaptionLoadEvent({
+      pagePath: "/vi/watch/ramsay-hot-ones",
+      slug: "ramsay-hot-ones",
+      videoId: "U9DyHthJ6LA",
+      locale: "vi",
+      sourceLang: "en",
+      selectedLang: "vi",
+      loadStatus: "http_error",
+      httpStatus: 404,
+    }),
+    {
+      event: "watch_caption_load",
+      page_path: "/vi/watch/ramsay-hot-ones",
+      slug: "ramsay-hot-ones",
+      video_id: "U9DyHthJ6LA",
+      locale: "vi",
+      source_lang: "en",
+      selected_lang: "vi",
+      load_status: "http_error",
+      http_status: 404,
+    },
+  );
+});
+
+test("uses only a bounded current Watch caption language for CTA telemetry", () => {
+  assert.equal(resolveWatchSelectedLanguage("vi", "en"), "vi");
+  assert.equal(resolveWatchSelectedLanguage("off", "en"), "off");
+  assert.equal(
+    resolveWatchSelectedLanguage("caption text or an arbitrary value", "ko"),
+    "ko",
+  );
+  assert.equal(resolveWatchSelectedLanguage(null, "pt"), "pt");
 });

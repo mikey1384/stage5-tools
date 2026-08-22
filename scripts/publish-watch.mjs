@@ -16,13 +16,23 @@
  * 1. Reads the catalog entry JSON
  * 2. Fetches existing catalog.json from R2
  * 3. Merges the new entry (replaces if slug exists)
- * 4. Uploads updated catalog.json to s3://ai-translator-downloads/watch/catalog.json
- * 5. Uploads VTT files to s3://ai-translator-downloads/watch/vtt/
+ * 4. Uploads and verifies VTT files in s3://ai-translator-downloads/watch/vtt/
+ * 5. Uploads catalog.json last so readers never see an entry before its captions
  */
 
 import { readFile, readdir } from "fs/promises";
-import { S3Client, GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import { basename } from "path";
+import {
+  S3Client,
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+} from "@aws-sdk/client-s3";
+import { basename, join } from "path";
+import {
+  expectedVttFileNames,
+  validateWatchCatalog,
+  validateWatchEntry,
+} from "./watch-catalog-validation.mjs";
 
 const R2_BUCKET = process.env.R2_BUCKET || "ai-translator-downloads";
 const R2_ENDPOINT = process.env.R2_ENDPOINT;
@@ -53,7 +63,8 @@ async function fetchCatalog() {
     });
     const response = await s3.send(command);
     const body = await response.Body.transformToString();
-    return JSON.parse(body);
+    const catalog = JSON.parse(body);
+    return validateWatchCatalog(catalog);
   } catch (error) {
     if (error.name === "NoSuchKey") {
       console.log("No existing catalog found, creating new one");
@@ -69,6 +80,7 @@ async function uploadCatalog(catalog) {
     Key: "watch/catalog.json",
     Body: JSON.stringify(catalog, null, 2),
     ContentType: "application/json",
+    CacheControl: "public, max-age=60, stale-while-revalidate=300",
   });
   await s3.send(command);
   console.log("✓ Uploaded catalog.json");
@@ -83,21 +95,38 @@ async function uploadVtt(filePath) {
     Key: `watch/vtt/${fileName}`,
     Body: content,
     ContentType: "text/vtt",
+    CacheControl: "public, max-age=3600, stale-while-revalidate=86400",
   });
   
   await s3.send(command);
   console.log(`✓ Uploaded ${fileName}`);
 }
 
+async function verifyVttObjects(entry) {
+  for (const fileName of expectedVttFileNames(entry)) {
+    const object = await s3.send(
+      new HeadObjectCommand({
+        Bucket: R2_BUCKET,
+        Key: `watch/vtt/${fileName}`,
+      }),
+    );
+    if (!object.ContentLength) {
+      throw new Error(`Required VTT is empty: ${fileName}`);
+    }
+    if (object.ContentType?.split(";", 1)[0] !== "text/vtt") {
+      throw new Error(
+        `Required VTT has unexpected Content-Type ${object.ContentType ?? "missing"}: ${fileName}`,
+      );
+    }
+    console.log(`✓ Verified ${fileName}`);
+  }
+}
+
 async function publishEntry(entryPath, vttDir) {
   console.log("Loading catalog entry...");
   const entryContent = await readFile(entryPath, "utf-8");
   const newEntry = JSON.parse(entryContent);
-  
-  if (!newEntry.slug) {
-    console.error("Error: Catalog entry must have a 'slug' field");
-    process.exit(1);
-  }
+  validateWatchEntry(newEntry);
   
   console.log(`Publishing entry for slug: ${newEntry.slug}`);
   
@@ -115,22 +144,26 @@ async function publishEntry(entryPath, vttDir) {
     catalog.push(newEntry);
   }
   
-  // Upload catalog
-  console.log("Uploading catalog...");
-  await uploadCatalog(catalog);
-  
-  // Upload VTT files if directory provided
+  // Upload VTT files before making the entry visible in the catalog.
   if (vttDir) {
     console.log(`Uploading VTT files from ${vttDir}...`);
     const files = await readdir(vttDir);
-    const vttFiles = files.filter((f) => f.endsWith(".vtt"));
+    const expectedVttFiles = new Set(expectedVttFileNames(newEntry));
+    const vttFiles = files.filter((file) => expectedVttFiles.has(file));
     
     for (const vttFile of vttFiles) {
-      await uploadVtt(`${vttDir}/${vttFile}`);
+      await uploadVtt(join(vttDir, vttFile));
     }
     
     console.log(`✓ Uploaded ${vttFiles.length} VTT files`);
   }
+
+  console.log("Verifying required VTT files in R2...");
+  await verifyVttObjects(newEntry);
+
+  validateWatchCatalog(catalog);
+  console.log("Uploading catalog...");
+  await uploadCatalog(catalog);
   
   console.log("\n✓ Publish complete");
   console.log(`Catalog now has ${catalog.length} entries`);

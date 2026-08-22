@@ -1,16 +1,25 @@
 import type { MetadataRoute } from "next";
-import { indexableLocalesForPath, localizePathForLocale } from "../lib/locales";
+import {
+  indexableLocalesForPath,
+  localizePathForLocale,
+  localizeSupportedPathForLocale,
+  type Locale,
+} from "../lib/locales";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
-import { getAllCatalogSlugsSync } from "../lib/watch/catalog-loader";
+import { loadWatchCatalog } from "../lib/watch/catalog-loader";
+import { getWatchSupportedLocales } from "../lib/watch/catalog";
 
 const BASE_URL = "https://translator.tools";
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 type RouteDef = {
   path: string;
+  availableLocales?: readonly Locale[];
 };
 
-// Use sync bundled catalog for sitemap generation
-const routes: RouteDef[] = [
+const staticRoutes: RouteDef[] = [
   { path: "/" },
   { path: "/video-discovery" },
   { path: "/dubbing" },
@@ -26,9 +35,6 @@ const routes: RouteDef[] = [
   { path: "/open-source" },
   { path: "/agents" },
   { path: "/watch" },
-  ...getAllCatalogSlugsSync().map((slug) => ({
-    path: `/watch/${slug}`,
-  })),
   { path: "/about" },
   { path: "/contact" },
   { path: "/privacy" },
@@ -39,16 +45,27 @@ function absoluteUrl(path: string): string {
   return new URL(path, BASE_URL).toString();
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const watchRoutes: RouteDef[] = (await loadWatchCatalog()).map((video) => ({
+    path: `/watch/${video.slug}`,
+    availableLocales: getWatchSupportedLocales(video),
+  }));
+  const routes = [...staticRoutes, ...watchRoutes];
+
   return routes.flatMap((route) => {
-    const availableLocales = indexableLocalesForPath(route.path);
-    const englishUrl = absoluteUrl(localizePathForLocale("en", route.path));
+    const availableLocales = route.availableLocales
+      ? [...route.availableLocales]
+      : indexableLocalesForPath(route.path);
+    const localize = route.availableLocales
+      ? localizeSupportedPathForLocale
+      : localizePathForLocale;
+    const englishUrl = absoluteUrl(localize("en", route.path));
     const fullSiteLanguages: Record<string, string> = {
       "x-default": englishUrl,
     };
     for (const locale of availableLocales) {
       fullSiteLanguages[locale] = absoluteUrl(
-        localizePathForLocale(locale, route.path),
+        localize(locale, route.path),
       );
     }
 
@@ -59,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
 
     return availableLocales.map((locale) => ({
-      url: absoluteUrl(localizePathForLocale(locale, route.path)),
+      url: absoluteUrl(localize(locale, route.path)),
       ...shared,
     }));
   });

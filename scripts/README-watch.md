@@ -52,7 +52,7 @@ npm run watch:seed
 ```
 
 This:
-1. Reads all existing watch page directories in `app/watch/*`
+1. Loads the bundled catalog in `lib/watch/`
 2. Uploads all VTT files from `public/watch/*.vtt` to R2 `watch/vtt/`
 3. Creates and uploads a `catalog.json` with all entries
 
@@ -74,8 +74,8 @@ This:
 1. Reads the catalog entry JSON file
 2. Fetches existing `catalog.json` from R2
 3. Merges the new entry (replaces if slug already exists)
-4. Uploads updated `catalog.json`
-5. Optionally uploads VTT files from the specified directory
+4. Uploads any supplied VTT files and verifies every declared track in R2
+5. Uploads the validated `catalog.json` last
 
 ## Catalog Entry Format
 
@@ -89,6 +89,10 @@ Each catalog entry must be a JSON file with this structure:
   "sourceLang": "en",
   "tracks": ["en", "es", "ko", "pt"],
   "supportedLocales": ["en", "es", "ko", "pt"],
+  "language": "English",
+  "topic": "Topic",
+  "showName": "Show name",
+  "datePublished": "2026-08-22",
   "copy": {
     "en": {
       "title": "SEO title",
@@ -116,10 +120,7 @@ Each catalog entry must be a JSON file with this structure:
       "downloadLinkText": "Link text",
       "ctaNote": "CTA note",
       "aboutTitle": "About section title",
-      "aboutBody": ["About paragraph 1"],
-      "language": "English",
-      "topic": "Topic",
-      "show": "Show name (optional)"
+      "aboutBody": ["About paragraph 1"]
     },
     "es": { /* Spanish copy */ },
     "ko": { /* Korean copy */ },
@@ -147,13 +148,19 @@ Examples:
 
 1. `lib/watch/catalog-loader.ts` fetches `catalog.json` from R2 (if `WATCH_ASSETS_BASE` is set)
 2. Falls back to bundled catalog if R2 is unavailable or env var is unset
-3. Short in-memory cache (60s TTL) reduces R2 calls
-4. `app/watch/[slug]/page.tsx` uses `dynamicParams = true` and `dynamic = 'force-dynamic'` for on-demand rendering
-5. VTT files are proxied through `/api/watch-vtt/[file]` route, which fetches from R2 then falls back to `public/watch/`
+3. Validates entries and removes unsupported/incomplete locale drafts
+4. Short in-memory cache (60s TTL) reduces repeated catalog requests per isolate
+5. `app/watch/[slug]/page.tsx` uses `dynamicParams = true` with a 60-second revalidation window for on-demand rendering
+6. The Watch index and dynamic sitemap use the same catalog and refresh on a short cache window
+7. VTT files are proxied through `/api/watch-vtt/[file]` route, which fetches from R2 then falls back to `public/watch/`
 
 ### Benefits
 
 - **No rebuild required**: Add new watch pages by uploading catalog entry + VTTs
-- **Tens of thousands of pages**: No git bloat, no build time explosion
+- **No per-page git bloat**: Watch copy and caption assets live outside the app bundle
 - **Graceful fallback**: If R2 is down or env is unset, existing pages still work from bundled catalog
 - **Same-origin VTTs**: API route keeps YouTube embed and VTTs on the same domain
+
+The current runtime fetches the complete JSON catalog. Before growing into the
+thousands of entries, move to a small index plus per-slug manifests so each page
+request does not download and parse the entire catalog.

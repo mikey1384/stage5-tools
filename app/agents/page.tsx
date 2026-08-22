@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { AgentWorkflowLinks } from "../../components/AgentWorkflowLinks";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
 import { TrackedArtifactLink } from "../../components/TrackedArtifactLink";
+import { serializeJsonLd } from "../../lib/json-ld";
 
 const MAC_ARM64_URL =
   "https://downloads.stage5.tools/mac/latest/Translator-arm64.dmg";
@@ -32,7 +32,13 @@ export const metadata: Metadata = {
     "MCP subtitle translation",
     "agent-friendly desktop app",
   ],
-  alternates: { canonical: "https://translator.tools/agents" },
+  alternates: {
+    canonical: "https://translator.tools/agents",
+    languages: {
+      "x-default": "https://translator.tools/agents",
+      en: "https://translator.tools/agents",
+    },
+  },
   openGraph: {
     title,
     description,
@@ -78,11 +84,6 @@ const structuredData = {
     url: "https://translator.tools",
   },
 };
-
-const installCommands = `git clone https://github.com/mikey1384/translator.git
-cd translator
-npm install
-npm run agent:mcp`;
 
 const capabilities = [
   {
@@ -136,11 +137,10 @@ export default function AgentsPage() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#07080a] text-[#f3f1e9] selection:bg-[#ff5a9d] selection:text-black">
-      <Script
+      <script
         id="agents-structured-data"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
 
       <div className="mx-auto max-w-[1500px] px-5 md:px-8">

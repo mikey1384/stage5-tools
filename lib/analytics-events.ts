@@ -194,7 +194,79 @@ export function createWatchLangChangeEvent({
   };
 }
 
+export type WatchCaptionLoadStatus =
+  | "success"
+  | "empty"
+  | "http_error"
+  | "network_error";
+
+export type WatchCaptionLoadEventPayload = {
+  event: "watch_caption_load";
+  page_path: string;
+  slug: string;
+  video_id: string;
+  locale: string;
+  source_lang: string;
+  selected_lang: string;
+  load_status: WatchCaptionLoadStatus;
+  http_status?: number;
+};
+
+export function createWatchCaptionLoadEvent({
+  pagePath,
+  slug,
+  videoId,
+  locale,
+  sourceLang,
+  selectedLang,
+  loadStatus,
+  httpStatus,
+}: {
+  pagePath: string;
+  slug: string;
+  videoId: string;
+  locale: string;
+  sourceLang: string;
+  selectedLang: string;
+  loadStatus: WatchCaptionLoadStatus;
+  httpStatus?: number;
+}): WatchCaptionLoadEventPayload {
+  return {
+    event: "watch_caption_load",
+    page_path: pagePath,
+    slug,
+    video_id: videoId,
+    locale,
+    source_lang: sourceLang,
+    selected_lang: selectedLang,
+    load_status: loadStatus,
+    ...(httpStatus === undefined ? {} : { http_status: httpStatus }),
+  };
+}
+
 export type WatchAppCtaPlacement = "cutoff" | "body" | "footer";
+
+const watchSelectedLanguages = new Set([
+  "off",
+  "en",
+  "ko",
+  "es",
+  "ja",
+  "zh",
+  "fr",
+  "de",
+  "pt",
+  "vi",
+]);
+
+export function resolveWatchSelectedLanguage(
+  candidate: string | null | undefined,
+  fallback: string,
+): string {
+  return candidate && watchSelectedLanguages.has(candidate)
+    ? candidate
+    : fallback;
+}
 
 export type WatchAppCtaEventPayload = {
   event: "watch_app_cta";

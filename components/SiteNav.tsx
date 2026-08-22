@@ -7,9 +7,10 @@ import { SiteNavLinks } from "./SiteNavLinks";
 
 interface SiteNavProps {
   locale: Locale;
+  supportedLocales?: readonly Locale[];
 }
 
-export function SiteNav({ locale }: SiteNavProps) {
+export function SiteNav({ locale, supportedLocales }: SiteNavProps) {
   const homeHref = localizePathForLocale(locale, "/");
   const downloadHref = localizePathForLocale(locale, "/#all-downloads");
 
@@ -29,7 +30,7 @@ export function SiteNav({ locale }: SiteNavProps) {
             </span>
           </Link>
           <div className="flex items-center gap-2 lg:hidden">
-            <LanguageMenu />
+            <LanguageMenu supportedLocales={supportedLocales} />
             <NavDownloadLink
               href={downloadHref}
               className="border border-[#a9bfff] bg-[#a9bfff] px-4 py-2 text-xs font-semibold text-black transition hover:border-white hover:bg-white"
@@ -42,7 +43,7 @@ export function SiteNav({ locale }: SiteNavProps) {
         <SiteNavLinks locale={locale} />
 
         <div className="hidden lg:flex lg:items-center lg:gap-3">
-          <LanguageMenu />
+          <LanguageMenu supportedLocales={supportedLocales} />
           <NavDownloadLink
             href={downloadHref}
             className="border border-[#a9bfff] bg-[#a9bfff] px-5 py-2.5 text-xs font-semibold text-black transition hover:border-white hover:bg-white"

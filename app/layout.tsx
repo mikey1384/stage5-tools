@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import Script from "next/script";
+import { ADSENSE_CLIENT_ID } from "../lib/adsense";
 import { getLocale } from "../lib/get-locale";
+import { serializeJsonLd } from "../lib/json-ld";
 import { HOME_LOCALIZED_LOCALES } from "../lib/locales";
 import "./globals.css";
 
@@ -28,6 +30,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/translator-icon.png",
     apple: "/translator-icon.png",
+  },
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT_ID,
   },
 };
 
@@ -101,20 +106,18 @@ export default async function RootLayout({
             </noscript>
           </>
         ) : null}
-        <Script
+        <script
           id="structured-data-organization"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationStructuredData),
+            __html: serializeJsonLd(organizationStructuredData),
           }}
         />
-        <Script
+        <script
           id="structured-data-website"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteStructuredData),
+            __html: serializeJsonLd(websiteStructuredData),
           }}
         />
         {children}

@@ -21,11 +21,17 @@
 import { readFile, readdir } from "fs/promises";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { join, dirname } from "path";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "url";
+import {
+  expectedVttFileNames,
+  validateWatchCatalog,
+} from "./watch-catalog-validation.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, "..");
+const require = createRequire(import.meta.url);
 
 const R2_BUCKET = process.env.R2_BUCKET || "ai-translator-downloads";
 const R2_ENDPOINT = process.env.R2_ENDPOINT;
@@ -49,15 +55,33 @@ const s3 = new S3Client({
 });
 
 async function loadCatalogFromLib() {
-  // Import the catalog module dynamically
-  const catalogModule = await import(join(projectRoot, "lib/watch/index.ts"));
-  const getAllVideos = catalogModule.getAllVideos;
-  
-  if (typeof getAllVideos !== "function") {
-    throw new Error("Could not load getAllVideos from lib/watch");
+  const ts = require("typescript");
+  const originalLoader = require.extensions[".ts"];
+  require.extensions[".ts"] = (module, filename) => {
+    const source = require("node:fs").readFileSync(filename, "utf8");
+    const output = ts.transpileModule(source, {
+      compilerOptions: {
+        module: ts.ModuleKind.CommonJS,
+        target: ts.ScriptTarget.ES2022,
+        esModuleInterop: true,
+      },
+      fileName: filename,
+    }).outputText;
+    module._compile(output, filename);
+  };
+
+  let catalog;
+  try {
+    const catalogModule = require(join(projectRoot, "lib/watch/index.ts"));
+    if (typeof catalogModule.getAllVideos !== "function") {
+      throw new Error("Could not load getAllVideos from lib/watch");
+    }
+    catalog = validateWatchCatalog(catalogModule.getAllVideos());
+  } finally {
+    if (originalLoader) require.extensions[".ts"] = originalLoader;
+    else delete require.extensions[".ts"];
   }
-  
-  const catalog = getAllVideos();
+
   console.log(`Loaded ${catalog.length} videos from lib/watch catalog`);
   
   // Verify IDs match expected table
@@ -92,6 +116,7 @@ async function uploadVtt(vttPath, fileName) {
     Key: `watch/vtt/${fileName}`,
     Body: content,
     ContentType: "text/vtt",
+    CacheControl: "public, max-age=3600, stale-while-revalidate=86400",
   });
   
   await s3.send(command);
@@ -104,6 +129,7 @@ async function uploadCatalog(catalog) {
     Key: "watch/catalog.json",
     Body: JSON.stringify(catalog, null, 2),
     ContentType: "application/json",
+    CacheControl: "public, max-age=60, stale-while-revalidate=300",
   });
   
   await s3.send(command);
@@ -119,6 +145,14 @@ async function seed() {
   const publicWatchDir = join(projectRoot, "public", "watch");
   const files = await readdir(publicWatchDir);
   const vttFiles = files.filter((f) => f.endsWith(".vtt"));
+  const localVttFiles = new Set(vttFiles);
+  for (const video of catalog) {
+    for (const expectedFile of expectedVttFileNames(video)) {
+      if (!localVttFiles.has(expectedFile)) {
+        throw new Error(`Missing required local VTT: ${expectedFile}`);
+      }
+    }
+  }
   
   for (const vttFile of vttFiles) {
     await uploadVtt(join(publicWatchDir, vttFile), vttFile);
