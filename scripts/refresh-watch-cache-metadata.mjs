@@ -2,6 +2,14 @@
 
 import { spawnSync } from "node:child_process";
 import {
+  mkdtempSync,
+  rmSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import {
   expectedVttFileNames,
   validateWatchCatalog,
 } from "./watch-catalog-validation.mjs";
@@ -32,6 +40,10 @@ if (APPLY && confirmedBucket !== R2_BUCKET) {
   );
   process.exit(1);
 }
+
+const temporaryRoot = APPLY
+  ? mkdtempSync(join(tmpdir(), "translator-watch-cache-"))
+  : null;
 
 function hasCachePolicy(actual, expected) {
   if (!actual) return false;
@@ -88,21 +100,25 @@ function expectedObjects(catalog) {
 }
 
 async function inspectObject(object) {
-  const response = await fetch(object.url, {
+  const cacheBust = new URL(object.url);
+  cacheBust.searchParams.set("metadata-audit", Date.now().toString());
+  const response = await fetch(cacheBust, {
     method: "HEAD",
     headers: { "user-agent": "TranslatorWatchCacheAudit/1.0" },
   });
-  const contentType = response.headers.get("content-type")?.split(";", 1)[0];
-  const cacheControl = response.headers.get("cache-control");
+  const actualContentType = response.headers
+    .get("content-type")
+    ?.split(";", 1)[0];
+  const actualCacheControl = response.headers.get("cache-control");
   return {
     ...object,
     status: response.status,
-    contentType,
-    cacheControl,
+    actualContentType,
+    actualCacheControl,
     compliant:
       response.ok &&
-      contentType === object.contentType &&
-      hasCachePolicy(cacheControl, object.cacheControl),
+      actualContentType === object.contentType &&
+      hasCachePolicy(actualCacheControl, object.cacheControl),
   };
 }
 
@@ -131,33 +147,41 @@ async function readValidatedBody(object) {
 
 async function replaceMetadata(object) {
   const body = await readValidatedBody(object);
+  // Wrangler 4.80 remote `--pipe` uploads preserve the body but drop
+  // Cache-Control metadata. A temporary `--file` upload preserves it.
+  const temporaryFile = join(temporaryRoot, encodeURIComponent(object.key));
+  writeFileSync(temporaryFile, body);
   const executable = process.platform === "win32" ? "npx.cmd" : "npx";
-  const result = spawnSync(
-    executable,
-    [
-      "wrangler",
-      "r2",
-      "object",
-      "put",
-      `${R2_BUCKET}/${object.key}`,
-      "--remote",
-      "--force",
-      "--pipe",
-      "--content-type",
-      object.contentType,
-      "--cache-control",
-      object.cacheControl,
-    ],
-    {
-      input: body,
-      encoding: "utf8",
-      maxBuffer: 5 * 1024 * 1024,
-    },
-  );
-  if (result.status !== 0) {
-    throw new Error(
-      `Wrangler failed for ${object.key}: ${(result.stderr || result.stdout).trim()}`,
+  try {
+    const result = spawnSync(
+      executable,
+      [
+        "wrangler",
+        "r2",
+        "object",
+        "put",
+        `${R2_BUCKET}/${object.key}`,
+        "--remote",
+        "--force",
+        "--file",
+        temporaryFile,
+        "--content-type",
+        object.contentType,
+        "--cache-control",
+        object.cacheControl,
+      ],
+      {
+        encoding: "utf8",
+        maxBuffer: 5 * 1024 * 1024,
+      },
     );
+    if (result.status !== 0) {
+      throw new Error(
+        `Wrangler failed for ${object.key}: ${(result.stderr || result.stdout).trim()}`,
+      );
+    }
+  } finally {
+    unlinkSync(temporaryFile);
   }
 }
 
@@ -181,24 +205,37 @@ if (!APPLY) {
     process.exitCode = 2;
   }
 } else {
-  let completed = 0;
-  for (const object of stale) {
-    await replaceMetadata(object);
-    completed += 1;
-    console.log(`Refreshed ${completed}/${stale.length}: ${object.key}`);
-  }
+  try {
+    let completed = 0;
+    for (const object of stale) {
+      await replaceMetadata(object);
+      completed += 1;
+      console.log(`Refreshed ${completed}/${stale.length}: ${object.key}`);
+    }
 
-  const verification = [];
-  await runPool(objects, async (object) => {
-    verification.push(await inspectObject(object));
-  });
-  const remaining = verification.filter((inspection) => !inspection.compliant);
-  if (remaining.length > 0) {
-    console.error(
-      `Metadata refresh completed, but ${remaining.length} object(s) still fail verification.`,
+    const verification = [];
+    await runPool(objects, async (object) => {
+      verification.push(await inspectObject(object));
+    });
+    const remaining = verification.filter(
+      (inspection) => !inspection.compliant,
     );
-    process.exitCode = 1;
-  } else {
-    console.log(`Verified cache metadata for all ${objects.length} Watch objects.`);
+    if (remaining.length > 0) {
+      console.error(
+        `Metadata refresh completed, but ${remaining.length} object(s) still fail verification.`,
+      );
+      for (const object of remaining.slice(0, 5)) {
+        console.error(
+          `- ${object.key}: HTTP ${object.status}; Content-Type ${JSON.stringify(object.actualContentType)}; Cache-Control ${JSON.stringify(object.actualCacheControl)}`,
+        );
+      }
+      process.exitCode = 1;
+    } else {
+      console.log(
+        `Verified cache metadata for all ${objects.length} Watch objects.`,
+      );
+    }
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
   }
 }
