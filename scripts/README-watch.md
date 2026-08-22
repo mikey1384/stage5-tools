@@ -16,7 +16,7 @@ Required for publishing scripts (not needed for Next.js runtime):
 # R2 bucket (defaults to ai-translator-downloads if not set)
 R2_BUCKET=ai-translator-downloads
 
-# R2 endpoint (required)
+# R2 endpoint (required) - same as translator release workflow
 R2_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com
 
 # R2 credentials (required)
@@ -29,12 +29,17 @@ AWS_SECRET_ACCESS_KEY=<r2-secret-access-key>
 For Next.js runtime (optional, falls back to bundled catalog if unset):
 
 ```bash
-# Public base URL for watch assets
-WATCH_ASSETS_BASE=https://<r2-public-domain>/watch
-
-# OR use a direct catalog URL
-WATCH_CATALOG_URL=https://<r2-public-domain>/watch/catalog.json
+# Public base URL for watch assets (existing R2 bucket public domain)
+WATCH_ASSETS_BASE=https://downloads.stage5.tools/watch
 ```
+
+This resolves to:
+- Catalog: `https://downloads.stage5.tools/watch/catalog.json`
+- VTTs: `https://downloads.stage5.tools/watch/vtt/{vttSlug}.{lang}.30s.vtt`
+
+The release workflow already uses this public base (checks `https://downloads.stage5.tools/mac/latest/$artifact`).
+
+When `WATCH_ASSETS_BASE` is unset, behavior equals today: bundled catalog + `public/watch/` VTTs.
 
 ## Scripts
 
