@@ -134,7 +134,9 @@ a recorded next step.
   with an exact browser-host allowlist covering only `translator.tools`,
   `www.translator.tools`, `stage5.tools`, and `www.stage5.tools`. Cloudflare
   Pages project/deployment hosts, localhost, unlisted subdomains, and lookalike
-  domains retain rendered SEO output but do not initialize GTM or AdSense.
+  domains do not initialize GTM or AdSense and now receive
+  `X-Robots-Tag: noindex, nofollow` on app-route responses so preview copies
+  cannot compete with the canonical production pages in search.
 - Hypothesis: excluding non-production renders will eliminate preview and local
   traffic from GA4/Google Ads and prevent accidental ad requests on Pages hosts
   without reducing measured production journeys or Watch CTA visibility.
@@ -151,7 +153,7 @@ a recorded next step.
   indexes remain ad-loader free; the AdSense meta and `ads.txt` publisher IDs
   remain aligned; no second GA/gtag entrypoint; and no customer content enters
   telemetry.
-- Verification: 16 analytics/host-loader tests, seven Watch tests, and one JSON-
+- Verification: 16 analytics/host-loader tests, eight Watch tests, and one JSON-
   LD safety test pass. The production and Cloudflare adapter builds pass. The
   R2-backed rendered audit passes 358 indexable URLs, 195 Watch detail renders,
   29 noindex routes, 16 redirects, explicit 404 probes, all 39 catalog entries,
@@ -162,8 +164,10 @@ a recorded next step.
   not expose while preserving those languages as caption/source languages; its
   artifact passed 25 tests, 124/124 R2 metadata checks, and the same exhaustive
   rendered audit before deployment to `3c182102.stage5-tools.pages.dev`, then
-  production verification at 2026-08-23 01:03. GTM Version 5 remains the only
-  unpublished part of this release.
+  production verification at 2026-08-23 01:03. The subsequent preview-indexing
+  guard passed the four-production-host/non-production-host header matrix and
+  the same exhaustive rendered audit before deployment. GTM Version 5 remains
+  the only unpublished part of this release.
 - Earliest reads: seven and 28 full days after both the website release and GTM
   Version 5 are verified live. A same-day hostname check may establish absence
   of obvious preview traffic but is not a performance outcome.

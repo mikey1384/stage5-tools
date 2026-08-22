@@ -1,3 +1,6 @@
+import * as http from "node:http";
+import * as https from "node:https";
+
 const AUDIT_BASE_URL =
   process.env.RENDERED_AUDIT_BASE_URL ?? "http://127.0.0.1:8793";
 const REQUEST_HOST = process.env.RENDERED_AUDIT_HOST ?? "translator.tools";
@@ -106,16 +109,52 @@ function parseSitemap(xml) {
   });
 }
 
-async function request(siteUrl, { redirect = "manual" } = {}) {
+async function request(
+  siteUrl,
+  { redirect = "manual", host = REQUEST_HOST } = {},
+) {
   const requested = new URL(siteUrl, SITE_ORIGIN);
   const target = new URL(`${requested.pathname}${requested.search}`, AUDIT_BASE_URL);
   const headers = {
     "user-agent":
       "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
   };
-  if (REQUEST_HOST) headers.host = REQUEST_HOST;
+  if (host) headers.host = host;
 
-  return fetch(target, { headers, redirect });
+  if (redirect !== "manual") {
+    throw new Error(`Unsupported rendered-audit redirect mode: ${redirect}`);
+  }
+
+  // Node's fetch implementation rewrites the Host header to match `target`,
+  // which makes a local transport URL look like a preview host to middleware.
+  // Use the native HTTP client so the audit exercises the requested production
+  // hostname while still connecting to the local Pages worker.
+  const transport = target.protocol === "https:" ? https : http;
+  return new Promise((resolve, reject) => {
+    const req = transport.request(target, { method: "GET", headers }, (res) => {
+      const chunks = [];
+      res.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+      res.on("end", () => {
+        const responseHeaders = new Headers();
+        for (const [name, value] of Object.entries(res.headers)) {
+          if (Array.isArray(value)) {
+            for (const item of value) responseHeaders.append(name, item);
+          } else if (value !== undefined) {
+            responseHeaders.set(name, value);
+          }
+        }
+
+        const body = Buffer.concat(chunks).toString("utf8");
+        resolve({
+          status: res.statusCode ?? 0,
+          headers: responseHeaders,
+          text: async () => body,
+        });
+      });
+    });
+    req.on("error", reject);
+    req.end();
+  });
 }
 
 function collectStructuredDataTypes(value, types = new Set()) {
@@ -681,6 +720,40 @@ if (robotsResponse.status !== 200) {
   }
 }
 
+const auditedHostGuard = ["127.0.0.1", "localhost"].includes(
+  new URL(AUDIT_BASE_URL).hostname,
+);
+if (auditedHostGuard) {
+  const productionHosts = [
+    "translator.tools",
+    "www.translator.tools",
+    "stage5.tools",
+    "www.stage5.tools",
+  ];
+  const nonProductionHosts = [
+    "stage5-tools.pages.dev",
+    "rendered-audit.stage5-tools.pages.dev",
+    "localhost",
+    "preview.translator.tools",
+    "translator.tools.example.com",
+  ];
+
+  await runPool(productionHosts, async (host) => {
+    const response = await request("/", { host });
+    if (hasDirective([response.headers.get("x-robots-tag") ?? ""], "noindex")) {
+      fail(host, "production host emits noindex");
+    }
+  });
+
+  await runPool(nonProductionHosts, async (host) => {
+    const response = await request("/", { host });
+    const robots = [response.headers.get("x-robots-tag") ?? ""];
+    if (!hasDirective(robots, "noindex") || !hasDirective(robots, "nofollow")) {
+      fail(host, "non-production host is missing noindex, nofollow");
+    }
+  });
+}
+
 if (failures.length > 0) {
   console.error(`Rendered SEO audit failed with ${failures.length} issue(s):`);
   for (const failure of failures) console.error(`- ${failure}`);
@@ -693,6 +766,7 @@ if (failures.length > 0) {
   );
   console.log(
     `Verified ${watchCatalog.length} R2 catalog entries, ${vttCount} R2-backed VTT responses, ` +
-      `GTM ${EXPECTED_GTM_ID}, and AdSense ${adsenseClientId}.`,
+      `GTM ${EXPECTED_GTM_ID}, and AdSense ${adsenseClientId}` +
+      `${auditedHostGuard ? ", plus the production/preview indexing guard" : ""}.`,
   );
 }

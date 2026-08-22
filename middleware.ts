@@ -17,11 +17,33 @@ import {
   isEnglishOnlyPath,
   type Locale,
 } from "./lib/locales";
+import { isProductionHostname } from "./lib/third-party-script-bootstrap";
 
 const LOCALE_COOKIE = "lang";
 const LOCALE_HEADER = "x-stage5-locale";
 const LOCALE_REWRITE_HEADER = "x-stage5-locale-rewrite";
 const ONE_YEAR = 60 * 60 * 24 * 365;
+
+function applySearchIndexingGuard(
+  response: NextResponse,
+  hostname: string,
+): NextResponse {
+  if (!isProductionHostname(hostname)) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
+}
+
+function getRequestHostname(req: NextRequest): string {
+  const host = req.headers.get("host");
+  if (!host) return req.nextUrl.hostname;
+
+  try {
+    return new URL(`http://${host}`).hostname;
+  } catch {
+    return req.nextUrl.hostname;
+  }
+}
 
 function getCookieLocale(req: NextRequest): Locale | undefined {
   return parseLocaleCookie(req.headers.get("cookie"));
@@ -73,9 +95,12 @@ export function middleware(req: NextRequest) {
   const pathLocale = localeFromPathname(pathname);
   const isLocalizedPath = pathLocale !== DEFAULT_LOCALE;
   const isCrawler = isCrawlerRequest(req);
+  const requestHostname = getRequestHostname(req);
   // `_next`, public files, and other asset-like requests are already excluded by
   // `config.matcher`, so this only covers app routes that should never be locale-prefixed.
   const isLocaleRedirectExcluded = isLocaleRedirectExcludedRoute(englishPath);
+  const respond = (response: NextResponse) =>
+    applySearchIndexingGuard(response, requestHostname);
 
   if (url.searchParams.get("clearLang") === "1") {
     const nextUrl = url.clone();
@@ -83,15 +108,15 @@ export function middleware(req: NextRequest) {
     nextUrl.searchParams.delete("l");
     nextUrl.searchParams.delete("clearLang");
     const res = NextResponse.redirect(nextUrl);
-    clearLocaleCookies(res, req.nextUrl.hostname);
-    return res;
+    clearLocaleCookies(res, requestHostname);
+    return respond(res);
   }
 
   if (isLocalizedPath && isLocaleRedirectExcluded) {
     const nextUrl = url.clone();
     nextUrl.pathname = englishPath;
     nextUrl.searchParams.delete("l");
-    return NextResponse.redirect(nextUrl, 308);
+    return respond(NextResponse.redirect(nextUrl, 308));
   }
 
   if (isLocale(explicitLocale)) {
@@ -113,9 +138,9 @@ export function middleware(req: NextRequest) {
       !isLocaleRedirectExcluded &&
       (isFullSiteLocale(explicitLocale) || englishPath === "/")
     ) {
-      setLocaleCookie(res, req.nextUrl.hostname, explicitLocale);
+      setLocaleCookie(res, requestHostname, explicitLocale);
     }
-    return res;
+    return respond(res);
   }
 
   // Render localized full-site URLs by internally rewriting to the English route tree.
@@ -137,9 +162,9 @@ export function middleware(req: NextRequest) {
       },
     });
     if (!isCrawler && cookieLocale !== pathLocale) {
-      setLocaleCookie(res, req.nextUrl.hostname, pathLocale);
+      setLocaleCookie(res, requestHostname, pathLocale);
     }
-    return res;
+    return respond(res);
   }
 
   if (!isCrawler && !isLocalizedPath && !isLocaleRedirectExcluded) {
@@ -152,14 +177,14 @@ export function middleware(req: NextRequest) {
       if (localizedPath !== pathname) {
         const nextUrl = url.clone();
         nextUrl.pathname = localizedPath;
-        return NextResponse.redirect(nextUrl);
+        return respond(NextResponse.redirect(nextUrl));
       }
     }
 
     if (cookieLocale && isHomeOnlyLocale(cookieLocale) && englishPath === "/") {
       const nextUrl = url.clone();
       nextUrl.pathname = homeHrefForLocale(cookieLocale);
-      return NextResponse.redirect(nextUrl);
+      return respond(NextResponse.redirect(nextUrl));
     }
 
     if (!cookieLocale) {
@@ -174,8 +199,8 @@ export function middleware(req: NextRequest) {
           const nextUrl = url.clone();
           nextUrl.pathname = localizedPath;
           const res = NextResponse.redirect(nextUrl);
-          setLocaleCookie(res, req.nextUrl.hostname, detectedLocale);
-          return res;
+          setLocaleCookie(res, requestHostname, detectedLocale);
+          return respond(res);
         }
       }
     }
@@ -197,10 +222,10 @@ export function middleware(req: NextRequest) {
     (isFullSiteLocale(pathLocale) || englishPath === "/") &&
     cookieLocale !== pathLocale
   ) {
-    setLocaleCookie(res, req.nextUrl.hostname, pathLocale);
+    setLocaleCookie(res, requestHostname, pathLocale);
   }
 
-  return res;
+  return respond(res);
 }
 
 export const config = {

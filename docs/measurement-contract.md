@@ -88,7 +88,9 @@ checkout return IDs, Stripe customer IDs, or other customer content.
   `www.translator.tools`, `stage5.tools`, and `www.stage5.tools`. Localhost,
   `stage5-tools.pages.dev`, deployment `*.stage5-tools.pages.dev` hosts,
   unlisted subdomains, and lookalike suffixes do not load either third-party
-  script.
+  script. App-route responses on those non-production hosts also return
+  `X-Robots-Tag: noindex, nofollow`; the four production hosts do not receive
+  that header.
 - GTM Version 5 must apply the same production-host regex to the Google Tag,
   Conversion Linker, and all three custom-event triggers. Cross-domain linking
   is limited to `translator.tools` and `stage5.tools`; the Pages project host and
