@@ -1,5 +1,6 @@
 import { isTranslatedLanguageDetailPath } from "./translate-language-slugs";
 import { normalizePathname } from "./pathname-utils";
+import { getAllSlugs } from "./watch";
 
 const FULL_SITE_LOCALES = ["en", "ko", "es", "ja", "zh", "fr", "de", "pt", "vi"] as const;
 const HOME_ONLY_LOCALES = [] as const;
@@ -109,19 +110,7 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
   
   if (englishPath.startsWith("/watch/")) {
     const slug = englishPath.slice(7);
-    
-    // All current watch posts support en, es, ko, pt
-    const watchSlugs = [
-      "ferran-adria-wild-project",
-      "pique-la-resistencia",
-      "park-chan-wook-lee-dong-jin",
-      "lee-jung-jae-hunt-piarchia",
-      "yoo-ji-tae-piarchia",
-      "kore-eda-piarchia",
-      "calvo-wild-project",
-      "nolan-colbert-oppenheimer",
-      "ramsay-hot-ones",
-    ];
+    const watchSlugs = getAllSlugs();
     
     if (watchSlugs.includes(slug)) {
       return ["en", "es", "ko", "pt"];

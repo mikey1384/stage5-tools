@@ -36,6 +36,15 @@ for (const relativePath of filesToCompile) {
   fs.writeFileSync(outputPath, output.outputText, "utf8");
 }
 
+// Create stub watch module for locales.ts
+const watchStubPath = path.join(tempDir, "lib", "watch");
+fs.mkdirSync(watchStubPath, { recursive: true });
+fs.writeFileSync(
+  path.join(watchStubPath, "index.js"),
+  `exports.getAllSlugs = function() { return []; };`,
+  "utf8"
+);
+
 const requireFromTemp = createRequire(path.join(tempDir, "index.js"));
 const { FULLY_LOCALIZED_LOCALES } = requireFromTemp("./lib/locales.js");
 const {
