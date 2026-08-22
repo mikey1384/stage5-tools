@@ -13,15 +13,22 @@ import {
   localizePathForLocale,
 } from "../../../lib/locale-routing";
 import { buildMetadata } from "../../../lib/seo";
-import { getVideo, getAllSlugs, type WatchLocale } from "../../../lib/watch";
+import { getCatalogEntry, getAllCatalogSlugs } from "../../../lib/watch/catalog-loader";
 
+// Enable on-demand rendering for new slugs without rebuild
+export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
+type SupportedLocale = "en" | "es" | "ko" | "pt";
+
+function isSupportedLocale(locale: string): locale is SupportedLocale {
+  return ["en", "es", "ko", "pt"].includes(locale);
+}
+
 export async function generateStaticParams() {
-  const slugs = getAllSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
+  // Pre-generate known slugs as a warm set, but allow new ones via dynamicParams
+  const slugs = await getAllCatalogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -30,19 +37,23 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const video = getVideo({ slug });
+  const entry = await getCatalogEntry(slug);
   
-  if (!video) {
-    notFound();
+  if (!entry) {
+    return buildMetadata({
+      title: "Not Found",
+      description: "",
+      path: `/watch/${slug}`,
+      keywords: [],
+    });
   }
 
   const locale = await getLocale();
-  const copy = video.copy[locale as WatchLocale];
-  
-  if (!copy) {
+  if (!isSupportedLocale(locale) || !entry.supportedLocales.includes(locale)) {
     notFound();
   }
 
+  const copy = entry.copy[locale];
   return buildMetadata({
     title: copy.title,
     description: copy.description,
@@ -52,7 +63,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function WatchPage({
+export default async function WatchSlugPage({
   params,
   searchParams,
 }: {
@@ -60,21 +71,20 @@ export default async function WatchPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { slug } = await params;
-  const searchParamsValue = await searchParams;
-  const locale = await getLocale(searchParamsValue);
-  
-  const video = getVideo({ slug });
-  
-  if (!video) {
+  const entry = await getCatalogEntry(slug);
+
+  if (!entry) {
     notFound();
   }
 
-  const copy = video.copy[locale as WatchLocale];
+  const searchParamsResolved = await searchParams;
+  const locale = await getLocale(searchParamsResolved);
   
-  if (!copy) {
+  if (!isSupportedLocale(locale) || !entry.supportedLocales.includes(locale)) {
     notFound();
   }
 
+  const copy = entry.copy[locale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
@@ -84,7 +94,7 @@ export default async function WatchPage({
     headline: copy.h1,
     description: copy.description,
     url: `https://translator.tools${localizeHref(`/watch/${slug}`)}`,
-    datePublished: video.datePublished,
+    datePublished: "2026-08-22",
     author: {
       "@type": "Organization",
       name: "Stage5 Tools",
@@ -94,20 +104,18 @@ export default async function WatchPage({
       name: "Stage5 Tools",
       url: "https://translator.tools",
     },
-    about: video.structuredDataAbout || [],
+    about: [
+      {
+        "@type": "VideoObject",
+        name: copy.h1,
+        description: copy.description,
+        uploadDate: "2026-08-22",
+        contentUrl: `https://www.youtube.com/watch?v=${entry.videoId}`,
+        embedUrl: `https://www.youtube.com/embed/${entry.videoId}`,
+        inLanguage: entry.sourceLang,
+      },
+    ],
   };
-
-  const postCard = {
-    slug: video.slug,
-    title: video.copy.en.h1,
-    language: video.language,
-    topic: video.topic,
-  };
-
-  const freeLabel = copy.freeLabel || "Free:";
-  const paidLabel = copy.paidLabel || "Paid:";
-  const downloadLinkText = copy.downloadLinkText || "Learn about video downloading →";
-  const ctaNote = copy.ctaNote || "Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key.";
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -125,18 +133,22 @@ export default async function WatchPage({
           items={[
             { label: "Home", href: homeHref },
             { label: "Watch", href: localizeHref("/watch") },
-            { label: postCard.title },
+            { label: copy.h1 },
           ]}
         />
 
         <article className="pb-24">
           <header className="mx-auto max-w-4xl pb-12 pt-10">
             <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
-              <span>{postCard.language}</span>
+              <span>{copy.language}</span>
               <span className="text-gray-700">·</span>
-              <span>{postCard.topic}</span>
-              <span className="text-gray-700">·</span>
-              <span>{video.showName}</span>
+              <span>{copy.topic}</span>
+              {copy.show && (
+                <>
+                  <span className="text-gray-700">·</span>
+                  <span>{copy.show}</span>
+                </>
+              )}
             </div>
             <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
               {copy.h1}
@@ -149,11 +161,12 @@ export default async function WatchPage({
           <div className="mx-auto max-w-4xl">
             <YouTubeDemo
               locale={locale}
-              slug={video.slug}
-              videoId={video.videoId}
-              sourceLang={video.sourceLang}
-              availableTracks={video.tracks}
+              slug={slug}
+              videoId={entry.videoId}
+              sourceLang={entry.sourceLang}
+              availableTracks={entry.tracks}
               videoDownloaderHref={localizeHref("/video-downloader")}
+              vttSlug={entry.vttSlug}
             />
 
             <div className="prose prose-invert mt-12 max-w-none">
@@ -182,11 +195,9 @@ export default async function WatchPage({
                 ))}
               </ol>
 
-              {copy.howToNote && (
-                <p className="mt-6 text-base leading-7 text-gray-400">
-                  {copy.howToNote}
-                </p>
-              )}
+              <p className="mt-6 text-base leading-7 text-gray-400">
+                {copy.howToNote}
+              </p>
 
               <div className="mt-12 rounded-2xl border border-sky-500/20 bg-sky-500/5 p-8">
                 <h3 className="text-xl font-semibold text-white">
@@ -194,11 +205,11 @@ export default async function WatchPage({
                 </h3>
                 <ul className="mt-4 space-y-3 text-base leading-7 text-gray-300">
                   <li>
-                    <strong className="text-white">{freeLabel}</strong>{" "}
+                    <strong className="text-white">{copy.freeLabel}</strong>{" "}
                     {copy.pricingFree}
                   </li>
                   <li>
-                    <strong className="text-white">{paidLabel}</strong>{" "}
+                    <strong className="text-white">{copy.paidLabel}</strong>{" "}
                     {copy.pricingPaid}
                   </li>
                 </ul>
@@ -212,19 +223,6 @@ export default async function WatchPage({
                   {paragraph}
                 </p>
               ))}
-
-              {copy.contentTitle && (
-                <>
-                  <h2 className="mt-12 text-3xl font-semibold text-white">
-                    {copy.contentTitle}
-                  </h2>
-                  {copy.contentBody?.map((paragraph, i) => (
-                    <p key={i} className="text-lg leading-8 text-gray-300">
-                      {paragraph}
-                    </p>
-                  ))}
-                </>
-              )}
             </div>
 
             <div className="mt-16 border-t border-white/10 pt-12">
@@ -239,18 +237,18 @@ export default async function WatchPage({
                   href={localizeHref("/video-downloader")}
                   className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
                 >
-                  {downloadLinkText}
+                  {copy.downloadLinkText}
                 </Link>
               </div>
               <FeatureDownloadCta
                 locale={locale}
-                note={ctaNote}
+                note={copy.ctaNote}
                 align="start"
                 className="mt-8"
                 watchContext={{
-                  slug: video.slug,
-                  videoId: video.videoId,
-                  sourceLang: video.sourceLang,
+                  slug,
+                  videoId: entry.videoId,
+                  sourceLang: entry.sourceLang,
                   selectedLang: "off",
                   placement: "body",
                 }}

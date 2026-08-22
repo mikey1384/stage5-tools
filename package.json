@@ -16,7 +16,9 @@
     "monitor:deploy": "wrangler deploy -c monitor/wrangler.toml",
     "monitor:test": "node --test monitor/test/monitor.test.mjs",
     "monitor:demo:pass": "node monitor/scripts/demo-run.mjs pass",
-    "monitor:demo:force": "node monitor/scripts/demo-run.mjs force"
+    "monitor:demo:force": "node monitor/scripts/demo-run.mjs force",
+    "watch:seed": "node scripts/seed-watch-catalog.mjs",
+    "watch:publish": "node scripts/publish-watch.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.513.0",
@@ -25,6 +27,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.709.0",
     "@cloudflare/next-on-pages": "^1.13.12",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",

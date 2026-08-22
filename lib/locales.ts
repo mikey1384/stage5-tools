@@ -109,12 +109,23 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
   }
   
   if (englishPath.startsWith("/watch/")) {
+<<<<<<< HEAD
     const slug = englishPath.slice(7);
     const watchSlugs = getAllSlugs();
     
     if (watchSlugs.includes(slug)) {
       return ["en", "es", "ko", "pt"];
     }
+=======
+    // For watch pages, we need to check the runtime catalog
+    // Since this is a sync function and catalog loading is async,
+    // we maintain a hardcoded list for now but allow new slugs to work
+    // The actual 404 check happens in the page component
+    
+    // Default to the common set for any watch/* path
+    // The dynamic page will 404 if the slug doesn't exist or locale isn't supported
+    return ["en", "es", "ko", "pt"];
+>>>>>>> 84b8964 (feat(watch): break git+rebuild wall with R2-backed catalog and on-demand rendering)
   }
   
   return null;
