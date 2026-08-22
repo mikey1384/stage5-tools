@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
@@ -61,6 +62,11 @@ const pageCopy: Record<WatchSupportedLocale, {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const copy = pageCopy[locale as WatchSupportedLocale];
+  
+  if (!copy) {
+    notFound();
+  }
+  
   return buildMetadata({
     title: copy.title,
     description: copy.description,
@@ -83,6 +89,11 @@ export default async function WatchIndexPage({
   const params = await searchParams;
   const locale = await getLocale(params);
   const copy = pageCopy[locale as WatchSupportedLocale];
+  
+  if (!copy) {
+    notFound();
+  }
+  
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
