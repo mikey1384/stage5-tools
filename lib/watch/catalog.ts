@@ -1,6 +1,6 @@
 import type { Locale } from "../locales";
 
-export type WatchLocale = "en" | "es" | "ko" | "pt";
+export type WatchLocale = "en" | "es" | "ko" | "pt" | "vi";
 export type TrackLang = WatchLocale;
 
 export interface WatchPageCopy {

@@ -21,7 +21,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -252,6 +252,67 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da fonte oficial do Late Show. Os primeiros 30 segundos de legendas mostrados no player podem ser exibidos em inglês, espanhol, coreano ou português. Todas as quatro faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos). O resto da entrevista não está publicado aqui—este post explica o fluxo de trabalho para que você possa traduzir o vídeo completo você mesmo.",
       "Fonte: The Late Show com Stephen Colbert, apresentando Christopher Nolan. Vídeo em inglês. O título do episódio menciona o celular descartável de Nolan, que é discutido mais tarde na entrevista completa, não na prévia de 30 segundos mostrada aqui.",
+    ],
+  },
+  vi: {
+    title: "Xem Christopher Nolan trên The Late Show với Phụ Đề Tiếng Việt | Translator",
+    description:
+      "Đạo diễn Christopher Nolan thảo luận về Oppenheimer trên The Late Show với Stephen Colbert trong mùa giải thưởng 2024.",
+    keywords: [
+      "Christopher Nolan phỏng vấn",
+      "Oppenheimer",
+      "Stephen Colbert",
+      "The Late Show",
+      "phỏng vấn tiếng Anh",
+    ],
+    h1: "Xem Christopher Nolan Thảo Luận Về Oppenheimer",
+    intro:
+      "Đạo diễn Christopher Nolan thảo luận về Oppenheimer trên The Late Show với Stephen Colbert trong mùa giải thưởng 2024.",
+    section1Title: "Cuộc phỏng vấn bằng tiếng Anh",
+    section1Body: [
+      "Christopher Nolan là đạo diễn, biên kịch và nhà sản xuất phim. Anh được biết đến với The Dark Knight, Inception, Interstellar và Oppenheimer.",
+      "Trong cuộc phỏng vấn này, Nolan nói về Oppenheimer, quy trình làm phim và cách anh tiếp cận kể chuyện.",
+      "Cuộc phỏng vấn bằng tiếng Anh. Người nói tiếng Việt có thể muốn phụ đề để hiểu rõ hơn về chi tiết kỹ thuật.",
+    ],
+    howToTitle: "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+    howToBody:
+      "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Sao chép liên kết video và dán vào trường tải xuống của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải xuống video và bất kỳ phụ đề có sẵn nào.",
+      },
+      {
+        title: "Phiên âm hoặc dịch",
+        body: "Sử dụng AI để phiên âm hoặc dịch phụ đề.",
+      },
+      {
+        title: "Xem với phụ đề bạn kiểm soát",
+        body: "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng.",
+      },
+    ],
+    howToNote: "Video lưu trên máy tính của bạn. Bạn không phát trực tuyến qua ứng dụng web hoặc tải lên máy chủ người khác. Translator hoạt động cục bộ.",
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree:
+      "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+    pricingPaid:
+      "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+    section2Title: "Nội dung điện ảnh bằng tiếng Việt",
+    section2Body: [
+      "Phỏng vấn đạo diễn tiếng Anh trên YouTube thường không có phụ đề tiếng Việt.",
+      "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng.",
+    ],
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL của video này và xem quy trình hoạt động như thế nào.",
+    aboutTitle: "Về bài viết này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ nguồn chính thức của Late Show. 30 giây đầu tiên của phụ đề hiển thị trong trình phát có thể hiển thị bằng tiếng Anh, tiếng Tây Ban Nha, tiếng Hàn hoặc tiếng Bồ Đào Nha. Cả bốn bản phụ đề đều được phiên âm và dịch trong Translator (chỉ 30 giây đầu). Phần còn lại của cuộc phỏng vấn không được công bố ở đây—bài viết này giải thích quy trình để bạn có thể tự dịch toàn bộ video.",
+      "Nguồn: The Late Show với Stephen Colbert, có Christopher Nolan. Video bằng tiếng Anh. Tiêu đề tập đề cập đến điện thoại dùng một lần của Nolan, được thảo luận sau trong cuộc phỏng vấn đầy đủ, không phải trong bản xem trước 30 giây hiển thị ở đây.",
     ],
   },
 };

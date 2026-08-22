@@ -20,7 +20,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const calvoWildProjectCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -184,6 +184,66 @@ export const calvoWildProjectCopy: Record<SupportedLocale, WatchPageCopy> = {
     aboutBody: [
       "Vídeo oficial do YouTube. Primeiros 30s com legendas em inglês, coreano ou português.",
       "Fonte: The Wild Project #376. Vídeo em espanhol.",
+    ],
+  },
+  vi: {
+    title: "Xem Alejandro G. Calvo trên Wild Project với Phụ Đề Tiếng Việt | Translator",
+    description:
+      "Nhà phê bình phim Tây Ban Nha Alejandro G. Calvo thảo luận về TOP 60 películas với Jordi Wild. Cuộc phỏng vấn tiếng Tây Ban Nha về điện ảnh, phê bình và nghề thủ công.",
+    keywords: [
+      "Alejandro G. Calvo phỏng vấn",
+      "Wild Project",
+      "Jordi Wild",
+      "phỏng vấn tiếng Tây Ban Nha",
+      "nhà phê bình phim Tây Ban Nha",
+    ],
+    h1: "Xem Alejandro G. Calvo Thảo Luận Về Phim",
+    intro:
+      "Nhà phê bình phim Tây Ban Nha Alejandro G. Calvo thảo luận về TOP 60 películas với Jordi Wild trong cuộc phỏng vấn tiếng Tây Ban Nha đáng xem.",
+    section1Title: "Cuộc phỏng vấn bằng tiếng Tây Ban Nha",
+    section1Body: [
+      "Alejandro G. Calvo là nhà phê bình phim Tây Ban Nha. Anh xuất hiện trên The Wild Project để thảo luận về danh sách phim hàng đầu.",
+      "Trong cuộc phỏng vấn này, Calvo nói về các bộ phim yêu thích, phê bình phim và cách anh tiếp cận việc xem và phân tích phim.",
+      "Cuộc phỏng vấn bằng tiếng Tây Ban Nha. Người nói tiếng Việt bỏ lỡ giọng điệu, chi tiết và toàn bộ cuộc trò chuyện.",
+    ],
+    howToTitle: "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+    howToBody:
+      "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Sao chép liên kết video và dán vào trường tải xuống của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải xuống video và bất kỳ phụ đề có sẵn nào.",
+      },
+      {
+        title: "Phiên âm hoặc dịch",
+        body: "Sử dụng AI để phiên âm hoặc dịch phụ đề.",
+      },
+      {
+        title: "Xem với phụ đề bạn kiểm soát",
+        body: "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng.",
+      },
+    ],
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree:
+      "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+    pricingPaid:
+      "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+    section2Title: "Nội dung điện ảnh Tây Ban Nha bằng tiếng Việt",
+    section2Body: [
+      "Tây Ban Nha tạo ra một số nội dung phim hay nhất trên YouTube. Hầu hết không có phụ đề tiếng Việt.",
+      "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng.",
+    ],
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL của video này và xem quy trình hoạt động như thế nào.",
+    aboutTitle: "Về bài viết này",
+    aboutBody: [
+      "Video YouTube chính thức. 30 giây đầu có phụ đề bằng tiếng Anh, tiếng Hàn hoặc tiếng Bồ Đào Nha.",
+      "Nguồn: The Wild Project #376. Video bằng tiếng Tây Ban Nha.",
     ],
   },
 };

@@ -62,6 +62,7 @@ const LANGUAGE_LABELS: Record<TrackLang, string> = {
   es: "Español",
   ko: "한국어",
   pt: "Português",
+  vi: "Tiếng Việt",
 };
 
 interface YouTubeDemoProps {
