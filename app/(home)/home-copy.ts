@@ -1307,21 +1307,21 @@ export const homeCopy = {
   vi: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Phụ đề dịch bằng AI cho video internet | Ứng dụng desktop miễn phí",
+      "Công cụ dịch phụ đề video bằng AI | Tool dịch phụ đề cho video internet | Translator",
     metadataDescription:
-      "Tải xuống hoặc nhập video internet, tạo phụ đề dịch chất lượng cao, rà soát và chỉnh sửa, rồi xuất video có phụ đề hoặc tệp SRT sạch trong một ứng dụng desktop.",
-    eyebrow: "Phụ đề dịch bằng AI, từ video đến xuất file",
-    title: "Biến video internet thành phụ đề dịch sẵn sàng sử dụng.",
+      "Công cụ dịch phụ đề video chuyên nghiệp: tải video, tạo và dịch phụ đề trực tiếp, rà soát từng dòng trong ngữ cảnh, xuất SRT hoặc video có phụ đề. Dịch phụ đề sang 39 ngôn ngữ.",
+    eyebrow: "Công cụ dịch phụ đề video chuyên nghiệp",
+    title: "Công cụ dịch phụ đề video hoàn chỉnh từ đầu đến cuối.",
     subtitle:
-      "Dán URL video hoặc nhập tệp. Translator tải video, chép lời âm thanh, dịch phụ đề, cho bạn rà từng dòng trong ngữ cảnh và xuất tệp SRT sạch hoặc video có phụ đề.",
+      "Dán URL video hoặc nhập tệp. Translator tải video, chép lời âm thanh, dịch phụ đề trực tiếp, cho bạn rà từng dòng trong ngữ cảnh và xuất tệp SRT sạch hoặc video có phụ đề.",
     heroPoints: [
-      "Tải xuống hoặc nhập video mà không rời app",
-      "Tạo phụ đề dịch với timing sẵn sàng rà soát",
-      "Chỉnh câu chữ và timing trong khi xem video",
-      "Xuất tệp SRT hoặc video có phụ đề hoàn chỉnh",
+      "Tải video từ URL hoặc nhập tệp mà không rời app",
+      "Dịch phụ đề trực tiếp với timing gắn chặt vào video",
+      "Rà soát và chỉnh từng dòng dịch trong khi xem video",
+      "Xuất tệp SRT hoặc video có phụ đề đã dịch hoàn chỉnh",
     ],
     heroNote:
-      "Tải xuống miễn phí. Tải video và chỉnh sửa phụ đề đều miễn phí. Tính năng AI chỉ dùng credit khi bạn thực sự chạy chúng.",
+      "Tải xuống miễn phí. Tải video và chỉnh sửa phụ đề đều miễn phí. Dịch phụ đề bằng AI chỉ dùng credit khi bạn thực sự chạy tác vụ.",
     heroPricingLink: "Xem giá",
     heroFaqLink: "Đọc FAQ",
     heroScreenshotCaption:
@@ -1389,26 +1389,26 @@ export const homeCopy = {
       {
         title: "Bắt đầu từ URL video hoặc tệp cục bộ",
         description:
-          "Dán URL video được hỗ trợ hoặc nhập video từ máy của bạn, rồi tiếp tục làm phụ đề trong cùng một ứng dụng.",
+          "Dán URL video được hỗ trợ hoặc nhập video từ máy của bạn, rồi tiếp tục dịch phụ đề trong cùng một ứng dụng.",
         href: "/video-downloader",
         cta: "Xem trình tải xuống",
       },
       {
-        title: "Tạo phụ đề dịch mà bạn có thể rà soát",
+        title: "Dịch phụ đề video trực tiếp trong ngữ cảnh",
         description:
-          "Tạo phụ đề, dịch chúng và kiểm tra kết quả cùng với video thay vì tin vào văn bản tách khỏi ngữ cảnh.",
+          "Tạo phụ đề, dịch chúng sang 39 ngôn ngữ và kiểm tra kết quả cùng với video thay vì tin vào văn bản tách khỏi ngữ cảnh.",
         href: "/translate",
-        cta: "Xem dịch bằng AI",
+        cta: "Xem công cụ dịch bằng AI",
       },
       {
-        title: "Sửa phụ đề trước khi xuất",
+        title: "Rà soát và sửa phụ đề đã dịch trước khi xuất",
         description:
-          "Chỉnh câu chữ, timing và tệp phụ đề trước khi xuất SRT hoặc burn phụ đề vào video cuối.",
+          "Chỉnh câu chữ, timing và tệp phụ đề đã dịch trước khi xuất SRT hoặc burn phụ đề vào video cuối.",
         href: "/subtitle-editor",
         cta: "Xem trình chỉnh sửa",
       },
       {
-        title: "Chỉ trả tiền khi AI thực sự chạy",
+        title: "Chỉ trả tiền khi dịch phụ đề bằng AI",
         description:
           "Ứng dụng được tải miễn phí, chỉnh phụ đề miễn phí, và đủ linh hoạt cho người dùng nâng cao muốn dùng credit hoặc khóa BYO.",
         href: "/pricing",
@@ -1427,8 +1427,8 @@ export const homeCopy = {
     bottomTitle: "Dịch video tiếp theo của bạn từ đầu đến cuối.",
     bottomDescription:
       "Tìm hoặc mở video, tạo và dịch phụ đề, xem lại và chỉnh sửa ngay cùng hình ảnh, rồi xuất hoặc lồng tiếng kết quả. Nhiều công việc được sắp xếp trong các tab của cùng một ứng dụng máy tính.",
-    mockSearchQuery: "video internet -> phụ đề tiếng Việt đã rà",
-    mockSearchTag: "Quy trình video sang phụ đề",
+    mockSearchQuery: "video internet -> phụ đề đã dịch sang tiếng Việt",
+    mockSearchTag: "Tool dịch phụ đề video",
     heroBenefitTitle1: "Rà phụ đề dịch trong ngữ cảnh",
     heroBenefitBody1:
       "Bạn có thể xem từng dòng dịch cùng với video trước khi quyết định cần chỉnh gì.",
@@ -1515,6 +1515,18 @@ export function getHomeMetadata(locale: Locale): Metadata {
             "자막 편집 프로그램",
             "여러 영상 동시 번역",
             "멀티탭 영상 번역기",
+          ]
+        : []),
+      ...(locale === "vi"
+        ? [
+            "công cụ dịch phụ đề video",
+            "tool dịch video",
+            "dịch phụ đề video",
+            "dịch phụ đề trực tiếp",
+            "dịch phụ đề",
+            "phần mềm dịch phụ đề",
+            "tool dịch phụ đề AI",
+            "dịch video sang tiếng Việt",
           ]
         : []),
     ],
