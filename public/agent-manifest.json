@@ -74,16 +74,26 @@
     "safety": "Cancel installation if Windows shows a different publisher."
   },
   "mcp": {
-    "status": "developer_preview",
-    "included_in_installers": false,
+    "status": "packaged_in_installers",
+    "included_in_installers": true,
+    "minimum_version": "1.16.16",
     "transport": "stdio",
-    "run_from": "source repository",
+    "run_from": "installed application",
     "setup": [
-      "git clone https://github.com/mikey1384/translator.git",
-      "cd translator",
-      "npm install",
-      "npm run agent:mcp"
+      "Install Translator 1.16.16+",
+      "Open Settings → Agent Control → Allow agent control",
+      "Allowlist write folders in Agent Control settings",
+      "Socket appears at launch (if already enabled) or after toggle and relaunch"
     ],
+    "source_build_path": {
+      "status": "optional_developer_path",
+      "setup": [
+        "git clone https://github.com/mikey1384/translator.git",
+        "cd translator",
+        "npm install",
+        "npm run agent:mcp"
+      ]
+    },
     "capability_groups": [
       "app launch, status, and semantic navigation",
       "video URL download",
@@ -97,10 +107,11 @@
       "open explicit web pages and selected Stage5 checkout pages"
     ],
     "safety_boundaries": [
-      "Keep the MCP host's normal file-write and network approval controls enabled.",
-      "Stored provider key values are never returned.",
-      "The agent can open checkout pages but cannot read, enter, or submit payment details.",
-      "Transcription, dubbing, hosted Stage5 services, and third-party providers retain their normal costs and credentials."
+      "Agent Control is off by default (kill switch). User must explicitly enable in Settings.",
+      "User must allowlist write folders. File-writing and network actions should remain subject to the MCP host's normal approval controls.",
+      "Agent never reads stored API keys.",
+      "The agent can open checkout pages but the user must enter and submit payment details.",
+      "Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend."
     ]
   }
 }

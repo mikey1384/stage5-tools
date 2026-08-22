@@ -18,9 +18,9 @@ const HOMEBREW_TAP_URL = "https://github.com/mikey1384/homebrew-translator";
 const HOMEBREW_INSTALL_COMMAND =
   "brew install --cask mikey1384/translator/stage5-translator";
 
-const title = "Translator for LLM agents | Local MCP developer preview";
+const title = "Translator for LLM agents | Agent Control in finished installs";
 const description =
-  "Use Translator with an LLM agent through its local MCP developer preview, or let an agent choose and download the correct macOS or Windows installer.";
+  "Control the installed Translator app through packaged MCP tools. Enable Agent Control in Settings, and an LLM agent can download videos, transcribe, translate, export SRT or burned-in video from the same desktop app you already use.";
 
 export const metadata: Metadata = {
   title,
@@ -152,7 +152,7 @@ export default function AgentsPage() {
         <section className="pb-24 pt-10 md:pb-32 md:pt-16">
           <div className="border-t border-white/20 pt-5">
             <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-white/50">
-              <span>Local MCP / developer preview</span>
+              <span>Packaged MCP / Agent Control toggle</span>
               <span>Finished installers / direct links</span>
             </div>
           </div>
@@ -169,26 +169,27 @@ export default function AgentsPage() {
 
             <div className="border-l border-white/20 pl-6 xl:pl-8">
               <p className="max-w-xl text-lg leading-8 text-white/68 md:text-xl">
-                Translator&apos;s open-source developer build exposes local MCP
-                tools for finding, downloading, opening, translating, styling,
-                and organizing video. The finished desktop app remains one
-                direct download away for everyone else.
+                Installed Translator 1.16.16+ includes packaged MCP tools. Toggle
+                Settings → Agent Control → Allow agent control, allowlist write
+                folders, and your LLM agent can download videos, transcribe,
+                translate, and export SRT or burned-in video through the same
+                desktop app you already use.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="#direct-downloads"
+                  className="inline-flex items-center justify-center border border-[#a9bfff] bg-[#a9bfff] px-6 py-3 text-sm font-semibold text-black transition hover:border-white hover:bg-white"
+                >
+                  Download Translator ↓
+                </Link>
                 <a
                   href={REPOSITORY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center border border-[#a9bfff] bg-[#a9bfff] px-6 py-3 text-sm font-semibold text-black transition hover:border-white hover:bg-white"
-                >
-                  Build the MCP preview ↗
-                </a>
-                <Link
-                  href="#direct-downloads"
                   className="inline-flex items-center justify-center border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white hover:text-black"
                 >
-                  Direct app downloads ↓
-                </Link>
+                  Source repository ↗
+                </a>
               </div>
             </div>
           </div>
@@ -220,23 +221,48 @@ export default function AgentsPage() {
               Start here
             </div>
             <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-              Connect the local MCP server.
+              Enable Agent Control in the installed app.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
-              Clone the open-source developer build, install it, and point your
-              MCP host at the final command. The interface runs locally and is
-              not yet bundled into the finished installers.
+              Download and install Translator 1.16.16+. Open Settings → Agent
+              Control → Allow agent control, allowlist write folders, and connect
+              your MCP host to the packaged socket. The interface runs locally;
+              there is no public remote Translator MCP endpoint.
             </p>
           </div>
 
           <div>
-            <pre className="overflow-x-auto border border-white/20 bg-black/45 p-6 font-mono text-sm leading-8 text-[#a9bfff]">
-              <code>{installCommands}</code>
-            </pre>
+            <div className="border border-white/20 bg-black/45 p-6">
+              <div className="space-y-4 text-sm leading-7 text-white/72">
+                <div>
+                  <div className="font-semibold text-[#a9bfff]">1. Install Translator 1.16.16+</div>
+                  <div className="mt-1 text-white/55">
+                    Download the finished app for your platform (macOS or Windows).
+                  </div>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#a9bfff]">2. Enable Agent Control</div>
+                  <div className="mt-1 text-white/55">
+                    Open Settings → Agent Control → Allow agent control.
+                    Allowlist the folders your agent can write to.
+                  </div>
+                </div>
+                <div>
+                  <div className="font-semibold text-[#a9bfff]">3. Connect your MCP host</div>
+                  <div className="mt-1 text-white/55">
+                    The packaged MCP socket appears at launch (if already enabled)
+                    or after toggling and relaunch. Configure your MCP host to
+                    connect to it.
+                  </div>
+                </div>
+              </div>
+            </div>
             <p className="mt-5 max-w-xl text-sm leading-7 text-white/48">
-              Configure your MCP host to run <code>npm run agent:mcp</code> from
-              the cloned repository. The server uses local stdio; there is no
-              public remote Translator MCP endpoint.
+              Agent Control is off by default (kill switch). The socket uses local
+              stdio; there is no public remote Translator MCP endpoint. For
+              developers: the source-build path (
+              <code className="text-[#a9bfff]">npm run agent:mcp</code> from the
+              cloned repository) remains available as an optional developer path.
             </p>
           </div>
         </section>
@@ -303,17 +329,17 @@ export default function AgentsPage() {
             <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
               <span className="font-mono text-xs text-[#ff75ac]">02</span>
               <span>
-                Saved provider keys are never returned. An agent can open the
-                right checkout page, but it cannot read, enter, or submit card
+                The agent never reads stored API keys. An agent can open the
+                right checkout page, but the user must enter and submit payment
                 details.
               </span>
             </li>
             <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
               <span className="font-mono text-xs text-[#ff75ac]">03</span>
               <span>
-                SRT translation and review can use the connected LLM session.
-                Transcription, dubbing, Stage5 services, and third-party model
-                accounts keep their normal costs and credentials.
+                Billing is the same as the UI (Stage5 credits or your configured
+                BYO API keys). MCP does not force a credit spend and is not a
+                sidecar OpenAI/Anthropic API.
               </span>
             </li>
           </ol>

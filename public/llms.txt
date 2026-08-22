@@ -1,8 +1,8 @@
 # Translator by Stage5
 
-> Translator is an open-source desktop video workstation for macOS and Windows. It helps people and, through a source-build MCP developer preview, LLM agents discover, download, transcribe, translate, review, style, edit, dub, organize, and export video across language boundaries.
+> Translator is an open-source desktop video workstation for macOS and Windows. It helps people and, through packaged MCP / Agent Control, LLM agents discover, download, transcribe, translate, review, style, edit, dub, organize, and export video across language boundaries.
 
-The finished installers do not currently bundle the MCP server. Use the direct installers for the normal desktop app. Clone the source repository to run the local stdio MCP developer preview. There is no public remote Translator MCP endpoint.
+Installed Translator 1.16.16+ includes packaged MCP tools once the user enables Settings → Agent Control → Allow agent control and allowlists write folders. Default is off (kill switch). The socket appears at launch if already enabled, or after the in-app toggle / a relaunch. There is no public remote Translator MCP endpoint.
 
 ## Start here
 
@@ -42,13 +42,13 @@ For Windows, open `Translator-x64.exe` and confirm that Windows shows
 - Core video downloading, subtitle editing, timing, and export tools are free in the finished app.
 - Optional AI operations use Stage5 credits or supported bring-your-own provider credentials.
 
-## MCP developer preview
+## MCP / Agent Control
 
-- Run `git clone https://github.com/mikey1384/translator.git`, then `cd translator`, `npm install`, and `npm run agent:mcp`.
-- The local stdio server exposes semantic tools for app launch and navigation, explicit web-page handoff, URL downloads, ranked video search, bounded batch downloads, Downloads-library access, video and SRT loading, subtitle display and styling, SRT translation/review/export, masked Settings management, and selected Stage5 checkout-page handoff.
-- The agent may open a checkout page, but the user must enter and submit payment details. Stored provider-key values are never returned.
-- Local file-writing and network actions should remain subject to the MCP host's normal approval controls.
-- SRT translation and review can use the connected LLM session. This does not make transcription, dubbing, Stage5 services, or third-party providers free.
+- Installed 1.16.16+ (packaged-mcp.mjs inside the app) exposes real tools once the user turns on Settings → Agent Control → Allow agent control, and allowlists write folders. Default is off (kill switch). Socket appears at launch if already enabled, or after the in-app toggle / a relaunch.
+- Packaged tools that exist today (names are real): app_start_transcription, app_start_translation, app_start_cue_transcription, app_start_cue_translation, app_subtitles_export (SRT), app_start_merge (burn-in mp4 to an allowlisted output_path), app_start_media_workflow, app_processing_status, app_processing_cancel, download / library / open video / mount subtitles / display / style / navigate / settings snapshot.
+- SAFE_TOOLS excludes checkout and keys. Agent never reads stored API keys. Agent can open checkout; user pays.
+- Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend and is not a sidecar OpenAI/Anthropic API.
+- The source-build `npm run agent:mcp` path can stay as an optional developer footnote: Run `git clone https://github.com/mikey1384/translator.git`, then `cd translator`, `npm install`, and `npm run agent:mcp`.
 
 ## More product pages
 

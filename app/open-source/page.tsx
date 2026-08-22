@@ -262,12 +262,12 @@ export default function OpenSourcePage() {
                   Connect an LLM agent
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-white/52">
-                  The source build includes a local stdio MCP server. Run
+                  Installed Translator 1.16.16+ includes packaged MCP tools. Enable
+                  Settings → Agent Control → Allow agent control, allowlist write
+                  folders, and the socket appears at launch or after toggle and
+                  relaunch. The source build also includes the same interface: run
                   <code className="mx-1 text-[#a9bfff]">npm run agent:mcp</code>
-                  to expose named tools for video search, bounded downloads,
-                  the Downloads library, app navigation, subtitle display and
-                  styling, the SRT translation loop, and masked Settings
-                  management. Keep write and network approvals enabled.
+                  from the cloned repository as an optional developer path.
                 </p>
                 <Link
                   href="/agents"

@@ -103,7 +103,7 @@ function getHomeStructuredData(locale: Locale) {
       "Keep downloaded videos in a reusable in-app library",
       "Export SRT files or videos with burned-in subtitles",
       "Create AI dubbing and highlight clips",
-      "Control the source build through a local MCP interface for LLM agents",
+      "Control the installed app through packaged MCP / Agent Control for LLM agents",
       "Use Stage5 credits or supported bring-your-own API keys",
     ],
     isAccessibleForFree: true,
