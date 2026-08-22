@@ -1,6 +1,6 @@
 import { isTranslatedLanguageDetailPath } from "./translate-language-slugs";
 import { normalizePathname } from "./pathname-utils";
-import { getAllSlugs } from "./watch";
+import { getVideo } from "./watch";
 
 const FULL_SITE_LOCALES = ["en", "ko", "es", "ja", "zh", "fr", "de", "pt", "vi"] as const;
 const HOME_ONLY_LOCALES = [] as const;
@@ -110,10 +110,10 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
   
   if (englishPath.startsWith("/watch/")) {
     const slug = englishPath.slice(7);
-    const watchSlugs = getAllSlugs();
+    const video = getVideo({ slug });
     
-    if (watchSlugs.includes(slug)) {
-      return ["en", "es", "ko", "pt"];
+    if (video) {
+      return video.supportedLocales;
     }
   }
   

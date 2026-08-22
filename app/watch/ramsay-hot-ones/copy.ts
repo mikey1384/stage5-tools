@@ -25,7 +25,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -294,6 +294,74 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da First We Feast. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, coreano (한국어), espanhol (Español) ou português. Todas as quatro faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos), não são legendas automáticas do YouTube.",
       "Fonte: Hot Ones temporada 8, apresentado por Sean Evans, com Gordon Ramsay. First We Feast. Publicado em 22 de agosto de 2026. O vídeo está em inglês.",
+    ],
+  },
+  vi: {
+    title: "Xem Gordon Ramsay trên Hot Ones với phụ đề tiếng Việt | Translator",
+    description:
+      "Gordon Ramsay nhận lời thách Hot Ones với Sean Evans. Xem đầu bếp nổi tiếng đối mặt cánh gà ngày càng cay trong khi nói về đồ ăn và nấu nướng. 30 giây đầu có phụ đề nhiều ngôn ngữ, gồm tiếng Việt.",
+    keywords: [
+      "Gordon Ramsay Hot Ones",
+      "Hot Ones mùa 8",
+      "Sean Evans First We Feast",
+      "Gordon Ramsay cánh gà cay",
+      "phụ đề tiếng Việt Hot Ones",
+      "dịch video YouTube",
+    ],
+    h1: "Gordon Ramsay nhận lời thách Hot Ones",
+    intro:
+      "Đầu bếp nổi tiếng ngồi với Sean Evans cho Hot Ones của First We Feast — chương trình cánh gà cay gặp câu hỏi thẳng. Buổi này bằng tiếng Anh; bạn xem với phụ đề nhiều ngôn ngữ, gồm tiếng Việt.",
+    section1Title: "30 giây đầu diễn ra thế nào",
+    section1Body: [
+      "Gordon Ramsay bước vào và hỏi toilet ngay. Rồi Sean Evans mở show bằng câu giới thiệu quen thuộc: 'From First We Feast, I'm Sean Evans, and you're watching Hot Ones.'",
+      "Hot Ones là chương trình người nổi tiếng ăn cánh gà ngày càng cay trong khi trả lời câu hỏi. Khi đang lo vị cay, khách thường nói thẳng hơn.",
+      "Đây là mùa tám. Ramsay nổi tiếng vì chê đồ ăn không nể, nên việc anh ngồi vào show ăn cánh gà ngày càng nóng càng đáng xem. 30 giây đầu chỉ là phần mở — cả buổi phỏng vấn mới là lúc anh nhận xét cánh gà.",
+    ],
+    section2Title: "Ramsay nhận xét cánh gà",
+    section2Body: [
+      "Hot Ones nổi vì đặt người vào tình huống mà kịch bản truyền thông không cứu được. Cánh gà càng cay, khách càng thẳng, câu hỏi càng đáng. Sean Evans nghiên cứu kỹ — khách thường bất ngờ vì câu hỏi sâu.",
+      "Với người làm nghề ăn như Ramsay còn một lớp nữa: vừa chịu cay vừa phải nhận xét cánh gà. Không chỉ là phỏng vấn — còn là bài kiểm tra sự bình tĩnh, và cơ hội xem người thường nắm quyền kiểm soát mất đi một phần kiểm soát đó.",
+    ],
+    howToTitle: "Cách xem hết tập với phụ đề",
+    howToBody:
+      "Translator là ứng dụng máy tính để bạn tải video YouTube và gắn phụ đề dịch. Cách làm:",
+    howToSteps: [
+      {
+        title: "Dán URL video",
+        body: "Chép liên kết YouTube và dán vào ô tải của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải video và phụ đề có sẵn về máy. Bước này miễn phí.",
+      },
+      {
+        title: "Chép lời và dịch",
+        body: "Video bằng tiếng Anh. Nếu cần phụ đề ngôn ngữ khác, Translator chép lời từ âm thanh rồi dịch. Dùng tín dụng Stage5 hoặc API key của bạn từ OpenAI hay Anthropic.",
+      },
+      {
+        title: "Xem và sửa",
+        body: "Ứng dụng phát video kèm phụ đề. Bạn chỉnh nhịp, sửa bản dịch, rồi xuất file SRT.",
+      },
+    ],
+    howToNote:
+      "Video nằm trên máy bạn. Translator chạy tại chỗ — không tải gì lên máy chủ của chúng tôi.",
+    pricingTitle: "Cái gì miễn phí, cái gì trả phí",
+    pricingFree:
+      "Tải video, sửa phụ đề, quản lý thư viện, và xuất SRT.",
+    pricingPaid:
+      "Chép lời và dịch bằng AI. Dùng tín dụng Stage5 (ví dụ: $1 cho ~50 phút, $10 cho ~18 giờ) hoặc trả $10 một lần để mở BYO và dùng API key của bạn.",
+    freeLabel: "Miễn phí:",
+    paidLabel: "Trả phí:",
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator chạy trên macOS và Windows. Tải về, dán URL Hot Ones, và tự thử. Tải video và trình sửa phụ đề miễn phí.",
+    downloadLinkText: "Tìm hiểu về tải video →",
+    ctaNote:
+      "Tải video và sửa phụ đề miễn phí. Chép lời và dịch bằng AI cần tín dụng Stage5 hoặc API key của bạn.",
+    aboutTitle: "Về bài này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ First We Feast. 30 giây phụ đề đầu có thể hiện tiếng Anh, tiếng Hàn (한국어), tiếng Tây Ban Nha (Español), tiếng Bồ Đào Nha (Português), hoặc tiếng Việt. Cả năm track đều được chép lời và dịch trong Translator (chỉ 30 giây đầu), không phải phụ đề tự động của YouTube.",
+      "Nguồn: Hot Ones mùa 8, dẫn chương trình Sean Evans, khách mời Gordon Ramsay. First We Feast. Video bằng tiếng Anh.",
     ],
   },
 };
