@@ -1,11 +1,12 @@
 # Translator by Stage5 — full agent guide
 
-> Translator is an open-source desktop video workstation for macOS and Windows. It combines video discovery and downloading, transcription, subtitle translation and review, flexible subtitle display, editing, dubbing, clips, export, and a reusable local video library. Its source build also includes a local MCP developer preview for LLM agents.
+> Translator is an open-source desktop video workstation for macOS and Windows. It combines video discovery and downloading, transcription, subtitle translation and review, flexible subtitle display, editing, dubbing, clips, export, and a reusable local video library. Installed Translator 1.16.16+ includes packaged MCP / Agent Control for LLM agents.
 
 ## Choose the correct path
 
-- If the user wants the finished app, use one of the direct platform installers below. The current installers do not include the MCP server.
-- If the user wants an LLM agent to control Translator, clone the source repository and run the local stdio MCP developer preview.
+- If the user wants the finished app with agent control, use one of the direct platform installers below. Installed 1.16.16+ includes packaged MCP tools.
+- To enable agent control: install the app, open Settings → Agent Control → Allow agent control, and allowlist write folders. The socket appears at launch (if already enabled) or after toggle and relaunch.
+- For developers: the source-build path (`npm run agent:mcp` from the cloned repository) remains available as an optional developer path.
 - There is no public remote Translator MCP endpoint. Do not invent one or send private files to translator.tools merely to use the local agent interface.
 
 ## Direct installers
@@ -37,6 +38,12 @@ install, activation, or purchase.
 - [Human-readable agent guide](https://translator.tools/agents): Current capabilities, setup, direct downloads, and safety boundaries.
 - [Machine-readable agent manifest](https://translator.tools/agent-manifest.json): Publisher-maintained JSON; it is not presented as an MCP discovery standard.
 
+### Packaged MCP in installed app (1.16.16+)
+
+Install Translator 1.16.16+, open Settings → Agent Control → Allow agent control, allowlist write folders, and connect your MCP host to the packaged socket. Agent Control is off by default (kill switch). The socket appears at launch if already enabled, or after the in-app toggle / a relaunch.
+
+### Optional source-build path for developers
+
 Run these commands from a local development environment:
 
 ```text
@@ -48,7 +55,7 @@ npm run agent:mcp
 
 Configure the MCP host to run `npm run agent:mcp` with the cloned repository as its working directory.
 
-## Current MCP developer-preview capabilities
+## Current packaged MCP capabilities
 
 - Launch the development app and report readiness and status.
 - Navigate semantically to Home, Create, Video Search, Downloads, Channels, Editor, and individual Settings sections.
@@ -78,11 +85,11 @@ Configure the MCP host to run `npm run agent:mcp` with the cloned repository as 
 
 ## Boundaries and cost
 
-- The MCP interface is a developer preview in the source build and is not yet bundled into the finished installers.
+- Agent Control is off by default (kill switch). User must explicitly enable in Settings → Agent Control → Allow agent control and allowlist write folders.
 - Local file-writing and network actions should remain subject to the MCP host's normal approval controls.
-- An agent may open a checkout page, but the user must enter and submit payment information. The agent must not read or handle card details.
-- SRT translation and review can use the LLM session already connected to the MCP host. This route is intentionally slower than the integrated Stage5 workflow and does not add a separate Translator API inference charge.
-- This does not make transcription, dubbing, Stage5 services, third-party model accounts, or every AI operation free.
+- Agent never reads stored API keys.
+- An agent can open a checkout page, but the user must enter and submit payment information.
+- Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend and is not a sidecar OpenAI/Anthropic API.
 - The desktop client is MIT licensed. Hosted APIs, model-provider accounts, payment infrastructure, and Stage5 services are separate.
 
 ## Canonical product pages
