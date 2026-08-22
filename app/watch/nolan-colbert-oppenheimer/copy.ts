@@ -21,7 +21,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -252,6 +252,68 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da fonte oficial do Late Show. Os primeiros 30 segundos de legendas mostrados no player podem ser exibidos em inglês, espanhol, coreano ou português. Todas as quatro faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos). O resto da entrevista não está publicado aqui—este post explica o fluxo de trabalho para que você possa traduzir o vídeo completo você mesmo.",
       "Fonte: The Late Show com Stephen Colbert, apresentando Christopher Nolan. Vídeo em inglês. O título do episódio menciona o celular descartável de Nolan, que é discutido mais tarde na entrevista completa, não na prévia de 30 segundos mostrada aqui.",
+    ],
+  },
+  vi: {
+    title: "Xem Christopher Nolan nói về Oppenheimer trên The Late Show với Stephen Colbert | Translator",
+    description:
+      "Đạo diễn Christopher Nolan nói về Oppenheimer trên The Late Show with Stephen Colbert trong mùa giải thưởng 2024. Xem buổi phỏng vấn tiếng Anh với phụ đề nhiều ngôn ngữ, gồm tiếng Việt.",
+    keywords: [
+      "phỏng vấn Christopher Nolan",
+      "phỏng vấn Oppenheimer",
+      "Late Show Colbert",
+      "điện thoại burner của Christopher Nolan",
+      "hậu trường Oppenheimer",
+    ],
+    h1: "Christopher Nolan nói về Oppenheimer với Colbert",
+    intro:
+      "Đạo diễn Christopher Nolan lên The Late Show with Stephen Colbert trong mùa Oppenheimer tranh giải. Phim nhận 13 đề cử Oscar, gồm Phim hay nhất, Đạo diễn xuất sắc nhất và Kịch bản chuyển thể xuất sắc nhất. Đây là buổi phỏng vấn tiếng Anh; trang này chiếu 30 giây đầu với phụ đề tiếng Việt.",
+    section1Title: "Buổi phỏng vấn Oppenheimer trên Colbert",
+    section1Body: [
+      "The Late Show with Stephen Colbert là talk show đêm khuya của Mỹ, phát mỗi ngày trong tuần trên CBS. Mùa giải thưởng Hollywood, Colbert thường mời đạo diễn, diễn viên và biên kịch có phim đang tranh giải.",
+      "Đầu năm 2024, Christopher Nolan lên sóng nói về Oppenheimer — lúc đó là phim được đề cử nhiều nhất trong năm với 13 đề cử Oscar. Tập đầy đủ trên YouTube dài hơn 30 giây: Nolan nói về cách làm phim, hiệu ứng thực, và câu chuyện điện thoại dùng một lần mà YouTube lấy làm tiêu đề tập.",
+      "Trang này chỉ chiếu 30 giây đầu — phần mở show của Colbert, tiếng dạo của ban nhạc nhà, và câu dẫn vào Oppenheimer — rồi hướng bạn tải cả video về máy và tự thêm phụ đề bằng Translator.",
+    ],
+    howToTitle: "Cách xem hết buổi phỏng vấn với phụ đề dịch",
+    howToBody:
+      "Translator là ứng dụng máy tính tải video YouTube và cho bạn gắn phụ đề dịch sang ngôn ngữ của mình. Cách làm như sau:",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Chép liên kết tập Late Show này và dán vào ô tải của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải file video về máy. Bước này miễn phí và chạy tại chỗ.",
+      },
+      {
+        title: "Chép lời và dịch",
+        body: "Video đã có phụ đề tiếng Anh. Bạn có thể dịch sang tiếng Việt, Tây Ban Nha, Hàn, Bồ Đào Nha hoặc ngôn ngữ khác. Chọn mô hình AI và cách dịch. Trả theo phút bằng tín dụng Stage5 hoặc dùng API key của bạn.",
+      },
+      {
+        title: "Xem và sửa",
+        body: "Ứng dụng phát video kèm phụ đề đã dịch. Bạn sửa chữ, chỉnh nhịp, đổi kiểu, rồi xuất file SRT khi xong.",
+      },
+    ],
+    howToNote: "Video nằm trên máy bạn. Bạn không xem qua web app hay tải lên máy chủ của người khác. Translator chạy tại chỗ.",
+    pricingTitle: "Cái gì miễn phí, cái gì mất tiền",
+    pricingFree:
+      "Tải video, sắp xếp thư viện, sửa phụ đề bằng tay, và xuất file SRT.",
+    pricingPaid:
+      "Chép lời và dịch bằng AI. Dùng tín dụng Stage5 (khoảng $1 cho ~50 phút video, $10 cho ~18 giờ) hoặc mở khóa BYO một lần $10 rồi trả trực tiếp cho OpenAI hoặc Anthropic.",
+    section2Title: "Phỏng vấn tiếng Anh với phụ đề nhiều ngôn ngữ",
+    section2Body: [
+      "Hầu hết talk show đêm khuya của Mỹ — The Late Show, The Tonight Show, Jimmy Kimmel Live — đều bằng tiếng Anh. Phụ đề tự động của YouTube dùng được với tiếng Anh, nhưng muốn phụ đề đúng sang ngôn ngữ khác thì thường phải tự làm.",
+      "Translator để bạn quyết định. Tải video, chọn mô hình dịch và ngôn ngữ đích, rồi xem đúng những gì được nói. Sửa từng câu, chỉnh nhịp nếu lệch, rồi xuất file phụ đề.",
+      "Cách này dùng được cho mọi video YouTube: phỏng vấn đạo diễn, bình luận phim, podcast, phim tài liệu. Nếu bạn xem nội dung tiếng Anh mà muốn phụ đề tiếng Việt tốt hơn, hoặc xem tiếng khác mà bản tự dịch của YouTube không ổn, đó là việc Translator làm.",
+    ],
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator chạy trên macOS và Windows. Tải ứng dụng, dán URL video này, và thử quy trình. Trình tải video và trình sửa phụ đề dùng miễn phí.",
+    aboutTitle: "Về bài này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ nguồn chính thức của Late Show. 30 giây phụ đề đầu trong trình phát có thể hiện tiếng Anh, tiếng Tây Ban Nha (Español), tiếng Hàn (한국어), tiếng Bồ Đào Nha (Português), hoặc tiếng Việt. Cả năm track đều được chép lời và dịch trong Translator (chỉ 30 giây đầu), không phải phụ đề tự động của YouTube. Phần còn lại của buổi phỏng vấn không đăng ở đây — bài này giải thích quy trình để bạn tự dịch cả video.",
+      "Nguồn: The Late Show with Stephen Colbert, có Christopher Nolan. Video bằng tiếng Anh. Tiêu đề tập nhắc đến điện thoại dùng một lần của Nolan, chuyện đó nằm ở phần sau buổi phỏng vấn đầy đủ, không nằm trong 30 giây xem trước ở đây.",
     ],
   },
 };

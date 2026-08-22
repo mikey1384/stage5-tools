@@ -1,6 +1,6 @@
 import type { Locale } from "../locales";
 
-export type WatchLocale = "en" | "es" | "ko" | "pt";
+export type WatchLocale = "en" | "es" | "ko" | "pt" | "vi";
 export type TrackLang = WatchLocale;
 
 export interface WatchPageCopy {
@@ -47,7 +47,7 @@ export interface WatchVideoMetadata {
 }
 
 export interface WatchCatalogEntry extends WatchVideoMetadata {
-  copy: Record<WatchLocale, WatchPageCopy>;
+  copy: { en: WatchPageCopy } & Partial<Record<WatchLocale, WatchPageCopy>>;
 }
 
 export interface PostCard {
