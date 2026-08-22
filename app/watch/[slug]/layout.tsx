@@ -1,6 +1,6 @@
-import Script from "next/script";
 import type { ReactNode } from "react";
 import { ADSENSE_CLIENT_ID } from "../../../lib/adsense";
+import { createAdsenseProductionBootstrap } from "../../../lib/third-party-script-bootstrap";
 
 export default function WatchArticleLayout({
   children,
@@ -9,11 +9,11 @@ export default function WatchArticleLayout({
 }) {
   return (
     <>
-      <Script
-        id="adsense-init"
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
+      <script
+        id="adsense-production-bootstrap"
+        dangerouslySetInnerHTML={{
+          __html: createAdsenseProductionBootstrap(ADSENSE_CLIENT_ID),
+        }}
       />
       {children}
     </>

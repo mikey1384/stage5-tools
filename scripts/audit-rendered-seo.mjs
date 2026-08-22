@@ -56,6 +56,12 @@ function tags(html, name) {
   );
 }
 
+function scriptBodiesById(html, id) {
+  return [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .filter((match) => getAttribute(`<script${match[1]}>`, "id") === id)
+    .map((match) => decodeEntities(match[2]));
+}
+
 function metadataValues(html, attribute, key) {
   return tags(html, "meta")
     .filter((tag) => getAttribute(tag, attribute)?.toLowerCase() === key)
@@ -340,18 +346,34 @@ async function auditIndexablePage(entry) {
       "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
     ),
   );
-  if (adsensePreloads.length !== (isWatchDetail ? 1 : 0)) {
+  if (adsensePreloads.length !== 0) {
     fail(
       entry.url,
-      `expected ${isWatchDetail ? 1 : 0} AdSense loader preload, found ${adsensePreloads.length}`,
+      `expected no unconditional AdSense loader preload, found ${adsensePreloads.length}`,
     );
   }
-  if (isWatchDetail && adsensePreloads.length === 1) {
-    const scriptClient = new URL(
-      getAttribute(adsensePreloads[0], "href"),
-    ).searchParams.get("client");
-    if (scriptClient !== adsenseMeta[0]) {
-      fail(entry.url, `AdSense loader client ${scriptClient} differs from meta tag`);
+
+  const adsenseExternalScripts = tags(html, "script").filter((tag) =>
+    (getAttribute(tag, "src") ?? "").includes(
+      "pagead2.googlesyndication.com/pagead/js/adsbygoogle.js",
+    ),
+  );
+  if (adsenseExternalScripts.length !== 0) {
+    fail(entry.url, "AdSense loader is not protected by the runtime host guard");
+  }
+  const adsenseBootstraps = scriptBodiesById(
+    html,
+    "adsense-production-bootstrap",
+  );
+  if (adsenseBootstraps.length !== (isWatchDetail ? 1 : 0)) {
+    fail(
+      entry.url,
+      `expected ${isWatchDetail ? 1 : 0} guarded AdSense bootstrap, found ${adsenseBootstraps.length}`,
+    );
+  }
+  if (isWatchDetail && adsenseBootstraps.length === 1) {
+    if (!adsenseBootstraps[0].includes(adsenseMeta[0])) {
+      fail(entry.url, "guarded AdSense bootstrap differs from meta tag");
     }
   }
 
@@ -359,25 +381,41 @@ async function auditIndexablePage(entry) {
     const href = getAttribute(tag, "href");
     return href?.startsWith("https://www.googletagmanager.com/gtm.js?");
   });
-  if (gtmPreloads.length !== 1) {
-    fail(entry.url, `expected one GTM loader preload, found ${gtmPreloads.length}`);
-  } else if (
-    new URL(getAttribute(gtmPreloads[0], "href")).searchParams.get("id") !==
-    EXPECTED_GTM_ID
-  ) {
-    fail(entry.url, "GTM loader uses the wrong container ID");
+  if (gtmPreloads.length !== 0) {
+    fail(entry.url, `expected no unconditional GTM preload, found ${gtmPreloads.length}`);
+  }
+  const gtmExternalScripts = tags(html, "script").filter((tag) =>
+    (getAttribute(tag, "src") ?? "").startsWith(
+      "https://www.googletagmanager.com/gtm.js?",
+    ),
+  );
+  if (gtmExternalScripts.length !== 0) {
+    fail(entry.url, "GTM loader is not protected by the runtime host guard");
+  }
+  const gtmBootstraps = scriptBodiesById(html, "gtm-production-bootstrap");
+  if (gtmBootstraps.length !== 1) {
+    fail(entry.url, `expected one guarded GTM bootstrap, found ${gtmBootstraps.length}`);
+  } else {
+    if (!gtmBootstraps[0].includes(EXPECTED_GTM_ID)) {
+      fail(entry.url, "guarded GTM bootstrap uses the wrong container ID");
+    }
+    for (const hostname of [
+      "translator.tools",
+      "www.translator.tools",
+      "stage5.tools",
+      "www.stage5.tools",
+    ]) {
+      if (!gtmBootstraps[0].includes(hostname)) {
+        fail(entry.url, `guarded GTM bootstrap is missing ${hostname}`);
+      }
+    }
   }
   const gtmFrames = tags(html, "iframe").filter((tag) => {
     const src = getAttribute(tag, "src");
     return src?.startsWith("https://www.googletagmanager.com/ns.html?");
   });
-  if (gtmFrames.length !== 1) {
-    fail(entry.url, `expected one GTM noscript iframe, found ${gtmFrames.length}`);
-  } else if (
-    new URL(getAttribute(gtmFrames[0], "src")).searchParams.get("id") !==
-    EXPECTED_GTM_ID
-  ) {
-    fail(entry.url, "GTM noscript iframe uses the wrong container ID");
+  if (gtmFrames.length !== 0) {
+    fail(entry.url, `expected no unconditional GTM iframe, found ${gtmFrames.length}`);
   }
 }
 

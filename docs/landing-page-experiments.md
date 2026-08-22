@@ -10,7 +10,8 @@ All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 
 | Change committed | Production live      | ID               | What changed                                                      | Commit    |
 | ---------------- | -------------------- | ---------------- | ----------------------------------------------------------------- | --------- |
-| 2026-08-22 20:26 | Not deployed         | LP-2026-08-22-01 | Made the complete R2 Watch catalog discoverable and measurable    | This release |
+| Pending           | Pending              | LP-2026-08-23-01 | Restricted production telemetry and Watch ads to exact live hosts | This release |
+| 2026-08-22 20:26 | Not preserved        | LP-2026-08-22-01 | Made the complete R2 Watch catalog discoverable and measurable    | `2e07786` |
 | 2026-08-15 06:08 | 2026-08-15 06:18     | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | `42e4b59` |
 | 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                   | `2504290` |
 | 2026-08-12 07:30 | 2026-08-12 07:35     | LP-2026-08-12-02 | Added early, tracked paths to translation, downloader, and FAQ    | `4eb8148` |
@@ -85,7 +86,7 @@ a recorded next step.
 
 ## LP-2026-08-22-01 — R2 Watch discovery and preview measurement
 
-- Commit: this release commit — `Harden R2 watch SEO localization and telemetry`.
+- Commit: `2e07786` — `Harden R2 watch SEO localization and telemetry`.
 - Change: made every valid R2 catalog entry available on the localized Watch
   indexes and detail routes without requiring a rebuild. Added exact canonical
   and language alternates, server-rendered Article and VideoObject structured
@@ -117,12 +118,49 @@ a recorded next step.
   passed 7/7, JSON-LD safety passed 1/1, the production build and Cloudflare
   adapter build passed, and an exhaustive Pages-artifact audit using the live R2
   binding passed 358 sitemap URLs, 195 Watch detail URLs, all 39 index cards per
-  locale, and all 123 declared caption files. No production deployment or GTM
-  publication has occurred.
+  locale, and all 123 declared caption files. By 2026-08-23 the release was live
+  on Cloudflare Pages, and published GTM Version 4 forwarded the complete set of
+  13 bounded product-journey events. The exact production-live timestamp was not
+  preserved and must not be guessed.
 - Earliest reads: seven and 28 full days after both the Pages release and the
   corresponding GTM event-forwarding version are verified live. Require at least
   100 eligible Watch detail sessions before interpreting a small CTA rate.
 - Outcome: pending.
+
+## LP-2026-08-23-01 — Exact production-host telemetry and advertising guard
+
+- Commit: this release commit — `Guard production telemetry and Watch ads`.
+- Change: replaced unconditional GTM and Watch-detail AdSense script loading
+  with an exact browser-host allowlist covering only `translator.tools`,
+  `www.translator.tools`, `stage5.tools`, and `www.stage5.tools`. Cloudflare
+  Pages project/deployment hosts, localhost, unlisted subdomains, and lookalike
+  domains retain rendered SEO output but do not initialize GTM or AdSense.
+- Hypothesis: excluding non-production renders will eliminate preview and local
+  traffic from GA4/Google Ads and prevent accidental ad requests on Pages hosts
+  without reducing measured production journeys or Watch CTA visibility.
+- Locked baseline: the previous site output installed GTM on every host, and the
+  Watch detail layout installed AdSense on every host. GTM's hostname lookup
+  defaulted unknown hosts to the Translator measurement ID. A preserved count
+  of Pages-host sessions or ad requests does not exist, so do not invent a
+  contamination rate.
+- Primary read: zero GA4 events with a Pages hostname after rollout, together
+  with continued `page_view`, download-intent, and Watch diagnostic events on
+  both production domains. This is an instrumentation-integrity check, not a
+  conversion experiment.
+- Guardrails: exact-match hosts only; no wildcard production subdomains; Watch
+  indexes remain ad-loader free; the AdSense meta and `ads.txt` publisher IDs
+  remain aligned; no second GA/gtag entrypoint; and no customer content enters
+  telemetry.
+- Verification: 16 analytics/host-loader tests, seven Watch tests, and one JSON-
+  LD safety test pass. The production and Cloudflare adapter builds pass. The
+  R2-backed rendered audit passes 358 indexable URLs, 195 Watch detail renders,
+  29 noindex routes, 16 redirects, explicit 404 probes, all 39 catalog entries,
+  and all 123 declared VTT responses. Record the deployment URL, commit, GTM
+  Version 5, and verified production-live timestamp after release.
+- Earliest reads: seven and 28 full days after both the website release and GTM
+  Version 5 are verified live. A same-day hostname check may establish absence
+  of obvious preview traffic but is not a performance outcome.
+- Outcome: pending rollout.
 
 ## LP-2026-08-15-01 — Measured agent workflow routing
 

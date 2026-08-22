@@ -8,7 +8,7 @@
     "audit:locales": "node scripts/audit-shared-locales.mjs",
     "audit:rendered": "node scripts/audit-rendered-seo.mjs",
     "build": "npm run audit:locales && next build && npm run audit:indexing",
-    "test:analytics": "node --experimental-strip-types --test test/analytics-events.test.mjs",
+    "test:analytics": "node --experimental-strip-types --test test/analytics-events.test.mjs test/third-party-script-bootstrap.test.mjs",
     "test:watch": "node --test test/watch-catalog-validation.test.mjs test/watch-runtime-catalog.test.mjs",
     "test:seo": "node --experimental-strip-types --test test/json-ld.test.mjs",
     "test": "npm run test:analytics && npm run test:watch && npm run test:seo",

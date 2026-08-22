@@ -76,24 +76,23 @@ checkout return IDs, Stripe customer IDs, or other customer content.
   caption delivery health and `watch_cutoff` → `watch_app_cta` as the preview
   funnel; do not treat playback or a CTA click as a download or activation.
 
-### Production configuration audit (2026-08-22)
+### Production configuration audit (2026-08-23)
 
-The website emits more data-layer events than the published GTM container
-currently forwards. Treat this as an operational checklist, not as evidence that
-the events are already available in GA4:
-
+- Published GTM Version 4 forwards the complete bounded set of 13 product-
+  journey events, including all Watch diagnostics, and uses the hostname lookup
+  variable rather than a hard-coded Translator measurement ID.
 - Container `GTM-WTQTZDM4` routes `stage5.tools` to `G-5BJ3FXGGBS` and
   `translator.tools` to `G-P85K20ZXE0`.
-- Its published generic product-journey trigger currently matches only
-  `github_repository_click`, `echo_appstore_click`,
-  `checkout_return_success`, and `checkout_return_cancelled`.
-- Expand that trigger to also match `landing_intent_click`, `faq_intent_click`,
-  `agent_workflow_click`, `windows_install_help_open`, `watch_play`,
-  `watch_cutoff`, `watch_lang_change`, `watch_caption_load`, and
-  `watch_app_cta`. The resulting bounded trigger has 13 named events.
-- Change the generic product-journey tag from its hard-coded Translator
-  measurement ID to the existing hostname lookup variable. This preserves the
-  two-property routing contract for events fired on either hostname.
+- This website release wraps both the GTM loader and the Watch-detail AdSense
+  loader in an exact runtime hostname allowlist: `translator.tools`,
+  `www.translator.tools`, `stage5.tools`, and `www.stage5.tools`. Localhost,
+  `stage5-tools.pages.dev`, deployment `*.stage5-tools.pages.dev` hosts,
+  unlisted subdomains, and lookalike suffixes do not load either third-party
+  script.
+- GTM Version 5 must apply the same production-host regex to the Google Tag,
+  Conversion Linker, and all three custom-event triggers. Cross-domain linking
+  is limited to `translator.tools` and `stage5.tools`; the Pages project host and
+  the audited deployment host are ignored in container diagnostics.
 - Create and forward GTM data-layer variables for `destination`, `placement`,
   `repository_url`, `checkout_mode`, `slug`, `video_id`, `locale`,
   `source_lang`, `selected_lang`, `from_lang`, `to_lang`, `load_status`, and
@@ -120,10 +119,8 @@ the events are already available in GA4:
   web streams. Complete the certified CMP and consent-mode rollout before
   enabling AdSense so `analytics_storage`, `ad_storage`, `ad_user_data`, and
   `ad_personalization` reflect the visitor's choice.
-- The currently signed-in `mikey1384@gmail.com` user has direct Analytics access
-  but is not an account administrator. An existing administrator must grant
-  Administrator access before `mikey@stage5.tools` can be added and the missing
-  custom definitions or consent settings can be managed.
+- `mikey@stage5.tools` has accepted full GTM account-administrator and container-
+  publish access for the Translator Tools account.
 
 ## Watch advertising and consent
 
