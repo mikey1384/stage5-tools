@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Operations
+
+- [Twilio and AdSense verification runbook](docs/twilio-adsense-verification-runbook.md)
+- [Product measurement contract](docs/measurement-contract.md)
+- [Landing-page experiment log](docs/landing-page-experiments.md)
+
 ## Getting Started
 
 First, run the development server:
