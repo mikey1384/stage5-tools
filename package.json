@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "audit:indexing": "node scripts/audit-indexing-policy.mjs",
     "audit:locales": "node scripts/audit-shared-locales.mjs",
+    "audit:rendered": "node scripts/audit-rendered-seo.mjs",
     "build": "npm run audit:locales && next build && npm run audit:indexing",
     "test:analytics": "node --experimental-strip-types --test test/analytics-events.test.mjs",
     "test:watch": "node --test test/watch-catalog-validation.test.mjs test/watch-runtime-catalog.test.mjs",
