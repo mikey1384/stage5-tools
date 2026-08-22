@@ -161,14 +161,18 @@ export default async function WatchPage({
             />
 
             <div className="prose prose-invert mt-12 max-w-none">
-              <h2 className="text-3xl font-semibold text-white">
-                {copy.section1Title}
-              </h2>
-              {copy.section1Body.map((paragraph, i) => (
-                <p key={i} className="text-lg leading-8 text-gray-300">
-                  {paragraph}
-                </p>
-              ))}
+              {copy.section1Title && copy.section1Body && copy.section1Body.length > 0 && (
+                <>
+                  <h2 className="text-3xl font-semibold text-white">
+                    {copy.section1Title}
+                  </h2>
+                  {copy.section1Body.map((paragraph, i) => (
+                    <p key={i} className="text-lg leading-8 text-gray-300">
+                      {paragraph}
+                    </p>
+                  ))}
+                </>
+              )}
 
               <h2 className="mt-12 text-3xl font-semibold text-white">
                 {copy.howToTitle}
@@ -221,14 +225,18 @@ export default async function WatchPage({
                 </>
               )}
 
-              <h2 className="mt-12 text-3xl font-semibold text-white">
-                {copy.section2Title}
-              </h2>
-              {copy.section2Body.map((paragraph, i) => (
-                <p key={i} className="text-lg leading-8 text-gray-300">
-                  {paragraph}
-                </p>
-              ))}
+              {copy.section2Title && copy.section2Body && copy.section2Body.length > 0 && (
+                <>
+                  <h2 className="mt-12 text-3xl font-semibold text-white">
+                    {copy.section2Title}
+                  </h2>
+                  {copy.section2Body.map((paragraph, i) => (
+                    <p key={i} className="text-lg leading-8 text-gray-300">
+                      {paragraph}
+                    </p>
+                  ))}
+                </>
+              )}
             </div>
 
             <div className="mt-16 border-t border-white/10 pt-12">
