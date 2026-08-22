@@ -11,7 +11,7 @@ import {
 import { buildMetadata } from "../../lib/seo";
 import { posts } from "./posts";
 
-type WatchSupportedLocale = "en" | "es" | "ko" | "pt";
+type WatchSupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 const pageCopy: Record<WatchSupportedLocale, {
   title: string;
@@ -55,6 +55,15 @@ const pageCopy: Record<WatchSupportedLocale, {
     h1: "Assista vídeos que valem a pena encontrar.",
     intro:
       "Esses posts mostram como o Translator ajuda você a encontrar e assistir vídeos em idiomas estrangeiros que valem seu tempo. Cada exemplo percorre o fluxo real: cole uma URL, baixe o vídeo, transcreva ou traduza, e assista com legendas que você pode editar.",
+  },
+  vi: {
+    title: "Xem: Ví dụ thực tế | Translator",
+    description:
+      "Xem cách Translator giúp bạn xem video ngoại ngữ với phụ đề tiếng Việt. Các ví dụ thực tế từ phỏng vấn và nội dung đáng xem.",
+    eyebrow: "Ví dụ thực tế",
+    h1: "Xem video đáng để tìm hiểu.",
+    intro:
+      "Các bài viết này cho thấy Translator giúp bạn tìm và xem video ngoại ngữ đáng giá thời gian. Mỗi ví dụ hướng dẫn quy trình thực tế: dán URL, tải video, phiên âm hoặc dịch, và xem với phụ đề có thể chỉnh sửa.",
   },
 };
 

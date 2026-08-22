@@ -25,7 +25,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -294,6 +294,73 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da First We Feast. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, coreano (한국어), espanhol (Español) ou português. Todas as quatro faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos), não são legendas automáticas do YouTube.",
       "Fonte: Hot Ones temporada 8, apresentado por Sean Evans, com Gordon Ramsay. First We Feast. Publicado em 22 de agosto de 2026. O vídeo está em inglês.",
+    ],
+  },
+  vi: {
+    title: "Xem Gordon Ramsay trên Hot Ones với Phụ Đề Tiếng Việt | Translator",
+    description:
+      "Đầu bếp nổi tiếng Gordon Ramsay ngồi với Sean Evans trên First We Feast's Hot Ones cho mùa tám.",
+    keywords: [
+      "Gordon Ramsay phỏng vấn",
+      "Hot Ones",
+      "Sean Evans",
+      "First We Feast",
+      "phỏng vấn tiếng Anh",
+    ],
+    h1: "Xem Gordon Ramsay Phê Bình Cánh Gà Cay",
+    intro:
+      "Đầu bếp nổi tiếng Gordon Ramsay ngồi với Sean Evans trên First We Feast's Hot Ones cho mùa tám.",
+    section1Title: "Cuộc phỏng vấn bằng tiếng Anh",
+    section1Body: [
+      "Gordon Ramsay là đầu bếp nổi tiếng và chủ nhà hàng. Anh được biết đến với các chương trình truyền hình như Hell's Kitchen và MasterChef.",
+      "Trong tập này của Hot Ones, Ramsay ăn cánh gà cay trong khi trả lời các câu hỏi. Anh phê bình cánh gà, nói về sự nghiệp của mình và thảo luận về nấu ăn.",
+      "Cuộc phỏng vấn bằng tiếng Anh. Người nói tiếng Việt có thể muốn phụ đề để hiểu rõ hơn về chi tiết.",
+    ],
+    howToTitle: "Cách xem toàn bộ tập với phụ đề tiếng Việt",
+    howToBody:
+      "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Sao chép liên kết video và dán vào trường tải xuống của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải xuống video và bất kỳ phụ đề có sẵn nào.",
+      },
+      {
+        title: "Phiên âm hoặc dịch",
+        body: "Sử dụng AI để phiên âm hoặc dịch phụ đề.",
+      },
+      {
+        title: "Xem và chỉnh sửa",
+        body: "Ứng dụng phát video với phụ đề của bạn. Bạn có thể chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng.",
+      },
+    ],
+    howToNote:
+      "Video lưu trên máy tính của bạn. Translator hoạt động cục bộ—không có gì được tải lên máy chủ của chúng tôi.",
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree:
+      "Tải video, chỉnh sửa phụ đề, quản lý thư viện và xuất SRT.",
+    pricingPaid:
+      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 (ví dụ: $1 cho ~50 phút, $10 cho ~18 giờ) hoặc trả $10 một lần để mở khóa BYO và sử dụng khóa API riêng của bạn.",
+    freeLabel: "Miễn phí:",
+    paidLabel: "Trả phí:",
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL Hot Ones và tự thử quy trình. Tải xuống và trình chỉnh sửa miễn phí.",
+    downloadLinkText: "Tìm hiểu về tải video →",
+    ctaNote:
+      "Tải xuống và chỉnh sửa phụ đề miễn phí. Phiên âm và dịch AI yêu cầu tín dụng Stage5 hoặc khóa API riêng của bạn.",
+    section2Title: "Ramsay phê bình cánh gà",
+    section2Body: [
+      "Hot Ones trở nên phổ biến vì đặt mọi người vào tình huống mà đào tạo truyền thông không giúp được. Cánh gà càng cay, khách càng trung thực và câu hỏi càng hay hơn. Sean Evans nổi tiếng với việc nghiên cứu nghiêm túc—khách thường ngạc nhiên về độ sâu của câu hỏi.",
+      "Đối với các chuyên gia ẩm thực như Ramsay, có thêm một lớp: họ được yêu cầu phê bình cánh gà trong khi đối phó với sự cay. Đây không chỉ là định dạng phỏng vấn—đây là bài kiểm tra về bình tĩnh và cơ hội để xem ai đó thường kiểm soát mất một số quyền kiểm soát đó.",
+    ],
+    aboutTitle: "Về bài viết này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ First We Feast. 30 giây đầu tiên của phụ đề có thể hiển thị bằng tiếng Anh, tiếng Hàn (한국어), tiếng Tây Ban Nha (Español) hoặc tiếng Bồ Đào Nha. Cả bốn bản phụ đề đều được phiên âm và dịch trong Translator (chỉ 30 giây đầu), không phải phụ đề tự động của YouTube.",
+      "Nguồn: Hot Ones mùa 8, do Sean Evans dẫn chương trình, có Gordon Ramsay. First We Feast. Xuất bản ngày 22 tháng 8 năm 2026. Video bằng tiếng Anh.",
     ],
   },
 };

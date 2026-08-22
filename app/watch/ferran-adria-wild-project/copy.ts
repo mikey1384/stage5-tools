@@ -277,5 +277,67 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
   zh: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
   fr: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
   de: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
-  vi: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
+  vi: {
+    title: "Xem Phỏng Vấn Ferran Adrià trên Wild Project với Phụ Đề Tiếng Việt | Translator",
+    description:
+      "Đầu bếp huyền thoại El Bulli Ferran Adrià nói về sáng tạo, nghề thủ công và ẩm thực như nghệ thuật trong cuộc phỏng vấn tiếng Tây Ban Nha. Tìm hiểu cách xem với phụ đề tiếng Việt bằng Translator.",
+    keywords: [
+      "Ferran Adrià phỏng vấn phụ đề tiếng Việt",
+      "Wild Project Ferran Adrià",
+      "xem phỏng vấn tiếng Tây Ban Nha",
+      "El Bulli đầu bếp phỏng vấn",
+      "dịch video tiếng Tây Ban Nha sang tiếng Việt",
+      "Jordi Wild Ferran Adrià",
+    ],
+    h1: "Xem Ferran Adrià Nói Về Sáng Tạo và Nghề Thủ Công",
+    intro:
+      "Đầu bếp huyền thoại El Bulli thảo luận về ý nghĩa của việc xây dựng điều gì đó thay đổi cách mọi người nghĩ về ẩm thực. Cuộc phỏng vấn tiếng Tây Ban Nha này đáng xem—ngay cả khi bạn không nói tiếng Tây Ban Nha.",
+    eyebrow: "Tiếng Tây Ban Nha · Ẩm Thực & Nghề Thủ Công · Wild Project #287",
+    section1Title: "Phỏng vấn bằng tiếng Tây Ban Nha",
+    section1Body: [
+      "Ferran Adrià điều hành El Bulli, nhà hàng đã định nghĩa lại ẩm thực có thể là gì. Trong nhiều năm, El Bulli được coi là nhà hàng tốt nhất thế giới—không chỉ vì món ăn, mà vì những ý tưởng đằng sau chúng. Adrià đối xử với nấu ăn như nghiên cứu, đặt những câu hỏi mà hầu hết đầu bếp không bao giờ nghĩ đến.",
+      "Trong cuộc phỏng vấn này với Jordi Wild trên The Wild Project, Adrià nói về sáng tạo, nghề thủ công và những gì cần thiết để xây dựng điều gì đó quan trọng. Đây không phải hướng dẫn nấu ăn. Đây là cuộc trò chuyện về lý do tại sao ai đó cống hiến cuộc đời để đẩy một nghề thủ công tiến lên, và điều gì xảy ra khi nghề thủ công đó trở thành nghệ thuật.",
+      "Cuộc phỏng vấn bằng tiếng Tây Ban Nha, có nghĩa là người nói tiếng Việt bỏ lỡ—và bỏ lỡ một trong những cuộc trò chuyện hay nhất về ẩm thực trên YouTube.",
+    ],
+    section2Title: "Những gì bạn sẽ nghe",
+    section2Body: [
+      "Adrià nói về sự khác biệt giữa nấu ăn và sáng tạo, tại sao El Bulli đóng cửa ở đỉnh cao, và ý nghĩa của việc đối xử với thực phẩm như thứ gì đó hơn nhiên liệu. Ông giải thích cách nhóm của mình tiếp cận quy trình sáng tạo—không phải là thiên tài cá nhân, mà là nghiên cứu có cấu trúc tình cờ tạo ra các món ăn.",
+      "Jordi Wild là một trong những podcaster được xem nhiều nhất ở Tây Ban Nha, và ông cho Adrià không gian để suy nghĩ qua câu trả lời. Cuộc trò chuyện di chuyển giữa triết học, kinh doanh, nghề thủ công và di sản. Nếu bạn từng đọc về El Bulli hoặc xem ảnh các món ăn, đây là cuộc phỏng vấn giải thích điều gì thực sự đang xảy ra trong nhà bếp đó.",
+    ],
+    howToTitle: "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+    howToBody:
+      "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn. Đây là quy trình:",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Sao chép liên kết video và dán vào trường tải xuống của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải xuống video và bất kỳ phụ đề có sẵn nào. Việc này miễn phí và xảy ra trên máy của bạn.",
+      },
+      {
+        title: "Phiên âm hoặc dịch",
+        body: "Nếu video không có phụ đề tiếng Tây Ban Nha, bạn có thể phiên âm bằng AI. Nếu có, bạn có thể dịch phụ đề đó sang tiếng Việt. Bạn có thể sử dụng tín dụng Stage5 (trả theo phút) hoặc mang khóa API riêng từ OpenAI hoặc Anthropic.",
+      },
+      {
+        title: "Xem với phụ đề bạn kiểm soát",
+        body: "Ứng dụng phát video với phụ đề đã dịch của bạn. Bạn có thể chỉnh sửa thời gian, sửa bản dịch, chọn kiểu phụ đề và xuất tệp SRT cuối cùng.",
+      },
+    ],
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree:
+      "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+    pricingPaid:
+      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 (ví dụ: $1 cho ~50 phút, $10 cho ~18 giờ) hoặc mở khóa BYO một lần với $10 và mang khóa API riêng từ OpenAI hoặc Anthropic để thanh toán trực tiếp cho họ.",
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL video này và xem quy trình hoạt động như thế nào. Tải xuống và trình chỉnh sửa phụ đề miễn phí sử dụng.",
+    downloadLinkText: "Tìm hiểu về tải video →",
+    aboutTitle: "Về bài viết này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ nguồn chính thức. 30 giây đầu tiên của phụ đề hiển thị trong trình phát có thể hiển thị bằng tiếng Anh, tiếng Hàn (한국어) hoặc tiếng Bồ Đào Nha (Português). Cả ba bản phụ đề đều được phiên âm và dịch trong Translator (chỉ 30 giây đầu). Phần còn lại của tập không được công bố ở đây—bài viết này giải thích quy trình để bạn có thể tự dịch toàn bộ video.",
+      "Nguồn: The Wild Project #287, do Jordi Wild dẫn chương trình, có Ferran Adrià. Xuất bản ngày 14 tháng 5 năm 2024. Video bằng tiếng Tây Ban Nha.",
+    ],
+  },
 };

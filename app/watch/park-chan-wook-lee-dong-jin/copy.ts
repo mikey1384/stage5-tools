@@ -6,7 +6,7 @@ interface WatchPageCopy {
   downloadTitle: string; downloadBody: string; aboutTitle: string; aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const parkChanWookLeeDongJinCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -219,6 +219,60 @@ export const parkChanWookLeeDongJinCopy: Record<SupportedLocale, WatchPageCopy> 
   "aboutBody": [
     "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, espanhol ou português.",
     "Fonte: Piarchia de Lee Dong-jin, com o diretor Park Chan-wook. O vídeo está em coreano."
+  ]
+},
+  vi: {
+  "title": "Xem Park Chan-wook trên Piarchia của Lee Dong-jin với Phụ Đề Tiếng Việt | Translator",
+  "description": "Đạo diễn Park Chan-wook thảo luận về Decision to Leave với nhà phê bình phim Lee Dong-jin. Cuộc phỏng vấn tiếng Hàn về làm phim, hiểu lầm và nghề thủ công.",
+  "keywords": [
+    "Park Chan-wook phỏng vấn",
+    "Lee Dong-jin Piarchia",
+    "phỏng vấn tiếng Hàn",
+    "Decision to Leave",
+    "đạo diễn Hàn Quốc"
+  ],
+  "h1": "Xem Park Chan-wook trên Piarchia của Lee Dong-jin",
+  "intro": "Đạo diễn Park Chan-wook thảo luận về Decision to Leave với nhà phê bình phim Lee Dong-jin trong cuộc phỏng vấn tiếng Hàn về làm phim, hiểu lầm và nghề thủ công.",
+  "section1Title": "Cuộc phỏng vấn bằng tiếng Hàn",
+  "section1Body": [
+    "Park Chan-wook là một trong những đạo diễn nổi tiếng nhất Hàn Quốc. Anh được biết đến với Oldboy, The Handmaiden và Decision to Leave. Lee Dong-jin là nhà phê bình phim hàng đầu Hàn Quốc.",
+    "Trong cuộc phỏng vấn này, Park nói về Decision to Leave, quy trình sáng tạo của anh và cách anh xây dựng cảnh phim. Cuộc trò chuyện di chuyển giữa chi tiết kỹ thuật và triết học rộng hơn về làm phim.",
+    "Cuộc phỏng vấn bằng tiếng Hàn. Người nói tiếng Việt bỏ lỡ giọng điệu, chi tiết và toàn bộ cuộc trò chuyện."
+  ],
+  "howToTitle": "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+  "howToBody": "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+  "howToSteps": [
+    {
+      "title": "Dán URL YouTube",
+      "body": "Sao chép liên kết video và dán vào trường tải xuống của Translator."
+    },
+    {
+      "title": "Tải video",
+      "body": "Translator tải xuống video và bất kỳ phụ đề có sẵn nào."
+    },
+    {
+      "title": "Phiên âm hoặc dịch",
+      "body": "Sử dụng AI để phiên âm hoặc dịch phụ đề."
+    },
+    {
+      "title": "Xem với phụ đề bạn kiểm soát",
+      "body": "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng."
+    }
+  ],
+  "pricingTitle": "Miễn phí và trả phí",
+  "pricingFree": "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+  "pricingPaid": "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+  "section2Title": "Nội dung điện ảnh Hàn Quốc bằng tiếng Việt",
+  "section2Body": [
+    "Điện ảnh Hàn Quốc đã tạo ra một số nội dung phim hay nhất trên YouTube. Hầu hết không có phụ đề tiếng Việt.",
+    "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng."
+  ],
+  "downloadTitle": "Tải Translator",
+  "downloadBody": "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL của video này và xem quy trình hoạt động như thế nào.",
+  "aboutTitle": "Về bài viết này",
+  "aboutBody": [
+    "Video YouTube được nhúng trực tiếp từ nguồn chính thức. 30 giây đầu tiên của phụ đề có thể hiển thị bằng tiếng Anh, tiếng Tây Ban Nha hoặc tiếng Bồ Đào Nha.",
+    "Nguồn: Piarchia của Lee Dong-jin, với đạo diễn Park Chan-wook. Video bằng tiếng Hàn."
   ]
 }
 };

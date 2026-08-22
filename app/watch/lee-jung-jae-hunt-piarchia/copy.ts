@@ -20,7 +20,7 @@ interface WatchPageCopy {
   aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -268,6 +268,66 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas mostrados no player podem ser exibidos em inglês, espanhol ou português. Todas as três faixas foram transcritas e traduzidas no Translator.",
       "Fonte: Piarchia de Lee Dong-jin, apresentado pelo crítico Lee Dong-jin, com o diretor Lee Jung-jae. O vídeo está em coreano. Duração: 42:16.",
+    ],
+  },
+  vi: {
+    title: "Xem Lee Jung-jae trên Piarchia của Lee Dong-jin với Phụ Đề Tiếng Việt | Translator",
+    description:
+      "Diễn viên겸đạo diễn Lee Jung-jae thảo luận về Hunt, tác phẩm đạo diễn đầu tay của anh, với nhà phê bình phim Lee Dong-jin. Cuộc phỏng vấn tiếng Hàn về làm phim, hành động và nghề thủ công.",
+    keywords: [
+      "Lee Jung-jae phỏng vấn",
+      "Hunt phim",
+      "Lee Dong-jin Piarchia",
+      "phỏng vấn tiếng Hàn",
+      "đạo diễn Hàn Quốc",
+    ],
+    h1: "Xem Lee Jung-jae Thảo Luận Về Hunt",
+    intro:
+      "Diễn viên겸đạo diễn Lee Jung-jae thảo luận về Hunt, tác phẩm đạo diễn đầu tay, với nhà phê bình phim Lee Dong-jin trong cuộc phỏng vấn tiếng Hàn đáng xem.",
+    section1Title: "Cuộc phỏng vấn bằng tiếng Hàn",
+    section1Body: [
+      "Lee Jung-jae nổi tiếng với vai diễn trong Squid Game. Hunt đánh dấu lần đầu tiên anh ngồi ghế đạo diễn. Lee Dong-jin là nhà phê bình phim hàng đầu Hàn Quốc.",
+      "Trong cuộc phỏng vấn này, Lee Jung-jae nói về quá trình làm Hunt, cách anh tiếp cận cảnh hành động và những gì anh học được khi chuyển từ diễn viên sang đạo diễn.",
+      "Cuộc phỏng vấn bằng tiếng Hàn. Người nói tiếng Việt bỏ lỡ giọng điệu, chi tiết và toàn bộ cuộc trò chuyện.",
+    ],
+    howToTitle: "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+    howToBody:
+      "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+    howToSteps: [
+      {
+        title: "Dán URL YouTube",
+        body: "Sao chép liên kết video và dán vào trường tải xuống của Translator.",
+      },
+      {
+        title: "Tải video",
+        body: "Translator tải xuống video và bất kỳ phụ đề có sẵn nào.",
+      },
+      {
+        title: "Phiên âm hoặc dịch",
+        body: "Sử dụng AI để phiên âm hoặc dịch phụ đề.",
+      },
+      {
+        title: "Xem với phụ đề bạn kiểm soát",
+        body: "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng.",
+      },
+    ],
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree:
+      "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+    pricingPaid:
+      "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+    section2Title: "Nội dung điện ảnh Hàn Quốc bằng tiếng Việt",
+    section2Body: [
+      "Điện ảnh Hàn Quốc đã tạo ra một số nội dung phim hay nhất trên YouTube. Hầu hết không có phụ đề tiếng Việt.",
+      "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng.",
+    ],
+    downloadTitle: "Tải Translator",
+    downloadBody:
+      "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL của video này và xem quy trình hoạt động như thế nào.",
+    aboutTitle: "Về bài viết này",
+    aboutBody: [
+      "Video YouTube được nhúng trực tiếp từ nguồn chính thức. 30 giây đầu tiên của phụ đề hiển thị trong trình phát có thể hiển thị bằng tiếng Anh, tiếng Tây Ban Nha hoặc tiếng Bồ Đào Nha. Cả ba bản phụ đề đều được phiên âm và dịch trong Translator.",
+      "Nguồn: Piarchia của Lee Dong-jin, do nhà phê bình Lee Dong-jin dẫn chương trình, với đạo diễn Lee Jung-jae. Video bằng tiếng Hàn. Thời lượng: 42:16.",
     ],
   },
 };

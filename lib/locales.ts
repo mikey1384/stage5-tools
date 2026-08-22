@@ -105,7 +105,7 @@ export function localizePathForLocale(locale: Locale, href: string): string {
 
 function getWatchPageLocales(englishPath: string): Locale[] | null {
   if (englishPath === "/watch") {
-    return ["en", "es", "ko", "pt"];
+    return ["en", "es", "ko", "pt", "vi"];
   }
   
   if (englishPath.startsWith("/watch/")) {
@@ -113,7 +113,7 @@ function getWatchPageLocales(englishPath: string): Locale[] | null {
     const watchSlugs = getAllSlugs();
     
     if (watchSlugs.includes(slug)) {
-      return ["en", "es", "ko", "pt"];
+      return ["en", "es", "ko", "pt", "vi"];
     }
   }
   

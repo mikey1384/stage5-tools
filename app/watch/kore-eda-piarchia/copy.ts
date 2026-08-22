@@ -6,7 +6,7 @@ interface WatchPageCopy {
   downloadTitle: string; downloadBody: string; aboutTitle: string; aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const koreEdaPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -126,5 +126,26 @@ export const koreEdaPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> = {
     downloadBody: "Funciona no macOS e Windows.",
     aboutTitle: "Sobre este post",
     aboutBody: ["Vídeo oficial do YouTube. Primeiros 30s com legendas em inglês, espanhol ou português.", "Fonte: Piarchia de Lee Dong-jin, com o diretor Hirokazu Kore-eda. Vídeo em coreano. Duração: 46:38."]
+  },
+  vi: {
+    title: "Xem Hirokazu Kore-eda trên Piarchia của Lee Dong-jin với Phụ Đề Tiếng Việt | Translator",
+    description: "Đạo diễn Hirokazu Kore-eda thảo luận về sự nghiệp làm phim của mình với nhà phê bình Lee Dong-jin. Cuộc phỏng vấn tiếng Hàn về làm phim, gia đình và nghề thủ công.",
+    keywords: ["Hirokazu Kore-eda", "Lee Dong-jin", "Piarchia", "phỏng vấn tiếng Hàn", "đạo diễn Nhật Bản"],
+    h1: "Xem Hirokazu Kore-eda Thảo Luận Về Sự Nghiệp Làm Phim",
+    intro: "Đạo diễn Hirokazu Kore-eda thảo luận về sự nghiệp làm phim với nhà phê bình Lee Dong-jin trong cuộc phỏng vấn tiếng Hàn đáng xem.",
+    section1Title: "Cuộc phỏng vấn bằng tiếng Hàn",
+    section1Body: ["Hirokazu Kore-eda đạo diễn Shoplifters, Nobody Knows, After Life và Broker. Lee Dong-jin là nhà phê bình phim hàng đầu Hàn Quốc.", "Trong cuộc phỏng vấn này, Kore-eda nói về quy trình làm phim, cách anh kể chuyện về gia đình và những gì thúc đẩy công việc của anh.", "Cuộc phỏng vấn bằng tiếng Hàn. Người nói tiếng Việt bỏ lỡ giọng điệu, chi tiết và toàn bộ cuộc trò chuyện."],
+    howToTitle: "Cách xem với phụ đề tiếng Việt",
+    howToBody: "Translator là ứng dụng desktop tải video, thêm phụ đề dịch và cho phép xem bằng ngôn ngữ của bạn.",
+    howToSteps: [{title: "Dán URL YouTube", body: "Sao chép liên kết video và dán vào trường tải xuống."}, {title: "Tải video", body: "Translator tải xuống video."}, {title: "Phiên âm hoặc dịch", body: "Sử dụng AI để phiên âm hoặc dịch."}, {title: "Xem với phụ đề", body: "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT."}],
+    pricingTitle: "Miễn phí và trả phí",
+    pricingFree: "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+    pricingPaid: "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+    section2Title: "Nội dung điện ảnh Hàn Quốc bằng tiếng Việt",
+    section2Body: ["Điện ảnh Hàn Quốc tạo ra nội dung phim hay nhất trên YouTube. Hầu hết không có phụ đề tiếng Việt.", "Translator cho bạn quyền kiểm soát: chọn mô hình dịch, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng."],
+    downloadTitle: "Tải Translator",
+    downloadBody: "Hoạt động trên macOS và Windows.",
+    aboutTitle: "Về bài viết này",
+    aboutBody: ["Video YouTube chính thức. 30 giây đầu có phụ đề bằng tiếng Anh, tiếng Tây Ban Nha hoặc tiếng Bồ Đào Nha.", "Nguồn: Piarchia của Lee Dong-jin, với đạo diễn Hirokazu Kore-eda. Video bằng tiếng Hàn. Thời lượng: 46:38."]
   }
 };

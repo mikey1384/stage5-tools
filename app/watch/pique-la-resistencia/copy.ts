@@ -6,7 +6,7 @@ interface WatchPageCopy {
   downloadTitle: string; downloadBody: string; aboutTitle: string; aboutBody: string[];
 }
 
-type SupportedLocale = "en" | "es" | "ko" | "pt";
+type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const piqueLaResistenciaCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
@@ -219,6 +219,59 @@ export const piqueLaResistenciaCopy: Record<SupportedLocale, WatchPageCopy> = {
   "aboutBody": [
     "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, coreano ou português.",
     "Fonte: La Resistencia, apresentado por David Broncano, com Gerard Piqué. Publicado em 28 de março de 2019. O vídeo está em espanhol."
+  ]
+},
+  vi: {
+  "title": "Xem Gerard Piqué trên La Resistencia với Phụ Đề Tiếng Việt | Translator",
+  "description": "Hậu vệ Barcelona Gerard Piqué ngồi với David Broncano trong cuộc phỏng vấn đêm khuya tiếng Tây Ban Nha bắt đầu thô và trở nên thú vị.",
+  "keywords": [
+    "Gerard Piqué phỏng vấn",
+    "La Resistencia",
+    "David Broncano",
+    "phỏng vấn tiếng Tây Ban Nha"
+  ],
+  "h1": "Xem Gerard Piqué trên Truyền Hình Đêm Khuya Tây Ban Nha",
+  "intro": "Hậu vệ Barcelona Gerard Piqué tự mời mình lên chương trình của David Broncano qua Twitter, xuất hiện tại Teatro Arlequín và trải qua cuộc phỏng vấn tiếng Tây Ban Nha bắt đầu với những trò đùa mà hầu hết người nói tiếng Việt sẽ không bao giờ nghe thấy.",
+  "section1Title": "Một cầu thủ bóng đá tham gia chương trình đêm khuya",
+  "section1Body": [
+    "La Resistencia là một trong những chương trình hài đêm khuya được xem nhiều nhất ở Tây Ban Nha. Người dẫn chương trình David Broncano nổi tiếng với hài hước thô và các cuộc phỏng vấn không thể đoán trước. Gerard Piqué—lúc đó vẫn đang chơi cho FC Barcelona—thấy một cuộc trao đổi trò đùa trên Twitter và tự mời mình tham gia.",
+    "Cuộc trò chuyện đi qua bóng đá, tiền bạc, nổi tiếng và các dự án kinh doanh của Piqué. Phần mở đầu của Broncano cố ý khiêu khích, đây là một phần của định dạng chương trình. Sau đó trong cuộc phỏng vấn, Piqué gây chú ý khi nói rằng tài sản ròng của anh lớn hơn ngân sách của RCD Espanyol—một bình luận trở thành chu kỳ tin tức riêng trong truyền thông thể thao Tây Ban Nha.",
+    "Cuộc phỏng vấn bằng tiếng Tây Ban Nha. Người nói tiếng Việt bỏ lỡ giọng điệu, thời gian và toàn bộ bối cảnh làm cho hài kịch đêm khuya Tây Ban Nha hoạt động."
+  ],
+  "howToTitle": "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
+  "howToBody": "Translator là ứng dụng desktop cho phép bạn tải video, thêm phụ đề dịch và xem chúng bằng ngôn ngữ của bạn.",
+  "howToSteps": [
+    {
+      "title": "Dán URL YouTube",
+      "body": "Sao chép liên kết video và dán vào trường tải xuống của Translator."
+    },
+    {
+      "title": "Tải video",
+      "body": "Translator tải xuống video và bất kỳ phụ đề có sẵn nào."
+    },
+    {
+      "title": "Phiên âm hoặc dịch",
+      "body": "Sử dụng AI để phiên âm hoặc dịch phụ đề."
+    },
+    {
+      "title": "Xem với phụ đề bạn kiểm soát",
+      "body": "Chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng."
+    }
+  ],
+  "pricingTitle": "Miễn phí và trả phí",
+  "pricingFree": "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
+  "pricingPaid": "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
+  "section2Title": "Truyền thông thể thao Tây Ban Nha bằng tiếng Việt",
+  "section2Body": [
+    "Tây Ban Nha tạo ra một số nội dung bóng đá tốt nhất trên YouTube—phỏng vấn, phân tích, phim tài liệu. Hầu hết không có phụ đề tiếng Việt.",
+    "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng."
+  ],
+  "downloadTitle": "Tải Translator",
+  "downloadBody": "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL của video này và xem quy trình hoạt động như thế nào.",
+  "aboutTitle": "Về bài viết này",
+  "aboutBody": [
+    "Video YouTube được nhúng trực tiếp từ nguồn chính thức. 30 giây đầu tiên của phụ đề có thể hiển thị bằng tiếng Anh, tiếng Hàn hoặc tiếng Bồ Đào Nha.",
+    "Nguồn: La Resistencia, do David Broncano dẫn chương trình, có Gerard Piqué. Xuất bản ngày 28 tháng 3 năm 2019. Video bằng tiếng Tây Ban Nha."
   ]
 }
 };
