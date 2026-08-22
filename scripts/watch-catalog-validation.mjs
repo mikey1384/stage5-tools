@@ -1,4 +1,4 @@
-const WATCH_LOCALES = new Set([
+const WATCH_TRACK_LOCALES = new Set([
   "en",
   "ko",
   "es",
@@ -9,6 +9,8 @@ const WATCH_LOCALES = new Set([
   "pt",
   "vi",
 ]);
+
+const WATCH_PAGE_LOCALES = new Set(["en", "ko", "es", "pt", "vi"]);
 
 const REQUIRED_COPY_FIELDS = [
   "title",
@@ -132,14 +134,14 @@ export function validateWatchEntry(entry) {
   ) {
     throw new Error(`${entry.slug} has an invalid vttSlug`);
   }
-  if (!WATCH_LOCALES.has(entry.sourceLang)) {
+  if (!WATCH_TRACK_LOCALES.has(entry.sourceLang)) {
     throw new Error(`${entry.slug} has an unsupported sourceLang`);
   }
   if (
     !Array.isArray(entry.tracks) ||
     entry.tracks.length === 0 ||
     new Set(entry.tracks).size !== entry.tracks.length ||
-    entry.tracks.some((locale) => !WATCH_LOCALES.has(locale))
+    entry.tracks.some((locale) => !WATCH_TRACK_LOCALES.has(locale))
   ) {
     throw new Error(
       `${entry.slug} tracks must be unique supported locales`,
@@ -149,10 +151,10 @@ export function validateWatchEntry(entry) {
     !Array.isArray(entry.supportedLocales) ||
     !entry.supportedLocales.includes("en") ||
     new Set(entry.supportedLocales).size !== entry.supportedLocales.length ||
-    entry.supportedLocales.some((locale) => !WATCH_LOCALES.has(locale))
+    entry.supportedLocales.some((locale) => !WATCH_PAGE_LOCALES.has(locale))
   ) {
     throw new Error(
-      `${entry.slug} supportedLocales must uniquely include en and contain only supported locales`,
+      `${entry.slug} supportedLocales must uniquely include en and contain only supported Watch page locales`,
     );
   }
   for (const field of ["language", "topic", "showName"]) {

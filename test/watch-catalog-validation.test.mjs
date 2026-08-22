@@ -64,6 +64,20 @@ test("rejects a declared locale with placeholder copy", () => {
   assert.throws(() => validateWatchEntry(entry), /incomplete es copy/);
 });
 
+test("rejects page locales that the Watch router does not expose", () => {
+  const entry = validEntry();
+  entry.supportedLocales.push("ja");
+  entry.copy.ja = validCopy();
+  assert.throws(
+    () => validateWatchEntry(entry),
+    /supported Watch page locales/,
+  );
+
+  entry.supportedLocales.pop();
+  entry.tracks.push("ja");
+  assert.equal(validateWatchEntry(entry), entry);
+});
+
 test("rejects impossible publication dates and incomplete optional sections", () => {
   const badDate = validEntry();
   badDate.datePublished = "2026-02-31";

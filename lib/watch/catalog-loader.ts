@@ -1,4 +1,8 @@
-import { isLocale, type Locale } from "../locales";
+import {
+  WATCH_LOCALIZED_LOCALES,
+  isLocale,
+  type Locale,
+} from "../locales";
 import {
   isCompleteWatchPageCopy,
   type WatchCatalogEntry,
@@ -11,6 +15,7 @@ import { getVideo as getBundledVideo, getAllSlugs as getBundledSlugs } from "./i
 let catalogCache: WatchCatalogEntry[] | null = null;
 let lastFetchTime = 0;
 const CACHE_TTL = 60_000; // 1 minute
+const watchPageLocaleSet = new Set<Locale>(WATCH_LOCALIZED_LOCALES);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === "object" && !Array.isArray(value);
@@ -65,8 +70,10 @@ function normalizeCatalogEntry(value: unknown): WatchCatalogEntry | undefined {
   const declaredLocales = Array.isArray(value.supportedLocales)
     ? [...new Set(value.supportedLocales.filter(isCatalogLocale))]
     : [];
-  const supportedLocales = declaredLocales.filter((locale) =>
-    isCompleteWatchPageCopy(copyRecord[locale]),
+  const supportedLocales = declaredLocales.filter(
+    (locale) =>
+      watchPageLocaleSet.has(locale) &&
+      isCompleteWatchPageCopy(copyRecord[locale]),
   );
   if (!supportedLocales.includes("en")) return undefined;
 

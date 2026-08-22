@@ -54,7 +54,7 @@ function validEntry() {
     videoId: "U9DyHthJ6LA",
     vttSlug: "runtime-catalog-entry",
     sourceLang: "en",
-    tracks: ["en", "es"],
+    tracks: ["en", "es", "ja"],
     supportedLocales: ["en", "es", "ja"],
     language: "English",
     topic: "Interview",
@@ -63,15 +63,16 @@ function validEntry() {
     copy: {
       en: validCopy(),
       es: validCopy(),
-      ja: {},
+      ja: validCopy(),
     },
   };
 }
 
-test("runtime parsing strips placeholder locales instead of serving blank pages", () => {
+test("runtime parsing strips unsupported page locales but preserves caption tracks", () => {
   const [entry] = parseWatchCatalog([validEntry()]);
   assert.deepEqual(entry.supportedLocales, ["en", "es"]);
   assert.deepEqual(Object.keys(entry.copy), ["en", "es"]);
+  assert.deepEqual(entry.tracks, ["en", "es", "ja"]);
 });
 
 test("runtime parsing rejects impossible publication dates", () => {
