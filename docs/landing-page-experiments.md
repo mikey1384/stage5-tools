@@ -167,7 +167,12 @@ a recorded next step.
   production verification at 2026-08-23 01:03. The subsequent preview-indexing
   guard passed the four-production-host/non-production-host header matrix and
   the same exhaustive rendered audit before deployment. GTM Version 5 remains
-  the only unpublished part of this release.
+  unpublished. A follow-up Cloudflare audit found all 124 R2 objects carrying
+  the intended cache metadata, but the custom domain still returns
+  `CF-Cache-Status: DYNAMIC` because a zone Cache Rule has not made Watch JSON
+  and VTT responses eligible. This is an origin-efficiency gap, not a page,
+  caption, or indexing failure. The custom domain minimum TLS version was raised
+  from 1.0 to 1.2 and verified active.
 - Earliest reads: seven and 28 full days after both the website release and GTM
   Version 5 are verified live. A same-day hostname check may establish absence
   of obvious preview traffic but is not a performance outcome.

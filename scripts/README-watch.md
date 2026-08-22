@@ -94,6 +94,41 @@ validated catalog/VTT content before verifying every object again:
 npm run watch:audit-cache -- --apply --confirm-bucket=ai-translator-downloads
 ```
 
+### Cloudflare edge-cache rule
+
+R2 object metadata controls freshness after an object is cache-eligible; it does
+not make JSON or VTT files eligible by itself. The `downloads.stage5.tools`
+custom domain therefore needs one zone Cache Rule with this exact scope:
+
+```text
+(http.host eq "downloads.stage5.tools" and starts_with(http.request.uri.path, "/watch/"))
+```
+
+Configure the rule as **Eligible for cache**, set Edge TTL to **Use
+cache-control header if present, bypass cache if not** (`bypass_by_default` in
+the API), and leave Browser TTL respecting the origin. This honors the
+60-second catalog and one-hour VTT policies while avoiding cached 404s for
+future catalog keys. Do not use a wildcard hostname or cache unrelated release
+artifacts as part of this rule.
+
+Verify a stable catalog and VTT URL twice from the same location. The first
+eligible response should normally be `CF-Cache-Status: MISS`; the second should
+be `HIT` or a revalidation state rather than `DYNAMIC`. A persistent `DYNAMIC`
+status means the zone rule is missing, disabled, or shadowed by a bypass rule.
+
+Run that live eligibility check without changing Cloudflare or R2:
+
+```bash
+npm run watch:audit-edge-cache
+```
+
+The command exits with status 2 when object responses are valid but Cloudflare
+does not consider them cache-eligible. This is deliberately separate from
+`watch:audit-cache`, which verifies R2 object metadata.
+
+The R2 custom domain's minimum TLS version is 1.2. Keep `r2.dev` public access
+disabled; production traffic must use the custom domain.
+
 ## Catalog Entry Format
 
 Each catalog entry must be a JSON file with this structure:
