@@ -43,7 +43,7 @@ const videos: WatchCatalogEntry[] = [
   },
   {
     slug: "pique-la-resistencia",
-    videoId: "Wk_4tQOvdWU",
+    videoId: "AcGwBcHPMPQ",
     vttSlug: "pique-la-resistencia",
     sourceLang: "es",
     tracks: ["en", "ko", "pt"],
@@ -64,8 +64,8 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Barcelona defender Gerard Piqué sits down with David Broncano for a Spanish late-night interview",
         uploadDate: "2019-03-28",
-        contentUrl: "https://www.youtube.com/watch?v=Wk_4tQOvdWU",
-        embedUrl: "https://www.youtube.com/embed/Wk_4tQOvdWU",
+        contentUrl: "https://www.youtube.com/watch?v=AcGwBcHPMPQ",
+        embedUrl: "https://www.youtube.com/embed/AcGwBcHPMPQ",
         inLanguage: "es",
       },
     ],
@@ -104,7 +104,7 @@ const videos: WatchCatalogEntry[] = [
   },
   {
     slug: "lee-jung-jae-hunt-piarchia",
-    videoId: "2nBPN-MjV1U",
+    videoId: "mF6xumJOVss",
     vttSlug: "lee-jung-jae-hunt-piarchia",
     sourceLang: "ko",
     tracks: ["en", "es", "pt"],
@@ -125,8 +125,8 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Actor-turned-director Lee Jung-jae discusses Hunt, his directorial debut, with film critic Lee Dong-jin",
         uploadDate: "2022-08-08",
-        contentUrl: "https://www.youtube.com/watch?v=2nBPN-MjV1U",
-        embedUrl: "https://www.youtube.com/embed/2nBPN-MjV1U",
+        contentUrl: "https://www.youtube.com/watch?v=mF6xumJOVss",
+        embedUrl: "https://www.youtube.com/embed/mF6xumJOVss",
         inLanguage: "ko",
       },
     ],
@@ -134,7 +134,7 @@ const videos: WatchCatalogEntry[] = [
   },
   {
     slug: "yoo-ji-tae-piarchia",
-    videoId: "UZnVoRvx3yY",
+    videoId: "PYY10Yq50bA",
     vttSlug: "yoo-ji-tae-piarchia",
     sourceLang: "ko",
     tracks: ["en", "es", "pt"],
@@ -155,8 +155,8 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Actor Yoo Ji-tae discusses One Fine Spring Day and Oldboy with film critic Lee Dong-jin",
         uploadDate: "2022-03-07",
-        contentUrl: "https://www.youtube.com/watch?v=UZnVoRvx3yY",
-        embedUrl: "https://www.youtube.com/embed/UZnVoRvx3yY",
+        contentUrl: "https://www.youtube.com/watch?v=PYY10Yq50bA",
+        embedUrl: "https://www.youtube.com/embed/PYY10Yq50bA",
         inLanguage: "ko",
       },
     ],
@@ -164,7 +164,7 @@ const videos: WatchCatalogEntry[] = [
   },
   {
     slug: "kore-eda-piarchia",
-    videoId: "OoQUB3Qv2xM",
+    videoId: "j29oHrGMmtY",
     vttSlug: "kore-eda-piarchia",
     sourceLang: "ko",
     tracks: ["en", "es", "pt"],
@@ -185,8 +185,8 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Director Hirokazu Kore-eda discusses his film career with critic Lee Dong-jin",
         uploadDate: "2022-06-13",
-        contentUrl: "https://www.youtube.com/watch?v=OoQUB3Qv2xM",
-        embedUrl: "https://www.youtube.com/embed/OoQUB3Qv2xM",
+        contentUrl: "https://www.youtube.com/watch?v=j29oHrGMmtY",
+        embedUrl: "https://www.youtube.com/embed/j29oHrGMmtY",
         inLanguage: "ko",
       },
     ],
@@ -194,8 +194,8 @@ const videos: WatchCatalogEntry[] = [
   },
   {
     slug: "calvo-wild-project",
-    videoId: "g9h72eALanU",
-    vttSlug: "calvo-wild-project",
+    videoId: "Wk_4tQOvdWU",
+    vttSlug: "Wk_4tQOvdWU",
     sourceLang: "es",
     tracks: ["en", "ko", "pt"],
     supportedLocales: ["en", "es", "ko", "pt"],
@@ -215,8 +215,8 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Spanish film critic Alejandro G. Calvo discusses the TOP 60 películas with Jordi Wild",
         uploadDate: "2024-01-09",
-        contentUrl: "https://www.youtube.com/watch?v=g9h72eALanU",
-        embedUrl: "https://www.youtube.com/embed/g9h72eALanU",
+        contentUrl: "https://www.youtube.com/watch?v=Wk_4tQOvdWU",
+        embedUrl: "https://www.youtube.com/embed/Wk_4tQOvdWU",
         inLanguage: "es",
       },
     ],
