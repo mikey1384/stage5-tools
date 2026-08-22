@@ -77,6 +77,23 @@ This:
 4. Uploads any supplied VTT files and verifies every declared track in R2
 5. Uploads the validated `catalog.json` last
 
+### Audit or refresh existing cache metadata
+
+New publishing runs attach explicit cache metadata. Audit every object declared
+by the live catalog without changing R2:
+
+```bash
+npm run watch:audit-cache
+```
+
+The audit exits with status 2 when otherwise-valid objects need a metadata
+refresh. Applying the repair is deliberately double-gated and re-uploads only
+validated catalog/VTT content before verifying every object again:
+
+```bash
+npm run watch:audit-cache -- --apply --confirm-bucket=ai-translator-downloads
+```
+
 ## Catalog Entry Format
 
 Each catalog entry must be a JSON file with this structure:

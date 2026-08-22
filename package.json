@@ -22,7 +22,8 @@
     "monitor:demo:pass": "node monitor/scripts/demo-run.mjs pass",
     "monitor:demo:force": "node monitor/scripts/demo-run.mjs force",
     "watch:seed": "node scripts/seed-watch-catalog.mjs",
-    "watch:publish": "node scripts/publish-watch.mjs"
+    "watch:publish": "node scripts/publish-watch.mjs",
+    "watch:audit-cache": "node scripts/refresh-watch-cache-metadata.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.513.0",
