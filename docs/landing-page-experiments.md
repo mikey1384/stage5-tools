@@ -10,7 +10,7 @@ All timestamps use Asia/Bangkok (`UTC+07:00`). Cross-check GA4 against the
 
 | Change committed | Production live      | ID               | What changed                                                      | Commit    |
 | ---------------- | -------------------- | ---------------- | ----------------------------------------------------------------- | --------- |
-| Pending           | Pending              | LP-2026-08-23-01 | Restricted production telemetry and Watch ads to exact live hosts | This release |
+| 2026-08-23 00:36 | 2026-08-23 00:45     | LP-2026-08-23-01 | Restricted production telemetry and Watch ads to exact live hosts | `c213032` |
 | 2026-08-22 20:26 | Not preserved        | LP-2026-08-22-01 | Made the complete R2 Watch catalog discoverable and measurable    | `2e07786` |
 | 2026-08-15 06:08 | 2026-08-15 06:18     | LP-2026-08-15-01 | Added measured agent routes for translation, SRT editing, dubbing | `42e4b59` |
 | 2026-08-12 11:43 | 2026-08-12 11:54     | LP-2026-08-12-03 | Added measured Windows, FAQ, and agent handoffs                   | `2504290` |
@@ -129,7 +129,7 @@ a recorded next step.
 
 ## LP-2026-08-23-01 — Exact production-host telemetry and advertising guard
 
-- Commit: this release commit — `Guard production telemetry and Watch ads`.
+- Commit: `c213032` — `Guard production telemetry and Watch ads`.
 - Change: replaced unconditional GTM and Watch-detail AdSense script loading
   with an exact browser-host allowlist covering only `translator.tools`,
   `www.translator.tools`, `stage5.tools`, and `www.stage5.tools`. Cloudflare
@@ -155,12 +155,19 @@ a recorded next step.
   LD safety test pass. The production and Cloudflare adapter builds pass. The
   R2-backed rendered audit passes 358 indexable URLs, 195 Watch detail renders,
   29 noindex routes, 16 redirects, explicit 404 probes, all 39 catalog entries,
-  and all 123 declared VTT responses. Record the deployment URL, commit, GTM
-  Version 5, and verified production-live timestamp after release.
+  and all 123 declared VTT responses. The host guard was verified live on both
+  production domains by 2026-08-23 00:45 and on Pages deployment
+  `5dabd448.stage5-tools.pages.dev` with no third-party loaders. Follow-up commit
+  `a20fa39` makes the R2 publisher reject page locales that the Watch router does
+  not expose while preserving those languages as caption/source languages; its
+  artifact passed 25 tests, 124/124 R2 metadata checks, and the same exhaustive
+  rendered audit before deployment to `3c182102.stage5-tools.pages.dev`, then
+  production verification at 2026-08-23 01:03. GTM Version 5 remains the only
+  unpublished part of this release.
 - Earliest reads: seven and 28 full days after both the website release and GTM
   Version 5 are verified live. A same-day hostname check may establish absence
   of obvious preview traffic but is not a performance outcome.
-- Outcome: pending rollout.
+- Outcome: website rollout live; GTM Version 5 pending.
 
 ## LP-2026-08-15-01 — Measured agent workflow routing
 
