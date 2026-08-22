@@ -17,8 +17,8 @@ import { getCatalogEntry, getAllCatalogSlugsSync } from "../../../lib/watch/cata
 import type { WatchLocale } from "../../../lib/watch";
 
 // Enable on-demand rendering for new slugs from R2 without rebuild
-export const dynamic = "force-dynamic";
 export const dynamicParams = true;
+export const revalidate = 60;
 
 export function generateStaticParams() {
   // Pre-generate known slugs from bundled catalog as a warm set
