@@ -9,7 +9,7 @@ business-document attachment.
 
 | System | Identifier source | Purpose |
 | --- | --- | --- |
-| Twilio | Active `stage5` CLI profile | Owns the Stage5 U.S. number |
+| Twilio | Private Console account; `stage5` CLI profile still pending | Owns the Stage5 U.S. number |
 | Twilio | Active Numbers in the private Console | Forwards voice to the owner's current number |
 | AdSense | `lib/adsense.ts` and `public/ads.txt` | Stage5 Tools LLC publisher account |
 | Google | Stage5 Workspace business account | Business account and support contact |
@@ -29,7 +29,8 @@ twilio --version
 ```
 
 Use a Twilio API key rather than keeping the primary Auth Token in an
-environment file. The local profile name is `stage5`:
+environment file. As of 2026-08-23, `twilio profiles:list` reports that no
+profile is configured. The intended local profile name is `stage5`:
 
 ```bash
 twilio profiles:list
@@ -45,6 +46,56 @@ If the profile must be recreated, open **Twilio Console -> Develop -> API Key &
 creds -> API Keys & auth tokens**. Prefer a Standard or narrowly Restricted API
 key. The primary Auth Token may be used once by `twilio profiles:create` to
 generate a Standard API key, but it must not be stored afterward.
+
+### Stage5 Gmail CLI
+
+The Google Workspace CLI is installed globally for private support-email
+operations:
+
+```bash
+gws --version
+# gws 0.22.5
+```
+
+It uses a dedicated Google Cloud project, `stage5-gmail-cli-20260823`, owned by
+the Stage5 Workspace account. Only the Gmail API is enabled. The desktop OAuth
+client is configured for `mikey@stage5.tools` with these mailbox scopes:
+
+- `gmail.readonly`
+- `gmail.send`
+
+No Gmail modify, delete, draft, label, or settings scope is granted. Identity
+scopes (`openid`, email, and profile) are present only to bind the credential to
+the correct Workspace account. Credentials are encrypted at
+`~/.config/gws/credentials.enc`; the encryption key is kept in the macOS
+keyring. The temporary broad `gcloud` login used to create the dedicated OAuth
+client was revoked and its temporary configuration directory was removed.
+
+Verify the account and exact scopes before use:
+
+```bash
+gws auth status
+```
+
+Read recent inbox metadata and one message:
+
+```bash
+gws gmail +triage --query 'in:inbox newer_than:2d' --format json
+gws gmail +read --id <GMAIL_MESSAGE_ID> --headers
+```
+
+Validate a threaded reply without sending it:
+
+```bash
+gws gmail +reply \
+  --message-id <GMAIL_MESSAGE_ID> \
+  --body '<REPLY_TEXT>' \
+  --dry-run
+```
+
+Sending email represents Stage5 Tools LLC externally. Always review the final
+recipient, thread, body, and any account identifiers, then obtain action-time
+approval before removing `--dry-run`.
 
 ## Read-only diagnostics
 
@@ -110,13 +161,15 @@ cannot reach the webhook and can trigger Google's rate limits.
 
 ## Escalations filed
 
-- Twilio Support ticket filed 2026-08-23: paid-account request for Messaging
-  Support to allow the legitimate Google OTP use case or confirm that no
-  exception is possible. The private ticket includes both failed Message SIDs.
-- Google AdSense private email request filed 2026-08-23 from the Stage5 business
-  account: request for manual or alternate phone verification of the U.S.
-  organization. Google displayed **Your email has been sent**. No public
-  Community post was created.
+- Twilio Support split the messaging issue into ticket `29130973`. On
+  2026-08-23, Stage5 accepted Twilio's quoted account-wide short-code terms,
+  confirmed the affected Twilio Account SID privately, and requested
+  enablement. Await Twilio's confirmation before making one new Google test.
+- Google AdSense case `7-6278000041070` initially answered the later earnings-
+  threshold identity-verification question rather than the current account-
+  activation phone block. On 2026-08-23, Stage5 replied privately to clarify
+  the paid U.S. business-line failure and request alternate/manual business-
+  phone verification. No public Community post was created.
 
 Support replies should be handled from the Stage5 Workspace business account.
 Provide formation, EIN, bank, or address documents only through a verified
@@ -144,3 +197,4 @@ public forum post.
 - [Twilio CLI profiles](https://www.twilio.com/docs/twilio-cli/general-usage/profiles)
 - [Twilio API keys](https://www.twilio.com/docs/iam/api-keys)
 - [AdSense phone verification](https://support.google.com/adsense/answer/2938681)
+- [Google Workspace CLI](https://github.com/googleworkspace/cli)
