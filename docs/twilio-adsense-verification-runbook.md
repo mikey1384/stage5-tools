@@ -9,7 +9,7 @@ business-document attachment.
 
 | System | Identifier source | Purpose |
 | --- | --- | --- |
-| Twilio | Private Console account; `stage5` CLI profile still pending | Owns the Stage5 U.S. number |
+| Twilio | Private paid account; local `stage5` CLI profile configured and API-verified | Owns the Stage5 U.S. number |
 | Twilio | Active Numbers in the private Console | Forwards voice to the owner's current number |
 | AdSense | `lib/adsense.ts` and `public/ads.txt` | Stage5 Tools LLC publisher account |
 | Google | Stage5 Workspace business account | Business account and support contact |
@@ -29,13 +29,13 @@ twilio --version
 ```
 
 Use a Twilio API key rather than keeping the primary Auth Token in an
-environment file. As of 2026-08-23, `twilio profiles:list` reports that no
-profile is configured. The intended local profile name is `stage5`:
+environment file. On 2026-08-23, the `stage5` profile was created through the
+CLI's interactive TTY flow and verified against the Messages and Incoming Phone
+Numbers APIs. Pass it explicitly on every account command instead of relying on
+an unknown active/default profile:
 
 ```bash
-twilio profiles:list
-twilio profiles:use stage5
-twilio config:list
+twilio api:core:accounts:fetch --profile stage5 --silent
 ```
 
 Twilio stores CLI profile material outside the repository in
@@ -66,28 +66,46 @@ client is configured for `mikey@stage5.tools` with these mailbox scopes:
 
 No Gmail modify, delete, draft, label, or settings scope is granted. Identity
 scopes (`openid`, email, and profile) are present only to bind the credential to
-the correct Workspace account. Credentials are encrypted at
-`~/.config/gws/credentials.enc`; the encryption key is kept in the macOS
-keyring. The temporary broad `gcloud` login used to create the dedicated OAuth
-client was revoked and its temporary configuration directory was removed.
+the correct Workspace account. The Stage5 mailbox uses the repository wrapper
+`./scripts/stage5-gmail`, which keeps its OAuth material in the dedicated
+`~/.config/gws-stage5` directory and sets the Google Workspace CLI's supported
+file-backed key store. This avoids macOS Keychain authorization failures in
+non-interactive agent sessions and leaves the legacy `~/.config/gws` credential
+store untouched. Both the encrypted credential and its local encryption key
+must remain owner-readable only; never copy either into this repository.
+
+One-time setup uses the downloaded desktop OAuth client without storing it in
+the repository:
+
+```bash
+install -d -m 700 ~/.config/gws-stage5
+install -m 600 <downloaded-client-secret.json> \
+  ~/.config/gws-stage5/client_secret.json
+./scripts/stage5-gmail auth login \
+  --scopes 'https://www.googleapis.com/auth/gmail.readonly,https://www.googleapis.com/auth/gmail.send,openid,email,profile'
+```
+
+The temporary broad `gcloud` login used to create the dedicated OAuth client
+was revoked and its temporary configuration directory was removed.
 
 Verify the account and exact scopes before use:
 
 ```bash
-gws auth status
+./scripts/stage5-gmail auth status
 ```
 
 Read recent inbox metadata and one message:
 
 ```bash
-gws gmail +triage --query 'in:inbox newer_than:2d' --format json
-gws gmail +read --id <GMAIL_MESSAGE_ID> --headers
+./scripts/stage5-gmail gmail +triage \
+  --query 'in:inbox newer_than:2d' --format json
+./scripts/stage5-gmail gmail +read --id <GMAIL_MESSAGE_ID> --headers
 ```
 
 Validate a threaded reply without sending it:
 
 ```bash
-gws gmail +reply \
+./scripts/stage5-gmail gmail +reply \
   --message-id <GMAIL_MESSAGE_ID> \
   --body '<REPLY_TEXT>' \
   --dry-run
@@ -109,6 +127,7 @@ List recent inbound messages to the Stage5 number:
 
 ```bash
 twilio api:core:messages:list \
+  --profile stage5 \
   --to <E.164_STAGE5_NUMBER> \
   --date-sent-after 2026-08-22 \
   --limit 20 \
@@ -119,6 +138,7 @@ Fetch one message without requesting or printing its body:
 
 ```bash
 twilio api:core:messages:fetch \
+  --profile stage5 \
   --sid SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \
   --properties sid,from,to,status,errorCode,errorMessage,direction,dateSent
 ```
@@ -127,6 +147,7 @@ List the owned number and its current webhook metadata:
 
 ```bash
 twilio api:core:incoming-phone-numbers:list \
+  --profile stage5 \
   --phone-number <E.164_STAGE5_NUMBER> \
   --properties sid,phoneNumber,capabilities,smsUrl,smsMethod,voiceUrl,voiceMethod
 ```
@@ -143,6 +164,7 @@ the Stage5 Twilio number. Twilio received both and marked them failed:
 | --- | --- | --- |
 | First | 2026-08-22 07:43:54 PDT | Failed, error `30038` |
 | Second | 2026-08-22 08:33:51 PDT | Failed, error `30038` |
+| Post-enablement test | 2026-08-23 03:28:19 UTC | Failed, error `30038` after Support activated the account-wide inbound-short-code flag |
 
 Twilio error `30038`, **OTP Message Body Filtered**, means Twilio detected an
 inbound one-time passcode, removed the passcode, and failed the message before
@@ -164,7 +186,15 @@ cannot reach the webhook and can trigger Google's rate limits.
 - Twilio Support split the messaging issue into ticket `29130973`. On
   2026-08-23, Stage5 accepted Twilio's quoted account-wide short-code terms,
   confirmed the affected Twilio Account SID privately, and requested
-  enablement. Await Twilio's confirmation before making one new Google test.
+  enablement. Support confirmed the flag was active. One new Google test then
+  reached Twilio but still failed with `30038`, proving that short-code
+  reachability and Twilio's inbound-OTP body filter are separate controls. The
+  remaining request belongs on ticket `29130096`: approve the paid-account OTP
+  exception or state its exact eligibility requirements. Do not request another
+  Google code until Support confirms that the `30038` filter is lifted. At
+  `2026-08-23T03:32:50Z`, Stage5 replied on ticket `29130096` with the fresh
+  failed-test timestamp and requested explicit confirmation that the OTP filter
+  has been lifted before any further Google test.
 - Google AdSense case `7-6278000041070` initially answered the later earnings-
   threshold identity-verification question rather than the current account-
   activation phone block. On 2026-08-23, Stage5 replied privately to clarify

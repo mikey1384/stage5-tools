@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+stage5_gws_config_base="${XDG_CONFIG_HOME:-${HOME}/.config}"
+
+export GOOGLE_WORKSPACE_CLI_CONFIG_DIR="${STAGE5_GWS_CONFIG_DIR:-${stage5_gws_config_base}/gws-stage5}"
+export GOOGLE_WORKSPACE_CLI_KEYRING_BACKEND="file"
+
+exec gws "$@"
