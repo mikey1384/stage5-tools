@@ -166,17 +166,19 @@ a recorded next step.
   rendered audit before deployment to `3c182102.stage5-tools.pages.dev`, then
   production verification at 2026-08-23 01:03. The subsequent preview-indexing
   guard passed the four-production-host/non-production-host header matrix and
-  the same exhaustive rendered audit before deployment. GTM Version 5 remains
-  unpublished. A follow-up Cloudflare audit found all 124 R2 objects carrying
-  the intended cache metadata, but the custom domain still returns
-  `CF-Cache-Status: DYNAMIC` because a zone Cache Rule has not made Watch JSON
-  and VTT responses eligible. This is an origin-efficiency gap, not a page,
-  caption, or indexing failure. The custom domain minimum TLS version was raised
-  from 1.0 to 1.2 and verified active.
+  the same exhaustive rendered audit before deployment. At
+  `2026-08-23T05:42:41Z`, the public GTM resource reported Version 5 and exposed
+  the intended host guard, both GA4 destinations, all five Watch events, the
+  `AW-17971737430` conversion destination, and cross-domain linking limited to
+  `translator.tools` and `stage5.tools`. A follow-up Cloudflare audit found all
+  124 R2 objects carrying the intended cache metadata. The Watch catalog and a
+  representative VTT now return `CF-Cache-Status: HIT` on consecutive custom-
+  domain requests, closing the earlier edge-eligibility gap. The custom domain
+  minimum TLS version was raised from 1.0 to 1.2 and verified active.
 - Earliest reads: seven and 28 full days after both the website release and GTM
   Version 5 are verified live. A same-day hostname check may establish absence
   of obvious preview traffic but is not a performance outcome.
-- Outcome: website rollout live; GTM Version 5 pending.
+- Outcome: website rollout and GTM Version 5 live; measurement evaluation pending.
 
 ## LP-2026-08-15-01 — Measured agent workflow routing
 

@@ -78,9 +78,10 @@ checkout return IDs, Stripe customer IDs, or other customer content.
 
 ### Production configuration audit (2026-08-23)
 
-- Published GTM Version 4 forwards the complete bounded set of 13 product-
+- Published GTM Version 5 forwards the complete bounded set of 13 product-
   journey events, including all Watch diagnostics, and uses the hostname lookup
-  variable rather than a hard-coded Translator measurement ID.
+  variable rather than a hard-coded Translator measurement ID. Its public
+  container resource was verified live at `2026-08-23T05:42:41Z`.
 - Container `GTM-WTQTZDM4` routes `stage5.tools` to `G-5BJ3FXGGBS` and
   `translator.tools` to `G-P85K20ZXE0`.
 - This website release wraps both the GTM loader and the Watch-detail AdSense
@@ -91,10 +92,12 @@ checkout return IDs, Stripe customer IDs, or other customer content.
   script. App-route responses on those non-production hosts also return
   `X-Robots-Tag: noindex, nofollow`; the four production hosts do not receive
   that header.
-- GTM Version 5 must apply the same production-host regex to the Google Tag,
-  Conversion Linker, and all three custom-event triggers. Cross-domain linking
-  is limited to `translator.tools` and `stage5.tools`; the Pages project host and
-  the audited deployment host are ignored in container diagnostics.
+- GTM Version 5 applies the same exact production-host regex to the Google Tag,
+  Conversion Linker, both download triggers, and the bounded custom-event
+  trigger. Cross-domain linking is limited to `translator.tools` and
+  `stage5.tools`; the Pages project host and deployment hosts are excluded. The
+  live resource also contains the intended `AW-17971737430` conversion
+  destination.
 - Create and forward GTM data-layer variables for `destination`, `placement`,
   `repository_url`, `checkout_mode`, `slug`, `video_id`, `locale`,
   `source_lang`, `selected_lang`, `from_lang`, `to_lang`, `load_status`, and
