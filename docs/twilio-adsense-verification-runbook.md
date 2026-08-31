@@ -102,20 +102,6 @@ Read recent inbox metadata and one message:
 ./scripts/stage5-gmail gmail +read --id <GMAIL_MESSAGE_ID> --headers
 ```
 
-For recurring Twilio and Google support monitoring, use the schema-checked
-wrapper instead of projecting extra fields from `+triage`:
-
-```bash
-./scripts/check-stage5-support-mail
-```
-
-The triage helper's supported message fields are `id`, `date`, `from`, and
-`subject`. The schema-checked wrapper reports `apiStatus: "ok"` only after the
-Google request succeeds and every returned message passes validation. Missing
-or changed fields cause a non-zero exit instead of silently appearing as JSON
-`null`, so a parser mismatch cannot be mistaken for an authentication, quota,
-permissions, or Google service failure.
-
 Validate a threaded reply without sending it:
 
 ```bash
