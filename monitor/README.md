@@ -155,7 +155,7 @@ TLS source behavior:
 
 DNS checks:
 
-- `api.echo.stage5.tools` must include `18.182.90.49`
+- `api.echo.stage5.tools` must CNAME to `twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com` (DNS names are case-insensitive; a trailing dot is equivalent). Its HTTPS and TLS checks still verify the serving endpoint. Do not pin the primary or the NLB's current IP addresses.
 - `www.stage5.tools` must resolve to Cloudflare edge IP ranges and never blocked parked IPs
 
 ## Outbound connection budget

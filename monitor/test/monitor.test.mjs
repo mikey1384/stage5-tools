@@ -48,8 +48,8 @@ function buildClients({
 
   const dnsAnswers = {
     "api.echo.stage5.tools": {
-      cloudflare: ["18.182.90.49"],
-      google: ["18.182.90.49"],
+      cloudflare: ["twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com"],
+      google: ["twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com"],
     },
     "www.stage5.tools": {
       cloudflare: includeBlockedIp ? ["172.239.57.117"] : ["104.21.14.7", "172.67.142.44"],
@@ -191,6 +191,44 @@ test("monitor pass path", async () => {
   assert.equal(report.alertPolicy.reason, "pass-suppressed");
   assert.equal(report.alertPolicy.shouldNotify, false);
   assert.equal(sent.length, 0);
+});
+
+test("Echo DNS follows the NLB CNAME without accepting stale or wrong DNS records", async (t) => {
+  const host = "api.echo.stage5.tools";
+  const nlb = "twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com";
+  const cases = [
+    { name: "normalizes case and trailing dot", answers: [{ type: 5, data: `${nlb.toUpperCase()}.` }], pass: true },
+    { name: "accepts a name without a trailing dot", answers: [{ type: 5, data: nlb }], pass: true },
+    { name: "rejects a different CNAME", answers: [{ type: 5, data: "wrong-target.example.invalid." }], pass: false },
+    { name: "rejects the old direct IP", answers: [{ type: 1, data: "18.182.90.49" }], pass: false },
+    { name: "ignores non-CNAME records containing the expected name", answers: [{ type: 16, data: nlb }], pass: false },
+  ];
+
+  for (const fixture of cases) {
+    await t.test(fixture.name, async () => {
+      const report = await runMonitor({
+        baseline: {
+          ...BASELINE_CONFIG,
+          httpsChecks: [],
+          tlsChecks: [],
+          dnsChecks: BASELINE_CONFIG.dnsChecks.filter((check) => check.host === host),
+        },
+        clients: {
+          async fetch(input) {
+            const url = new URL(input);
+            assert.equal(url.searchParams.get("name"), host);
+            assert.equal(url.searchParams.get("type"), "CNAME");
+            return Response.json({ Status: 0, Answer: fixture.answers });
+          },
+        },
+        emitAlerts: false,
+        persistState: false,
+      });
+      assert.equal(report.totalChecks, 1);
+      assert.equal(report.checks[0].pass, fixture.pass);
+      assert.equal(report.failedChecks, fixture.pass ? 0 : 1);
+    });
+  }
 });
 
 test("monitor caps simultaneous outbound checks below the Worker connection limit", async () => {

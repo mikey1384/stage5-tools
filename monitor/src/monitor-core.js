@@ -386,6 +386,10 @@ async function runDnsCheck({
   const answersByResolver = {};
   const reasons = [];
   const warnings = [];
+  const normalizeAnswer = (answer) =>
+    String(check.type).toUpperCase() === "CNAME"
+      ? String(answer).trim().toLowerCase().replace(/\.$/, "")
+      : answer;
 
   for (const resolverName of resolvers) {
     try {
@@ -395,7 +399,7 @@ async function runDnsCheck({
         resolverName,
         timeoutMs,
       });
-      answersByResolver[resolverName] = unique(answers);
+      answersByResolver[resolverName] = unique(answers.map(normalizeAnswer));
     } catch (error) {
       answersByResolver[resolverName] = [];
       reasons.push(`${resolverName} resolver failed: ${normalizeError(error)}`);
@@ -409,7 +413,7 @@ async function runDnsCheck({
   }
 
   if (Array.isArray(check.mustInclude) && check.mustInclude.length > 0) {
-    const missing = check.mustInclude.filter((ip) => !mergedAnswers.includes(ip));
+    const missing = check.mustInclude.filter((answer) => !mergedAnswers.includes(normalizeAnswer(answer)));
     if (missing.length > 0) {
       reasons.push(`Missing required DNS answer(s): ${missing.join(", ")}.`);
     }
@@ -865,6 +869,9 @@ export async function defaultResolveDns({ host, type, resolverName, fetchImpl, t
     .filter((answer) => {
       if (String(type).toUpperCase() === "A") {
         return Number(answer.type) === 1;
+      }
+      if (String(type).toUpperCase() === "CNAME") {
+        return Number(answer.type) === 5;
       }
       return true;
     })

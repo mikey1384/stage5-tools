@@ -61,8 +61,9 @@ export const BASELINE_CONFIG = {
   dnsChecks: [
     {
       host: "api.echo.stage5.tools",
-      type: "A",
-      mustInclude: ["18.182.90.49"],
+      // Traffic follows the NLB, not a primary instance or the NLB's current IPs.
+      type: "CNAME",
+      mustInclude: ["twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com"],
     },
     {
       host: "www.stage5.tools",

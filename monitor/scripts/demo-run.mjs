@@ -26,8 +26,8 @@ const certs = {
 
 const dnsAnswers = {
   "api.echo.stage5.tools": {
-    cloudflare: ["18.182.90.49"],
-    google: ["18.182.90.49"],
+    cloudflare: ["twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com"],
+    google: ["twinkle-api-deploy-nlb-2b1103126a93cd55.elb.ap-northeast-1.amazonaws.com"],
   },
   "www.stage5.tools": {
     cloudflare: ["104.21.14.7", "172.67.142.44"],
