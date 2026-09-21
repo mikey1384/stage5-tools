@@ -1053,3 +1053,20 @@ test("transport write failure settles as diagnostic evidence rather than an unca
   assert.equal(result.error, "write failed");
   assert.ok(socket.destroyed);
 });
+
+
+test("latest Echo failure evidence survives recovery and expires after seven days", async () => {
+  const store = createMemoryStateStore();
+  const baseline = { httpsChecks: [{ name: "echo-healthz", url: "https://api.echo.stage5.tools/healthz" }] };
+  const clients = { stateStore: store, fetch: async () => { throw new Error("timeout"); },
+    probeEchoTransport: async () => ({ pass: true, statusCode: 200, headersMs: 120 }) };
+  await runMonitor({ baseline, clients, emitAlerts: false, now: fixedNow });
+  const evidence = (await store.getJson("monitor:state:v1")).echoFailureEvidence;
+  assert.equal(evidence.checks[0].phase, "response_headers");
+  assert.equal(evidence.transportDiagnostics[0].pass, true);
+  clients.fetch = async () => new Response("ok");
+  await runMonitor({ baseline, clients, emitAlerts: false, now: new Date(fixedNow.getTime() + 60000) });
+  assert.deepEqual((await store.getJson("monitor:state:v1")).echoFailureEvidence, evidence);
+  await runMonitor({ baseline, clients, emitAlerts: false, now: new Date(fixedNow.getTime() + 7 * 86400000) });
+  assert.equal((await store.getJson("monitor:state:v1")).echoFailureEvidence, null);
+});

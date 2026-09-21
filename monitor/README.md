@@ -186,3 +186,15 @@ timing. Certificate validation remains enabled. This diagnostic never retries
 login, changes the failed verdict, or suppresses an alert. Its timings are a
 subsequent connection through a different Worker transport, not proof of the
 original request's cause. Structured `monitor-run` logs retain both results.
+
+The existing `monitor:state:v1` KV record retains `echoFailureEvidence` across
+recovery for up to seven days (latest failure only, no extra writes). Daily
+management can read it with the project Wrangler CLI without live tail access:
+
+```sh
+./node_modules/.bin/wrangler kv key get --remote --config monitor/wrangler.toml \
+  --namespace-id 2e5201a407b942df840f6f42a0547ca4 monitor:state:v1
+```
+
+Use full structured logs for earlier incidents; this single retained snapshot
+is not an exhaustive outage history.

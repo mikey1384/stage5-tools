@@ -205,6 +205,20 @@ export async function runMonitor({
     nowIso: startedAt,
   });
 
+  // Keep the latest failure accessible to the next management run even after
+  // recovery, using the existing bounded state write rather than another feed.
+  const previousEchoEvidence = previousState?.echoFailureEvidence;
+  const previousEchoAt = Date.parse(previousEchoEvidence?.capturedAt || "");
+  report.alertPolicy.nextState.echoFailureEvidence = echoFailed
+    ? {
+        capturedAt: startedAt,
+        checks: checks.filter((check) => check.target?.startsWith("https://api.echo.stage5.tools/")),
+        transportDiagnostics,
+      }
+    : Number.isFinite(previousEchoAt) && nowDate.getTime() - previousEchoAt < 7 * 86400000
+      ? previousEchoEvidence
+      : null;
+
   if (persistState && stateStore) {
     try {
       await stateStore.putJson(MONITOR_STATE_KEY, report.alertPolicy.nextState);
