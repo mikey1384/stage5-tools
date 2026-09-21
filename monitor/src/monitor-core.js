@@ -132,6 +132,22 @@ export async function runMonitor({
   const checks = await runWithConcurrency(checkTasks, MAX_CONCURRENT_CHECKS);
   const failures = checks.filter((item) => !item.pass);
 
+  const echoFailed = failures.some((check) =>
+    check.category === "https" &&
+    (check.target === "https://api.echo.stage5.tools/healthz" ||
+      check.target === "https://api.echo.stage5.tools/echo/auth/login")
+  );
+  const transportDiagnostics = [];
+  if (echoFailed) {
+    try {
+      transportDiagnostics.push(await (clients.probeEchoTransport || probeEchoTransport)({ timeoutMs: 8000 }));
+    } catch (error) {
+      // Auxiliary evidence must never prevent the original incident alert.
+      transportDiagnostics.push({ target: "https://api.echo.stage5.tools/healthz",
+        transport: "tls_socket", pass: false, error: normalizeError(error) });
+    }
+  }
+
   if (forceAlert) {
     failures.push({
       category: "forced",
@@ -161,6 +177,7 @@ export async function runMonitor({
     failedChecks: failures.length,
     checks,
     failures,
+    transportDiagnostics,
     notifications: [],
     alertPolicy,
     state: {
@@ -203,59 +220,150 @@ export async function runMonitor({
 
 async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
   const started = Date.now();
-
+  const startedAt = new Date(started).toISOString();
+  const method = String(check.method || "GET").toUpperCase();
+  const controller = new AbortController();
+  let response;
+  let reader;
+  let phase = "response_headers";
+  let headersMs = null;
+  let timer;
+  const deadline = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      const error = new Error("timeout");
+      controller.abort(error);
+      reject(error);
+    }, timeoutMs);
+  });
+  const releaseBody = () => {
+    // Cleanup must not itself extend a timed-out check.
+    const pending = reader ? reader.cancel() : response?.body?.cancel();
+    pending?.catch(() => {});
+  };
   try {
-    const method = String(check.method || "GET").toUpperCase();
-    const requestInit = {
-      method,
-      redirect: "follow",
-      headers: check.headers || {},
-    };
-
-    if (typeof check.body === "string") {
-      requestInit.body = check.body;
-    }
-
-    const response = await fetchWithTimeout(fetchImpl, check.url, requestInit, timeoutMs);
-
-    const latencyMs = Date.now() - started;
-    const min = Number(check.expectedStatusMin ?? 200);
-    const max = Number(check.expectedStatusMax ?? 399);
-    const reasons = [];
-
-    if (response.status < min || response.status > max) {
-      reasons.push(`HTTP status ${response.status} outside expected range ${min}-${max}.`);
-    }
-
-    if (Array.isArray(check.expectBodyIncludes) && check.expectBodyIncludes.length > 0) {
-      const bodyText = await response.text();
-      const missing = check.expectBodyIncludes.filter((token) => !bodyText.includes(token));
-      if (missing.length > 0) {
-        reasons.push(`HTTP body missing expected token(s): ${missing.join(", ")}.`);
-      }
-    }
-
+    const result = await Promise.race([
+      deadline,
+      (async () => {
+        const requestInit = {
+          method,
+          redirect: "follow",
+          headers: check.headers || {},
+          signal: controller.signal,
+        };
+        if (typeof check.body === "string") requestInit.body = check.body;
+        response = await fetchImpl(check.url, requestInit);
+        if (controller.signal.aborted) {
+          releaseBody();
+          throw controller.signal.reason;
+        }
+        headersMs = Date.now() - started;
+        const min = Number(check.expectedStatusMin ?? 200);
+        const max = Number(check.expectedStatusMax ?? 399);
+        const reasons = [];
+        if (response.status < min || response.status > max) {
+          reasons.push(`HTTP status ${response.status} outside expected range ${min}-${max}.`);
+        }
+        if (Array.isArray(check.expectBodyIncludes) && check.expectBodyIncludes.length > 0) {
+          phase = "response_body";
+          let bodyText = "";
+          let bytes = 0;
+          const decoder = new TextDecoder();
+          reader = response.body?.getReader();
+          while (reader) {
+            const chunk = await reader.read();
+            if (controller.signal.aborted) throw controller.signal.reason;
+            if (chunk.done) break;
+            bytes += chunk.value.byteLength;
+            if (bytes > 65536) throw new Error("HTTP check body exceeds 64 KiB limit");
+            bodyText += decoder.decode(chunk.value, { stream: true });
+          }
+          bodyText += decoder.decode();
+          const missing = check.expectBodyIncludes.filter((token) => !bodyText.includes(token));
+          if (missing.length) reasons.push(`HTTP body missing expected token(s): ${missing.join(", ")}.`);
+        }
+        phase = "complete";
+        return { pass: reasons.length === 0, reasons, statusCode: response.status };
+      })(),
+    ]);
     return {
-      category: "https",
-      target: check.url,
-      name: check.name,
-      method,
-      pass: reasons.length === 0,
-      statusCode: response.status,
-      latencyMs,
-      reasons,
+      category: "https", target: check.url, name: check.name, method,
+      startedAt, phase, headersMs, latencyMs: Date.now() - started, ...result,
     };
   } catch (error) {
     return {
-      category: "https",
-      target: check.url,
-      name: check.name,
-      method: String(check.method || "GET").toUpperCase(),
-      pass: false,
-      latencyMs: Date.now() - started,
-      reasons: [normalizeError(error)],
+      category: "https", target: check.url, name: check.name, method,
+      startedAt, phase, headersMs, statusCode: response?.status,
+      pass: false, latencyMs: Date.now() - started, reasons: [normalizeError(error)],
     };
+  } finally {
+    clearTimeout(timer);
+    releaseBody();
+    controller.abort();
   }
+}
+
+// Separate transport evidence. It never turns a failed main check into a pass,
+// retries a login, changes alert policy, or disables TLS certificate validation.
+export async function probeEchoTransport({ timeoutMs = 8000, connect } = {}) {
+  const started = Date.now();
+  const evidence = {
+    target: "https://api.echo.stage5.tools/healthz",
+    transport: "tls_socket", startedAt: new Date(started).toISOString(),
+    phase: "tcp_connect", tcpConnectMs: null, tlsConnectMs: null,
+    headersMs: null, statusCode: null,
+  };
+  let socket;
+  let timer;
+  let settled = false;
+  const finish = (resolve, error) => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    try { socket?.destroy(); } catch { /* Evidence must still settle. */ }
+    resolve({ ...evidence, latencyMs: Date.now() - started,
+      pass: !error && evidence.statusCode === 200,
+      ...(error ? { error: normalizeError(error) } : {}) });
+  };
+  return new Promise((resolve) => {
+    timer = setTimeout(() => finish(resolve, new Error("timeout")), timeoutMs);
+    (async () => {
+      const open = connect || (await import("node:tls")).connect;
+      if (settled) return;
+      socket = open({ host: "api.echo.stage5.tools", port: 443,
+        servername: "api.echo.stage5.tools", rejectUnauthorized: true });
+      let headers = "";
+      socket.once("connect", () => {
+        if (settled) return;
+        evidence.tcpConnectMs = Date.now() - started;
+        evidence.phase = "tls_handshake";
+      });
+      socket.once("secureConnect", () => {
+        if (settled) return;
+        evidence.tlsConnectMs = Date.now() - started;
+        evidence.phase = "response_headers";
+        try {
+          socket.write("GET /healthz HTTP/1.1\r\nHost: api.echo.stage5.tools\r\nConnection: close\r\nUser-Agent: stage5-monitor-diagnostic\r\n\r\n");
+        } catch (error) {
+          finish(resolve, error);
+        }
+      });
+      socket.on("data", (chunk) => {
+        if (settled) return;
+        headers += chunk.toString("latin1");
+        if (headers.length > 16384) return finish(resolve, new Error("HTTP diagnostic headers too large"));
+        if (!headers.includes("\r\n\r\n")) return;
+        const match = /^HTTP\/1\.[01] (\d{3})(?: |\r)/.exec(headers);
+        if (!match) return finish(resolve, new Error("Invalid HTTP diagnostic response"));
+        evidence.statusCode = Number(match[1]);
+        evidence.headersMs = Date.now() - started;
+        evidence.phase = "complete";
+        finish(resolve);
+      });
+      socket.once("error", (error) => finish(resolve, error));
+      socket.once("end", () => finish(resolve, new Error("Connection ended before response headers")));
+      socket.once("close", () => finish(resolve, new Error("Connection closed before response headers")));
+    })().catch((error) => finish(resolve, error));
+  });
 }
 
 async function runWithConcurrency(tasks, concurrency) {

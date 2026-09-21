@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { EventEmitter } from "node:events";
 
 import { BASELINE_CONFIG } from "../config/baseline.config.js";
-import { defaultGetCertificate, defaultSendEmail, runMonitor } from "../src/monitor-core.js";
+import { defaultGetCertificate, defaultSendEmail, runMonitor, probeEchoTransport } from "../src/monitor-core.js";
 
 const fixedNow = new Date("2026-02-28T00:00:00.000Z");
 
@@ -912,4 +913,143 @@ test("defaultGetCertificate ignores not-yet-valid crt.sh certificates", async ()
 
   assert.equal(cert.source, "crtsh");
   assert.equal(cert.notAfter, "2026-03-15T00:00:00.000Z");
+});
+
+
+test("HTTP body validation shares the check deadline and cancels stalled bodies", async () => {
+  let cancelled = false;
+  let signal;
+  const report = await runMonitor({
+    baseline: { httpsChecks: [{ url: "https://example.test/body", expectBodyIncludes: ["ready"] }] },
+    env: { CHECK_TIMEOUT_MS: "20" }, emitAlerts: false, persistState: false,
+    clients: { fetch: async (_url, init) => {
+      signal = init.signal;
+      return new Response(new ReadableStream({ cancel() { cancelled = true; } }));
+    } },
+  });
+  const check = report.checks[0];
+  assert.equal(check.pass, false);
+  assert.equal(check.phase, "response_body");
+  assert.equal(check.statusCode, 200);
+  assert.match(check.reasons[0], /timeout/);
+  assert.ok(check.headersMs !== null);
+  assert.ok(signal.aborted);
+  assert.ok(cancelled);
+});
+
+test("header-only HTTP checks cancel unused bodies without reading them", async () => {
+  let cancelled = false;
+  const report = await runMonitor({
+    baseline: { httpsChecks: [{ url: "https://example.test/headers" }] },
+    emitAlerts: false, persistState: false,
+    clients: { fetch: async () => new Response(new ReadableStream({ cancel() { cancelled = true; } })) },
+  });
+  assert.equal(report.status, "pass");
+  assert.equal(report.checks[0].phase, "complete");
+  assert.ok(cancelled);
+});
+
+test("HTTP body verification rejects oversized responses and releases the stream", async () => {
+  let cancelled = false;
+  const report = await runMonitor({
+    baseline: { httpsChecks: [{ url: "https://example.test/body", expectBodyIncludes: ["ready"] }] },
+    emitAlerts: false, persistState: false,
+    clients: { fetch: async () => new Response(new ReadableStream({
+      start(controller) { controller.enqueue(new Uint8Array(65537)); },
+      cancel() { cancelled = true; },
+    })) },
+  });
+  assert.equal(report.status, "alert");
+  assert.match(report.checks[0].reasons[0], /64 KiB/);
+  assert.ok(cancelled);
+});
+
+test("successful transport diagnosis never clears the failing Echo check or its alert", async () => {
+  let sent = 0;
+  let diagnostics = 0;
+  const report = await runMonitor({
+    baseline: { httpsChecks: [{ name: "echo-healthz", url: "https://api.echo.stage5.tools/healthz" }] },
+    env: buildEnv(), persistState: false,
+    clients: {
+      fetch: async () => { throw new Error("timeout"); },
+      probeEchoTransport: async ({ timeoutMs }) => { diagnostics++; assert.equal(timeoutMs, 8000); return { pass: true, statusCode: 200 }; },
+      sendEmail: async () => { sent++; }, sendWebhook: async () => {},
+    },
+  });
+  assert.equal(report.status, "alert");
+  assert.equal(report.failedChecks, 1);
+  assert.equal(report.checks[0].phase, "response_headers");
+  assert.equal(report.checks[0].headersMs, null);
+  assert.equal(report.transportDiagnostics[0].pass, true);
+  assert.equal(diagnostics, 1);
+  assert.equal(sent, 1);
+});
+
+test("transport diagnostic failure cannot prevent the original incident alert", async () => {
+  let sent = 0;
+  const report = await runMonitor({
+    baseline: { httpsChecks: [{ name: "echo-healthz", url: "https://api.echo.stage5.tools/healthz" }] },
+    env: buildEnv(), persistState: false,
+    clients: {
+      fetch: async () => { throw new Error("timeout"); },
+      probeEchoTransport: async () => { throw new Error("diagnostic unavailable"); },
+      sendEmail: async () => { sent++; }, sendWebhook: async () => {},
+    },
+  });
+  assert.equal(report.status, "alert");
+  assert.equal(report.transportDiagnostics[0].error, "diagnostic unavailable");
+  assert.equal(sent, 1);
+});
+
+function diagnosticSocket() {
+  const socket = new EventEmitter();
+  socket.destroyed = false;
+  socket.destroy = () => { socket.destroyed = true; socket.emit("close"); };
+  return socket;
+}
+
+test("transport probe records TCP/TLS/header stages, validates TLS and closes its socket", async () => {
+  const socket = diagnosticSocket();
+  socket.write = (request) => {
+    assert.match(request, /^GET \/healthz HTTP\/1\.1/);
+    assert.match(request, /Connection: close/);
+    queueMicrotask(() => socket.emit("data", Buffer.from("HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\n{\"ok\":true}")));
+  };
+  const result = await probeEchoTransport({ connect(options) {
+    assert.equal(options.host, "api.echo.stage5.tools");
+    assert.equal(options.servername, options.host);
+    assert.equal(options.rejectUnauthorized, true);
+    queueMicrotask(() => { socket.emit("connect"); socket.emit("secureConnect"); });
+    return socket;
+  } });
+  assert.equal(result.pass, true);
+  assert.equal(result.phase, "complete");
+  assert.equal(result.statusCode, 200);
+  for (const key of ["tcpConnectMs", "tlsConnectMs", "headersMs"]) assert.ok(Number.isFinite(result[key]));
+  assert.ok(socket.destroyed);
+});
+
+test("stalled TLS handshake has a bounded diagnostic deadline and closes its socket", async () => {
+  const socket = diagnosticSocket();
+  const result = await probeEchoTransport({ timeoutMs: 20, connect() {
+    queueMicrotask(() => socket.emit("connect")); return socket;
+  } });
+  assert.equal(result.pass, false);
+  assert.equal(result.phase, "tls_handshake");
+  assert.equal(result.error, "timeout");
+  assert.equal(result.tlsConnectMs, null);
+  assert.ok(socket.destroyed);
+});
+
+
+test("transport write failure settles as diagnostic evidence rather than an uncaught error", async () => {
+  const socket = diagnosticSocket();
+  socket.write = () => { throw new Error("write failed"); };
+  const result = await probeEchoTransport({ connect() {
+    queueMicrotask(() => { socket.emit("connect"); socket.emit("secureConnect"); });
+    return socket;
+  } });
+  assert.equal(result.pass, false);
+  assert.equal(result.error, "write failed");
+  assert.ok(socket.destroyed);
 });

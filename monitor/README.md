@@ -173,3 +173,16 @@ npm run monitor:test
 npm run monitor:demo:pass
 npm run monitor:demo:force
 ```
+
+## Echo timeout diagnosis
+
+HTTPS checks record their start time, response-header latency, total latency and
+failure phase. The existing deadline now includes body validation; unused bodies
+are cancelled, and checked bodies are capped at 64 KiB.
+
+After an Echo HTTPS failure, one separate eight-second TLS-socket GET to the same
+public health endpoint records TCP-connect, TLS-handshake and response-header
+timing. Certificate validation remains enabled. This diagnostic never retries
+login, changes the failed verdict, or suppresses an alert. Its timings are a
+subsequent connection through a different Worker transport, not proof of the
+original request's cause. Structured `monitor-run` logs retain both results.

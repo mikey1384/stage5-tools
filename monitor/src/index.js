@@ -25,6 +25,7 @@ export default {
           failedChecks: report.failedChecks,
           totalChecks: report.totalChecks,
           policy: report.alertPolicy?.reason,
+          transportDiagnostics: report.transportDiagnostics,
           checks: report.checks.map((check) => ({
             category: check.category,
             name: check.name,
@@ -33,6 +34,9 @@ export default {
             pass: check.pass,
             statusCode: check.statusCode,
             latencyMs: check.latencyMs,
+            startedAt: check.startedAt,
+            phase: check.phase,
+            headersMs: check.headersMs,
             reasons: check.reasons,
             warnings: check.warnings,
           })),
