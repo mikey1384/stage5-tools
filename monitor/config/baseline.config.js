@@ -39,14 +39,14 @@ export const BASELINE_CONFIG = {
   tlsChecks: [
     {
       host: "stage5.tools",
-      certSource: "crtsh",
+      certificateProbeEndpoint: "https://api.echo.stage5.tools/healthz/tls/probe",
       minDaysRemaining: 21,
       expectedCommonNames: ["stage5.tools", "sni.cloudflaressl.com", "*.stage5.tools"],
       expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],
     },
     {
       host: "www.stage5.tools",
-      certSource: "crtsh",
+      certificateProbeEndpoint: "https://api.echo.stage5.tools/healthz/tls/probe",
       minDaysRemaining: 21,
       expectedCommonNames: ["www.stage5.tools", "sni.cloudflaressl.com", "*.stage5.tools"],
       expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],

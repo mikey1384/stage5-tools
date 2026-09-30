@@ -1233,3 +1233,103 @@ test("certificate endpoint bounds stalled and oversized bodies and closes failed
     assert.equal(signal.aborted, true);
   }
 });
+
+
+const websiteProbeEndpoint = "https://api.echo.stage5.tools/healthz/tls/probe";
+const websiteObservation = (host, days = 80, change = {}) => ({
+  ...echoConnectionCertificate, host, commonName: host,
+  notAfter: new Date(fixedNow.getTime() + days * 86400000).toISOString(), ...change,
+});
+
+test("both website checks observe live certificates instead of old CT cache; probe failures stay failures", async () => {
+  for (const host of ["stage5.tools", "www.stage5.tools"]) {
+    const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === host);
+    const stateStore = createMemoryStateStore();
+    await stateStore.putJson(`tls:cert:v1:${host}`, {
+      fetchedAt: fixedNow.toISOString(), certificate: { ...websiteObservation(host, 20), source: "crtsh" },
+    });
+    let requests = 0;
+    const clients = { fetch: async (url, init) => {
+      requests++;
+      assert.equal(url, `${websiteProbeEndpoint}?host=${host}`);
+      assert.equal(init.redirect, "manual");
+      return Response.json(websiteObservation(host));
+    } };
+    const report = await runMonitor({ baseline: { tlsChecks: [check] }, now: fixedNow,
+      stateStore, emitAlerts: false, persistState: false, clients });
+    assert.equal(report.status, "pass");
+    assert.equal(report.checks[0].source, "live-https-probe");
+    assert.equal(report.checks[0].daysRemaining, 80);
+    assert.deepEqual(report.checks[0].warnings, []);
+    assert.equal(requests, 1);
+    const failed = await runMonitor({ baseline: { tlsChecks: [check] }, now: fixedNow,
+      stateStore, emitAlerts: false, persistState: false,
+      clients: { fetch: async () => { throw new Error("observer unavailable"); } } });
+    assert.equal(failed.status, "alert");
+    assert.match(failed.checks[0].reasons.join(" "), /observer unavailable/);
+    assert.equal(failed.checks[0].source, undefined);
+  }
+});
+
+test("website probes preserve 21-day expiry and live identity alerts", async () => {
+  for (const host of ["stage5.tools", "www.stage5.tools"]) {
+    const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === host);
+    for (const [days, change, expected] of [
+      [20, {}, /Certificate expires in 20 days/],
+      [80, { commonName: "wrong.example" }, /Certificate CN changed/],
+      [80, { issuer: "Unrecognized issuer" }, /Certificate issuer changed/],
+    ]) {
+      const report = await runMonitor({ baseline: { tlsChecks: [check] }, now: fixedNow,
+        emitAlerts: false, persistState: false, clients: {
+          fetch: async () => Response.json(websiteObservation(host, days, change)),
+        } });
+      assert.equal(report.status, "alert");
+      assert.equal(report.checks[0].source, "live-https-probe");
+      assert.match(report.checks[0].reasons.join(" "), expected);
+    }
+  }
+});
+
+test("website observer authority is restricted without weakening own-connection endpoints", async () => {
+  const options = { host: "www.stage5.tools", certificateProbeEndpoint: websiteProbeEndpoint,
+    nowDate: fixedNow, timeoutMs: 100 };
+  for (const certificateProbeEndpoint of [
+    "http://api.echo.stage5.tools/healthz/tls/probe",
+    "https://other.example/healthz/tls/probe",
+    `${websiteProbeEndpoint}?host=other.example`,
+    `${websiteProbeEndpoint}#ignore`,
+  ]) {
+    await assert.rejects(defaultGetCertificate({ ...options, certificateProbeEndpoint,
+      fetchImpl: () => assert.fail("Untrusted observer must not be fetched"),
+    }), /Unsupported certificate probe/);
+  }
+  await assert.rejects(defaultGetCertificate({ ...options, host: "other.example",
+    fetchImpl: () => assert.fail("Unsupported target must not be fetched"),
+  }), /Unsupported certificate probe/);
+  await assert.rejects(defaultGetCertificate({ ...options, certificateEndpoint: echoCertificateEndpoint,
+    fetchImpl: () => assert.fail("Ambiguous authority must not be fetched"),
+  }), /Choose one authoritative/);
+  for (const change of [{ host: "stage5.tools" }, { observedAt: new Date(fixedNow.getTime() - 120001).toISOString() }]) {
+    await assert.rejects(defaultGetCertificate({ ...options,
+      fetchImpl: async () => Response.json(websiteObservation(options.host, 80, change)),
+    }), /invalid or stale/);
+  }
+  await assert.rejects(defaultGetCertificate({ ...options, fetchImpl: async () =>
+    new Response(null, { status: 302, headers: { location: "https://www.stage5.tools/" } }),
+  }), /HTTP 302/);
+});
+
+test("website observer times out rather than falling back to a cached certificate", async () => {
+  let aborted = false;
+  const stateStore = createMemoryStateStore();
+  await stateStore.putJson("tls:cert:v1:www.stage5.tools", {
+    fetchedAt: fixedNow.toISOString(), certificate: { ...websiteObservation("www.stage5.tools"), source: "crtsh" },
+  });
+  await assert.rejects(defaultGetCertificate({ host: "www.stage5.tools",
+    certificateProbeEndpoint: websiteProbeEndpoint, nowDate: fixedNow, timeoutMs: 25, stateStore,
+    fetchImpl: (_url, init) => new Promise((_, reject) => {
+      init.signal.addEventListener("abort", () => { aborted = true; reject(init.signal.reason); });
+    }),
+  }), /timeout/);
+  assert.equal(aborted, true);
+});

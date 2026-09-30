@@ -457,6 +457,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       nowDate,
       env: certEnv,
       certificateEndpoint: check.certificateEndpoint,
+      certificateProbeEndpoint: check.certificateProbeEndpoint,
     });
 
     const reasons = [];
@@ -484,6 +485,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
 
     const canCheckIdentityDrift =
       cert.source === "live-tls-socket" || cert.source === "live-https-endpoint" ||
+      cert.source === "live-https-probe" ||
       env.ALLOW_NONLIVE_TLS_IDENTITY_CHECK === "1";
     if (!canCheckIdentityDrift) {
       warnings.push(
@@ -1056,12 +1058,16 @@ export async function defaultGetCertificate({
   env = {},
   stateStore,
   certificateEndpoint,
+  certificateProbeEndpoint,
 }) {
+  if (certificateEndpoint && certificateProbeEndpoint) {
+    throw new Error("Choose one authoritative certificate endpoint.");
+  }
   // A configured connection-backed endpoint is authoritative. A CT snapshot
   // must never replace it on failure and fabricate a current expiry verdict.
-  if (certificateEndpoint) {
+  if (certificateEndpoint || certificateProbeEndpoint) {
     const certificate = await getCertificateViaHttpsEndpoint({
-      host, certificateEndpoint, fetchImpl, timeoutMs, nowDate,
+      host, certificateEndpoint, certificateProbeEndpoint, fetchImpl, timeoutMs, nowDate,
     });
     await writeCachedCertificate({ stateStore, host, certificate, nowDate });
     return certificate;
@@ -1154,10 +1160,18 @@ function cachedCertificateFallback({ cachedCertificate, errors }) {
 }
 
 async function getCertificateViaHttpsEndpoint({
-  host, certificateEndpoint, fetchImpl, timeoutMs, nowDate,
+  host, certificateEndpoint, certificateProbeEndpoint, fetchImpl, timeoutMs, nowDate,
 }) {
-  const url = new URL(certificateEndpoint);
-  if (url.protocol !== "https:" || url.hostname !== host || url.port ||
+  const url = new URL(certificateProbeEndpoint || certificateEndpoint);
+  if (certificateProbeEndpoint) {
+    // Trust only our fixed-host TLS observer. Do not loosen the same-host
+    // contract of endpoints that report their own incoming connection.
+    if (!["stage5.tools", "www.stage5.tools"].includes(host) ||
+        url.href !== "https://api.echo.stage5.tools/healthz/tls/probe") {
+      throw new Error("Unsupported certificate probe endpoint or host.");
+    }
+    url.searchParams.set("host", host);
+  } else if (url.protocol !== "https:" || url.hostname !== host || url.port ||
       url.username || url.password || url.hash) {
     throw new Error("Certificate endpoint must use the checked host over HTTPS.");
   }
@@ -1214,7 +1228,8 @@ async function getCertificateViaHttpsEndpoint({
         throw new Error("Certificate endpoint returned invalid or stale connection metadata.");
       }
       return {
-        source: "live-https-endpoint", commonName: payload.commonName,
+        source: certificateProbeEndpoint ? "live-https-probe" : "live-https-endpoint",
+        commonName: payload.commonName,
         issuer: payload.issuer, notAfter: new Date(payload.notAfter).toISOString(),
         fingerprint256: payload.fingerprint256, observedAt: payload.observedAt,
       };

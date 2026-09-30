@@ -15,6 +15,22 @@ Cloudflare Worker cron monitor for:
 - `monitor/src/index.js`: Worker entrypoint and secured `/run`
 - `monitor/src/monitor-core.js`: checks, alert policy, webhook/email dispatch
 
+## Live certificate observations
+
+The apex and `www` checks use the API's fixed-host `/healthz/tls/probe` observer,
+which negotiates a fresh, CA- and SNI-verified TLS connection to the website.
+[Cloudflare Workers cannot open TCP sockets to Cloudflare IP ranges](https://developers.cloudflare.com/workers/runtime-apis/tcp-sockets/).
+The observer accepts only `stage5.tools` and `www.stage5.tools`, coalesces concurrent
+requests and caches each result for 30 seconds. The monitor accepts only that
+exact observer URL and observations less than two minutes old. The Echo API check
+continues to use `/healthz/tls` for its own incoming connection's certificate.
+
+All three checks keep the 21-day expiry threshold and CN/issuer checks. Probe
+failures, redirects, stale data and invalid metadata fail the check; CT records or
+KV snapshots never substitute for those authoritative endpoints. Deploy and verify
+the API probe before deploying this monitor configuration. A healthy scheduled
+run then closes the existing expiry incident through the normal recovery policy.
+
 ## From-scratch setup
 
 1. Create KV namespaces for monitor state/cache.
