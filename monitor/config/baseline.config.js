@@ -53,6 +53,7 @@ export const BASELINE_CONFIG = {
     },
     {
       host: "api.echo.stage5.tools",
+      certificateEndpoint: "https://api.echo.stage5.tools/healthz/tls",
       minDaysRemaining: 21,
       expectedCommonNames: ["api.echo.stage5.tools", "*.stage5.tools", "sni.cloudflaressl.com"],
       expectedIssuerContainsAny: ["Google Trust Services", "Let's Encrypt", "DigiCert"],

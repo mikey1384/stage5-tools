@@ -103,9 +103,15 @@ export async function runMonitor({
   // invocation. Each check owns at most one outbound operation at a time, so a
   // five-check budget leaves one slot of headroom while allowing unrelated
   // check families to make progress together during a partial outage.
+  // Echo requests carry a per-run tag the API logs on arrival, so a timed-out
+  // check can be matched against what the server actually received.
+  const probeRunId = startedAt.replace(/[^0-9]/g, "").slice(0, 14);
+  const probeIdFor = (check) =>
+    isEchoTarget(check.url) ? `${probeRunId}:${check.name}` : null;
   const checkTasks = [
     ...(baseline.httpsChecks ?? []).map(
-      (check) => () => runHttpsCheck({ check, fetchImpl, timeoutMs })
+      (check) => () =>
+        runHttpsCheck({ check, fetchImpl, timeoutMs, probeId: probeIdFor(check) })
     ),
     ...(baseline.tlsChecks ?? []).map(
       (check) => () =>
@@ -132,21 +138,30 @@ export async function runMonitor({
   const checks = await runWithConcurrency(checkTasks, MAX_CONCURRENT_CHECKS);
   const failures = checks.filter((item) => !item.pass);
 
-  const echoFailed = failures.some((check) =>
-    check.category === "https" &&
-    (check.target === "https://api.echo.stage5.tools/healthz" ||
-      check.target === "https://api.echo.stage5.tools/echo/auth/login")
-  );
-  const transportDiagnostics = [];
-  if (echoFailed) {
+  // Replay each failed Echo request on a brand-new connection. If the replay
+  // passes while the pooled fetch timed out, the failure was the connection,
+  // not the server.
+  const failedEchoChecks = failures.filter((check) =>
+    check.category === "https" && isEchoTarget(check.target));
+  const transportDiagnostics = await Promise.all(failedEchoChecks.map(async (failure) => {
+    const check = (baseline.httpsChecks ?? []).find((item) => item.name === failure.name) || {};
     try {
-      transportDiagnostics.push(await (clients.probeEchoTransport || probeEchoTransport)({ timeoutMs: 8000 }));
+      return await (clients.probeEchoTransport || probeEchoTransport)({
+        timeoutMs: 8000,
+        url: failure.target,
+        method: failure.method,
+        headers: check.headers,
+        body: typeof check.body === "string" ? check.body : undefined,
+        expectedStatusMin: Number(check.expectedStatusMin ?? 200),
+        expectedStatusMax: Number(check.expectedStatusMax ?? 399),
+        probeId: failure.probeId ? `${failure.probeId}:replay` : null,
+      });
     } catch (error) {
       // Auxiliary evidence must never prevent the original incident alert.
-      transportDiagnostics.push({ target: "https://api.echo.stage5.tools/healthz",
-        transport: "tls_socket", pass: false, error: normalizeError(error) });
+      return { target: failure.target, transport: "tls_socket", pass: false,
+        error: normalizeError(error) };
     }
-  }
+  }));
 
   if (forceAlert) {
     failures.push({
@@ -209,7 +224,7 @@ export async function runMonitor({
   // recovery, using the existing bounded state write rather than another feed.
   const previousEchoEvidence = previousState?.echoFailureEvidence;
   const previousEchoAt = Date.parse(previousEchoEvidence?.capturedAt || "");
-  report.alertPolicy.nextState.echoFailureEvidence = echoFailed
+  report.alertPolicy.nextState.echoFailureEvidence = failedEchoChecks.length > 0
     ? {
         capturedAt: startedAt,
         checks: checks.filter((check) => check.target?.startsWith("https://api.echo.stage5.tools/")),
@@ -232,7 +247,18 @@ export async function runMonitor({
   return report;
 }
 
-async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
+const ECHO_HOST = "api.echo.stage5.tools";
+const PROBE_HEADER = "x-stage5-monitor-probe";
+
+function isEchoTarget(url) {
+  try {
+    return new URL(url).hostname === ECHO_HOST;
+  } catch {
+    return false;
+  }
+}
+
+async function runHttpsCheck({ check, fetchImpl, timeoutMs, probeId = null }) {
   const started = Date.now();
   const startedAt = new Date(started).toISOString();
   const method = String(check.method || "GET").toUpperCase();
@@ -261,7 +287,7 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
         const requestInit = {
           method,
           redirect: "follow",
-          headers: check.headers || {},
+          headers: { ...(check.headers || {}), ...(probeId ? { [PROBE_HEADER]: probeId } : {}) },
           signal: controller.signal,
         };
         if (typeof check.body === "string") requestInit.body = check.body;
@@ -301,11 +327,13 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
     ]);
     return {
       category: "https", target: check.url, name: check.name, method,
+      ...(probeId ? { probeId } : {}),
       startedAt, phase, headersMs, latencyMs: Date.now() - started, ...result,
     };
   } catch (error) {
     return {
       category: "https", target: check.url, name: check.name, method,
+      ...(probeId ? { probeId } : {}),
       startedAt, phase, headersMs, statusCode: response?.status,
       pass: false, latencyMs: Date.now() - started, reasons: [normalizeError(error)],
     };
@@ -317,11 +345,28 @@ async function runHttpsCheck({ check, fetchImpl, timeoutMs }) {
 }
 
 // Separate transport evidence. It never turns a failed main check into a pass,
-// retries a login, changes alert policy, or disables TLS certificate validation.
-export async function probeEchoTransport({ timeoutMs = 8000, connect } = {}) {
+// changes alert policy, or disables TLS certificate validation. The login
+// replay is the monitor's own empty POST, which the API rejects with 400.
+export async function probeEchoTransport({
+  timeoutMs = 8000, connect,
+  url = `https://${ECHO_HOST}/healthz`, method = "GET", headers = {}, body,
+  expectedStatusMin = 200, expectedStatusMax = 200, probeId = null,
+} = {}) {
   const started = Date.now();
+  const target = new URL(url);
+  if (target.hostname !== ECHO_HOST) throw new Error(`Transport probe is limited to ${ECHO_HOST}.`);
+  const requestHeaders = {
+    Host: ECHO_HOST, Connection: "close", "User-Agent": "stage5-monitor-diagnostic",
+    ...headers,
+    ...(probeId ? { [PROBE_HEADER]: probeId } : {}),
+    ...(typeof body === "string" ? { "Content-Length": String(new TextEncoder().encode(body).byteLength) } : {}),
+  };
+  const request = `${String(method).toUpperCase()} ${target.pathname}${target.search} HTTP/1.1\r\n` +
+    Object.entries(requestHeaders).map(([name, value]) => `${name}: ${value}\r\n`).join("") +
+    "\r\n" + (typeof body === "string" ? body : "");
   const evidence = {
-    target: "https://api.echo.stage5.tools/healthz",
+    target: url, method: String(method).toUpperCase(),
+    ...(probeId ? { probeId } : {}),
     transport: "tls_socket", startedAt: new Date(started).toISOString(),
     phase: "tcp_connect", tcpConnectMs: null, tlsConnectMs: null,
     headersMs: null, statusCode: null,
@@ -335,7 +380,7 @@ export async function probeEchoTransport({ timeoutMs = 8000, connect } = {}) {
     clearTimeout(timer);
     try { socket?.destroy(); } catch { /* Evidence must still settle. */ }
     resolve({ ...evidence, latencyMs: Date.now() - started,
-      pass: !error && evidence.statusCode === 200,
+      pass: !error && evidence.statusCode >= expectedStatusMin && evidence.statusCode <= expectedStatusMax,
       ...(error ? { error: normalizeError(error) } : {}) });
   };
   return new Promise((resolve) => {
@@ -343,8 +388,8 @@ export async function probeEchoTransport({ timeoutMs = 8000, connect } = {}) {
     (async () => {
       const open = connect || (await import("node:tls")).connect;
       if (settled) return;
-      socket = open({ host: "api.echo.stage5.tools", port: 443,
-        servername: "api.echo.stage5.tools", rejectUnauthorized: true });
+      socket = open({ host: ECHO_HOST, port: 443,
+        servername: ECHO_HOST, rejectUnauthorized: true });
       let headers = "";
       socket.once("connect", () => {
         if (settled) return;
@@ -356,7 +401,7 @@ export async function probeEchoTransport({ timeoutMs = 8000, connect } = {}) {
         evidence.tlsConnectMs = Date.now() - started;
         evidence.phase = "response_headers";
         try {
-          socket.write("GET /healthz HTTP/1.1\r\nHost: api.echo.stage5.tools\r\nConnection: close\r\nUser-Agent: stage5-monitor-diagnostic\r\n\r\n");
+          socket.write(request);
         } catch (error) {
           finish(resolve, error);
         }
@@ -411,6 +456,7 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
       timeoutMs,
       nowDate,
       env: certEnv,
+      certificateEndpoint: check.certificateEndpoint,
     });
 
     const reasons = [];
@@ -437,7 +483,8 @@ async function runTlsCheck({ check, getCertificate, timeoutMs, nowDate, env }) {
     }
 
     const canCheckIdentityDrift =
-      cert.source === "live-tls-socket" || env.ALLOW_NONLIVE_TLS_IDENTITY_CHECK === "1";
+      cert.source === "live-tls-socket" || cert.source === "live-https-endpoint" ||
+      env.ALLOW_NONLIVE_TLS_IDENTITY_CHECK === "1";
     if (!canCheckIdentityDrift) {
       warnings.push(
         `Skipped CN/issuer drift check because cert source is '${cert.source || "unknown"}' (not live socket).`
@@ -1008,7 +1055,17 @@ export async function defaultGetCertificate({
   nowDate,
   env = {},
   stateStore,
+  certificateEndpoint,
 }) {
+  // A configured connection-backed endpoint is authoritative. A CT snapshot
+  // must never replace it on failure and fabricate a current expiry verdict.
+  if (certificateEndpoint) {
+    const certificate = await getCertificateViaHttpsEndpoint({
+      host, certificateEndpoint, fetchImpl, timeoutMs, nowDate,
+    });
+    await writeCachedCertificate({ stateStore, host, certificate, nowDate });
+    return certificate;
+  }
   const sourceOrder = parseCertificateSourceOrder(env.TLS_CERT_SOURCE || "live_socket,crtsh");
   const errors = [];
   const certCacheMaxAgeMs = parseNonNegativeInt(
@@ -1094,6 +1151,78 @@ function cachedCertificateFallback({ cachedCertificate, errors }) {
     source: "cached",
     fallbackReason: errors.length > 0 ? errors.join(" | ") : null,
   };
+}
+
+async function getCertificateViaHttpsEndpoint({
+  host, certificateEndpoint, fetchImpl, timeoutMs, nowDate,
+}) {
+  const url = new URL(certificateEndpoint);
+  if (url.protocol !== "https:" || url.hostname !== host || url.port ||
+      url.username || url.password || url.hash) {
+    throw new Error("Certificate endpoint must use the checked host over HTTPS.");
+  }
+  const controller = new AbortController();
+  let response;
+  let reader;
+  let timer;
+  const releaseBody = () => {
+    const pending = reader ? reader.cancel() : response?.body?.cancel();
+    pending?.catch(() => {});
+  };
+  const deadline = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      const error = new Error("Certificate endpoint timeout");
+      controller.abort(error);
+      reject(error);
+    }, timeoutMs);
+  });
+  try {
+    return await Promise.race([deadline, (async () => {
+      response = await fetchImpl(url.href, {
+        method: "GET", redirect: "error", signal: controller.signal,
+        headers: { accept: "application/json", "cache-control": "no-cache" },
+      });
+      if (controller.signal.aborted) {
+        releaseBody();
+        throw controller.signal.reason;
+      }
+      if (response.status !== 200 || response.redirected) {
+        throw new Error(`Certificate endpoint HTTP ${response.status}.`);
+      }
+      const decoder = new TextDecoder();
+      let text = "";
+      let bytes = 0;
+      reader = response.body?.getReader();
+      while (reader) {
+        const chunk = await reader.read();
+        if (controller.signal.aborted) throw controller.signal.reason;
+        if (chunk.done) break;
+        bytes += chunk.value.byteLength;
+        if (bytes > 16384) throw new Error("Certificate endpoint body exceeds 16 KiB limit");
+        text += decoder.decode(chunk.value, { stream: true });
+      }
+      const payload = JSON.parse(text + decoder.decode());
+      const observedAt = Date.parse(payload.observedAt);
+      if (payload.host !== host || !Number.isFinite(observedAt) ||
+          Math.abs(nowDate.getTime() - observedAt) > 120000 ||
+          typeof payload.commonName !== "string" || !payload.commonName.trim() ||
+          typeof payload.issuer !== "string" || !payload.issuer.trim() ||
+          typeof payload.notAfter !== "string" || !Number.isFinite(Date.parse(payload.notAfter)) ||
+          typeof payload.fingerprint256 !== "string" ||
+          !/^(?:[A-F0-9]{2}:){31}[A-F0-9]{2}$/i.test(payload.fingerprint256)) {
+        throw new Error("Certificate endpoint returned invalid or stale connection metadata.");
+      }
+      return {
+        source: "live-https-endpoint", commonName: payload.commonName,
+        issuer: payload.issuer, notAfter: new Date(payload.notAfter).toISOString(),
+        fingerprint256: payload.fingerprint256, observedAt: payload.observedAt,
+      };
+    })()]);
+  } finally {
+    clearTimeout(timer);
+    releaseBody();
+    controller.abort();
+  }
 }
 
 async function getCertificateViaCrtSh({ host, fetchImpl, timeoutMs, nowDate }) {

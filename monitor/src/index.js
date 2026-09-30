@@ -39,6 +39,9 @@ export default {
             headersMs: check.headersMs,
             reasons: check.reasons,
             warnings: check.warnings,
+            source: check.source,
+            notAfter: check.notAfter,
+            daysRemaining: check.daysRemaining,
           })),
         });
         if (report.status === "alert") {

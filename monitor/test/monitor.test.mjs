@@ -1070,3 +1070,147 @@ test("latest Echo failure evidence survives recovery and expires after seven day
   await runMonitor({ baseline, clients, emitAlerts: false, now: new Date(fixedNow.getTime() + 7 * 86400000) });
   assert.equal((await store.getJson("monitor:state:v1")).echoFailureEvidence, null);
 });
+
+test("Echo checks carry a per-run probe tag and a failure is replayed as the same request", async () => {
+  const seen = [];
+  const replays = [];
+  const report = await runMonitor({
+    baseline: { httpsChecks: [
+      { name: "stage5-root", url: "https://stage5.tools" },
+      { name: "echo-auth-login-empty-post", url: "https://api.echo.stage5.tools/echo/auth/login",
+        method: "POST", headers: { "content-type": "application/json" }, body: "{}",
+        expectedStatusMin: 400, expectedStatusMax: 400 },
+    ] },
+    env: buildEnv(), persistState: false, emitAlerts: false, now: fixedNow,
+    clients: {
+      fetch: async (url, init) => {
+        seen.push({ url, probe: init.headers["x-stage5-monitor-probe"] || null });
+        if (url.includes("api.echo")) throw new Error("timeout");
+        return new Response("ok");
+      },
+      probeEchoTransport: async (options) => { replays.push(options); return { pass: true, statusCode: 400 }; },
+    },
+  });
+  const runId = fixedNow.toISOString().replace(/[^0-9]/g, "").slice(0, 14);
+  assert.deepEqual(seen.map((item) => item.probe).sort(), [`${runId}:echo-auth-login-empty-post`, null]);
+  const failed = report.checks.find((check) => check.name === "echo-auth-login-empty-post");
+  assert.equal(failed.probeId, `${runId}:echo-auth-login-empty-post`);
+  assert.equal(replays.length, 1);
+  assert.equal(replays[0].url, "https://api.echo.stage5.tools/echo/auth/login");
+  assert.equal(replays[0].method, "POST");
+  assert.equal(replays[0].body, "{}");
+  assert.equal(replays[0].expectedStatusMin, 400);
+  assert.equal(replays[0].probeId, `${runId}:echo-auth-login-empty-post:replay`);
+  assert.equal(report.status, "alert");
+});
+
+test("transport replay sends the exact POST with its tag and passes on the expected status", async () => {
+  const socket = diagnosticSocket();
+  let written = "";
+  socket.write = (request) => {
+    written = request;
+    queueMicrotask(() => socket.emit("data", Buffer.from("HTTP/1.1 400 Bad Request\r\nContent-Length: 2\r\n\r\n{}")));
+  };
+  const result = await probeEchoTransport({
+    url: "https://api.echo.stage5.tools/echo/auth/login", method: "POST",
+    headers: { "content-type": "application/json" }, body: "{}",
+    expectedStatusMin: 400, expectedStatusMax: 400, probeId: "run:login:replay",
+    connect() {
+      queueMicrotask(() => { socket.emit("connect"); socket.emit("secureConnect"); });
+      return socket;
+    },
+  });
+  assert.match(written, /^POST \/echo\/auth\/login HTTP\/1\.1\r\n/);
+  assert.match(written, /\r\nx-stage5-monitor-probe: run:login:replay\r\n/);
+  assert.match(written, /\r\nContent-Length: 2\r\n/);
+  assert.ok(written.endsWith("\r\n\r\n{}"));
+  assert.equal(result.pass, true);
+  assert.equal(result.statusCode, 400);
+  assert.equal(result.probeId, "run:login:replay");
+});
+
+const echoCertificateEndpoint = "https://api.echo.stage5.tools/healthz/tls";
+const echoConnectionCertificate = {
+  host: "api.echo.stage5.tools", commonName: "api.echo.stage5.tools",
+  issuer: "C=US\nO=Let's Encrypt\nCN=YE1", notAfter: "2026-06-15T00:00:00.000Z",
+  fingerprint256: Array(32).fill("A1").join(":"), observedAt: fixedNow.toISOString(),
+};
+
+test("connection-backed certificate supersedes CT cache and never falls back to it on failure", async () => {
+  const stateStore = createMemoryStateStore();
+  await stateStore.putJson("tls:cert:v1:api.echo.stage5.tools", {
+    fetchedAt: fixedNow.toISOString(), certificate: {
+      ...echoConnectionCertificate, source: "crtsh", notAfter: "2026-03-02T00:00:00.000Z",
+    },
+  });
+  const options = { host: "api.echo.stage5.tools", certificateEndpoint: echoCertificateEndpoint,
+    nowDate: fixedNow, timeoutMs: 100, stateStore };
+  const certificate = await defaultGetCertificate({ ...options, fetchImpl: async (url, init) => {
+    assert.equal(url, echoCertificateEndpoint);
+    assert.equal(init.redirect, "error");
+    return Response.json(echoConnectionCertificate);
+  } });
+  assert.equal(certificate.source, "live-https-endpoint");
+  assert.equal(certificate.notAfter, echoConnectionCertificate.notAfter);
+  await assert.rejects(defaultGetCertificate({ ...options, fetchImpl: async () => {
+    throw new Error("origin unavailable");
+  } }), /origin unavailable/);
+});
+
+test("connection-backed expiry and issuer changes still open alerts", async () => {
+  const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === "api.echo.stage5.tools");
+  for (const [change, expected] of [
+    [{ notAfter: "2026-03-05T00:00:00.000Z" }, /Certificate expires in 5 days/],
+    [{ issuer: "Unrecognized issuer" }, /Certificate issuer changed/],
+    [{ commonName: "wrong.example" }, /Certificate CN changed/],
+  ]) {
+    const report = await runMonitor({ baseline: { tlsChecks: [check] }, now: fixedNow,
+      emitAlerts: false, persistState: false, clients: {
+        fetch: async () => Response.json({ ...echoConnectionCertificate, ...change }),
+      },
+    });
+    assert.equal(report.status, "alert");
+    assert.match(report.checks[0].reasons.join(" "), expected);
+    assert.equal(report.checks[0].source, "live-https-endpoint");
+  }
+});
+
+test("connection metadata must be fresh, complete and from the checked HTTPS host", async () => {
+  const options = { host: "api.echo.stage5.tools", certificateEndpoint: echoCertificateEndpoint,
+    nowDate: fixedNow, timeoutMs: 100 };
+  for (const change of [
+    { host: "wrong.example" }, { observedAt: "2026-02-27T00:00:00Z" },
+    { observedAt: "2026-03-01T00:00:00Z" }, { notAfter: "invalid" },
+    { fingerprint256: "" }, { commonName: "" },
+  ]) {
+    await assert.rejects(defaultGetCertificate({ ...options,
+      fetchImpl: async () => Response.json({ ...echoConnectionCertificate, ...change }),
+    }), /invalid or stale/);
+  }
+  for (const certificateEndpoint of ["http://api.echo.stage5.tools/healthz/tls", "https://other.example/healthz/tls"]) {
+    await assert.rejects(defaultGetCertificate({ ...options, certificateEndpoint,
+      fetchImpl: () => assert.fail("unsafe endpoint must not be fetched"),
+    }), /checked host over HTTPS/);
+  }
+});
+
+test("certificate endpoint bounds stalled and oversized bodies and closes failed responses", async () => {
+  const options = { host: "api.echo.stage5.tools", certificateEndpoint: echoCertificateEndpoint,
+    nowDate: fixedNow, timeoutMs: 25 };
+  for (const kind of ["stalled", "oversized", "http-error"]) {
+    let cancelled = false;
+    let signal;
+    const body = new ReadableStream({
+      start(controller) {
+        if (kind === "oversized") controller.enqueue(new Uint8Array(16385));
+      },
+      cancel() { cancelled = true; },
+    });
+    await assert.rejects(defaultGetCertificate({ ...options, fetchImpl: async (_url, init) => {
+      signal = init.signal;
+      return new Response(body, { status: kind === "http-error" ? 503 : 200 });
+    } }), kind === "stalled" ? /timeout/ : kind === "oversized" ? /16 KiB/ : /HTTP 503/);
+    assert.equal(cancelled, true);
+    assert.equal(signal.aborted, true);
+  }
+});

@@ -146,11 +146,11 @@ TLS checks:
 
 TLS source behavior:
 
-- primary: live TLS socket handshake (`node:tls`) against each host
-- fallback: `crt.sh` only if live socket source fails
+- Echo: `https://api.echo.stage5.tools/healthz/tls` reports the certificate on that exact HTTPS connection. The endpoint closes the probe connection so renewal is checked on a new handshake. The monitor requires fresh, host-matched metadata, a successful trusted HTTPS request with no redirects, and a bounded response body/deadline. Failure alerts as unavailable; CT and cached snapshots cannot stand in for this live source.
+- Other hosts default to a live TLS socket handshake (`node:tls`), falling back to `crt.sh`. Workers currently cannot inspect the peer certificate through `getPeerCertificate`, so do not rely on this source for Echo.
 - `stage5.tools` and `www.stage5.tools` force `crtsh` because Workers block outbound TCP sockets to Cloudflare IP ranges
 - resilience fallback: if fresh certificate sources fail, uses the most recent cached cert snapshot from KV up to `TLS_CERT_STALE_CACHE_MAX_AGE_MS`; expiry checks still run against cached `notAfter`
-- CN/issuer drift checks are enforced only with live socket source by default
+- CN/issuer drift checks are enforced for the live socket and connection-backed HTTPS endpoint sources by default
 - set `ALLOW_NONLIVE_TLS_IDENTITY_CHECK=1` to also enforce CN/issuer drift when fallback source is used
 
 DNS checks:
@@ -180,12 +180,25 @@ HTTPS checks record their start time, response-header latency, total latency and
 failure phase. The existing deadline now includes body validation; unused bodies
 are cancelled, and checked bodies are capped at 64 KiB.
 
-After an Echo HTTPS failure, one separate eight-second TLS-socket GET to the same
-public health endpoint records TCP-connect, TLS-handshake and response-header
-timing. Certificate validation remains enabled. This diagnostic never retries
-login, changes the failed verdict, or suppresses an alert. Its timings are a
-subsequent connection through a different Worker transport, not proof of the
-original request's cause. Structured `monitor-run` logs retain both results.
+Every Echo HTTPS check sends an `x-stage5-monitor-probe: <run>:<check>` header
+(run = the run's UTC time, `YYYYMMDDHHMMSS`). The Twinkle API logs each tagged
+request to `twinkle-api.out.log` as a `[monitor-probe]` line: outcome, status,
+elapsed time, and whether it arrived on a fresh or reused connection
+(`socketRequest`, `socketAgeMs`). A request still open after five seconds gets
+a `still-open` line.
+
+After an Echo HTTPS failure, each failed request is replayed once on a brand-new
+eight-second TLS socket with the same method, headers and body, tagged
+`<run>:<check>:replay`. Its TCP-connect, TLS-handshake and response-header
+timing are recorded, and certificate validation stays on. The replay never
+changes the failed verdict or suppresses an alert.
+
+Reading a failure (the probe id is in `echoFailureEvidence.checks[].probeId`):
+- no API line for the original, replay passed: the request never reached the
+  API and a fresh connection worked, so suspect the Worker's pooled connection.
+- no API line for either: the network path or the host's accept path.
+- an API line for the original: the API received it; its outcome and elapsed
+  time show where the time went.
 
 The existing `monitor:state:v1` KV record retains `echoFailureEvidence` across
 recovery for up to seven days (latest failure only, no extra writes). Daily
