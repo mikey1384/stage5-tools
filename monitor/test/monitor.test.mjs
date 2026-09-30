@@ -1147,7 +1147,7 @@ test("connection-backed certificate supersedes CT cache and never falls back to 
     nowDate: fixedNow, timeoutMs: 100, stateStore };
   const certificate = await defaultGetCertificate({ ...options, fetchImpl: async (url, init) => {
     assert.equal(url, echoCertificateEndpoint);
-    assert.equal(init.redirect, "error");
+    assert.equal(init.redirect, "manual");
     return Response.json(echoConnectionCertificate);
   } });
   assert.equal(certificate.source, "live-https-endpoint");
@@ -1155,6 +1155,25 @@ test("connection-backed certificate supersedes CT cache and never falls back to 
   await assert.rejects(defaultGetCertificate({ ...options, fetchImpl: async () => {
     throw new Error("origin unavailable");
   } }), /origin unavailable/);
+});
+
+test("certificate endpoint rejects redirects without following a different TLS peer", async () => {
+  for (const status of [301, 302, 307, 308]) {
+    let requests = 0;
+    await assert.rejects(defaultGetCertificate({
+      host: "api.echo.stage5.tools", certificateEndpoint: echoCertificateEndpoint,
+      nowDate: fixedNow, timeoutMs: 100,
+      fetchImpl: async (url, init) => {
+        requests += 1;
+        assert.equal(url, echoCertificateEndpoint);
+        assert.equal(init.redirect, "manual");
+        return Response.json(echoConnectionCertificate, {
+          status, headers: { location: "https://other.example/healthz/tls" },
+        });
+      },
+    }), new RegExp(`Certificate endpoint HTTP ${status}`));
+    assert.equal(requests, 1);
+  }
 });
 
 test("connection-backed expiry and issuer changes still open alerts", async () => {

@@ -1179,7 +1179,8 @@ async function getCertificateViaHttpsEndpoint({
   try {
     return await Promise.race([deadline, (async () => {
       response = await fetchImpl(url.href, {
-        method: "GET", redirect: "error", signal: controller.signal,
+        // Workers supports manual/follow; reject every redirect below.
+        method: "GET", redirect: "manual", signal: controller.signal,
         headers: { accept: "application/json", "cache-control": "no-cache" },
       });
       if (controller.signal.aborted) {
