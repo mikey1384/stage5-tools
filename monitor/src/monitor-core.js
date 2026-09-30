@@ -1166,7 +1166,7 @@ async function getCertificateViaHttpsEndpoint({
   if (certificateProbeEndpoint) {
     // Trust only our fixed-host TLS observer. Do not loosen the same-host
     // contract of endpoints that report their own incoming connection.
-    if (!["stage5.tools", "www.stage5.tools"].includes(host) ||
+    if (!["stage5.tools", "www.stage5.tools", "api.echo.stage5.tools"].includes(host) ||
         url.href !== "https://api.echo.stage5.tools/healthz/tls/probe") {
       throw new Error("Unsupported certificate probe endpoint or host.");
     }

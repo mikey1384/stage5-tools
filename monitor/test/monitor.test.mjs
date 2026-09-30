@@ -1177,7 +1177,8 @@ test("certificate endpoint rejects redirects without following a different TLS p
 });
 
 test("connection-backed expiry and issuer changes still open alerts", async () => {
-  const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === "api.echo.stage5.tools");
+  const check = { ...BASELINE_CONFIG.tlsChecks.find((item) => item.host === "api.echo.stage5.tools"),
+    certificateProbeEndpoint: undefined, certificateEndpoint: echoCertificateEndpoint };
   for (const [change, expected] of [
     [{ notAfter: "2026-03-05T00:00:00.000Z" }, /Certificate expires in 5 days/],
     [{ issuer: "Unrecognized issuer" }, /Certificate issuer changed/],
@@ -1241,8 +1242,8 @@ const websiteObservation = (host, days = 80, change = {}) => ({
   notAfter: new Date(fixedNow.getTime() + days * 86400000).toISOString(), ...change,
 });
 
-test("both website checks observe live certificates instead of old CT cache; probe failures stay failures", async () => {
-  for (const host of ["stage5.tools", "www.stage5.tools"]) {
+test("all three TLS checks observe fresh handshakes instead of old CT cache; probe failures stay failures", async () => {
+  for (const host of ["stage5.tools", "www.stage5.tools", "api.echo.stage5.tools"]) {
     const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === host);
     const stateStore = createMemoryStateStore();
     await stateStore.putJson(`tls:cert:v1:${host}`, {
@@ -1271,8 +1272,8 @@ test("both website checks observe live certificates instead of old CT cache; pro
   }
 });
 
-test("website probes preserve 21-day expiry and live identity alerts", async () => {
-  for (const host of ["stage5.tools", "www.stage5.tools"]) {
+test("all three probes preserve 21-day expiry and live identity alerts", async () => {
+  for (const host of ["stage5.tools", "www.stage5.tools", "api.echo.stage5.tools"]) {
     const check = BASELINE_CONFIG.tlsChecks.find((item) => item.host === host);
     for (const [days, change, expected] of [
       [20, {}, /Certificate expires in 20 days/],

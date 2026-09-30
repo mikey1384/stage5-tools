@@ -17,13 +17,16 @@ Cloudflare Worker cron monitor for:
 
 ## Live certificate observations
 
-The apex and `www` checks use the API's fixed-host `/healthz/tls/probe` observer,
-which negotiates a fresh, CA- and SNI-verified TLS connection to the website.
+All three TLS checks use the API's fixed-host `/healthz/tls/probe` observer,
+which negotiates a fresh, CA- and SNI-verified TLS connection to the checked host.
 [Cloudflare Workers cannot open TCP sockets to Cloudflare IP ranges](https://developers.cloudflare.com/workers/runtime-apis/tcp-sockets/).
-The observer accepts only `stage5.tools` and `www.stage5.tools`, coalesces concurrent
-requests and caches each result for 30 seconds. The monitor accepts only that
-exact observer URL and observations less than two minutes old. The Echo API check
-continues to use `/healthz/tls` for its own incoming connection's certificate.
+The observer accepts only `stage5.tools`, `www.stage5.tools` and
+`api.echo.stage5.tools`, coalesces concurrent requests and caches each result for
+30 seconds. The monitor accepts only that exact observer URL and observations
+less than two minutes old. A fresh handshake also avoids missing certificate
+metadata on resumed API TLS sessions: a read-only production reproduction returned
+200 on each full handshake and 503 on each resumed `/healthz/tls` request. The
+existing own-connection endpoint remains available for connection diagnostics.
 
 All three checks keep the 21-day expiry threshold and CN/issuer checks. Probe
 failures, redirects, stale data and invalid metadata fail the check; CT records or
