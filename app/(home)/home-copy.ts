@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import {
   HOME_LOCALIZED_LOCALES,
+  indexableLocalesForPath,
   openGraphLocaleByLocale,
+  shouldIndexLocalePath,
 } from "../../lib/locales";
 import { localizePathForLocale } from "../../lib/locale-routing";
 import type { Locale } from "../../lib/strings";
@@ -1472,6 +1474,12 @@ export function getHomeSeoContext(locale: Locale) {
     ]),
   ) as Record<Locale, string>;
   const canonicalUrl = languageUrls[locale];
+  const indexedLanguageUrls = Object.fromEntries(
+    indexableLocalesForPath("/").map((indexedLocale) => [
+      indexedLocale,
+      languageUrls[indexedLocale],
+    ]),
+  ) as Partial<Record<Locale, string>>;
   const ogLocale = openGraphLocaleByLocale[locale];
   const alternateOgLocale = HOME_LOCALIZED_LOCALES.filter(
     (supportedLocale) => supportedLocale !== locale,
@@ -1483,10 +1491,11 @@ export function getHomeSeoContext(locale: Locale) {
     ogLocale,
     alternateOgLocale,
     languageUrls,
+    indexedLanguageUrls,
   };
 }
 export function getHomeMetadata(locale: Locale): Metadata {
-  const { copy, languageUrls, canonicalUrl, ogLocale, alternateOgLocale } =
+  const { copy, languageUrls, indexedLanguageUrls, canonicalUrl, ogLocale, alternateOgLocale } =
     getHomeSeoContext(locale);
 
   return {
@@ -1534,9 +1543,12 @@ export function getHomeMetadata(locale: Locale): Metadata {
       canonical: canonicalUrl,
       languages: {
         "x-default": languageUrls.en,
-        ...languageUrls,
+        ...indexedLanguageUrls,
       },
     },
+    robots: shouldIndexLocalePath(locale, "/")
+      ? undefined
+      : { index: false, follow: true },
     openGraph: {
       title: copy.pageTitle,
       description: copy.metadataDescription,

@@ -96,7 +96,16 @@ test("each domain advertises only its own canonical route inventory", async () =
   try {
     const translator = await buildSiteSitemap("translator");
     const stage5 = await buildSiteSitemap("stage5");
-    assert.equal(translator.length, 149);
+    // 149 routes minus the 63 localized pages Google declines to index
+    // (NOINDEXED_LOCALIZED_PAGES in lib/locales.ts).
+    assert.equal(translator.length, 86);
+    const translatorUrls = translator.map(entry => entry.url);
+    for (const kept of ["https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing"]) {
+      assert(translatorUrls.includes(kept), kept);
+    }
+    for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/es"]) {
+      assert(!translatorUrls.includes(dropped), dropped);
+    }
     assert(translator.every(entry => entry.url.startsWith("https://translator.tools/")));
     assert(translator.every(entry => !/\/(watch|echo|reflect)(?:\/|$)/.test(new URL(entry.url).pathname)));
     assert(stage5.every(entry => entry.url.startsWith("https://stage5.tools/")));

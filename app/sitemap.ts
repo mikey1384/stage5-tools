@@ -55,7 +55,7 @@ export async function buildSiteSitemap(site: Site): Promise<MetadataRoute.Sitema
     availableLocales: getWatchSupportedLocales(video),
   })) : [];
   const routes: RouteDef[] = isStage5
-    ? [{ path: "/", availableLocales: HOME_LOCALIZED_LOCALES }, { path: "/echo" }, { path: "/reflect" }, { path: "/watch", availableLocales: WATCH_LOCALIZED_LOCALES }, ...watchRoutes]
+    ? [{ path: "/", availableLocales: HOME_LOCALIZED_LOCALES }, { path: "/echo", availableLocales: HOME_LOCALIZED_LOCALES }, { path: "/reflect", availableLocales: HOME_LOCALIZED_LOCALES }, { path: "/watch", availableLocales: WATCH_LOCALIZED_LOCALES }, ...watchRoutes]
     : staticRoutes.filter(route => route.path !== "/watch" && route.path !== "/echo");
 
   return routes.flatMap((route) => {

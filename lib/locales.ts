@@ -184,13 +184,43 @@ export function localizedLocalesForPath(englishPath: string): Locale[] {
   return HOME_LOCALIZED_LOCALES.filter((locale) => supportsLocalePath(locale, englishPath));
 }
 
+// Localized Translator pages Google already declines to index ("Crawled -
+// currently not indexed" on 2026-10-12, < 10 impressions over 2026-07-12..
+// 2026-10-09; stage5-ops/data/gsc-index.csv and gsc-pages.csv). They still
+// render for visitors but are noindex and out of the sitemap, so crawling goes
+// to pages that rank. Korean is never listed: Naver traffic is not visible in
+// Search Console. Re-check with stage5-ops/scripts/gsc.py before extending.
+const NOINDEXED_LOCALIZED_PAGES: Record<string, readonly Locale[]> = {
+  "/": ["es", "ja", "zh", "fr", "de"],
+  "/about": ["es", "ja", "fr", "pt", "vi"],
+  "/dubbing": ["ja", "fr", "de", "pt"],
+  "/faq": ["es", "ja", "fr", "de", "pt", "vi"],
+  "/pricing": ["es", "fr", "de", "pt", "vi"],
+  "/subtitle-editor": ["ja", "fr", "de"],
+  "/translate": ["ja", "fr", "de", "pt", "vi"],
+  "/translate/chinese": ["es", "fr", "de", "pt", "vi"],
+  "/translate/french": ["es", "ja", "fr", "de"],
+  "/translate/german": ["es", "de"],
+  "/translate/japanese": ["es", "ja", "fr", "de", "pt"],
+  "/translate/korean": ["ja", "fr", "pt"],
+  "/translate/portuguese": ["fr", "pt", "vi"],
+  "/translate/spanish": ["fr", "de"],
+  "/video-discovery": ["es", "ja", "fr", "de", "vi"],
+  "/video-downloader": ["ja"],
+};
+
 export function indexableLocalesForPath(englishPath: string): Locale[] {
   const normalizedEnglishPath = normalizePathname(englishPath);
   if (ENGLISH_INDEX_ONLY_PATHS.has(normalizedEnglishPath)) {
     return [DEFAULT_LOCALE];
   }
 
-  return localizedLocalesForPath(normalizedEnglishPath);
+  const localizedLocales = localizedLocalesForPath(normalizedEnglishPath);
+  if (getWatchPageLocales(normalizedEnglishPath) !== null) {
+    return localizedLocales;
+  }
+  const noindexedLocales = NOINDEXED_LOCALIZED_PAGES[normalizedEnglishPath] ?? [];
+  return localizedLocales.filter((locale) => !noindexedLocales.includes(locale));
 }
 
 export function shouldIndexLocalePath(
