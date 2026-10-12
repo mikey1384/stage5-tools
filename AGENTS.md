@@ -3,6 +3,16 @@
 Follow the parent AGENTS.md and Mikey's exact action authority. No commit, push,
 deployment, domain change, or account publication is authorized by this guide.
 
+## Public repository: ops records live in stage5-ops
+
+This repository is **public**. Reports, receipts, proposals, scorecards and the
+local control panel live in the private sibling repo
+`/Users/mikey/Developer/stage5/stage5-ops` (moved 2026-10-12). A `docs/<file>`
+cited below that is not in this repository is `stage5-ops/docs/<file>`, and the
+panel is `stage5-ops/control-panel/`. Never write reports, evidence, account
+data or business correspondence into this repository; tax and legal records
+stay outside Git.
+
 ## Project and deployment state
 
 - Repository: `/Users/mikey/Developer/stage5/stage5-tools` (independent Git root).
