@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service - Echo",
   description: "Terms of Service for Echo, the daily reflection app by Stage5",
+  alternates: { canonical: "https://stage5.tools/echo/terms" },
   robots: {
     index: false,
     follow: false,
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terms of Service - Echo",
     description: "Terms of Service for Echo, the daily reflection app by Stage5",
-    url: "https://translator.tools/echo/terms",
+    url: "https://stage5.tools/echo/terms",
     siteName: "Echo by Stage5",
     type: "article",
   },

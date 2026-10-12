@@ -24,7 +24,7 @@ async function renderSitemapForAudit() {
       new URL("../app/sitemap.ts", import.meta.url),
     );
     const sitemapModule = require(sitemapPath);
-    const entries = await sitemapModule.default();
+    const entries = [...await sitemapModule.buildSiteSitemap("translator"), ...await sitemapModule.buildSiteSitemap("stage5")];
     return entries
       .map((entry) => {
         let xml = `<loc>${entry.url}</loc>`;
@@ -130,7 +130,8 @@ if (!existsSync(appPathsManifestPath)) {
   for (const route of pageRoutes) {
     if (generatedRouteFamilies.has(route)) continue;
 
-    const expectedUrl = new URL(route, baseUrl).toString();
+    const stage5Owned = /^\/(watch|echo)(\/|$)/.test(route) || route === "/reflect";
+    const expectedUrl = new URL(route, stage5Owned ? "https://stage5.tools" : baseUrl).toString();
     const advertised = urls.includes(expectedUrl);
 
     if (noindexRoutes.has(route)) {

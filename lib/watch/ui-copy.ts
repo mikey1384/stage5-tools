@@ -32,57 +32,66 @@ export const WATCH_LANGUAGE_LABELS: Record<Locale, string> = {
 
 const watchSourceLanguageLabels: Record<
   Locale,
-  Record<"English" | "Japanese" | "Korean" | "Spanish", string>
+  Record<"English" | "Japanese" | "Korean" | "Spanish" | "Korean / Japanese", string>
 > = {
   en: {
+    "Korean / Japanese": "Korean / Japanese",
     English: "English",
     Japanese: "Japanese",
     Korean: "Korean",
     Spanish: "Spanish",
   },
   ko: {
+    "Korean / Japanese": "한국어 / 일본어",
     English: "영어",
     Japanese: "일본어",
     Korean: "한국어",
     Spanish: "스페인어",
   },
   es: {
+    "Korean / Japanese": "Coreano / japonés",
     English: "Inglés",
     Japanese: "Japonés",
     Korean: "Coreano",
     Spanish: "Español",
   },
   ja: {
+    "Korean / Japanese": "韓国語 / 日本語",
     English: "英語",
     Japanese: "日本語",
     Korean: "韓国語",
     Spanish: "スペイン語",
   },
   zh: {
+    "Korean / Japanese": "韩语 / 日语",
     English: "英语",
     Japanese: "日语",
     Korean: "韩语",
     Spanish: "西班牙语",
   },
   fr: {
+    "Korean / Japanese": "Coréen / japonais",
     English: "Anglais",
     Japanese: "Japonais",
     Korean: "Coréen",
     Spanish: "Espagnol",
   },
   de: {
+    "Korean / Japanese": "Koreanisch / Japanisch",
     English: "Englisch",
     Japanese: "Japanisch",
     Korean: "Koreanisch",
     Spanish: "Spanisch",
   },
   pt: {
+    "Korean / Japanese": "Coreano / japonês",
     English: "Inglês",
     Japanese: "Japonês",
     Korean: "Coreano",
     Spanish: "Espanhol",
   },
   vi: {
+    "Korean / Japanese": "Tiếng Hàn / tiếng Nhật",
     English: "Tiếng Anh",
     Japanese: "Tiếng Nhật",
     Korean: "Tiếng Hàn",

@@ -1,0 +1,13 @@
+1
+00:00:00,000 --> 00:00:02,000
+A: I'm on the fence.
+
+2
+00:00:02,400 --> 00:00:04,200
+B: About the trip?
+
+3
+00:00:04,500 --> 00:00:10,500
+A: Yes. I want to go, but I'm not sure
+I can take Friday off.
+

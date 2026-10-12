@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 /**
  * VTT proxy route: serves VTT files from R2 (if configured) or falls back to public/watch.
  * Edge-safe: uses fetch instead of fs.

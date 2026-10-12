@@ -27,9 +27,10 @@ import {
   HeadObjectCommand,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
-import { basename, join } from "path";
+import { join } from "path";
 import {
   expectedVttFileNames,
+  loadValidatedWatchVtts,
   validateWatchCatalog,
   validateWatchEntry,
 } from "./watch-catalog-validation.mjs";
@@ -86,9 +87,7 @@ async function uploadCatalog(catalog) {
   console.log("✓ Uploaded catalog.json");
 }
 
-async function uploadVtt(filePath) {
-  const content = await readFile(filePath, "utf-8");
-  const fileName = basename(filePath);
+async function uploadVtt({ content, fileName }) {
   
   const command = new PutObjectCommand({
     Bucket: R2_BUCKET,
@@ -144,15 +143,19 @@ async function publishEntry(entryPath, vttDir) {
     catalog.push(newEntry);
   }
   
-  // Upload VTT files before making the entry visible in the catalog.
+  validateWatchCatalog(catalog);
+  // Validate the entire local batch before the first R2 write.
   if (vttDir) {
     console.log(`Uploading VTT files from ${vttDir}...`);
     const files = await readdir(vttDir);
     const expectedVttFiles = new Set(expectedVttFileNames(newEntry));
     const vttFiles = files.filter((file) => expectedVttFiles.has(file));
     
-    for (const vttFile of vttFiles) {
-      await uploadVtt(join(vttDir, vttFile));
+    const prepared = await loadValidatedWatchVtts(
+      vttFiles.map((file) => join(vttDir, file)),
+    );
+    for (const file of prepared) {
+      await uploadVtt(file);
     }
     
     console.log(`✓ Uploaded ${vttFiles.length} VTT files`);
@@ -161,7 +164,6 @@ async function publishEntry(entryPath, vttDir) {
   console.log("Verifying required VTT files in R2...");
   await verifyVttObjects(newEntry);
 
-  validateWatchCatalog(catalog);
   console.log("Uploading catalog...");
   await uploadCatalog(catalog);
   

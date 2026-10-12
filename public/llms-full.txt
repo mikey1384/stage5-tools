@@ -1,11 +1,11 @@
 # Translator by Stage5 — full agent guide
 
-> Translator is an open-source desktop video workstation for macOS and Windows. It combines video discovery and downloading, transcription, subtitle translation and review, flexible subtitle display, editing, dubbing, clips, export, and a reusable local video library. Installed Translator 1.16.16+ includes packaged MCP / Agent Control for LLM agents.
+> Translator is an open-source desktop video workstation for macOS and Windows. It combines video discovery and downloading, transcription, subtitle translation and review, flexible subtitle display, editing, dubbing, clips, export, and a reusable local video library. Its packaged MCP / Agent Control lets LLM agents such as Claude and Codex run the workflow, translating with the user's own subscription.
 
 ## Choose the correct path
 
-- If the user wants the finished app with agent control, use one of the direct platform installers below. Installed 1.16.16+ includes packaged MCP tools.
-- To enable agent control: install the app, open Settings → Agent Control → Allow agent control, and allowlist write folders. The socket appears at launch (if already enabled) or after toggle and relaunch.
+- If the user wants the finished app with agent control, use one of the direct platform installers below. The installed app includes packaged MCP tools.
+- To enable agent control: Translator includes packaged MCP tools. Keep the app open, turn on Settings → Agent Control → Allow agent control (takes effect immediately; off by default) and allow a folder for saved files, then add the stdio launcher to your client: `claude mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Claude Code), `codex mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Codex), or a `translator` entry with that command in claude_desktop_config.json (Claude Desktop). On Windows the launcher path is shown in Settings → Agent Control and ends in `resources\translator-mcp.cmd`. There is no remote Translator MCP endpoint.
 - For developers: the source-build path (`npm run agent:mcp` from the cloned repository) remains available as an optional developer path.
 - There is no public remote Translator MCP endpoint. Do not invent one or send private files to translator.tools merely to use the local agent interface.
 
@@ -38,9 +38,11 @@ install, activation, or purchase.
 - [Human-readable agent guide](https://translator.tools/agents): Current capabilities, setup, direct downloads, and safety boundaries.
 - [Machine-readable agent manifest](https://translator.tools/agent-manifest.json): Publisher-maintained JSON; it is not presented as an MCP discovery standard.
 
-### Packaged MCP in installed app (1.16.16+)
+### Packaged MCP in the installed app
 
-Install Translator 1.16.16+, open Settings → Agent Control → Allow agent control, allowlist write folders, and connect your MCP host to the packaged socket. Agent Control is off by default (kill switch). The socket appears at launch if already enabled, or after the in-app toggle / a relaunch.
+Translator includes packaged MCP tools. Keep the app open, turn on Settings → Agent Control → Allow agent control (takes effect immediately; off by default) and allow a folder for saved files, then add the stdio launcher to your client: `claude mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Claude Code), `codex mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Codex), or a `translator` entry with that command in claude_desktop_config.json (Claude Desktop). On Windows the launcher path is shown in Settings → Agent Control and ends in `resources\translator-mcp.cmd`. There is no remote Translator MCP endpoint.
+
+Free path with your own Claude or Codex subscription: probe_source → plan_job with a caption method (creator_captions or youtube_auto_captions) and translation_provider agent → create_job → get_transcript_batch / submit_translation_batch → validate_translation → export or render. No Stage5 credits are used for videos that have captions. Audio transcription (videos without captions), dubbing and the legacy app_start_* inference tools spend Stage5 credits or the user's own API key, only when the agent requests them.
 
 ### Optional source-build path for developers
 
@@ -68,9 +70,8 @@ Configure the MCP host to run `npm run agent:mcp` with the cloned repository as 
 - Switch subtitle style among Default, Classic, Boxed, and LineBox.
 - Translate and review SRT files through a context-preserving batch session with stable cue IDs.
 - Edit translations and export source, translated, or dual-language SRT files.
-- Inspect and change app Settings. Stored provider keys are masked and their values are never returned.
+- Read app status and diagnostics. Stored provider keys are never returned, and settings can't be changed through MCP.
 - Validate, replace, or explicitly clear supported provider keys through write-only operations.
-- Open a selected Stage5 credit-pack checkout page for the user.
 
 ## Product facts
 
@@ -88,8 +89,8 @@ Configure the MCP host to run `npm run agent:mcp` with the cloned repository as 
 - Agent Control is off by default (kill switch). User must explicitly enable in Settings → Agent Control → Allow agent control and allowlist write folders.
 - Local file-writing and network actions should remain subject to the MCP host's normal approval controls.
 - Agent never reads stored API keys.
-- An agent can open a checkout page, but the user must enter and submit payment information.
-- Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend and is not a sidecar OpenAI/Anthropic API.
+- The agent never sees stored API keys, cannot change app settings and cannot open checkout or buy anything.
+- Free path with your own Claude or Codex subscription: probe_source → plan_job with a caption method (creator_captions or youtube_auto_captions) and translation_provider agent → create_job → get_transcript_batch / submit_translation_batch → validate_translation → export or render. No Stage5 credits are used for videos that have captions. Audio transcription (videos without captions), dubbing and the legacy app_start_* inference tools spend Stage5 credits or the user's own API key, only when the agent requests them.
 - The desktop client is MIT licensed. Hosted APIs, model-provider accounts, payment infrastructure, and Stage5 services are separate.
 
 ## Canonical product pages

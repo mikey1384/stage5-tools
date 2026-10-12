@@ -24,9 +24,9 @@ type SupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
 export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> = {
   en: {
-    title: "Watch Lee Jung-jae on Lee Dong-jin's Piarchia with English Subtitles | Translator",
+    title: "Lee Jung-jae on Hunt: 30-second subtitle demo | Stage5",
     description:
-      "Director Lee Jung-jae discusses Hunt, his directorial debut, with film critic Lee Dong-jin. A Korean-language interview about filmmaking, directing actors, and making a spy thriller. Learn how to watch it with English subtitles using Translator.",
+      "Try a 30-second Hunt interview preview with English, Spanish or Portuguese captions, plus a chapter guide and subtitle-editing notes from Stage5.",
     keywords: [
       "Lee Jung-jae interview English subtitles",
       "Hunt interview",
@@ -38,13 +38,11 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
     h1: "Watch Lee Jung-jae Talk About Making Hunt",
     intro:
-      "Actor-turned-director Lee Jung-jae sits down with critic Lee Dong-jin to discuss his directorial debut Hunt, a spy thriller set during South Korea's turbulent 1980s. A conversation about directing for the first time that most English speakers miss because it's in Korean.",
-    section1Title: "An actor directs",
+      "The opening of Lee Dong-jin's Piarchia introduces Lee Jung-jae as the director of Hunt and asks how he feels before the film's release. This page offers a 30-second caption sample in English, Spanish and Portuguese. The filmmaking discussion continues in the full Korean interview linked from the player.",
+    section1Title: "Find the filmmaking discussion",
     section1Body: [
-      "Lee Jung-jae built a decades-long career as one of Korea's most respected actors before Squid Game made him internationally recognizable. Hunt (2022) was his first film as director—a politically charged espionage thriller about competing intelligence agencies hunting for a North Korean mole inside the South Korean presidential security service.",
-      "Lee Dong-jin is one of Korea's most respected film critics. His YouTube show Piarchia (파이아키아) gives filmmakers space to talk about their process without the usual press junket constraints. This interview happened shortly before Hunt's theatrical release in August 2022, after the film premiered at Cannes.",
-      "The conversation covers Lee's transition from acting to directing, the technical challenges of shooting action sequences, working with actors from the director's chair, and the political context that shapes Hunt's story. It's not promotional fluff. It's two people who understand film craft talking about what it takes to step behind the camera for the first time.",
-      "The interview is in Korean. English speakers who care about Korean cinema, directorial debuts, or Lee Jung-jae's work don't get to hear this conversation unless they speak the language or find subtitles.",
+      "The creator's chapter list points to screenwriting at 04:00, casting Jung Woo-sung at 06:54 and the choice of 1983 as the story's setting at 18:23. These are positions in the 42-minute original video, beyond this page's caption sample.",
+      "The creator warns of Hunt spoilers from 21:07 to 27:22. Skip that interval if you have not seen the film. The opening's reference to time remaining before release belongs to the recording; it is not a current release announcement."
     ],
     howToTitle: "How to watch the full interview with English subtitles",
     howToBody:
@@ -72,11 +70,10 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
       "Downloading videos, managing your library, editing subtitles manually, and exporting SRT files.",
     pricingPaid:
       "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
-    section2Title: "Korean film content in English",
+    section2Title: "Try editing for meaning, not just word count",
     section2Body: [
-      "Korean cinema has produced some of the most interesting film content on YouTube—director interviews, critic roundtables, behind-the-scenes breakdowns. Most of it doesn't have English subtitles. YouTube's auto-generated translations are often incomplete or missing for Korean videos, especially older content.",
-      "Translator gives you control: choose your translation model, edit the subtitles line by line, adjust timing if the captions drift, and export the final file. If you've been clicking through Korean film content, Japanese anime interviews, or Brazilian music documentaries and wishing you could follow along without guessing, this is what the app does.",
-      "This isn't about replacing your browser's auto-translate feature. This is for videos you actually want to sit down and watch—where the accuracy of the subtitles and your ability to control them matters.",
+      "The greeting identifies two people with similar names: Lee Dong-jin is the host; Lee Jung-jae is the guest and director. Keep those roles clear when shortening a subtitle. Korean forms of address can carry that information even when an English sentence would normally omit them.",
+      "Choose one question in the opening and write a shorter subtitle that preserves who is being addressed and what is being asked. Compare it with the sample while replaying the same moment. In Translator, use the subtitle editor to test the wording and reading time on a video you can use. This page supplies translated captions for only the opening 30 seconds."
     ],
     downloadTitle: "Download Translator",
     downloadBody:
@@ -88,9 +85,9 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
   },
   es: {
-    title: "Ve a Lee Jung-jae en Piarchia con Subtítulos | Translator",
+    title: "Lee Jung-jae y Hunt: demo de subtítulos de 30 segundos | Stage5",
     description:
-      "El director Lee Jung-jae discute Hunt, su debut como director, con el crítico de cine Lee Dong-jin. Una entrevista en coreano sobre cine, dirigir actores y hacer un thriller de espías.",
+      "Prueba 30 segundos de la entrevista sobre Hunt con subtítulos en inglés, español o portugués, una guía de capítulos y consejos de edición.",
     keywords: [
       "Lee Jung-jae entrevista",
       "Hunt entrevista",
@@ -99,13 +96,11 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
     h1: "Lee Jung-jae Habla Sobre la Realización de Hunt",
     intro:
-      "El actor convertido en director Lee Jung-jae se sienta con el crítico Lee Dong-jin para discutir su debut como director Hunt, un thriller de espías ambientado en los turbulentos años 80 de Corea del Sur.",
-    section1Title: "Un actor dirige",
+      "El inicio de Piarchia de Lee Dong-jin presenta a Lee Jung-jae como director de Hunt y le pregunta cómo se siente antes del estreno. Aquí puedes probar 30 segundos de subtítulos en inglés, español y portugués. La conversación sobre cine continúa en la entrevista completa en coreano, enlazada desde el reproductor.",
+    section1Title: "Encuentra la conversación sobre cine",
     section1Body: [
-      "Lee Jung-jae construyó una carrera de décadas como uno de los actores más respetados de Corea antes de que Squid Game lo hiciera reconocido internacionalmente. Hunt (2022) fue su primera película como director: un thriller de espionaje políticamente cargado sobre agencias de inteligencia que compiten para encontrar un topo norcoreano dentro del servicio de seguridad presidencial de Corea del Sur.",
-      "Lee Dong-jin es uno de los críticos de cine más respetados de Corea. Su programa de YouTube Piarchia da a los cineastas espacio para hablar sobre su proceso sin las restricciones habituales de las ruedas de prensa. Esta entrevista ocurrió poco antes del estreno teatral de Hunt en agosto de 2022, después de que la película se estrenara en Cannes.",
-      "La conversación cubre la transición de Lee de actuar a dirigir, los desafíos técnicos de filmar secuencias de acción, trabajar con actores desde la silla del director y el contexto político que da forma a la historia de Hunt.",
-      "La entrevista está en coreano. Los hablantes de español que se preocupan por el cine coreano, los debuts como director o el trabajo de Lee Jung-jae no pueden escuchar esta conversación a menos que hablen el idioma o encuentren subtítulos.",
+      "Los capítulos del canal sitúan el guion en 04:00, la elección de Jung Woo-sung en 06:54 y la ambientación en 1983 en 18:23. Son posiciones del video original de 42 minutos, fuera de esta muestra de subtítulos.",
+      "El canal advierte de spoilers de Hunt entre 21:07 y 27:22. Evita ese intervalo si no has visto la película. La referencia inicial al tiempo que falta para el estreno corresponde a la grabación; no anuncia un estreno actual."
     ],
     howToTitle: "Cómo ver la entrevista completa con subtítulos",
     howToBody:
@@ -133,11 +128,10 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
       "Descargar videos, gestionar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
     pricingPaid:
       "Transcripción y traducción con IA. Puedes usar créditos Stage5 o desbloquear BYO una vez por $10 y traer tu propia clave API de OpenAI o Anthropic.",
-    section2Title: "Contenido de cine coreano en español",
+    section2Title: "Edita el sentido, además de la longitud",
     section2Body: [
-      "El cine coreano ha producido algunos de los contenidos de cine más interesantes en YouTube: entrevistas a directores, mesas redondas de críticos, desglose detrás de escena. La mayoría no tiene subtítulos en español.",
-      "Translator te da control: elige tu modelo de traducción, edita los subtítulos línea por línea, ajusta el tiempo si los subtítulos se desvían y exporta el archivo final.",
-      "Esto no reemplaza la función de traducción automática de tu navegador. Es para videos que realmente quieres ver con cuidado.",
+      "El saludo presenta a dos personas con nombres parecidos: Lee Dong-jin es el anfitrión; Lee Jung-jae, el invitado y director. Al acortar un subtítulo, conserva esos papeles. Las formas de tratamiento coreanas pueden aportar esa información aunque una frase en español no necesite repetirla.",
+      "Elige una pregunta del inicio y redacta un subtítulo más breve que conserve a quién se dirige y qué pregunta. Compáralo con la muestra mientras repites el mismo momento. En Translator puedes probar el texto y el tiempo de lectura con un video que puedas utilizar. Esta página solo ofrece subtítulos traducidos para los primeros 30 segundos."
     ],
     downloadTitle: "Descarga Translator",
     downloadBody:
@@ -149,9 +143,9 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
   },
   ko: {
-    title: "이정재 감독의 이동진의 파이아키아 인터뷰 보기 | Translator",
+    title: "이정재의 헌트 인터뷰: 30초 자막 데모 | Stage5",
     description:
-      "배우에서 감독이 된 이정재가 영화평론가 이동진과 함께 그의 감독 데뷔작 헌트에 대해 이야기합니다. 영화 제작, 배우 연출, 스파이 스릴러 만들기에 대한 한국어 인터뷰입니다.",
+      "헌트 인터뷰의 첫 30초를 영어·스페인어·포르투갈어 자막으로 살펴보세요. 원본 영상의 주요 구간과 자막 편집 연습도 안내합니다.",
     keywords: [
       "이정재 인터뷰",
       "헌트 인터뷰",
@@ -160,13 +154,11 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
     h1: "이정재 감독의 헌트 제작 이야기",
     intro:
-      "배우에서 감독이 된 이정재가 평론가 이동진과 함께 그의 감독 데뷔작 헌트에 대해 이야기합니다. 1980년대 한국의 격동기를 배경으로 한 스파이 스릴러에 대한 대화입니다.",
-    section1Title: "배우가 감독이 되다",
+      "이동진의 파이아키아는 헌트의 감독 이정재를 소개하고 개봉을 앞둔 심정을 묻는 것으로 시작합니다. 이 페이지에서는 첫 30초의 영어·스페인어·포르투갈어 자막을 체험할 수 있습니다. 영화 제작에 관한 대화는 플레이어에 연결된 한국어 원본 영상에서 이어집니다.",
+    section1Title: "영화 제작 이야기를 찾아보세요",
     section1Body: [
-      "이정재는 오징어 게임으로 국제적으로 알려지기 전에 한국에서 가장 존경받는 배우 중 한 명으로 수십 년의 경력을 쌓았습니다. 헌트(2022)는 그의 첫 감독 작품으로, 대한민국 대통령 경호실 내부의 북한 스파이를 찾기 위해 경쟁하는 정보기관들에 대한 정치적 스파이 스릴러입니다.",
-      "이동진은 한국에서 가장 존경받는 영화 평론가 중 한 명입니다. 그의 유튜브 쇼 파이아키아는 영화 제작자들에게 일반적인 기자 회견의 제약 없이 그들의 과정에 대해 이야기할 공간을 제공합니다. 이 인터뷰는 영화가 칸에서 초연된 후 2022년 8월 헌트의 극장 개봉 직전에 이루어졌습니다.",
-      "대화는 이정재의 연기에서 연출로의 전환, 액션 시퀀스 촬영의 기술적 도전, 감독의 자리에서 배우들과 작업하는 것, 그리고 헌트의 이야기를 형성하는 정치적 맥락을 다룹니다.",
-      "인터뷰는 한국어로 진행됩니다. 한국 영화, 감독 데뷔 또는 이정재의 작품에 관심이 있는 외국어 사용자는 언어를 구사하거나 자막을 찾지 않는 한 이 대화를 들을 수 없습니다.",
+      "채널이 제공한 챕터에 따르면 시나리오 작업은 04:00, 정우성 캐스팅은 06:54, 시대적 배경을 1983년으로 정한 이유는 18:23부터 다룹니다. 모두 약 42분 길이 원본 영상의 위치이며, 이 페이지의 자막 샘플 범위 밖입니다.",
+      "채널은 21:07~27:22에 헌트 스포일러가 있다고 안내합니다. 영화를 아직 보지 않았다면 이 구간을 건너뛰세요. 도입부에서 개봉까지 남은 기간을 말하는 것은 촬영 당시의 이야기이며, 현재 개봉 일정 안내가 아닙니다."
     ],
     howToTitle: "전체 인터뷰를 자막과 함께 보는 방법",
     howToBody:
@@ -194,11 +186,10 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
       "영상 다운로드, 라이브러리 관리, 수동 자막 편집, SRT 파일 내보내기.",
     pricingPaid:
       "AI 전사 및 번역. Stage5 크레딧 사용 또는 BYO를 $10에 잠금 해제하고 자체 API 키 사용.",
-    section2Title: "한국 영화 콘텐츠",
+    section2Title: "길이를 줄여도 뜻은 남기는 자막 연습",
     section2Body: [
-      "한국 영화는 YouTube에서 가장 흥미로운 영화 콘텐츠를 제작했습니다: 감독 인터뷰, 평론가 라운드테이블, 비하인드 신 분석. 대부분은 외국어 자막이 없습니다.",
-      "Translator는 제어권을 제공합니다: 번역 모델을 선택하고, 자막을 한 줄씩 편집하고, 타이밍을 조정하고, 최종 파일을 내보냅니다.",
-      "이것은 브라우저의 자동 번역 기능을 대체하는 것이 아닙니다. 정확도가 중요한 영상을 위한 것입니다.",
+      "인사말에는 이름이 비슷한 두 사람이 나옵니다. 이동진은 진행자이고 이정재는 초대 손님이자 감독입니다. 자막을 줄일 때도 이 역할은 분명해야 합니다. 한국어 호칭이 전달하는 정보를 다른 언어에서는 이름이나 문장 구조로 풀어야 할 수도 있습니다.",
+      "도입부의 질문 하나를 골라, 누구에게 무엇을 묻는지 유지하면서 더 짧은 자막을 써 보세요. 같은 장면을 반복하며 샘플과 비교한 뒤, 사용 가능한 영상으로 Translator의 자막 편집기에서 표현과 읽는 시간을 조절해 볼 수 있습니다. 이 페이지의 번역 자막은 첫 30초에만 제공됩니다."
     ],
     downloadTitle: "Translator 다운로드",
     downloadBody:
@@ -210,9 +201,9 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
   },
   pt: {
-    title: "Assista Lee Jung-jae no Piarchia com Legendas | Translator",
+    title: "Lee Jung-jae e Hunt: demo de legendas de 30 segundos | Stage5",
     description:
-      "O diretor Lee Jung-jae discute Hunt, sua estreia na direção, com o crítico de cinema Lee Dong-jin. Uma entrevista em coreano sobre cinema, dirigir atores e fazer um thriller de espionagem.",
+      "Experimente 30 segundos da entrevista sobre Hunt com legendas em inglês, espanhol ou português, um guia de capítulos e dicas de edição.",
     keywords: [
       "Lee Jung-jae entrevista",
       "Hunt entrevista",
@@ -221,13 +212,11 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
     h1: "Lee Jung-jae Fala Sobre a Realização de Hunt",
     intro:
-      "O ator que virou diretor Lee Jung-jae se senta com o crítico Lee Dong-jin para discutir sua estreia na direção Hunt, um thriller de espionagem ambientado nos turbulentos anos 1980 da Coreia do Sul.",
-    section1Title: "Um ator dirige",
+      "A abertura do Piarchia de Lee Dong-jin apresenta Lee Jung-jae como diretor de Hunt e pergunta como ele se sente antes da estreia. Aqui você pode experimentar 30 segundos de legendas em inglês, espanhol e português. A conversa sobre cinema continua na entrevista completa em coreano, acessível pelo link no player.",
+    section1Title: "Encontre a conversa sobre cinema",
     section1Body: [
-      "Lee Jung-jae construiu uma carreira de décadas como um dos atores mais respeitados da Coreia antes que Squid Game o tornasse reconhecido internacionalmente. Hunt (2022) foi seu primeiro filme como diretor: um thriller de espionagem politicamente carregado sobre agências de inteligência que competem para encontrar um espião norte-coreano dentro do serviço de segurança presidencial da Coreia do Sul.",
-      "Lee Dong-jin é um dos críticos de cinema mais respeitados da Coreia. Seu programa no YouTube Piarchia dá aos cineastas espaço para falar sobre seu processo sem as restrições habituais das coletivas de imprensa. Esta entrevista aconteceu pouco antes da estreia teatral de Hunt em agosto de 2022, após o filme estrear em Cannes.",
-      "A conversa cobre a transição de Lee da atuação para a direção, os desafios técnicos de filmar sequências de ação, trabalhar com atores da cadeira do diretor e o contexto político que molda a história de Hunt.",
-      "A entrevista está em coreano. Falantes de português que se preocupam com o cinema coreano, estreias como diretor ou o trabalho de Lee Jung-jae não conseguem ouvir esta conversa a menos que falem o idioma ou encontrem legendas.",
+      "Os capítulos fornecidos pelo canal indicam o roteiro em 04:00, a escolha de Jung Woo-sung em 06:54 e a ambientação em 1983 em 18:23. São posições no vídeo original de 42 minutos, fora desta amostra de legendas.",
+      "O canal avisa que há spoilers de Hunt entre 21:07 e 27:22. Pule esse trecho se ainda não viu o filme. A referência inicial ao tempo que falta para a estreia diz respeito à gravação; não é um anúncio de lançamento atual."
     ],
     howToTitle: "Como assistir a entrevista completa com legendas",
     howToBody:
@@ -255,11 +244,10 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
       "Baixar vídeos, gerenciar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",
     pricingPaid:
       "Transcrição e tradução com IA. Você pode usar créditos Stage5 ou desbloquear BYO uma vez por $10 e trazer sua própria chave API do OpenAI ou Anthropic.",
-    section2Title: "Conteúdo de cinema coreano em português",
+    section2Title: "Edite o sentido, além do tamanho",
     section2Body: [
-      "O cinema coreano produziu alguns dos conteúdos de cinema mais interessantes no YouTube: entrevistas com diretores, mesas redondas de críticos, análises dos bastidores. A maioria não tem legendas em português.",
-      "O Translator dá controle: escolha seu modelo de tradução, edite as legendas linha por linha, ajuste o tempo se as legendas desviarem e exporte o arquivo final.",
-      "Isso não substitui o recurso de tradução automática do seu navegador. É para vídeos que você realmente quer assistir com atenção.",
+      "A saudação apresenta duas pessoas com nomes parecidos: Lee Dong-jin é o apresentador; Lee Jung-jae, o convidado e diretor. Ao encurtar uma legenda, mantenha esses papéis claros. As formas de tratamento em coreano podem transmitir essa informação mesmo quando uma frase em português não precisa repeti-la.",
+      "Escolha uma pergunta da abertura e escreva uma legenda mais curta que preserve a quem ela se dirige e o que pergunta. Compare com a amostra enquanto repete o mesmo momento. No Translator, teste o texto e o tempo de leitura com um vídeo que você possa utilizar. Esta página oferece legendas traduzidas apenas para os primeiros 30 segundos."
     ],
     downloadTitle: "Baixe o Translator",
     downloadBody:
@@ -271,9 +259,9 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
   },
   vi: {
-    title: "Xem Lee Jung-jae trên Piarchia của Lee Dong-jin với Phụ Đề Tiếng Việt | Translator",
+    title: "Lee Jung-jae nói về Hunt: mẫu phụ đề 30 giây | Stage5",
     description:
-      "Diễn viên겸đạo diễn Lee Jung-jae thảo luận về Hunt, tác phẩm đạo diễn đầu tay của anh, với nhà phê bình phim Lee Dong-jin. Cuộc phỏng vấn tiếng Hàn về làm phim, hành động và nghề thủ công.",
+      "Thử đoạn phỏng vấn về Hunt dài 30 giây với phụ đề Anh, Tây Ban Nha hoặc Bồ Đào Nha, kèm hướng dẫn tìm chương và luyện biên tập phụ đề.",
     keywords: [
       "Lee Jung-jae phỏng vấn",
       "Hunt phim",
@@ -283,12 +271,11 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     ],
     h1: "Xem Lee Jung-jae Thảo Luận Về Hunt",
     intro:
-      "Diễn viên겸đạo diễn Lee Jung-jae thảo luận về Hunt, tác phẩm đạo diễn đầu tay, với nhà phê bình phim Lee Dong-jin trong cuộc phỏng vấn tiếng Hàn đáng xem.",
-    section1Title: "Cuộc phỏng vấn bằng tiếng Hàn",
+      "Phần mở đầu của Piarchia do Lee Dong-jin dẫn giới thiệu Lee Jung-jae trong vai trò đạo diễn Hunt và hỏi về cảm xúc trước ngày phim ra mắt. Trang này cung cấp mẫu phụ đề 30 giây bằng tiếng Anh, Tây Ban Nha và Bồ Đào Nha. Nội dung trao đổi về làm phim tiếp tục trong video gốc tiếng Hàn, được liên kết từ trình phát.",
+    section1Title: "Tìm phần trao đổi về làm phim",
     section1Body: [
-      "Lee Jung-jae nổi tiếng với vai diễn trong Squid Game. Hunt đánh dấu lần đầu tiên anh ngồi ghế đạo diễn. Lee Dong-jin là nhà phê bình phim hàng đầu Hàn Quốc.",
-      "Trong cuộc phỏng vấn này, Lee Jung-jae nói về quá trình làm Hunt, cách anh tiếp cận cảnh hành động và những gì anh học được khi chuyển từ diễn viên sang đạo diễn.",
-      "Cuộc phỏng vấn bằng tiếng Hàn. Người nói tiếng Việt bỏ lỡ giọng điệu, chi tiết và toàn bộ cuộc trò chuyện.",
+      "Danh sách chương của kênh đánh dấu phần viết kịch bản ở 04:00, chọn Jung Woo-sung vào vai ở 06:54 và lý do đặt bối cảnh năm 1983 ở 18:23. Đây là các mốc trong video gốc dài 42 phút, nằm ngoài mẫu phụ đề trên trang này.",
+      "Kênh cảnh báo nội dung tiết lộ tình tiết Hunt từ 21:07 đến 27:22. Hãy bỏ qua đoạn đó nếu bạn chưa xem phim. Lời nhắc đầu video về thời gian còn lại trước khi công chiếu thuộc thời điểm ghi hình, không phải thông báo ra mắt hiện tại."
     ],
     howToTitle: "Cách xem toàn bộ phỏng vấn với phụ đề tiếng Việt",
     howToBody:
@@ -316,10 +303,10 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
       "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
     pricingPaid:
       "Phiên âm và dịch AI. Sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10.",
-    section2Title: "Nội dung điện ảnh Hàn Quốc bằng tiếng Việt",
+    section2Title: "Rút gọn phụ đề mà vẫn giữ ý",
     section2Body: [
-      "Điện ảnh Hàn Quốc đã tạo ra một số nội dung phim hay nhất trên YouTube. Hầu hết không có phụ đề tiếng Việt.",
-      "Translator cho bạn quyền kiểm soát: chọn mô hình dịch của bạn, chỉnh sửa phụ đề từng dòng và xuất tệp cuối cùng.",
+      "Lời chào giới thiệu hai người có tên gần giống nhau: Lee Dong-jin là người dẫn; Lee Jung-jae là khách mời và đạo diễn. Khi rút gọn phụ đề, hãy giữ rõ vai trò của họ. Cách xưng hô tiếng Hàn có thể mang thông tin này, dù câu tiếng Việt không nhất thiết phải nhắc lại.",
+      "Chọn một câu hỏi ở phần mở đầu và viết phụ đề ngắn hơn nhưng vẫn giữ rõ người được hỏi và nội dung câu hỏi. Phát lại cùng đoạn để so sánh với mẫu. Với video bạn có thể sử dụng, hãy thử cách diễn đạt và thời gian đọc trong trình biên tập phụ đề của Translator. Trang này chỉ cung cấp phụ đề dịch cho 30 giây đầu."
     ],
     downloadTitle: "Tải Translator",
     downloadBody:

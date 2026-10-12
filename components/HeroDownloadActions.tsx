@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
-import { t, Locale } from "../lib/strings";
+import { t, type Locale } from "../lib/interface-strings";
 import { DownloadButton } from "./DownloadButton";
 import { WindowsInstallHelp } from "./WindowsInstallHelp";
 
@@ -33,7 +33,7 @@ export function HeroDownloadActions({
 
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
-      <span className="text-xs uppercase tracking-widest text-gray-500">
+      <span className="text-xs uppercase tracking-widest text-gray-400">
         {hasDetectedPlatform
           ? t("homeDownloadRecommended", locale)
           : t("homeDownloadChoose", locale)}

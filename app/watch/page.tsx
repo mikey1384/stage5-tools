@@ -14,6 +14,8 @@ import { buildMetadata } from "../../lib/seo";
 import { loadWatchCatalog } from "../../lib/watch/catalog-loader";
 import { getPostCardForLocale } from "../../lib/watch/catalog";
 import { getWatchUiCopy } from "../../lib/watch/ui-copy";
+import { canonicalSiteUrl } from "../../lib/site-routing";
+import { demoDownloadCopy } from "../../lib/demo-download-copy";
 
 type WatchSupportedLocale = "en" | "es" | "ko" | "pt" | "vi";
 
@@ -27,49 +29,49 @@ const pageCopy: Record<WatchSupportedLocale, {
   intro: string;
 }> = {
   en: {
-    title: "Watch: Worked examples | Translator",
+    title: "Watch: Worked examples | Stage5",
     description:
       "See how Translator helps you watch foreign-language videos with English subtitles. Worked examples from real interviews and content worth watching.",
     eyebrow: "Worked examples",
     h1: "Watch videos worth finding.",
     intro:
-      "These posts show how Translator helps you find and watch foreign-language videos that are worth your time. Each example walks through the real workflow: paste a URL, download the video, transcribe or translate it, and watch with subtitles you can edit.",
+      "Browse interviews from film, music, and culture. Each page brings together context, the original YouTube source, and a 30-second caption preview in the available languages. Choose a conversation to explore, or follow its source link to watch the full original.",
   },
   es: {
-    title: "Ver: Ejemplos prácticos | Translator",
+    title: "Ver: Ejemplos prácticos | Stage5",
     description:
       "Ve cómo Translator te ayuda a ver videos en idiomas extranjeros con subtítulos. Ejemplos prácticos de entrevistas reales y contenido que vale la pena ver.",
     eyebrow: "Ejemplos prácticos",
     h1: "Ve videos que valen la pena encontrar.",
     intro:
-      "Estos posts muestran cómo Translator te ayuda a encontrar y ver videos en idiomas extranjeros que valen la pena. Cada ejemplo recorre el flujo real: pegar una URL, descargar el video, transcribirlo o traducirlo, y ver con subtítulos que puedes editar.",
+      "Explora entrevistas de cine, música y cultura. Cada página reúne contexto, la fuente original de YouTube y un avance subtitulado de 30 segundos en los idiomas disponibles. Elige una conversación o sigue el enlace a la fuente para ver el original completo.",
   },
   ko: {
-    title: "보기: 실제 예시 | Translator",
+    title: "보기: 실제 예시 | Stage5",
     description:
       "Translator가 외국어 영상을 자막과 함께 시청하는 데 어떻게 도움이 되는지 확인하세요. 실제 인터뷰와 볼 가치가 있는 콘텐츠의 예시입니다.",
     eyebrow: "실제 예시",
     h1: "찾을 가치가 있는 영상을 보세요.",
     intro:
-      "이 게시물은 Translator가 시간을 들일 가치가 있는 외국어 영상을 찾고 시청하는 데 어떻게 도움이 되는지 보여줍니다. 각 예시는 실제 워크플로우를 안내합니다: URL 붙여넣기, 영상 다운로드, 전사 또는 번역, 편집 가능한 자막으로 시청.",
+      "영화, 음악, 문화 인터뷰를 둘러보세요. 각 페이지는 대화의 배경, YouTube 원본 링크, 사용 가능한 언어로 된 30초 자막 미리보기를 제공합니다. 관심 있는 대화를 고르거나 원본 링크에서 전체 영상을 시청하세요.",
   },
   pt: {
-    title: "Assistir: Exemplos práticos | Translator",
+    title: "Assistir: Exemplos práticos | Stage5",
     description:
       "Veja como o Translator ajuda você a assistir vídeos em idiomas estrangeiros com legendas. Exemplos práticos de entrevistas reais e conteúdo que vale a pena assistir.",
     eyebrow: "Exemplos práticos",
     h1: "Assista vídeos que valem a pena encontrar.",
     intro:
-      "Esses posts mostram como o Translator ajuda você a encontrar e assistir vídeos em idiomas estrangeiros que valem seu tempo. Cada exemplo percorre o fluxo real: cole uma URL, baixe o vídeo, transcreva ou traduza, e assista com legendas que você pode editar.",
+      "Explore entrevistas de cinema, música e cultura. Cada página reúne contexto, a fonte original no YouTube e uma prévia legendada de 30 segundos nos idiomas disponíveis. Escolha uma conversa ou siga o link da fonte para assistir ao original completo.",
   },
   vi: {
-    title: "Xem: Ví dụ thực tế | Translator",
+    title: "Xem: Ví dụ thực tế | Stage5",
     description:
       "Xem cách Translator giúp bạn xem video ngoại ngữ với phụ đề tiếng Việt. Các ví dụ thực tế từ phỏng vấn và nội dung đáng xem.",
     eyebrow: "Ví dụ thực tế",
     h1: "Xem video đáng để tìm hiểu.",
     intro:
-      "Các bài viết này cho thấy Translator giúp bạn tìm và xem video ngoại ngữ đáng giá thời gian. Mỗi ví dụ hướng dẫn quy trình thực tế: dán URL, tải video, phiên âm hoặc dịch, và xem với phụ đề có thể chỉnh sửa.",
+      "Khám phá phỏng vấn về điện ảnh, âm nhạc và văn hóa. Mỗi trang có bối cảnh, liên kết YouTube gốc và bản xem trước 30 giây với các ngôn ngữ phụ đề hiện có. Chọn cuộc trò chuyện bạn quan tâm hoặc theo liên kết nguồn để xem toàn bộ video gốc.",
   },
 };
 
@@ -115,6 +117,7 @@ export default async function WatchIndexPage({
     return card ? [card] : [];
   });
   const ui = getWatchUiCopy(locale);
+  const download = demoDownloadCopy[locale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
@@ -122,6 +125,7 @@ export default async function WatchIndexPage({
     <main className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-6">
         <SiteNav
+          site="stage5"
           locale={locale}
           supportedLocales={WATCH_LOCALIZED_LOCALES}
         />
@@ -144,6 +148,10 @@ export default async function WatchIndexPage({
             <p className="mt-6 max-w-2xl text-lg leading-8 text-gray-300">
               {copy.intro}
             </p>
+            <div className="mt-7 flex max-w-2xl flex-wrap items-center gap-4">
+              <a href={canonicalSiteUrl(localizePathForLocale(locale, "/#all-downloads"))} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#a9bfff] px-5 py-3 text-base font-semibold text-black transition hover:bg-white">{download.translatorLabel} <span className="ml-2" aria-hidden="true">↗</span></a>
+              <p className="max-w-sm text-sm leading-6 text-gray-300">{download.translatorBody}</p>
+            </div>
           </div>
 
           <div className="mt-16 grid gap-6 lg:grid-cols-2">
@@ -153,7 +161,7 @@ export default async function WatchIndexPage({
                 href={localizeHref(`/watch/${post.slug}`)}
                 className="group rounded-[28px] border border-white/10 bg-white/[0.04] p-8 transition hover:border-white/20 hover:bg-white/[0.06]"
               >
-                <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
+                <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">
                   {post.eyebrow ? (
                     <span>{post.eyebrow}</span>
                   ) : (

@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import { ADSENSE_CLIENT_ID } from "../lib/adsense";
 import { getLocale } from "../lib/get-locale";
+import { getSite } from "../lib/get-site";
+import { STAGE5_ORIGIN, TRANSLATOR_ORIGIN } from "../lib/site-routing";
 import { serializeJsonLd } from "../lib/json-ld";
 import { HOME_LOCALIZED_LOCALES } from "../lib/locales";
 import { createGtmProductionBootstrap } from "../lib/third-party-script-bootstrap";
+import { AnalyticsConsent } from "../components/AnalyticsConsent";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,40 +26,41 @@ const montserrat = Montserrat({
   weight: ["400", "500", "700"],
 });
 
-export const runtime = "edge";
-
-export const metadata: Metadata = {
-  metadataBase: new URL("https://translator.tools"),
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+  metadataBase: new URL((await getSite()) === "stage5" ? STAGE5_ORIGIN : TRANSLATOR_ORIGIN),
   icons: {
-    icon: "/translator-icon.png",
-    apple: "/translator-icon.png",
+    icon: { url: "/icon.png", sizes: "128x128", type: "image/png" },
+    apple: { url: "/apple-touch-icon.png", sizes: "256x256", type: "image/png" },
   },
   other: {
     "google-adsense-account": ADSENSE_CLIENT_ID,
   },
-};
+  };
+}
 
 const organizationStructuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Stage5 Tools",
-  url: "https://translator.tools",
-  logo: "https://translator.tools/translator-icon.png",
-  sameAs: ["https://github.com/mikey1384/translator"],
+  url: STAGE5_ORIGIN,
+  logo: "https://stage5.tools/brand/stage5-wordmark-v1.png",
+  legalName: "Stage5 Tools LLC",
+  sameAs: ["https://www.youtube.com/@stage_5", "https://x.com/stage5tools", "https://github.com/mikey1384/translator"],
 };
 
-const websiteStructuredData = {
+function websiteStructuredData(isStage5: boolean) { return {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Translator",
-  url: "https://translator.tools",
+  name: isStage5 ? "Stage5" : "Translator",
+  url: isStage5 ? STAGE5_ORIGIN : TRANSLATOR_ORIGIN,
   inLanguage: [...HOME_LOCALIZED_LOCALES],
   publisher: {
     "@type": "Organization",
     name: "Stage5 Tools",
-    url: "https://translator.tools",
+    url: STAGE5_ORIGIN,
   },
-};
+}; }
 
 export default async function RootLayout({
   children,
@@ -64,6 +68,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
+  const isStage5 = (await getSite()) === "stage5";
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
@@ -72,13 +77,13 @@ export default async function RootLayout({
         <link
           rel="alternate"
           type="text/plain"
-          href="/llms.txt"
+          href="https://translator.tools/llms.txt"
           title="Translator summary for LLMs"
         />
         <link
           rel="alternate"
           type="application/json"
-          href="/agent-manifest.json"
+          href="https://translator.tools/agent-manifest.json"
           title="Translator agent manifest"
         />
       </head>
@@ -104,10 +109,11 @@ export default async function RootLayout({
           id="structured-data-website"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: serializeJsonLd(websiteStructuredData),
+            __html: serializeJsonLd(websiteStructuredData(isStage5)),
           }}
         />
         {children}
+        {gtmId ? <AnalyticsConsent /> : null}
       </body>
     </html>
   );

@@ -46,7 +46,7 @@ export function FeatureDownloadCta({
       {note ? (
         <p
           className={[
-            "mt-4 text-sm text-gray-500",
+            "mt-4 text-sm text-gray-400",
             isCentered ? "text-center" : "text-left",
           ].join(" ")}
         >

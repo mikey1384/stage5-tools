@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy - Echo",
   description: "Privacy Policy for Echo, the daily reflection app by Stage5",
+  alternates: { canonical: "https://stage5.tools/echo/privacy" },
   robots: {
     index: false,
     follow: false,
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy - Echo",
     description: "Privacy Policy for Echo, the daily reflection app by Stage5",
-    url: "https://translator.tools/echo/privacy",
+    url: "https://stage5.tools/echo/privacy",
     siteName: "Echo by Stage5",
     type: "article",
   },
@@ -30,6 +31,24 @@ export default function EchoPrivacyPolicy() {
         <p className="text-sm text-gray-400 mb-12">Last updated: January 23, 2026</p>
 
         <div className="prose prose-gray max-w-none">
+          <section className="mb-10" id="reflect">
+            <h2 className="text-2xl font-semibold mb-4">Reflect web demo</h2>
+            <p className="mb-4">
+              Reflect is a browser writing demo operated by Stage5 Tools LLC. It does
+              not require an account, send your writing for AI analysis, or load
+              advertising or analytics tags. Your writing stays in the current page
+              unless you choose Save draft on this device in At my pace mode.
+            </p>
+            <p className="mb-4">
+              Saving keeps one draft per selected language in this browser until you
+              delete it in the demo or clear this site&apos;s browser data. Other people
+              using the same browser profile may be able to open that draft. Flow
+              writing is not saved between visits. The website host processes normal
+              page requests, including your IP address; those requests do not contain
+              your writing. Privacy questions: <a href="mailto:mikey@stage5.tools">mikey@stage5.tools</a>.
+            </p>
+            <p className="text-sm">Web demo disclosure added September 7, 2026. The mobile app policy below is separate.</p>
+          </section>
           <section className="mb-10">
             <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
             <p className="mb-4">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Support - Echo",
   description: "Get help with Echo, the daily reflection app by Stage5",
+  alternates: { canonical: "https://stage5.tools/echo/support" },
   robots: {
     index: false,
     follow: false,
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Support - Echo",
     description: "Get help with Echo, the daily reflection app by Stage5",
-    url: "https://translator.tools/echo/support",
+    url: "https://stage5.tools/echo/support",
     siteName: "Echo by Stage5",
     type: "website",
   },

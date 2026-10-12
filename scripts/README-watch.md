@@ -43,6 +43,14 @@ When `WATCH_ASSETS_BASE` is unset, behavior equals today: bundled catalog + `pub
 
 ## Scripts
 
+Caption uploads are preflighted as a complete batch before any upload. Both
+publishing paths reject malformed, empty, overlapping, punctuation-only,
+out-of-preview, or shorter-than-100ms cues. The 100ms floor catches obvious
+flashes; it is not a complete reading-speed, translation, or advertising check.
+Review the original source before repairing flagged timing. Existing remote
+captions are not silently changed or removed, and a catalog-only correction
+does not re-upload legacy caption files. Uploads use the exact bytes validated.
+
 ### Seed (One-time)
 
 Upload all current watch pages and VTT files to R2:
@@ -216,3 +224,14 @@ Examples:
 The current runtime fetches the complete JSON catalog. Before growing into the
 thousands of entries, move to a small index plus per-slug manifests so each page
 request does not download and parse the entire catalog.
+
+### Video publication timestamps
+
+Keep `datePublished` as its existing `YYYY-MM-DD` calendar date. Put the verified
+source publication timestamp (including time and timezone) in the existing
+`structuredDataAbout` VideoObject `uploadDate`, for example
+`2026-06-11T00:22:41-07:00`. Preserve source evidence; do not infer midnight or
+a timezone from a date-only value. The renderer uses this timestamp when valid
+and retains the old calendar date for legacy entries without one. Publication
+validation rejects malformed timestamps; the rendered SEO audit flags any
+remaining date-only video markup.

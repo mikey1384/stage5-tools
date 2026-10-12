@@ -1,0 +1,12 @@
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable
+
+/practice/stage5-original-practice.en.srt
+  Content-Type: application/x-subrip; charset=utf-8
+  Content-Disposition: attachment; filename="stage5-original-practice.en.srt"
+  X-Robots-Tag: noindex
+
+/practice/stage5-original-practice.ko.srt
+  Content-Type: application/x-subrip; charset=utf-8
+  Content-Disposition: attachment; filename="stage5-original-practice.ko.srt"
+  X-Robots-Tag: noindex

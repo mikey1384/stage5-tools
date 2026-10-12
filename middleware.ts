@@ -17,6 +17,7 @@ import {
   isEnglishOnlyPath,
   type Locale,
 } from "./lib/locales";
+import { canonicalRedirectUrl, siteForHostname } from "./lib/site-routing";
 import { isProductionHostname } from "./lib/third-party-script-bootstrap";
 
 const LOCALE_COOKIE = "lang";
@@ -96,8 +97,12 @@ export function middleware(req: NextRequest) {
   const isLocalizedPath = pathLocale !== DEFAULT_LOCALE;
   const isCrawler = isCrawlerRequest(req);
   const requestHostname = getRequestHostname(req);
-  // `_next`, public files, and other asset-like requests are already excluded by
-  // `config.matcher`, so this only covers app routes that should never be locale-prefixed.
+  const canonicalRedirect = canonicalRedirectUrl(requestHostname, `${pathname}${url.search}`);
+  if (canonicalRedirect) return NextResponse.redirect(canonicalRedirect, 308);
+  const isStage5 = siteForHostname(requestHostname) === "stage5";
+  const isServiceRoute = pathname.startsWith("/api/") || pathname.includes(".");
+  if (isServiceRoute) return applySearchIndexingGuard(NextResponse.next(), requestHostname);
+  // Assets and APIs returned above; remaining app routes may need locale handling.
   const isLocaleRedirectExcluded = isLocaleRedirectExcludedRoute(englishPath);
   const respond = (response: NextResponse) =>
     applySearchIndexingGuard(response, requestHostname);
@@ -167,7 +172,7 @@ export function middleware(req: NextRequest) {
     return respond(res);
   }
 
-  if (!isCrawler && !isLocalizedPath && !isLocaleRedirectExcluded) {
+  if (!isCrawler && !isLocalizedPath && !isLocaleRedirectExcluded && !isStage5) {
     if (
       cookieLocale &&
       isFullSiteLocale(cookieLocale) &&
@@ -232,7 +237,7 @@ export const config = {
   matcher: [
     {
       source:
-        "/((?!api|_next|favicon.ico|icon.svg|robots.txt|sitemap.xml|.*\\..*).*)",
+        "/((?!_next).*)",
       missing: [{ type: "header", key: "x-stage5-locale-rewrite" }],
     },
   ],

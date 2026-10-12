@@ -1,0 +1,29 @@
+# Production Worker. Routes match the verified September 5 migration.
+# The named workers.dev preview remains excluded from indexing and Google tags.
+name = "stage5-web"
+main = "worker.mjs"
+compatibility_date = "2026-09-05"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+workers_dev = true
+preview_urls = false
+routes = [
+  { pattern = "https://stage5.tools/*", zone_id = "dad4e5de2c177e94fa573434bd0f3803" },
+  { pattern = "https://www.stage5.tools/*", zone_id = "dad4e5de2c177e94fa573434bd0f3803" },
+  { pattern = "https://translator.tools/*", zone_id = "29478b18d6dea23293c895176357f7c2" },
+  { pattern = "https://www.translator.tools/*", zone_id = "29478b18d6dea23293c895176357f7c2" }
+]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+run_worker_first = true
+
+[[services]]
+binding = "WORKER_SELF_REFERENCE"
+service = "stage5-web"
+
+[vars]
+STAGE5_PREVIEW_HOST = "stage5-web.mikey1384.workers.dev"
+WATCH_ASSETS_BASE = "https://downloads.stage5.tools/watch"
+NEXT_PUBLIC_GTM_ID = "GTM-WTQTZDM4"
+NEXT_PUBLIC_WATCH_ADS_ENABLED = "false"

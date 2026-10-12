@@ -1,5 +1,7 @@
 "use client";
 
+import { getWatchExperienceCopy } from "../lib/watch/experience-copy";
+import { getVideoChoiceCopy } from "../lib/watch/video-choice-copy";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { FeatureDownloadCta } from "./FeatureDownloadCta";
@@ -29,11 +31,13 @@ declare global {
         elementId: string,
         config: {
           videoId: string;
+          host?: string;
           playerVars?: {
             rel?: number;
-            modestbranding?: number;
+            origin?: string;
           };
           events?: {
+            onError?: () => void;
             onReady?: (event: { target: YouTubePlayer }) => void;
             onStateChange?: (event: { data: number; target: YouTubePlayer }) => void;
           };
@@ -65,6 +69,7 @@ const CUTOFF_TIME = 30;
 
 interface YouTubeDemoProps {
   locale: Locale;
+  playerOrigin: string;
   slug: string;
   videoId: string;
   sourceLang: TrackLang;
@@ -74,8 +79,55 @@ interface YouTubeDemoProps {
   vttSlug?: string;
 }
 
-export function YouTubeDemo({
+export function YouTubeDemo(props: YouTubeDemoProps) {
+  return <YouTubeChoice key={`${props.locale}:${props.slug}:${props.videoId}`} {...props} />;
+}
+
+function YouTubeChoice(props: YouTubeDemoProps) {
+  const [connected, setConnected] = useState(false);
+  const choice = getVideoChoiceCopy(props.locale);
+
+  return (
+    <section data-youtube-choice="required" data-player-origin={props.playerOrigin}>
+      {connected ? (
+        <>
+          <YouTubePlayerPreview {...props} />
+          <div className="mt-4 space-y-2 border-t border-white/10 pt-4">
+            <button type="button" onClick={() => window.location.reload()}
+              className="rounded-lg border border-white/20 px-4 py-2 text-sm text-white hover:bg-white/10">
+              {choice.disconnect}
+            </button>
+            <p className="text-xs leading-relaxed text-gray-400">{choice.withdrawal}</p>
+          </div>
+        </>
+      ) : (
+        <div className="flex min-h-[240px] flex-col justify-center gap-4 rounded-2xl border border-white/15 bg-white/5 p-6 md:p-8">
+          <p className="text-xs tracking-widest text-sky-200">YouTube</p>
+          <h3 className="text-xl font-semibold text-white">{choice.title}</h3>
+          <p className="max-w-2xl text-sm leading-relaxed text-gray-300">{choice.body}</p>
+          <a className="w-fit text-sm text-sky-200 underline underline-offset-4"
+            href={`https://policies.google.com/privacy?hl=${props.locale}`} target="_blank" rel="noopener noreferrer">
+            {choice.privacy}
+          </a>
+          <div className="flex flex-wrap items-center gap-4">
+            <button type="button" onClick={() => setConnected(true)}
+              className="rounded-lg bg-sky-600 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-500">
+              {choice.load}
+            </button>
+            <a className="text-sm text-sky-200 underline underline-offset-4"
+              href={`https://www.youtube.com/watch?v=${props.videoId}`} target="_blank" rel="noopener noreferrer">
+              {choice.source}
+            </a>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function YouTubePlayerPreview({
   locale,
+  playerOrigin,
   slug,
   videoId,
   sourceLang,
@@ -85,10 +137,15 @@ export function YouTubeDemo({
   vttSlug,
 }: YouTubeDemoProps) {
   const uiCopy = getWatchUiCopy(locale);
+  const experience = getWatchExperienceCopy(locale);
+  const [playerError, setPlayerError] = useState(false);
+  const [captionError, setCaptionError] = useState(false);
   const playerRef = useRef<YouTubePlayer | null>(null);
+  const playerReadyRef = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const showOverlayRef = useRef(false);
+  const replayPendingRef = useRef(false);
   const captionsRef = useRef<Caption[]>([]);
   const [showOverlay, setShowOverlay] = useState(false);
   const [currentCaption, setCurrentCaption] = useState<string>("");
@@ -103,6 +160,7 @@ export function YouTubeDemo({
   }, [selectedLang]);
 
   useEffect(() => {
+    setCaptionError(false);
     if (selectedLang === "off") {
       captionsRef.current = [];
       setCurrentCaption("");
@@ -118,7 +176,7 @@ export function YouTubeDemo({
         const vttPath = vttSlug || slug;
         const response = await fetch(
           `/api/watch-vtt/${vttPath}.${selectedLang}.30s.vtt`,
-          { signal: controller.signal },
+          { signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10_000)]) },
         );
         if (!isCurrentRequest) return;
         if (response.ok) {
@@ -126,6 +184,7 @@ export function YouTubeDemo({
           if (!isCurrentRequest) return;
           const parsed = parseVTT(vttText);
           captionsRef.current = parsed;
+          setCaptionError(parsed.length === 0);
           trackWatchCaptionLoad(
             createWatchCaptionLoadEvent({
               pagePath: window.location.pathname,
@@ -142,6 +201,7 @@ export function YouTubeDemo({
             startTimeCheck();
           }
         } else {
+          setCaptionError(true);
           trackWatchCaptionLoad(
             createWatchCaptionLoadEvent({
               pagePath: window.location.pathname,
@@ -157,6 +217,7 @@ export function YouTubeDemo({
         }
       } catch {
         if (!isCurrentRequest || controller.signal.aborted) return;
+        setCaptionError(true);
         trackWatchCaptionLoad(
           createWatchCaptionLoadEvent({
             pagePath: window.location.pathname,
@@ -192,6 +253,7 @@ export function YouTubeDemo({
         const tag = document.createElement("script");
         tag.id = "youtube-iframe-api";
         tag.src = "https://www.youtube.com/iframe_api";
+        tag.onerror = () => setPlayerError(true);
         const firstScriptTag = document.getElementsByTagName("script")[0];
         firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
       }
@@ -204,6 +266,7 @@ export function YouTubeDemo({
     }
 
     return () => {
+      playerReadyRef.current = false;
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
@@ -267,12 +330,16 @@ export function YouTubeDemo({
 
     playerRef.current = new window.YT.Player(`youtube-player-${slug}`, {
       videoId,
+      host: "https://www.youtube-nocookie.com",
       playerVars: {
         rel: 0,
-        modestbranding: 1,
+        origin: window.location.origin,
       },
       events: {
-        onReady: () => {
+        onError: () => setPlayerError(true),
+        onReady: (event) => {
+          if (event.target !== playerRef.current) return;
+          playerReadyRef.current = true;
           startTimeCheck();
         },
         onStateChange: (event) => {
@@ -299,14 +366,22 @@ export function YouTubeDemo({
   };
 
   const startTimeCheck = () => {
+    if (!playerReadyRef.current) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
     intervalRef.current = setInterval(() => {
-      if (!playerRef.current) return;
+      if (!playerReadyRef.current || !playerRef.current) return;
 
       const currentTime = playerRef.current.getCurrentTime();
+
+      // seekTo is asynchronous. Ignore the previous endpoint until the player
+      // reports that replay has actually moved back into the preview.
+      if (replayPendingRef.current) {
+        if (currentTime >= CUTOFF_TIME) return;
+        replayPendingRef.current = false;
+      }
 
       if (captionsRef.current.length > 0 && selectedLangRef.current !== "off") {
         const caption = captionsRef.current.find(
@@ -341,6 +416,7 @@ export function YouTubeDemo({
 
   const handleReplay = () => {
     if (playerRef.current) {
+      replayPendingRef.current = true;
       showOverlayRef.current = false;
       setShowOverlay(false);
       setCurrentCaption("");
@@ -351,7 +427,8 @@ export function YouTubeDemo({
   };
 
   const handleDismiss = () => {
-    showOverlayRef.current = false;
+    // Keep the preview-completed marker so resuming the source is not blocked again.
+    showOverlayRef.current = true;
     setShowOverlay(false);
   };
 
@@ -391,88 +468,40 @@ export function YouTubeDemo({
   ];
 
   return (
-    <div ref={containerRef} className="relative">
-      <div className="aspect-video overflow-hidden rounded-2xl border border-white/10 bg-black">
-        <div id={`youtube-player-${slug}`} className="h-full w-full" />
-
-        <div
-          aria-label={uiCopy.captionLanguageLabel}
-          className="pointer-events-auto absolute right-4 top-4 flex gap-1 rounded-lg bg-black/80 p-1 shadow-lg"
-        >
-          {allLanguageOptions.map((lang) => (
-            <button
-              key={lang}
-              onClick={() => handleLanguageChange(lang)}
-              className={`rounded px-3 py-1 text-sm font-medium transition ${
-                selectedLang === lang
-                  ? "bg-white/20 text-white"
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              {lang === "off" ? uiCopy.off : WATCH_LANGUAGE_LABELS[lang]}
-            </button>
-          ))}
-        </div>
-
-        {currentCaption && !showOverlay && selectedLang !== "off" && (
-          <div className="pointer-events-none absolute bottom-8 left-0 right-0 flex justify-center px-4">
-            <div className="rounded-lg bg-black/90 px-3 py-1.5 text-center text-sm font-medium text-white shadow-lg sm:px-4 sm:py-2 sm:text-base">
-              {currentCaption}
-            </div>
-          </div>
-        )}
-
-        {showOverlay && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-            <div className="mx-4 max-w-2xl rounded-2xl border border-white/10 bg-black/90 p-8 text-center">
-              <h3 className="text-2xl font-semibold text-white">
-                {uiCopy.firstThirtySeconds}
-              </h3>
-              <p className="mt-4 text-lg text-gray-300">
-                {uiCopy.restInTranslator}
-              </p>
-
-              <div className="mt-8 flex flex-col gap-4">
-                <FeatureDownloadCta
-                  locale={locale}
-                  note={uiCopy.playerDownloadNote}
-                  align="center"
-                  watchContext={{
-                    slug,
-                    videoId,
-                    locale,
-                    sourceLang,
-                    selectedLang: selectedLang === "off" ? "off" : selectedLang,
-                    placement: "cutoff",
-                  }}
-                />
-                <Link
-                  href={videoDownloaderHref}
-                  className="inline-flex items-center justify-center rounded-xl border border-sky-500/50 bg-sky-500/10 px-6 py-3 text-base font-semibold text-sky-200 transition hover:border-sky-400 hover:bg-sky-500/20"
-                >
-                  {uiCopy.learnVideoDownloading}
-                </Link>
-              </div>
-
-              <div className="mt-6 flex items-center justify-center gap-4 border-t border-white/10 pt-6 text-sm">
-                <button
-                  onClick={handleReplay}
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  {uiCopy.replay}
-                </button>
-                <span className="text-gray-700">·</span>
-                <button
-                  onClick={handleDismiss}
-                  className="text-gray-400 transition hover:text-white"
-                >
-                  {uiCopy.dismiss}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+    <div ref={containerRef} className="space-y-4">
+      <p className="text-sm text-gray-300">{uiCopy.firstThirtySeconds} · <a className="text-sky-200 underline underline-offset-4" href={`https://www.youtube.com/watch?v=${videoId}`}>{experience.original}</a></p>
+      <div className="aspect-video min-h-[200px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
+        <iframe
+          id={`youtube-player-${slug}`}
+          title={`${uiCopy.watch}: ${slug.replaceAll("-", " ")}`}
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1&origin=${encodeURIComponent(playerOrigin)}&rel=0`}
+          className="h-full min-h-[200px] w-full"
+          allow="encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
       </div>
+      <p className="text-xs text-gray-400">{experience.vendor}</p>
+      {playerError && <p role="status" className="text-amber-200">{experience.unavailable}</p>}
+      <div aria-label={uiCopy.captionLanguageLabel} className="flex flex-wrap gap-2">
+        {allLanguageOptions.map(lang => <button key={lang} onClick={() => handleLanguageChange(lang)} aria-pressed={selectedLang === lang} className={`rounded-lg px-3 py-2 text-sm ${selectedLang === lang ? "bg-white/20 text-white" : "text-gray-400 hover:text-white"}`}>
+          {lang === "off" ? uiCopy.off : WATCH_LANGUAGE_LABELS[lang]}
+        </button>)}
+      </div>
+      <div className="flex min-h-24 items-center justify-center rounded-xl bg-white/5 px-4 py-3 text-center text-base text-white">
+        {captionError ? experience.captionsUnavailable : currentCaption || uiCopy.firstThirtySeconds}
+      </div>
+      {showOverlay && <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h3 className="text-xl font-semibold">{uiCopy.firstThirtySeconds}</h3>
+        <p className="mt-3 text-gray-300">{uiCopy.restInTranslator}</p>
+        <a className="mt-4 inline-block text-sky-200 underline underline-offset-4" href={`https://www.youtube.com/watch?v=${videoId}`}>{experience.original}</a>
+        <div className="mt-5 flex gap-6 text-sm">
+          <button onClick={handleReplay} className="text-gray-300 underline">{uiCopy.replay}</button>
+          <button onClick={handleDismiss} className="text-gray-300 underline">{uiCopy.dismiss}</button>
+        </div>
+        <div className="mt-6"><FeatureDownloadCta locale={locale} note={uiCopy.playerDownloadNote} watchContext={{ slug, videoId, locale, sourceLang, selectedLang, placement: "cutoff" }} /></div>
+        <Link href={videoDownloaderHref} className="mt-4 inline-block text-sky-200 underline">{uiCopy.learnVideoDownloading}</Link>
+      </div>}
     </div>
   );
 }

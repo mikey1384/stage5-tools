@@ -4,14 +4,16 @@ import {
   localizePathForLocale,
   localizeSupportedPathForLocale,
   type Locale,
+  WATCH_LOCALIZED_LOCALES,
+  HOME_LOCALIZED_LOCALES,
 } from "../lib/locales";
+import { getSite } from "../lib/get-site";
+import { STAGE5_ORIGIN, TRANSLATOR_ORIGIN, type Site } from "../lib/site-routing";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
 import { loadWatchCatalog } from "../lib/watch/catalog-loader";
 import { getWatchSupportedLocales } from "../lib/watch/catalog";
 
-const BASE_URL = "https://translator.tools";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 type RouteDef = {
@@ -41,16 +43,20 @@ const staticRoutes: RouteDef[] = [
   { path: "/terms" },
 ];
 
-function absoluteUrl(path: string): string {
-  return new URL(path, BASE_URL).toString();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return buildSiteSitemap(await getSite());
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const watchRoutes: RouteDef[] = (await loadWatchCatalog()).map((video) => ({
+export async function buildSiteSitemap(site: Site): Promise<MetadataRoute.Sitemap> {
+  const isStage5 = site === "stage5";
+  const absoluteUrl = (path: string) => new URL(path, isStage5 ? STAGE5_ORIGIN : TRANSLATOR_ORIGIN).toString();
+  const watchRoutes: RouteDef[] = isStage5 ? (await loadWatchCatalog()).map((video) => ({
     path: `/watch/${video.slug}`,
     availableLocales: getWatchSupportedLocales(video),
-  }));
-  const routes = [...staticRoutes, ...watchRoutes];
+  })) : [];
+  const routes: RouteDef[] = isStage5
+    ? [{ path: "/", availableLocales: HOME_LOCALIZED_LOCALES }, { path: "/echo" }, { path: "/reflect" }, { path: "/watch", availableLocales: WATCH_LOCALIZED_LOCALES }, ...watchRoutes]
+    : staticRoutes.filter(route => route.path !== "/watch" && route.path !== "/echo");
 
   return routes.flatMap((route) => {
     const availableLocales = route.availableLocales

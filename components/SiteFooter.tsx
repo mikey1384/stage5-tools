@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { canonicalSiteUrl } from "../lib/site-routing";
+import Link from "./PolicySafeLink";
 import { t, Locale } from "../lib/strings";
 import { localizePathForLocale } from "../lib/locale-routing";
 
@@ -53,14 +54,14 @@ export function SiteFooter({ locale }: SiteFooterProps) {
         <div className="grid gap-12 md:grid-cols-4">
           {footerLinks.map((group) => (
             <div key={group.titleKey}>
-              <div className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+              <div className="text-sm font-semibold uppercase tracking-widest text-gray-400">
                 {t(group.titleKey, locale)}
               </div>
               <ul className="mt-4 space-y-3 text-sm text-gray-400">
                 {group.links.map((link) => (
                   <li key={link.href}>
                     <Link
-                      href={localizePathForLocale(locale, link.href)}
+                      href={canonicalSiteUrl(localizePathForLocale(locale, link.href))}
                       className="transition hover:text-white"
                     >
                       {t(link.labelKey, locale)}
@@ -72,7 +73,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-gray-900 pt-8 text-sm text-gray-500 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-gray-900 pt-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
           <span>{t("copyright", locale)}</span>
           <span>
             {t("footerQuestions", locale)}{" "}

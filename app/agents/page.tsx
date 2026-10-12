@@ -18,16 +18,20 @@ const HOMEBREW_TAP_URL = "https://github.com/mikey1384/homebrew-translator";
 const HOMEBREW_INSTALL_COMMAND =
   "brew install --cask mikey1384/translator/stage5-translator";
 
-const title = "Translator for LLM agents | Agent Control in finished installs";
+const MAC_LAUNCHER = "/Applications/Translator.app/Contents/Resources/translator-mcp";
+
+const title = "Subtitle videos with Claude or Codex | Translator MCP";
 const description =
-  "Control the installed Translator app through packaged MCP tools. Enable Agent Control in Settings, and an LLM agent can download videos, transcribe, translate, export SRT or burned-in video from the same desktop app you already use.";
+  "Connect Translator to the Claude or Codex subscription you already have. Your agent downloads the video, pulls its captions, translates them itself and exports SRT or a subtitled video. No Stage5 credits for videos that have captions.";
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
+    "Claude subtitle translation",
+    "Codex MCP video",
     "MCP video translator",
-    "LLM video tools",
+    "translate YouTube subtitles with Claude",
     "AI agent subtitle editor",
     "MCP subtitle translation",
     "agent-friendly desktop app",
@@ -67,7 +71,7 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  headline: "Use Translator with an LLM agent",
+  headline: "Subtitle videos with the Claude or Codex subscription you already have",
   description,
   url: "https://translator.tools/agents",
   about: {
@@ -85,26 +89,51 @@ const structuredData = {
   },
 };
 
+const clients = [
+  {
+    name: "Claude Code",
+    how: "Run once in a terminal:",
+    snippet: `claude mcp add translator -- ${MAC_LAUNCHER}`,
+  },
+  {
+    name: "Codex",
+    how: "Run once in a terminal:",
+    snippet: `codex mcp add translator -- ${MAC_LAUNCHER}`,
+  },
+  {
+    name: "Claude Desktop",
+    how: "Add to claude_desktop_config.json (Settings → Developer → Edit Config), then restart Claude:",
+    snippet: `{
+  "mcpServers": {
+    "translator": { "command": "${MAC_LAUNCHER}" }
+  }
+}`,
+  },
+] as const;
+
+const FREE_PROMPT =
+  "Use the Translator tools to subtitle https://www.youtube.com/watch?v=… in Spanish. Use the video's existing captions, translate them yourself with translation_provider agent, and export an SRT. Don't use paid transcription.";
+
 const capabilities = [
   {
     number: "01",
-    title: "Find and bring in video",
-    body: "Enter a video URL, use the built-in ranked video search, load more results, batch-download selected results, or reopen and re-download items from the Downloads library.",
+    title: "Bring in the video and its captions",
+    body: "Download from a URL, check which caption tracks the video has (creator, auto-generated or YouTube's translated tracks) and import the one to start from.",
   },
   {
     number: "02",
-    title: "Control the viewing workspace",
-    body: "Open videos and SRT files, switch between original, translation, or dual subtitles, choose Default, Classic, Boxed, or LineBox styling, and move to any app page the user asks to see.",
+    title: "Translate with your own subscription",
+    body: "Your agent reads the subtitles in batches, translates them itself and writes them back by cue ID. Translator checks the result and never falls back to paid translation on this path.",
   },
   {
     number: "03",
-    title: "Translate and review subtitles",
-    body: "Work through SRT files in context-preserving batches, edit translations by stable cue ID, and export source, translated, or dual-language SRT files.",
+    title: "Edit, check and export",
+    body: "Fix lines and timing, preview, then export source, translated or dual-language SRT, or burn the subtitles into the video.",
   },
   {
     number: "04",
-    title: "Manage the app safely",
-    body: "Inspect or change Settings without revealing saved provider keys. An agent can open a Stage5 checkout page, but the user must enter and submit payment details.",
+    title: "Paid steps only when you choose",
+    body: "Transcribing audio for videos without captions, and dubbing, use Stage5 credits or your own API key. The agent has to request those explicitly; the free path never spends credits.",
   },
 ] as const;
 
@@ -160,20 +189,20 @@ export default function AgentsPage() {
           <div className="mt-14 grid gap-12 xl:grid-cols-[1.12fr_0.88fr] xl:items-end">
             <div>
               <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
-                Translator for LLM agents
+                Translator for Claude and Codex
               </div>
               <h1 className="mt-7 max-w-6xl font-[var(--font-montserrat)] text-[clamp(3.5rem,8vw,8rem)] font-bold leading-[0.9] tracking-[-0.06em]">
-                Your agent can operate the video workflow.
+                Subtitle videos with the AI you already pay for.
               </h1>
             </div>
 
             <div className="border-l border-white/20 pl-6 xl:pl-8">
               <p className="max-w-xl text-lg leading-8 text-white/68 md:text-xl">
-                Installed Translator 1.16.16+ includes packaged MCP tools. Toggle
-                Settings → Agent Control → Allow agent control, allowlist write
-                folders, and your LLM agent can download videos, transcribe,
-                translate, and export SRT or burned-in video through the same
-                desktop app you already use.
+                Connect the Translator desktop app to Claude or Codex. Your agent
+                downloads the video, pulls its captions, translates them itself
+                and exports SRT or a subtitled video. For videos that have
+                captions, that costs no Stage5 credits: the translating is done
+                by the subscription you already have.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
@@ -218,16 +247,15 @@ export default function AgentsPage() {
         <section className="grid gap-14 border-y border-white/20 py-24 md:py-32 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
           <div>
             <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
-              Start here
+              Set up once
             </div>
             <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-              Enable Agent Control in the installed app.
+              Three steps, about two minutes.
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
-              Download and install Translator 1.16.16+. Open Settings → Agent
-              Control → Allow agent control, allowlist write folders, and connect
-              your MCP host to the packaged socket. The interface runs locally;
-              there is no public remote Translator MCP endpoint.
+              Everything runs on your computer: your agent talks to the
+              Translator app through a local MCP connection. There is no
+              remote Translator server to sign up for.
             </p>
           </div>
 
@@ -235,35 +263,57 @@ export default function AgentsPage() {
             <div className="border border-white/20 bg-black/45 p-6">
               <div className="space-y-4 text-sm leading-7 text-white/72">
                 <div>
-                  <div className="font-semibold text-[#a9bfff]">1. Install Translator 1.16.16+</div>
+                  <div className="font-semibold text-[#a9bfff]">1. Install Translator and keep it open</div>
                   <div className="mt-1 text-white/55">
-                    Download the finished app for your platform (macOS or Windows).
+                    Download the app for macOS or Windows below. Your agent
+                    works through the running app, so leave it open while you
+                    use it.
                   </div>
                 </div>
                 <div>
-                  <div className="font-semibold text-[#a9bfff]">2. Enable Agent Control</div>
+                  <div className="font-semibold text-[#a9bfff]">2. Turn on Agent Control</div>
                   <div className="mt-1 text-white/55">
-                    Open Settings → Agent Control → Allow agent control.
-                    Allowlist the folders your agent can write to.
+                    Settings → Agent Control → Allow agent control, and add a
+                    folder the agent may save files to. It takes effect
+                    immediately. The same panel shows the exact launcher path
+                    for your computer.
                   </div>
                 </div>
                 <div>
-                  <div className="font-semibold text-[#a9bfff]">3. Connect your MCP host</div>
+                  <div className="font-semibold text-[#a9bfff]">3. Add Translator to your agent</div>
                   <div className="mt-1 text-white/55">
-                    The packaged MCP socket appears at launch (if already enabled)
-                    or after toggling and relaunch. Configure your MCP host to
-                    connect to it.
+                    Use the command for your client below, then restart it so
+                    the Translator tools appear.
                   </div>
                 </div>
               </div>
             </div>
+
+            <div className="mt-6 space-y-5">
+              {clients.map((client) => (
+                <div key={client.name} className="border border-white/15 bg-black/35 p-5">
+                  <div className="font-semibold text-white">{client.name}</div>
+                  <div className="mt-1 text-sm text-white/55">{client.how}</div>
+                  <pre className="mt-3 overflow-x-auto whitespace-pre font-mono text-xs leading-6 text-[#a9bfff]">
+                    {client.snippet}
+                  </pre>
+                </div>
+              ))}
+            </div>
             <p className="mt-5 max-w-xl text-sm leading-7 text-white/48">
-              Agent Control is off by default (kill switch). The socket uses local
-              stdio; there is no public remote Translator MCP endpoint. For
-              developers: the source-build path (
-              <code className="text-[#a9bfff]">npm run agent:mcp</code> from the
-              cloned repository) remains available as an optional developer path.
+              These paths are for macOS. On Windows, use the path shown in
+              Settings → Agent Control (it ends in{" "}
+              <code className="text-[#a9bfff]">resources\translator-mcp.cmd</code>).
+              Agent Control is off until you turn it on, and your agent only
+              writes to the folders you allow.
             </p>
+
+            <div className="mt-8 border border-[#ff75ac]/40 bg-[#ff75ac]/[0.06] p-5">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#ff75ac]">
+                First prompt to try
+              </div>
+              <p className="mt-3 text-sm leading-7 text-white/80">{FREE_PROMPT}</p>
+            </div>
           </div>
         </section>
 
@@ -271,15 +321,14 @@ export default function AgentsPage() {
           <div className="grid gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:gap-24">
             <div>
               <div className="font-mono text-xs uppercase tracking-[0.28em] text-[#ff75ac]">
-                What it can do
+                What your agent does
               </div>
               <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-                Real controls, not screen guessing.
+                The whole job, in one conversation.
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
-                The tools have named inputs and structured results. An agent
-                does not need to hunt through the interface or depend on where a
-                button happens to be today.
+                The tools have named inputs and structured results, so your
+                agent works the app directly instead of guessing at the screen.
               </p>
             </div>
 
@@ -314,7 +363,7 @@ export default function AgentsPage() {
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
               Translator gives the agent useful controls without handing it
-              payment details, stored secrets, or invisible authority.
+              payment, stored secrets or your settings.
             </p>
           </div>
 
@@ -329,17 +378,16 @@ export default function AgentsPage() {
             <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
               <span className="font-mono text-xs text-[#ff75ac]">02</span>
               <span>
-                The agent never reads stored API keys. An agent can open the
-                right checkout page, but the user must enter and submit payment
-                details.
+                The agent never sees stored API keys, can’t change your
+                settings and can’t buy anything.
               </span>
             </li>
             <li className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-white/20 py-7 text-base leading-8 text-white/58">
               <span className="font-mono text-xs text-[#ff75ac]">03</span>
               <span>
-                Billing is the same as the UI (Stage5 credits or your configured
-                BYO API keys). MCP does not force a credit spend and is not a
-                sidecar OpenAI/Anthropic API.
+                Translating with your agent is free. Only transcribing audio
+                (for videos without captions) and dubbing use Stage5 credits
+                or your own API key, and only when the agent asks for them.
               </span>
             </li>
           </ol>

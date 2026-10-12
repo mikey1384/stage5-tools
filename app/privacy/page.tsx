@@ -7,6 +7,7 @@ import { privacyContent } from "../../lib/legal-content";
 import { homeHrefForLocale } from "../../lib/locale-routing";
 import { buildMetadata } from "../../lib/seo";
 import { t } from "../../lib/strings";
+import { AnalyticsDisclosure } from "../../components/AnalyticsDisclosure";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -49,6 +50,7 @@ export default async function PrivacyPage({
           </div>
         </section>
 
+        <AnalyticsDisclosure locale={locale} />
         <section className="py-12 border-t border-gray-900">
           <div className="space-y-10 text-sm text-gray-400 max-w-3xl">
             {content.sections.map((section) => (

@@ -76,14 +76,15 @@
   "mcp": {
     "status": "packaged_in_installers",
     "included_in_installers": true,
-    "minimum_version": "1.16.16",
     "transport": "stdio",
     "run_from": "installed application",
     "setup": [
-      "Install Translator 1.16.16+",
-      "Open Settings → Agent Control → Allow agent control",
-      "Allowlist write folders in Agent Control settings",
-      "Socket appears at launch (if already enabled) or after toggle and relaunch"
+      "Install Translator and keep it open while the agent works",
+      "Settings → Agent Control → Allow agent control (takes effect immediately) and allow a folder for saved files",
+      "Claude Code: claude mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp",
+      "Codex: codex mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp",
+      "Claude Desktop: add {\"mcpServers\":{\"translator\":{\"command\":\"/Applications/Translator.app/Contents/Resources/translator-mcp\"}}} to claude_desktop_config.json and restart Claude",
+      "Windows: use the launcher path shown in Settings → Agent Control (ends in resources\\translator-mcp.cmd)"
     ],
     "source_build_path": {
       "status": "optional_developer_path",
@@ -95,7 +96,7 @@
       ]
     },
     "capability_groups": [
-      "app launch, status, and semantic navigation",
+      "app status and semantic navigation",
       "video URL download",
       "ranked video search, pagination, and bounded batch download",
       "Downloads library search, open, and re-download",
@@ -103,15 +104,28 @@
       "original, translation, or dual subtitle display",
       "Default, Classic, Boxed, and LineBox subtitle styles",
       "context-preserving SRT translation, review, editing, and export",
-      "masked Settings inspection and control",
-      "open explicit web pages and selected Stage5 checkout pages"
+      "caption track discovery and import (creator, auto and YouTube-translated)",
+      "agent-side subtitle translation in batches",
+      "burned-in video render and preview"
     ],
     "safety_boundaries": [
-      "Agent Control is off by default (kill switch). User must explicitly enable in Settings.",
-      "User must allowlist write folders. File-writing and network actions should remain subject to the MCP host's normal approval controls.",
-      "Agent never reads stored API keys.",
-      "The agent can open checkout pages but the user must enter and submit payment details.",
-      "Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend."
-    ]
+      "Agent Control is off by default. The user turns it on in Settings.",
+      "The agent writes only to folders the user allows. File-writing and network actions should remain subject to the MCP host's normal approval controls.",
+      "The agent never sees stored API keys, cannot change app settings and cannot open checkout or buy anything.",
+      "Translating with the agent is free; paid steps run only when the agent explicitly requests them."
+    ],
+    "requires_app_running": true,
+    "free_workflow": {
+      "summary": "Subtitle a video with the user's own Claude or Codex subscription and no Stage5 credits when the video has captions.",
+      "steps": [
+        "probe_source",
+        "plan_job (transcription_method creator_captions or youtube_auto_captions, translation_provider agent)",
+        "create_job",
+        "get_transcript_batch / submit_translation_batch",
+        "validate_translation",
+        "export or render"
+      ],
+      "paid_steps": "Audio transcription for videos without captions, dubbing and the legacy app_start_* inference tools spend Stage5 credits or the user's own API key, only when requested."
+    }
   }
 }

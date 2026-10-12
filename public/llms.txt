@@ -2,7 +2,7 @@
 
 > Translator is an open-source desktop video workstation for macOS and Windows. It helps people and, through packaged MCP / Agent Control, LLM agents discover, download, transcribe, translate, review, style, edit, dub, organize, and export video across language boundaries.
 
-Installed Translator 1.16.16+ includes packaged MCP tools once the user enables Settings → Agent Control → Allow agent control and allowlists write folders. Default is off (kill switch). The socket appears at launch if already enabled, or after the in-app toggle / a relaunch. There is no public remote Translator MCP endpoint.
+Translator includes packaged MCP tools. Keep the app open, turn on Settings → Agent Control → Allow agent control (takes effect immediately; off by default) and allow a folder for saved files, then add the stdio launcher to your client: `claude mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Claude Code), `codex mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Codex), or a `translator` entry with that command in claude_desktop_config.json (Claude Desktop). On Windows the launcher path is shown in Settings → Agent Control and ends in `resources\translator-mcp.cmd`. There is no remote Translator MCP endpoint.
 
 ## Start here
 
@@ -44,10 +44,10 @@ For Windows, open `Translator-x64.exe` and confirm that Windows shows
 
 ## MCP / Agent Control
 
-- Installed 1.16.16+ (packaged-mcp.mjs inside the app) exposes real tools once the user turns on Settings → Agent Control → Allow agent control, and allowlists write folders. Default is off (kill switch). Socket appears at launch if already enabled, or after the in-app toggle / a relaunch.
+- Translator includes packaged MCP tools. Keep the app open, turn on Settings → Agent Control → Allow agent control (takes effect immediately; off by default) and allow a folder for saved files, then add the stdio launcher to your client: `claude mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Claude Code), `codex mcp add translator -- /Applications/Translator.app/Contents/Resources/translator-mcp` (Codex), or a `translator` entry with that command in claude_desktop_config.json (Claude Desktop). On Windows the launcher path is shown in Settings → Agent Control and ends in `resources\translator-mcp.cmd`. There is no remote Translator MCP endpoint.
 - Packaged tools that exist today (names are real): app_start_transcription, app_start_translation, app_start_cue_transcription, app_start_cue_translation, app_subtitles_export (SRT), app_start_merge (burn-in mp4 to an allowlisted output_path), app_start_media_workflow, app_processing_status, app_processing_cancel, download / library / open video / mount subtitles / display / style / navigate / settings snapshot.
-- SAFE_TOOLS excludes checkout and keys. Agent never reads stored API keys. Agent can open checkout; user pays.
-- Billing is the same as the UI (Stage5 credits or BYO already configured in the app). MCP does not force a credit spend and is not a sidecar OpenAI/Anthropic API.
+- The agent never sees stored API keys, cannot change app settings and cannot open checkout or buy anything.
+- Free path with your own Claude or Codex subscription: probe_source → plan_job with a caption method (creator_captions or youtube_auto_captions) and translation_provider agent → create_job → get_transcript_batch / submit_translation_batch → validate_translation → export or render. No Stage5 credits are used for videos that have captions. Audio transcription (videos without captions), dubbing and the legacy app_start_* inference tools spend Stage5 credits or the user's own API key, only when the agent requests them.
 - The source-build `npm run agent:mcp` path can stay as an optional developer footnote: Run `git clone https://github.com/mikey1384/translator.git`, then `cd translator`, `npm install`, and `npm run agent:mcp`.
 
 ## More product pages

@@ -87,7 +87,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     aboutTitle: "About this post",
     aboutBody: [
       "The YouTube video is embedded directly from the official source. The first 30 seconds of captions shown in the player can be displayed in English, Korean (한국어), or Portuguese (Português). All three caption tracks were transcribed and translated in Translator (first 30 seconds only). The rest of the episode is not published here—this post explains the workflow so you can translate the full video yourself.",
-      "Source: The Wild Project #287, hosted by Jordi Wild, featuring Ferran Adrià. Published May 14, 2024. Video is in Spanish.",
+      "Source: The Wild Project #287, hosted by Jordi Wild, featuring Ferran Adrià. Published June 13, 2024. Video is in Spanish.",
     ],
   },
   es: {
@@ -148,7 +148,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     aboutTitle: "Sobre este post",
     aboutBody: [
       "El video de YouTube está incrustado directamente desde la fuente oficial. Los primeros 30 segundos de subtítulos que se muestran en el reproductor pueden aparecer en inglés, coreano (한국어) o portugués (Português). Las tres pistas de subtítulos fueron transcritas y traducidas en Translator (solo los primeros 30 segundos). El resto del episodio no se publica aquí: este post explica el flujo para que puedas traducir el video completo tú mismo.",
-      "Fuente: The Wild Project #287, presentado por Jordi Wild, con Ferran Adrià. Publicado el 14 de mayo de 2024. El video está en español.",
+      "Fuente: The Wild Project #287, presentado por Jordi Wild, con Ferran Adrià. Publicado el 13 de junio de 2024. El video está en español.",
     ],
   },
   ko: {
@@ -209,7 +209,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     aboutTitle: "이 게시물에 대하여",
     aboutBody: [
       "YouTube 영상은 공식 출처에서 직접 임베드됩니다. 플레이어에 표시되는 처음 30초의 자막은 영어, 한국어 또는 포르투갈어(Português)로 표시될 수 있습니다. 세 가지 자막 트랙은 모두 Translator에서 전사 및 번역되었습니다(처음 30초만). 나머지 에피소드는 여기에 게시되지 않습니다. 이 게시물은 전체 영상을 직접 번역할 수 있도록 워크플로우를 설명합니다.",
-      "출처: Jordi Wild가 진행하고 Ferran Adrià가 출연한 The Wild Project #287. 2024년 5월 14일 게시. 영상은 스페인어입니다.",
+      "출처: Jordi Wild가 진행하고 Ferran Adrià가 출연한 The Wild Project #287. 2024년 6월 13일 게시. 영상은 스페인어입니다.",
     ],
   },
   pt: {
@@ -270,7 +270,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     aboutTitle: "Sobre este post",
     aboutBody: [
       "O vídeo do YouTube está incorporado diretamente da fonte oficial. Os primeiros 30 segundos de legendas mostrados no player podem ser exibidos em inglês, coreano (한국어) ou português. Todas as três faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos). O resto do episódio não está publicado aqui—este post explica o fluxo para que você possa traduzir o vídeo completo você mesmo.",
-      "Fonte: The Wild Project #287, apresentado por Jordi Wild, com Ferran Adrià. Publicado em 14 de maio de 2024. O vídeo está em espanhol.",
+      "Fonte: The Wild Project #287, apresentado por Jordi Wild, com Ferran Adrià. Publicado em 13 de junho de 2024. O vídeo está em espanhol.",
     ],
   },
   ja: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
@@ -278,9 +278,9 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
   fr: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
   de: { title: "", description: "", keywords: [], h1: "", intro: "", eyebrow: "", section1Title: "", section1Body: [], section2Title: "", section2Body: [], howToTitle: "", howToBody: "", howToSteps: [], pricingTitle: "", pricingFree: "", pricingPaid: "", downloadTitle: "", downloadBody: "", downloadLinkText: "", aboutTitle: "", aboutBody: [] },
   vi: {
-    title: "Xem Phỏng Vấn Ferran Adrià trên Wild Project với Phụ Đề Tiếng Việt | Translator",
+    title: "Ferran Adrià trên The Wild Project: xem trước 30 giây | Translator",
     description:
-      "Đầu bếp huyền thoại El Bulli Ferran Adrià nói về sáng tạo, nghề thủ công và ẩm thực như nghệ thuật trong cuộc phỏng vấn tiếng Tây Ban Nha. Tìm hiểu cách xem với phụ đề tiếng Việt bằng Translator.",
+      "Ferran Adrià nói về sáng tạo trên The Wild Project. Xem trước 30 giây với phụ đề tiếng Anh, Hàn hoặc Bồ Đào Nha; chưa có phụ đề tiếng Việt.",
     keywords: [
       "Ferran Adrià phỏng vấn phụ đề tiếng Việt",
       "Wild Project Ferran Adrià",
@@ -337,7 +337,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     aboutTitle: "Về bài viết này",
     aboutBody: [
       "Video YouTube được nhúng trực tiếp từ nguồn chính thức. 30 giây đầu tiên của phụ đề hiển thị trong trình phát có thể hiển thị bằng tiếng Anh, tiếng Hàn (한국어) hoặc tiếng Bồ Đào Nha (Português). Cả ba bản phụ đề đều được phiên âm và dịch trong Translator (chỉ 30 giây đầu). Phần còn lại của tập không được công bố ở đây—bài viết này giải thích quy trình để bạn có thể tự dịch toàn bộ video.",
-      "Nguồn: The Wild Project #287, do Jordi Wild dẫn chương trình, có Ferran Adrià. Xuất bản ngày 14 tháng 5 năm 2024. Video bằng tiếng Tây Ban Nha.",
+      "Nguồn: The Wild Project #287, do Jordi Wild dẫn chương trình, có Ferran Adrià. Xuất bản ngày 13 tháng 6 năm 2024. Video bằng tiếng Tây Ban Nha.",
     ],
   },
 };

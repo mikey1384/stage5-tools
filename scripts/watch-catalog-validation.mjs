@@ -1,3 +1,7 @@
+import { readFile } from "node:fs/promises";
+import { basename } from "node:path";
+import { isIsoCalendarDate, isVideoUploadDate } from "../lib/watch/publication-date.mjs";
+
 const WATCH_TRACK_LOCALES = new Set([
   "en",
   "ko",
@@ -48,17 +52,6 @@ function isNonEmptyStringArray(value) {
     Array.isArray(value) &&
     value.length > 0 &&
     value.every(isNonEmptyString)
-  );
-}
-
-function isIsoCalendarDate(value) {
-  if (!isNonEmptyString(value) || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return false;
-  }
-  const parsed = new Date(`${value}T00:00:00.000Z`);
-  return (
-    Number.isFinite(parsed.getTime()) &&
-    parsed.toISOString().slice(0, 10) === value
   );
 }
 
@@ -165,6 +158,13 @@ export function validateWatchEntry(entry) {
   if (!isIsoCalendarDate(entry.datePublished)) {
     throw new Error(`${entry.slug} has an invalid datePublished`);
   }
+  for (const item of entry.structuredDataAbout ?? []) {
+    if (item?.["@type"] !== "VideoObject" || item.uploadDate === undefined) continue;
+    // Existing date-only catalogs remain publishable during the rollout.
+    if (!isIsoCalendarDate(item.uploadDate) && !isVideoUploadDate(item.uploadDate)) {
+      throw new Error(`${entry.slug} has an invalid VideoObject uploadDate; use a verified timestamp with a timezone`);
+    }
+  }
   for (const locale of entry.supportedLocales) {
     validateCopy(entry.copy?.[locale], locale, entry.slug);
   }
@@ -190,4 +190,56 @@ export function expectedVttFileNames(entry) {
   return [...new Set(entry.tracks)].map(
     (locale) => `${entry.vttSlug}.${locale}.30s.vtt`,
   );
+}
+
+// This is a publication floor for obvious flashes, not an editorial or policy pass.
+export function validateWatchVtt(content, fileName = "Watch captions") {
+  const normalized = content.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
+  const blocks = normalized.trim().split(/\n[ \t]*\n/);
+  if (!/^WEBVTT(?:[ \t].*)?$/.test(blocks.shift() ?? "")) {
+    throw new Error(`${fileName}: missing WEBVTT header`);
+  }
+  let cueCount = 0;
+  let previousEnd = 0;
+  const time = "(\\d{2}):([0-5]\\d):([0-5]\\d)\\.(\\d{3})";
+  const timing = new RegExp(`^${time} --> ${time}$`);
+  for (const block of blocks) {
+    if (/^NOTE(?:[ \t\n]|$)/.test(block)) continue;
+    const lines = block.split("\n");
+    // Keep the publisher within the subset supported by the current Watch player.
+    const timingIndex = lines[0]?.includes("-->") ? 0 : 1;
+    const match = timing.exec(lines[timingIndex] ?? "");
+    cueCount += 1;
+    if (!match) throw new Error(`${fileName}: invalid timing at cue ${cueCount}`);
+    const millis = (offset) => Number(match[offset]) * 3600000
+      + Number(match[offset + 1]) * 60000
+      + Number(match[offset + 2]) * 1000 + Number(match[offset + 3]);
+    const start = millis(1);
+    const end = millis(5);
+    if (end <= start || end > 30000 || start < previousEnd) {
+      throw new Error(`${fileName}: unordered, overlapping or out-of-preview cue ${cueCount}`);
+    }
+    const text = lines.slice(timingIndex + 1).join(" ").trim();
+    if (!/[\p{L}\p{N}]/u.test(text)) {
+      throw new Error(`${fileName}: empty or punctuation-only cue ${cueCount}`);
+    }
+    if (end - start < 100) {
+      throw new Error(`${fileName}: cue ${cueCount} lasts ${end - start}ms; review its source and timing before publication`);
+    }
+    previousEnd = end;
+  }
+  if (!cueCount) throw new Error(`${fileName}: no caption cues`);
+  return { cueCount };
+}
+
+export async function loadValidatedWatchVtts(paths) {
+  const files = [];
+  for (const path of paths) {
+    const content = await readFile(path, "utf8");
+    const fileName = basename(path);
+    validateWatchVtt(content, fileName);
+    files.push({ fileName, content });
+  }
+  // Callers upload these same bytes only after every supplied file has passed.
+  return files;
 }

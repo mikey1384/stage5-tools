@@ -1,0 +1,14 @@
+.root { position: fixed; z-index: 60; left: max(1rem, env(safe-area-inset-left)); bottom: max(.75rem, env(safe-area-inset-bottom)); width: min(30rem, calc(100vw - 2rem)); color: #eaf0f6; font: 400 .875rem/1.55 Arial, sans-serif; }
+.card { background: #111a22; border: 1px solid #536472; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 12px 45px #0007; max-height: 75dvh; overflow-y: auto; }
+.heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.heading h2 { font-size: 1.1rem; line-height: 1.4; font-weight: 650; margin: 0; }
+.card p { margin: .75rem 0; }
+.card a { color: #b9d9fc; text-decoration: underline; text-underline-offset: 3px; }
+.close { background: transparent; border: 0; color: inherit; min-width: 32px; min-height: 32px; font-size: 1.5rem; cursor: pointer; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: .625rem; margin-top: 1rem; }
+.actions button { border: 1px solid #8fabbf; border-radius: .6rem; color: #f6fbff; background: #223443; padding: .7rem .6rem; min-height: 44px; cursor: pointer; font: inherit; font-weight: 600; }
+.actions button:hover { background: #354d60; }
+.reopen { margin-top: .5rem; padding: .4rem .8rem; border: 1px solid #657a8b; border-radius: 2rem; color: #eaf0f6; background: #15222d; font: inherit; cursor: pointer; min-height: 40px; }
+.notice { background: #15222d; border-radius: .5rem; padding: .6rem .8rem; margin: .5rem 0 0; }
+.root button:focus-visible, .root a:focus-visible { outline: 3px solid #c4e2ff; outline-offset: 3px; }
+@media (max-width: 360px) { .actions { grid-template-columns: 1fr; } .card { padding: 1rem; } }

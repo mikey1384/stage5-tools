@@ -1,0 +1,63 @@
+/* Reuses the approved Stage5 Watch identity; styles stay inside this component. */
+.workshop{--surface:#101216;--line:#343942;--accent:#a9bfff;color:#f7f8fa;line-height:1.75}
+.workshop h2,.workshop h3{line-height:1.2;letter-spacing:-.025em;font-weight:600}
+.workshop h2{font-size:30px;margin:0 0 22px}
+.workshop h3{font-size:21px;margin:0 0 16px}
+.workshop p{margin:0 0 20px}
+.workshop a{ text-underline-offset:4px }
+.workshop button{cursor:pointer;font:inherit}
+.workshop a:focus-visible,.workshop button:focus-visible,.workshop input:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+.sourcePreview{margin-top:30px;margin-bottom:30px}
+.sourceContext{padding-bottom:52px}
+.sourceContext>p:not(.eyebrow){font-size:18px;color:#d1d5db;line-height:1.8}
+.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;background:var(--accent);color:#000;border:1px solid var(--accent);padding:12px 20px;border-radius:12px;font-size:15px;font-weight:600;line-height:1.4;text-align:center}
+.button:hover:not(:disabled){background:white;border-color:white}
+.eyebrow{font-size:11px;letter-spacing:.18em;font-weight:600;color:#9ca3af;margin-bottom:18px}
+.lead{font-size:20px;max-width:760px;line-height:1.7;color:#d1d5db}
+.textLink{font-size:15px;color:#b8dfff;text-decoration:underline}
+.textLink span{margin-left:12px}
+.sectionHeading{display:flex;gap:24px;justify-content:space-between;align-items:flex-start;padding-top:34px;border-top:1px solid var(--line)}
+.pill{display:inline-block;font-size:11px;border:1px solid #374761;color:#bbd2fb;background:#172233;padding:6px 11px;border-radius:30px;line-height:1.5;flex-shrink:0;margin-top:2px}
+.disclosure{max-width:790px;color:#9ca3af;font-size:14px;line-height:1.75;margin-bottom:28px}
+.exerciseGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.dialogue,.captionCard{min-width:0;padding:24px;border:1px solid var(--line);background:var(--surface);border-radius:20px}
+.dialogue>p:not(.eyebrow){display:flex;gap:13px;font-size:17px;color:#e2e6ed;line-height:1.7}
+.dialogue b{font-size:11px;background:#292f3b;color:#c7d8ff;border-radius:50%;min-width:25px;height:25px;text-align:center;line-height:25px;margin-top:3px}
+.prompt{border-top:1px solid var(--line);margin-top:25px;padding-top:20px}
+.prompt>strong{font-size:14px;line-height:1.5;display:block;font-weight:500}
+.choices{display:grid;gap:8px;margin-top:15px}
+.choices button{color:#d9deea;text-align:left;background:#151922;border:1px solid #49546b;border-radius:8px;min-height:44px;padding:10px 12px;font-size:13px;line-height:1.5}
+.choices button:hover,.choices button[aria-pressed=true]{background:#a9bfff;color:#000;border-color:#a9bfff}
+.answer{font-size:13px;line-height:1.7;min-height:74px;margin:15px 0 0;color:#bac9e0}
+.captionCard{background:#090c11;display:flex;flex-direction:column}
+.captionHeading{display:flex;justify-content:space-between;gap:12px;color:#9ca3af;font-size:11px}
+.captionSource{font-size:14px;text-align:center;color:#b5bbc5;padding-top:28px;min-height:104px;line-height:1.7}
+.captionText{font-size:clamp(21px,2.3vw,28px);font-weight:500;text-align:center;white-space:pre-line;line-height:1.7;min-height:148px;display:grid;place-items:center;margin-bottom:24px;word-break:keep-all;overflow-wrap:anywhere;color:#f7f8fa}
+.mode{display:flex;gap:5px;background:#1a1e29;border:1px solid #30384a;border-radius:10px;padding:4px;margin-top:auto}
+.mode button{flex:1;min-height:40px;border:0;border-radius:6px;color:#c2ccdd;background:transparent;font-size:12px}
+.mode button[aria-pressed=true]{background:#a9bfff;color:#000}
+.cueLabel{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-top:22px;color:#bdc5d3}
+.captionCard input{width:100%;accent-color:#a9bfff;min-height:28px}
+.captionFoot{color:#9ca3af;font-size:11px;line-height:1.7;margin:14px 0 0}
+.decisionGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:34px}
+.decisionGrid section{padding-top:24px;border-top:1px solid var(--line)}
+.decisionGrid section>span{font-size:11px;color:#a9bfff;display:block;margin-bottom:18px}
+.decisionGrid h3{font-size:20px}
+.decisionGrid p{font-size:14px;color:#b5bbc5;line-height:1.85}
+.practiceFiles{display:flex;gap:30px;align-items:center;justify-content:space-between;background:#0c1621;border:1px solid #15364b;border-radius:16px;padding:26px;margin-top:18px}
+.practiceFiles h3{font-size:21px}
+.practiceFiles p{max-width:500px;color:#b7c5d5;font-size:14px;margin-bottom:0}
+.fileLinks{display:grid;gap:12px;font-size:13px;flex-shrink:0;color:#b8dfff}
+.fileLinks a{text-decoration:underline}
+.workflow{padding-block:10px 52px}
+.workflow>div:first-child{border-top:1px solid var(--line);padding-top:36px}
+.workflow p:not(.eyebrow){color:#d1d5db;font-size:18px;line-height:1.8}
+.workflow .button{margin-top:12px}
+.workflow .subtle,.subtle{font-size:13px;color:#9ca3af;margin-top:16px}
+.subtle a{text-decoration:underline}
+.workflow{border-top:1px solid var(--line);padding-top:36px;margin-top:48px}
+.workshop .answer{margin:15px 0 0}
+.workshop .captionFoot{margin:14px 0 0}
+.workshop .subtle{font-size:13px;color:#9ca3af;margin-top:16px}
+@media(max-width:760px){.sectionHeading{flex-wrap:wrap;gap:0}.sectionHeading .pill{margin-bottom:22px}.exerciseGrid,.decisionGrid{grid-template-columns:1fr;gap:24px}.captionText{min-height:114px}.captionSource{min-height:90px}.practiceFiles{align-items:flex-start;flex-direction:column;gap:20px}.sourceContext>p:not(.eyebrow),.workflow p:not(.eyebrow){font-size:16px}.workshop h2{font-size:28px}.pill{white-space:normal;flex-shrink:1;overflow-wrap:anywhere}.workshop .lead{font-size:18px}}
+@media(max-width:440px){.dialogue,.captionCard{padding:20px}}

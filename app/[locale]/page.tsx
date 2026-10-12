@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getSite } from "../../lib/get-site";
+import { getStage5HomeMetadata } from "../../components/Stage5Home";
 import Home from "../(home)/page";
 import { getHomeMetadata } from "../(home)/home-copy";
 import {
@@ -27,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const resolvedLocale = resolveLocalizedHomeLocale(locale);
-  return getHomeMetadata(resolvedLocale);
+  return (await getSite()) === "stage5" ? getStage5HomeMetadata(resolvedLocale) : getHomeMetadata(resolvedLocale);
 }
 
 export default async function LocalizedHomePage({

@@ -57,6 +57,17 @@ export interface WatchCatalogEntry extends WatchVideoMetadata {
   };
 }
 
+export function getVideoLanguages(video: WatchVideoMetadata): Locale | Locale[] {
+  const declared = video.structuredDataAbout?.find(
+    (item) => item["@type"] === "VideoObject",
+  )?.inLanguage;
+  if (typeof declared === "string" && isLocale(declared)) return declared;
+  if (Array.isArray(declared) && declared.length > 0 && declared.every(isLocale)) {
+    return [...new Set(declared)];
+  }
+  return video.sourceLang;
+}
+
 export interface PostCard {
   slug: string;
   title: string;

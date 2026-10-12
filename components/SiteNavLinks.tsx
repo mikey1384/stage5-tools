@@ -1,13 +1,16 @@
 "use client";
 
-import Link from "next/link";
+import { canonicalSiteUrl, type Site } from "../lib/site-routing";
+import Link from "./PolicySafeLink";
 import { usePathname } from "next/navigation";
 import { englishPathFor, localizePathForLocale } from "../lib/locales";
 import { normalizePathname } from "../lib/pathname-utils";
-import { t, type Locale } from "../lib/strings";
+import { t, type Locale } from "../lib/interface-strings";
 
 type NavLink = {
   labelKey:
+    | "navWatch"
+    | "navEcho"
     | "navVideoDiscovery"
     | "navDubbing"
     | "navVideoDownloader"
@@ -16,6 +19,7 @@ type NavLink = {
     | "navPricing"
     | "navFaq"
     | "navOpenSource"
+    | "navAgents"
     | "navAbout"
     | "navContact";
   href: string;
@@ -31,6 +35,7 @@ const primaryLinks: NavLink[] = [
 ];
 
 const secondaryLinks: NavLink[] = [
+  { labelKey: "navAgents", href: "/agents", match: "exact" },
   { labelKey: "navOpenSource", href: "/open-source", match: "exact" },
   { labelKey: "navFaq", href: "/faq", match: "exact" },
 ];
@@ -56,7 +61,7 @@ function NavItem({
 
   return (
     <Link
-      href={localizePathForLocale(locale, link.href)}
+      href={canonicalSiteUrl(localizePathForLocale(locale, link.href))}
       aria-current={isActive ? "page" : undefined}
       className={
         isActive
@@ -69,13 +74,13 @@ function NavItem({
   );
 }
 
-export function SiteNavLinks({ locale }: { locale: Locale }) {
+export function SiteNavLinks({ locale, site = "translator" }: { locale: Locale; site?: Site }) {
   const pathname = usePathname();
   const currentPath = normalizePathname(englishPathFor(pathname));
 
   return (
     <nav className="flex items-center gap-x-5 overflow-x-auto whitespace-nowrap pb-1 text-xs font-medium lg:flex-wrap lg:gap-y-3 lg:overflow-visible lg:pb-0">
-      {primaryLinks.map((link) => (
+      {(site === "stage5" ? [{ labelKey: "navWatch", href: "/watch", match: "prefix" }, { labelKey: "navEcho", href: "/echo", match: "exact" }] as NavLink[] : primaryLinks).map((link) => (
         <NavItem
           key={link.href}
           locale={locale}

@@ -7,6 +7,8 @@ import { HomeIntentLinks } from "../../components/HomeIntentLinks";
 import { HomepageScreenshotSlot } from "../../components/HomepageScreenshotSlot";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
+import { Stage5Home, getStage5HomeMetadata } from "../../components/Stage5Home";
+import { getSite } from "../../lib/get-site";
 import { getLocale } from "../../lib/get-locale";
 import { serializeJsonLd } from "../../lib/json-ld";
 import { HOME_LOCALIZED_LOCALES } from "../../lib/locales";
@@ -180,7 +182,8 @@ const otherLanguages = [
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getHomeMetadata(await getLocale());
+  const locale = await getLocale();
+  return (await getSite()) === "stage5" ? getStage5HomeMetadata(locale) : getHomeMetadata(locale);
 }
 
 export default async function Home({
@@ -190,6 +193,7 @@ export default async function Home({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
+  if ((await getSite()) === "stage5") return <Stage5Home locale={locale} />;
   const copy = homeCopy[locale];
   const experience = homeExperienceCopy[locale];
   const openSourceCopy = openSourceProofCopy[locale];
@@ -229,7 +233,7 @@ export default async function Home({
 
         <section className="pb-20 pt-8 md:pb-28 md:pt-12">
           <div className="border-t border-white/20 pt-5">
-            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-white/50">
+            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">
               <span>Stage5 / Translator</span>
               <span>macOS + Windows</span>
             </div>
@@ -250,7 +254,7 @@ export default async function Home({
               <div className="mt-8">
                 <HeroDownloadActions locale={locale} className="items-start" />
               </div>
-              <p className="mt-5 max-w-lg text-sm leading-6 text-white/48">
+              <p className="mt-5 max-w-lg text-sm leading-6 text-white/60">
                 {copy.heroNote}{" "}
                 <Link
                   href={localizedHref("/pricing")}
@@ -295,9 +299,9 @@ export default async function Home({
                 fallback={<ScreenshotFallback label={copy.mockSearchQuery} />}
               />
             </ProductFrame>
-            <figcaption className="mt-4 grid gap-2 border-b border-white/20 pb-8 text-sm leading-6 text-white/48 md:grid-cols-[1fr_auto]">
+            <figcaption className="mt-4 grid gap-2 border-b border-white/20 pb-8 text-sm leading-6 text-white/60 md:grid-cols-[1fr_auto]">
               <span>{experience.heroCaption}</span>
-              <span className="font-mono uppercase tracking-[0.2em] text-white/35">
+              <span className="font-mono uppercase tracking-[0.2em] text-white/60">
                 Translation only / current app
               </span>
             </figcaption>
@@ -325,7 +329,7 @@ export default async function Home({
                   <h3 className="mt-4 text-lg font-semibold text-white">
                     {mode.label}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-white/45">
+                  <p className="mt-2 text-sm leading-6 text-white/60">
                     {mode.body}
                   </p>
                 </div>
@@ -343,14 +347,14 @@ export default async function Home({
                   <span className="text-4xl font-semibold tracking-[-0.05em] text-white md:text-5xl">
                     {metric.value}
                   </span>
-                  <span className="font-mono text-[10px] text-white/30">
+                  <span className="font-mono text-[10px] text-white/60">
                     0{index + 1}
                   </span>
                 </div>
                 <div className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                   {metric.label}
                 </div>
-                <p className="mt-3 max-w-xs text-sm leading-6 text-white/45">
+                <p className="mt-3 max-w-xs text-sm leading-6 text-white/60">
                   {metric.detail}
                 </p>
               </div>
@@ -586,7 +590,7 @@ export default async function Home({
 
             <div className="border-t border-white/25">
               <div className="grid grid-cols-2 border-b border-white/25 py-4 text-[10px] font-semibold uppercase tracking-[0.2em]">
-                <span className="pr-5 text-white/35">{copy.typicalLabel}</span>
+                <span className="pr-5 text-white/60">{copy.typicalLabel}</span>
                 <span className="border-l border-white/20 pl-5 text-[#a9bfff]">
                   {copy.translatorLabel}
                 </span>
@@ -596,7 +600,7 @@ export default async function Home({
                   key={`${row.typical}-${row.translator}`}
                   className="grid grid-cols-2 border-b border-white/20 py-7 text-sm leading-7 md:text-base"
                 >
-                  <div className="pr-5 text-white/34">
+                  <div className="pr-5 text-white/60">
                     <span className="mr-3 font-mono text-[10px]">
                       0{index + 1}
                     </span>
@@ -644,7 +648,7 @@ export default async function Home({
                 <p className="mt-5 text-xl leading-8 tracking-[-0.02em] text-white md:text-2xl">
                   “{review.quote}”
                 </p>
-                <footer className="mt-7 text-sm text-white/40">
+                <footer className="mt-7 text-sm text-white/60">
                   {review.author} / {review.source}
                 </footer>
               </blockquote>
@@ -676,7 +680,7 @@ export default async function Home({
                   {t("navDownload", locale)} ↓
                 </Link>
               </div>
-              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/15 pt-5 font-mono text-[11px] text-white/42">
+              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/15 pt-5 font-mono text-[11px] text-white/60">
                 <a className="underline underline-offset-4 hover:text-white" href="/llms.txt">
                   llms.txt
                 </a>
@@ -735,7 +739,7 @@ export default async function Home({
             </div>
 
             <div className="border-t border-white/25 lg:border-l lg:border-t-0 lg:pl-10">
-              <div className="flex items-center justify-between border-b border-white/15 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/38">
+              <div className="flex items-center justify-between border-b border-white/15 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
                 <span>github.com</span>
                 <span>public / MIT</span>
               </div>
@@ -783,7 +787,7 @@ export default async function Home({
                   </Link>
                 ))}
               </div>
-              <div className="mt-12 flex flex-wrap gap-x-5 gap-y-3 text-sm leading-7 text-white/40">
+              <div className="mt-12 flex flex-wrap gap-x-5 gap-y-3 text-sm leading-7 text-white/60">
                 {otherLanguages.map((langKey) => (
                   <span key={langKey}>{t(langKey, locale)}</span>
                 ))}
@@ -805,7 +809,7 @@ export default async function Home({
           <div className="mt-10">
             <AllDownloadButtons locale={locale} surface="light" />
           </div>
-          <p className="mt-5 text-sm text-black/45">{t("footer", locale)}</p>
+          <p className="mt-5 text-sm text-black/70">{t("footer", locale)}</p>
         </div>
       </section>
 
@@ -824,7 +828,7 @@ function Eyebrow({
   return (
     <div
       className={`flex items-center gap-3 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] ${
-        dark ? "text-black/48" : "text-white/45"
+        dark ? "text-black/70" : "text-white/60"
       }`}
     >
       <span className={`h-px w-8 ${dark ? "bg-black/35" : "bg-[#ff75ac]"}`} />
@@ -852,7 +856,7 @@ function ProductFrame({
             className={`h-2 w-2 rounded-full ${tone === "blue" ? "bg-[#a9bfff]" : "bg-[#ff75ac]"}`}
           />
         </div>
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/38">
+        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/60">
           {label}
         </span>
       </div>

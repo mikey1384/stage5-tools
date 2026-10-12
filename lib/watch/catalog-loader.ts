@@ -9,12 +9,25 @@ import {
   type WatchPageCopy,
 } from "./catalog";
 import { getBundledCatalog } from "./bundled-catalog";
-import { getVideo as getBundledVideo, getAllSlugs as getBundledSlugs } from "./index";
+import unavailableVideos from "./unavailable-videos.json";
+import { getWatchExperienceCopy } from "./experience-copy";
+import { isIsoCalendarDate } from "./publication-date.mjs";
+
+function availableEntries(entries: WatchCatalogEntry[]): WatchCatalogEntry[] {
+  return entries.filter((entry) => !Object.hasOwn(unavailableVideos, entry.videoId)).map(entry => ({
+    ...entry,
+    copy: Object.fromEntries(Object.entries(entry.copy).map(([locale, copy]) => [locale, {
+      ...copy,
+      howToNote: getWatchExperienceCopy(locale as Locale).processing,
+    }])) as WatchCatalogEntry["copy"],
+  }));
+}
 
 // Runtime catalog cache
 let catalogCache: WatchCatalogEntry[] | null = null;
 let lastFetchTime = 0;
 const CACHE_TTL = 60_000; // 1 minute
+const MAX_STALE_AGE = 15 * 60_000;
 const watchPageLocaleSet = new Set<Locale>(WATCH_LOCALIZED_LOCALES);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -27,17 +40,6 @@ function isNonEmptyString(value: unknown): value is string {
 
 function isCatalogLocale(value: unknown): value is Locale {
   return typeof value === "string" && isLocale(value);
-}
-
-function isIsoCalendarDate(value: unknown): value is string {
-  if (!isNonEmptyString(value) || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return false;
-  }
-  const parsed = new Date(`${value}T00:00:00.000Z`);
-  return (
-    Number.isFinite(parsed.getTime()) &&
-    parsed.toISOString().slice(0, 10) === value
-  );
 }
 
 function normalizeCatalogEntry(value: unknown): WatchCatalogEntry | undefined {
@@ -125,7 +127,7 @@ export function parseWatchCatalog(value: unknown): WatchCatalogEntry[] {
       `Ignored ${value.length - entries.length} invalid or duplicate watch catalog entries`,
     );
   }
-  return entries;
+  return availableEntries(entries);
 }
 
 /**
@@ -149,6 +151,7 @@ export async function loadWatchCatalog(): Promise<WatchCatalogEntry[]> {
   if (catalogUrl) {
     try {
       const response = await fetch(catalogUrl, {
+        signal: AbortSignal.timeout(5_000),
         next: { revalidate: 60 }, // Revalidate every 60 seconds
       });
       
@@ -159,20 +162,23 @@ export async function loadWatchCatalog(): Promise<WatchCatalogEntry[]> {
         return catalog;
       }
       console.warn(
-        `Watch catalog request failed with HTTP ${response.status}; using bundled fallback`,
+        `Watch catalog request failed with HTTP ${response.status}`,
       );
     } catch (error) {
       console.warn("Failed to refresh watch catalog from R2:", error);
     }
 
-    if (catalogCache) {
+    if (catalogCache && now - lastFetchTime < MAX_STALE_AGE) {
       console.warn("Using stale watch catalog after R2 refresh failure");
       return catalogCache;
     }
+    // A configured runtime catalog is authoritative. An outage must not turn
+    // its newer pages into 404s or advertise a different bundled inventory.
+    throw new Error("Watch catalog temporarily unavailable");
   }
 
   // Fall back to bundled catalog
-  return getBundledCatalog();
+  return availableEntries(getBundledCatalog());
 }
 
 /**
@@ -189,7 +195,7 @@ export async function getCatalogEntry(slug: string): Promise<WatchCatalogEntry |
  * Only uses bundled catalog - for use in sync contexts.
  */
 export function getCatalogEntrySync(slug: string): WatchCatalogEntry | undefined {
-  return getBundledVideo({ slug });
+  return availableEntries(getBundledCatalog()).find((entry) => entry.slug === slug);
 }
 
 /**
@@ -204,5 +210,5 @@ export async function getAllCatalogSlugs(): Promise<string[]> {
  * Get all slugs from bundled catalog (sync).
  */
 export function getAllCatalogSlugsSync(): string[] {
-  return getBundledSlugs();
+  return availableEntries(getBundledCatalog()).map((entry) => entry.slug);
 }

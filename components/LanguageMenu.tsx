@@ -3,7 +3,6 @@
 import { useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
 import {
-  parseLocaleCookie,
   resolveLocaleCookieDomain,
 } from "../lib/locale-cookie";
 import {
@@ -26,6 +25,12 @@ interface LanguageMenuProps {
   supportedLocales?: readonly Locale[];
 }
 
+const languageLabel: Record<Locale, string> = {
+  en: "Select language", ko: "언어 선택", es: "Seleccionar idioma",
+  ja: "言語を選択", zh: "选择语言", fr: "Choisir la langue",
+  de: "Sprache auswählen", pt: "Selecionar idioma", vi: "Chọn ngôn ngữ",
+};
+
 export function LanguageMenu({
   className,
   supportedLocales,
@@ -34,10 +39,6 @@ export function LanguageMenu({
   const params = useSearchParams();
   const pathLocale = localeFromPathname(pathname);
   const queryLocale = params.get("l");
-  const cookieLocale =
-    typeof document === "undefined"
-      ? undefined
-      : parseLocaleCookie(document.cookie);
   const [isChanging, setIsChanging] = useState(false);
   const englishPath = englishPathFor(pathname);
   const availableOptions = supportedLocales
@@ -57,14 +58,12 @@ export function LanguageMenu({
       ? pathLocale
       : isLocale(queryLocale) && supportsCurrentRoute(queryLocale)
         ? queryLocale
-        : supportsCurrentRoute(cookieLocale)
-          ? cookieLocale
-          : supportsCurrentRoute(domLocale)
+        : supportsCurrentRoute(domLocale)
             ? domLocale
             : DEFAULT_LOCALE;
 
   // Hide on routes that don't support localization
-  if (pathname.startsWith("/echo") || pathname.startsWith("/checkout"))
+  if (englishPath.startsWith("/echo/") || englishPath.startsWith("/checkout"))
     return null;
 
   /** swap locale & store cookie */
@@ -100,7 +99,7 @@ export function LanguageMenu({
           value={locale}
           onChange={(e) => switchTo(e.target.value as Locale)}
           disabled={isChanging}
-          aria-label="Select language"
+          aria-label={languageLabel[locale]}
           className={`h-9 min-w-16 cursor-pointer border border-white/20 bg-transparent pl-3 pr-2 font-mono text-[11px] leading-none text-white transition hover:border-white/50 sm:h-auto sm:min-w-0 sm:px-3 sm:py-2.5 ${
             isChanging ? "opacity-50 cursor-wait" : ""
           }`}

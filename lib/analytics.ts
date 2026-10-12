@@ -22,11 +22,20 @@ export type DownloadEventPayload = {
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
+    stage5AnalyticsConsent?: {
+      getChoice(): "granted" | "denied" | null;
+      canTrack(): boolean;
+      choose(choice: "granted" | "denied"): { saved: boolean };
+    };
   }
 }
 
+function canTrack(): boolean {
+  return typeof window !== "undefined" && window.stage5AnalyticsConsent?.canTrack() === true;
+}
+
 function pushAnalyticsEvent(payload: Record<string, unknown>): void {
-  if (typeof window === "undefined") return;
+  if (!canTrack()) return;
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(payload);
 }
@@ -82,7 +91,7 @@ export type CheckoutReturnEventPayload = {
 };
 
 export function trackCheckoutReturn(payload: CheckoutReturnEventPayload): void {
-  if (typeof window === "undefined") return;
+  if (!canTrack()) return;
 
   const url = new URL(window.location.href);
   const opaqueReturnKey =
@@ -101,7 +110,7 @@ export function trackCheckoutReturn(payload: CheckoutReturnEventPayload): void {
 }
 
 export function trackWatchPlay(payload: WatchPlayEventPayload): void {
-  if (typeof window === "undefined") return;
+  if (!canTrack()) return;
 
   const dedupeKey = `stage5:watch_play:${payload.slug}`;
   try {
@@ -115,7 +124,7 @@ export function trackWatchPlay(payload: WatchPlayEventPayload): void {
 }
 
 export function trackWatchCutoff(payload: WatchCutoffEventPayload): void {
-  if (typeof window === "undefined") return;
+  if (!canTrack()) return;
 
   const dedupeKey = `stage5:watch_cutoff:${payload.slug}`;
   try {

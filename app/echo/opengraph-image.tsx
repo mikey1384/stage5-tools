@@ -1,7 +1,5 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
 export const alt = "Echo: Stream Your Mind - daily AI reflection app by Stage5";
 export const size = {
   width: 1200,

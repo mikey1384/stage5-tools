@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /.next-dev/
+/.open-next/
 /out/
 
 # production
@@ -40,3 +41,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local release builds and wrangler state
+.local/
+.wrangler/

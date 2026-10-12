@@ -8,6 +8,7 @@ import {
   shouldIndexLocalePath,
   type Locale,
 } from "./locales";
+import { canonicalOriginForPath, canonicalSiteUrl, STAGE5_ORIGIN } from "./site-routing";
 
 const BASE_URL = "https://translator.tools";
 
@@ -25,6 +26,7 @@ interface BuildMetadataProps {
   keywords: string[];
   locale?: Locale;
   availableLocales?: readonly Locale[];
+  origin?: string;
 }
 
 interface BuildSoftwareApplicationStructuredDataProps {
@@ -45,12 +47,18 @@ export function buildMetadata({
   keywords,
   locale = "en",
   availableLocales,
+  origin,
 }: BuildMetadataProps): Metadata {
   const englishPath = path.startsWith("/") ? path : `/${path}`;
+  const canonicalOrigin = origin ?? canonicalOriginForPath(englishPath);
+  // R2 Watch copy predates Stage5 ownership; normalize only its old brand suffix.
+  const resolvedTitle = canonicalOrigin === STAGE5_ORIGIN
+    ? title.replace(/\s*\|\s*Translator\s*$/i, " | Stage5")
+    : title;
   const canonicalPath = availableLocales
     ? localizeSupportedPathForLocale(locale, englishPath)
     : localizePathForLocale(locale, englishPath);
-  const canonicalUrl = new URL(canonicalPath, BASE_URL).toString();
+  const canonicalUrl = new URL(canonicalPath, canonicalOrigin).toString();
   const resolvedAvailableLocales = availableLocales
     ? [...new Set([DEFAULT_LOCALE, ...availableLocales])]
     : indexableLocalesForPath(englishPath);
@@ -64,7 +72,7 @@ export function buildMetadata({
         availableLocales
           ? localizeSupportedPathForLocale(supportedLocale, englishPath)
           : localizePathForLocale(supportedLocale, englishPath),
-        BASE_URL,
+        canonicalOrigin,
       ).toString(),
     ]),
   ) as Record<string, string>;
@@ -74,7 +82,7 @@ export function buildMetadata({
     .map((supportedLocale) => openGraphLocaleByLocale[supportedLocale]);
 
   return {
-    title,
+    title: resolvedTitle,
     description,
     keywords,
     alternates: {
@@ -91,10 +99,10 @@ export function buildMetadata({
           follow: true,
         },
     openGraph: {
-      title,
+      title: resolvedTitle,
       description,
       url: canonicalUrl,
-      siteName: "Translator",
+      siteName: canonicalOrigin === STAGE5_ORIGIN ? "Stage5" : "Translator",
       type: "website",
       locale: ogLocale,
       alternateLocale: alternateOgLocale,
@@ -102,7 +110,7 @@ export function buildMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: resolvedTitle,
       description,
       images: [defaultImage.url],
     },
@@ -110,7 +118,7 @@ export function buildMetadata({
 }
 
 export function absoluteSiteUrl(path: string): string {
-  return new URL(path, BASE_URL).toString();
+  return canonicalSiteUrl(path);
 }
 
 export function buildSoftwareApplicationStructuredData({

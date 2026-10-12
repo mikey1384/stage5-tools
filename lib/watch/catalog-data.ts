@@ -21,7 +21,7 @@ const videos: WatchCatalogEntry[] = [
     language: "Spanish",
     topic: "Food & Craft",
     showName: "Wild Project #287",
-    datePublished: "2024-05-14",
+    datePublished: "2024-06-13",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -33,8 +33,7 @@ const videos: WatchCatalogEntry[] = [
         name: "The Wild Project #287 - Ferran Adrià",
         description:
           "Interview with legendary chef Ferran Adrià about creativity, craft, and food as art",
-        uploadDate: "2024-05-14",
-        contentUrl: "https://www.youtube.com/watch?v=xzSOmaZGtiI",
+        uploadDate: "2024-06-13T06:00:06-07:00",
         embedUrl: "https://www.youtube.com/embed/xzSOmaZGtiI",
         inLanguage: "es",
       },
@@ -64,7 +63,6 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Barcelona defender Gerard Piqué sits down with David Broncano for a Spanish late-night interview",
         uploadDate: "2019-03-28",
-        contentUrl: "https://www.youtube.com/watch?v=AcGwBcHPMPQ",
         embedUrl: "https://www.youtube.com/embed/AcGwBcHPMPQ",
         inLanguage: "es",
       },
@@ -94,7 +92,6 @@ const videos: WatchCatalogEntry[] = [
         description:
           "Director Park Chan-wook discusses Decision to Leave with film critic Lee Dong-jin",
         uploadDate: "2022-06-29",
-        contentUrl: "https://www.youtube.com/watch?v=CjVz6F62T4w",
         embedUrl: "https://www.youtube.com/embed/CjVz6F62T4w",
         inLanguage: "ko",
         duration: "PT1H11M46S",
@@ -112,7 +109,7 @@ const videos: WatchCatalogEntry[] = [
     language: "Korean",
     topic: "Film",
     showName: "Lee Dong-jin's Piarchia",
-    datePublished: "2022-08-08",
+    datePublished: "2022-08-10",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -124,8 +121,7 @@ const videos: WatchCatalogEntry[] = [
         name: "이정재 감독님을 모셨습니다!!!",
         description:
           "Actor-turned-director Lee Jung-jae discusses Hunt, his directorial debut, with film critic Lee Dong-jin",
-        uploadDate: "2022-08-08",
-        contentUrl: "https://www.youtube.com/watch?v=mF6xumJOVss",
+        uploadDate: "2022-08-10T04:00:23-07:00",
         embedUrl: "https://www.youtube.com/embed/mF6xumJOVss",
         inLanguage: "ko",
       },
@@ -142,7 +138,7 @@ const videos: WatchCatalogEntry[] = [
     language: "Korean",
     topic: "Film",
     showName: "Lee Dong-jin's Piarchia",
-    datePublished: "2022-03-07",
+    datePublished: "2023-11-24",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -154,8 +150,7 @@ const videos: WatchCatalogEntry[] = [
         name: "유지태 배우님을 모셨습니다!!!",
         description:
           "Actor Yoo Ji-tae discusses One Fine Spring Day and Oldboy with film critic Lee Dong-jin",
-        uploadDate: "2022-03-07",
-        contentUrl: "https://www.youtube.com/watch?v=PYY10Yq50bA",
+        uploadDate: "2023-11-24T03:00:30-08:00",
         embedUrl: "https://www.youtube.com/embed/PYY10Yq50bA",
         inLanguage: "ko",
       },
@@ -169,10 +164,10 @@ const videos: WatchCatalogEntry[] = [
     sourceLang: "ko",
     tracks: ["en", "es", "pt"],
     supportedLocales: ["en", "es", "ko", "pt", "vi"],
-    language: "Korean",
+    language: "Korean / Japanese",
     topic: "Film",
     showName: "Lee Dong-jin's Piarchia",
-    datePublished: "2022-06-13",
+    datePublished: "2025-05-09",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -184,10 +179,9 @@ const videos: WatchCatalogEntry[] = [
         name: "고레에다 히로카즈 감독님을 모셨습니다!!!",
         description:
           "Director Hirokazu Kore-eda discusses his film career with critic Lee Dong-jin",
-        uploadDate: "2022-06-13",
-        contentUrl: "https://www.youtube.com/watch?v=j29oHrGMmtY",
+        uploadDate: "2025-05-09T04:25:16-07:00",
         embedUrl: "https://www.youtube.com/embed/j29oHrGMmtY",
-        inLanguage: "ko",
+        inLanguage: ["ko", "ja"],
       },
     ],
     copy: koreEdaPiarchiaCopy as Record<"en" | "es" | "ko" | "pt" | "vi", WatchPageCopy>,
@@ -202,7 +196,7 @@ const videos: WatchCatalogEntry[] = [
     language: "Spanish",
     topic: "Film",
     showName: "The Wild Project",
-    datePublished: "2024-01-09",
+    datePublished: "2026-05-28",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -211,11 +205,10 @@ const videos: WatchCatalogEntry[] = [
       },
       {
         "@type": "VideoObject",
-        name: "The Wild Project #245 - Alejandro G. Calvo & J. Maquiavello",
+        name: "The Wild Project 376 - Alejandro G. Calvo & J. Maquiavello | TOP 60 MEJORES PELÍCULAS de la HISTORIA",
         description:
           "Spanish film critic Alejandro G. Calvo discusses the TOP 60 películas with Jordi Wild",
-        uploadDate: "2024-01-09",
-        contentUrl: "https://www.youtube.com/watch?v=Wk_4tQOvdWU",
+        uploadDate: "2026-05-28T08:00:06-07:00",
         embedUrl: "https://www.youtube.com/embed/Wk_4tQOvdWU",
         inLanguage: "es",
       },
@@ -232,7 +225,7 @@ const videos: WatchCatalogEntry[] = [
     language: "English",
     topic: "Film",
     showName: "The Late Show",
-    datePublished: "2024-01-16",
+    datePublished: "2024-02-08",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -249,8 +242,7 @@ const videos: WatchCatalogEntry[] = [
         name: "Why \"Oppenheimer\" Writer And Director Christopher Nolan Carries A Burner Phone | The Late Show with Stephen Colbert",
         description:
           "Director Christopher Nolan discusses Oppenheimer on The Late Show with Stephen Colbert during the 2024 awards season",
-        uploadDate: "2024-01-16",
-        contentUrl: "https://www.youtube.com/watch?v=WGH8RMbrGLM",
+        uploadDate: "2024-02-08T00:35:00-08:00",
         embedUrl: "https://www.youtube.com/embed/WGH8RMbrGLM",
         inLanguage: "en",
       },
@@ -267,7 +259,7 @@ const videos: WatchCatalogEntry[] = [
     language: "English",
     topic: "Food & Craft",
     showName: "Hot Ones",
-    datePublished: "2018-01-18",
+    datePublished: "2019-01-24",
     structuredDataAbout: [
       {
         "@type": "Person",
@@ -284,8 +276,7 @@ const videos: WatchCatalogEntry[] = [
         name: "Gordon Ramsay Savagely Critiques Spicy Wings | Hot Ones",
         description:
           "Gordon Ramsay sits down with Sean Evans on First We Feast's Hot Ones for season eight",
-        uploadDate: "2018-01-18",
-        contentUrl: "https://www.youtube.com/watch?v=U9DyHthJ6LA",
+        uploadDate: "2019-01-24T08:00:01-08:00",
         embedUrl: "https://www.youtube.com/embed/U9DyHthJ6LA",
         inLanguage: "en",
       },

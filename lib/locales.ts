@@ -39,6 +39,7 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/privacy",
   "/terms",
   "/echo",
+  "/reflect",
 ]);
 const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/open-source"]);
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([

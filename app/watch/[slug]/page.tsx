@@ -1,3 +1,5 @@
+import { workshopCopy, isWorkshopLocale } from "../../../lib/watch/workshop-copy";
+import { canonicalSiteUrl, STAGE5_ORIGIN } from "../../../lib/site-routing";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,7 +8,9 @@ import { FeatureDownloadCta } from "../../../components/FeatureDownloadCta";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { SiteNav } from "../../../components/SiteNav";
 import { YouTubeDemo } from "../../../components/YouTubeDemo";
+import { WatchCaptionWorkshop } from "../../../components/WatchCaptionWorkshop";
 import { getLocale } from "../../../lib/get-locale";
+import { getRequestOrigin } from "../../../lib/get-site";
 import { serializeJsonLd } from "../../../lib/json-ld";
 import {
   homeHrefForLocale,
@@ -21,8 +25,12 @@ import {
 import {
   getPostCardForLocale,
   getWatchSupportedLocales,
+  getVideoLanguages,
 } from "../../../lib/watch/catalog";
 import { getWatchUiCopy } from "../../../lib/watch/ui-copy";
+import { getVideoUploadDate } from "../../../lib/watch/publication-date.mjs";
+import { ADSENSE_CLIENT_ID } from "../../../lib/adsense";
+import { createAdsenseProductionBootstrap } from "../../../lib/third-party-script-bootstrap";
 
 // Enable on-demand rendering for new slugs from R2 without rebuild
 export const dynamicParams = true;
@@ -55,9 +63,10 @@ export async function generateMetadata({
     notFound();
   }
 
+  const workshop = slug === "tom-hanks-smartless" && isWorkshopLocale(locale) ? workshopCopy[locale] : undefined;
   return buildMetadata({
-    title: copy.title,
-    description: copy.description,
+    title: workshop ? workshop.title : copy.title,
+    description: workshop ? workshop.description : copy.description,
     path: `/watch/${slug}`,
     keywords: copy.keywords,
     locale,
@@ -75,6 +84,7 @@ export default async function WatchPage({
   const { slug } = await params;
   const searchParamsValue = await searchParams;
   const locale = await getLocale(searchParamsValue);
+  const playerOrigin = await getRequestOrigin();
   
   const video = await getCatalogEntry(slug);
   
@@ -91,10 +101,11 @@ export default async function WatchPage({
   }
 
   const uiCopy = getWatchUiCopy(locale);
+  const workshop = slug === "tom-hanks-smartless" && isWorkshopLocale(locale) ? workshopCopy[locale] : undefined;
   const homeHref = homeHrefForLocale(locale);
-  const localizeHref = (href: string) => localizePathForLocale(locale, href);
+  const localizeHref = (href: string) => canonicalSiteUrl(localizePathForLocale(locale, href));
   const pagePath = `/watch/${slug}`;
-  const pageUrl = `https://translator.tools${localizeSupportedPathForLocale(locale, pagePath)}`;
+  const pageUrl = `${STAGE5_ORIGIN}${localizeSupportedPathForLocale(locale, pagePath)}`;
   const videoNodeId = `${pageUrl}#video`;
   const catalogVideoData = video.structuredDataAbout?.find(
     (item) => item["@type"] === "VideoObject",
@@ -109,13 +120,12 @@ export default async function WatchPage({
       {
         "@type": "Article",
         "@id": `${pageUrl}#article`,
-        headline: copy.h1,
-        description: copy.description,
+        headline: workshop ? workshop.h1 : copy.h1,
+        description: workshop ? workshop.description : copy.description,
         url: pageUrl,
         mainEntityOfPage: pageUrl,
         mainEntity: { "@id": videoNodeId },
         inLanguage: locale,
-        datePublished: video.datePublished,
         image: `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
         author: {
           "@type": "Organization",
@@ -124,10 +134,12 @@ export default async function WatchPage({
         publisher: {
           "@type": "Organization",
           name: "Stage5 Tools",
-          url: "https://translator.tools",
+          url: STAGE5_ORIGIN,
           logo: {
             "@type": "ImageObject",
-            url: "https://translator.tools/translator-icon.png",
+            url: workshop
+              ? "https://stage5.tools/brand/stage5-wordmark-web-v1.webp"
+              : "https://translator.tools/translator-icon.png",
           },
         },
         ...(articleAbout?.length ? { about: articleAbout } : {}),
@@ -138,11 +150,13 @@ export default async function WatchPage({
         "@id": videoNodeId,
         name: copy.h1,
         description: copy.description,
-        uploadDate: video.datePublished,
+        uploadDate: getVideoUploadDate(video),
         thumbnailUrl: `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
-        contentUrl: `https://www.youtube.com/watch?v=${video.videoId}`,
-        embedUrl: `https://www.youtube.com/embed/${video.videoId}`,
-        inLanguage: video.sourceLang,
+        // YouTube hosts the media bytes; its watch page is not a contentUrl.
+        // Override legacy catalog values so they cannot reintroduce that claim.
+        contentUrl: undefined,
+        embedUrl: `https://www.youtube-nocookie.com/embed/${video.videoId}`,
+        inLanguage: getVideoLanguages(video),
       },
     ],
   };
@@ -170,6 +184,12 @@ export default async function WatchPage({
 
   return (
     <main className="min-h-screen bg-black text-white">
+      {process.env.NEXT_PUBLIC_WATCH_ADS_ENABLED === "true" && <script
+        id="adsense-production-bootstrap"
+        dangerouslySetInnerHTML={{
+          __html: createAdsenseProductionBootstrap(ADSENSE_CLIENT_ID),
+        }}
+      />}
       <script
         id="article-structured-data"
         type="application/ld+json"
@@ -177,7 +197,7 @@ export default async function WatchPage({
       />
 
       <div className="container mx-auto px-6">
-        <SiteNav locale={locale} supportedLocales={supportedLocales} />
+        <SiteNav site="stage5" locale={locale} supportedLocales={supportedLocales} />
 
         <Breadcrumbs
           items={[
@@ -188,13 +208,15 @@ export default async function WatchPage({
         />
 
         <article className="pb-24">
-          <header className="mx-auto max-w-4xl pb-12 pt-10">
-            {copy.eyebrow ? (
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
+          <header className="mx-auto max-w-4xl pb-8 pt-6 md:pt-10">
+            {workshop ? (
+              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">{workshop.eyebrow}</div>
+            ) : copy.eyebrow ? (
+              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">
                 {copy.eyebrow}
               </div>
             ) : (
-              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-500">
+              <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-gray-400">
                 <span>{postCard.language}</span>
                 <span className="text-gray-700">·</span>
                 <span>{postCard.topic}</span>
@@ -202,17 +224,28 @@ export default async function WatchPage({
                 <span>{video.showName}</span>
               </div>
             )}
-            <h1 className="mt-6 text-4xl font-semibold leading-tight tracking-tight text-white md:text-6xl">
-              {copy.h1}
+            <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-white md:mt-6 md:text-6xl">
+              {workshop ? workshop.h1 : copy.h1}
             </h1>
-            <p className="mt-6 text-xl leading-8 text-gray-300">
-              {copy.intro}
-            </p>
           </header>
 
           <div className="mx-auto max-w-4xl">
+            {workshop && isWorkshopLocale(locale) ? <WatchCaptionWorkshop locale={locale} sourcePreview={
+              <YouTubeDemo
+                locale={locale}
+                playerOrigin={playerOrigin}
+                slug={slug}
+                videoId={video.videoId}
+                sourceLang={video.sourceLang}
+                availableTracks={video.tracks}
+                initialSelectedLang={initialSelectedLang}
+                videoDownloaderHref={localizeHref("/video-downloader")}
+                vttSlug={video.vttSlug}
+              />
+            } /> : <>
             <YouTubeDemo
               locale={locale}
+              playerOrigin={playerOrigin}
               slug={slug}
               videoId={video.videoId}
               sourceLang={video.sourceLang}
@@ -221,6 +254,10 @@ export default async function WatchPage({
               videoDownloaderHref={localizeHref("/video-downloader")}
               vttSlug={video.vttSlug}
             />
+
+            <p className="mt-8 text-xl leading-8 text-gray-300">
+              {copy.intro}
+            </p>
 
             <div className="prose prose-invert mt-12 max-w-none">
               {copy.section1Body && copy.section1Body.length > 0 && (
@@ -346,6 +383,7 @@ export default async function WatchPage({
                 </p>
               ))}
             </div>
+            </>}
           </div>
         </article>
       </div>

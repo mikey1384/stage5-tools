@@ -1,3 +1,4 @@
+import { getWatchExperienceCopy } from "../../../lib/watch/experience-copy";
 interface WatchPageCopy {
   title: string;
   description: string;
@@ -75,8 +76,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
         body: "The app plays the video with your subtitles. You can edit timing, fix translations, and export the final SRT file.",
       },
     ],
-    howToNote:
-      "The video stays on your computer. Translator works locally—nothing is uploaded to our servers.",
+    howToNote: getWatchExperienceCopy("en").processing,
     pricingTitle: "What's free, what's paid",
     pricingFree:
       "Downloading videos, subtitle editing, library management, and SRT export.",
@@ -92,8 +92,8 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
       "Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key.",
     aboutTitle: "About this post",
     aboutBody: [
-      "The YouTube video is embedded directly from First We Feast. The first 30 seconds of captions can be displayed in English, Korean (한국어), Spanish (Español), or Portuguese (Português). All four caption tracks were transcribed and translated in Translator (first 30 seconds only), not YouTube automatic captions.",
-      "Source: Hot Ones season 8, hosted by Sean Evans, featuring Gordon Ramsay. First We Feast. Published August 22, 2026. Video is in English.",
+      "This page embeds the original YouTube video and provides a 30-second caption preview in English, Spanish, Korean, Portuguese and Vietnamese. These five caption tracks were made with Translator. The full original video is available through the YouTube link.",
+      "Source: Hot Ones season 8, hosted by Sean Evans, featuring Gordon Ramsay. First We Feast. Published January 24, 2019. Video is in English.",
     ],
   },
   es: {
@@ -142,8 +142,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
         body: "La app reproduce el video con tus subtítulos. Puedes editar el tiempo, corregir traducciones y exportar el archivo SRT final.",
       },
     ],
-    howToNote:
-      "El video permanece en tu computadora. Translator funciona localmente—nada se sube a nuestros servidores.",
+    howToNote: getWatchExperienceCopy("es").processing,
     pricingTitle: "Qué es gratis, qué es de pago",
     pricingFree:
       "Descarga de videos, edición de subtítulos, gestión de biblioteca y exportación de SRT.",
@@ -159,8 +158,8 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
       "La descarga y edición de subtítulos son gratis. La transcripción y traducción con IA requieren créditos Stage5 o tu propia clave API.",
     aboutTitle: "Sobre este post",
     aboutBody: [
-      "El video de YouTube está incrustado directamente desde First We Feast. Los primeros 30 segundos de subtítulos pueden mostrarse en inglés, coreano (한국어), español o portugués (Português). Las cuatro pistas de subtítulos fueron transcritas y traducidas en Translator (solo los primeros 30 segundos), no son subtítulos automáticos de YouTube.",
-      "Fuente: Hot Ones temporada 8, presentado por Sean Evans, con Gordon Ramsay. First We Feast. Publicado el 22 de agosto de 2026. El video está en inglés.",
+      "Esta página incorpora el video original de YouTube y ofrece una vista previa de 30 segundos con subtítulos en inglés, español, coreano, portugués y vietnamita. Las cinco pistas se crearon con Translator. El enlace de YouTube permite ver el video original completo.",
+      "Fuente: Hot Ones temporada 8, presentado por Sean Evans, con Gordon Ramsay. First We Feast. Publicado el 24 de enero de 2019. El video está en inglés.",
     ],
   },
   ko: {
@@ -209,8 +208,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
         body: "앱이 자막과 함께 영상을 재생합니다. 타이밍을 편집하고, 번역을 수정하고, 최종 SRT 파일을 내보낼 수 있습니다.",
       },
     ],
-    howToNote:
-      "영상은 컴퓨터에 남아 있습니다. Translator는 로컬에서 작동합니다—아무것도 서버에 업로드되지 않습니다.",
+    howToNote: getWatchExperienceCopy("ko").processing,
     pricingTitle: "무료 기능과 유료 기능",
     pricingFree: "영상 다운로드, 자막 편집, 라이브러리 관리, SRT 내보내기.",
     pricingPaid:
@@ -225,8 +223,8 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
       "다운로드 및 자막 편집은 무료입니다. AI 전사 및 번역은 Stage5 크레딧 또는 자체 API 키가 필요합니다.",
     aboutTitle: "이 게시물에 대하여",
     aboutBody: [
-      "YouTube 영상은 First We Feast에서 직접 임베드됩니다. 처음 30초의 자막은 영어, 한국어, 스페인어(Español) 또는 포르투갈어(Português)로 표시될 수 있습니다. 네 가지 자막 트랙은 모두 Translator에서 전사 및 번역되었으며(처음 30초만), YouTube 자동 자막이 아닙니다.",
-      "출처: Sean Evans가 진행하고 Gordon Ramsay가 출연한 Hot Ones 시즌 8. First We Feast. 2026년 8월 22일 게시. 영상은 영어입니다.",
+      "이 페이지는 YouTube 원본 영상을 삽입하고 처음 30초의 영어, 스페인어, 한국어, 포르투갈어, 베트남어 자막을 제공합니다. 다섯 자막 트랙은 Translator로 만들었습니다. YouTube 링크에서 원본 전체 영상을 볼 수 있습니다.",
+      "출처: Sean Evans가 진행하고 Gordon Ramsay가 출연한 Hot Ones 시즌 8. First We Feast. 2019년 1월 24일 게시. 영상은 영어입니다.",
     ],
   },
   pt: {
@@ -275,8 +273,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
         body: "O aplicativo reproduz o vídeo com suas legendas. Você pode editar o tempo, corrigir traduções e exportar o arquivo SRT final.",
       },
     ],
-    howToNote:
-      "O vídeo fica no seu computador. O Translator funciona localmente—nada é enviado para nossos servidores.",
+    howToNote: getWatchExperienceCopy("pt").processing,
     pricingTitle: "O que é grátis, o que é pago",
     pricingFree:
       "Download de vídeos, edição de legendas, gerenciamento de biblioteca e exportação de SRT.",
@@ -292,8 +289,8 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
       "Download e edição de legendas são gratuitos. Transcrição e tradução com IA requerem créditos Stage5 ou sua própria chave API.",
     aboutTitle: "Sobre este post",
     aboutBody: [
-      "O vídeo do YouTube está incorporado diretamente da First We Feast. Os primeiros 30 segundos de legendas podem ser exibidos em inglês, coreano (한국어), espanhol (Español) ou português. Todas as quatro faixas de legendas foram transcritas e traduzidas no Translator (apenas os primeiros 30 segundos), não são legendas automáticas do YouTube.",
-      "Fonte: Hot Ones temporada 8, apresentado por Sean Evans, com Gordon Ramsay. First We Feast. Publicado em 22 de agosto de 2026. O vídeo está em inglês.",
+      "Esta página incorpora o vídeo original do YouTube e oferece uma prévia de 30 segundos com legendas em inglês, espanhol, coreano, português e vietnamita. As cinco faixas foram criadas com o Translator. O vídeo original completo está disponível pelo link do YouTube.",
+      "Fonte: Hot Ones temporada 8, apresentado por Sean Evans, com Gordon Ramsay. First We Feast. Publicado em 24 de janeiro de 2019. O vídeo está em inglês.",
     ],
   },
   vi: {
@@ -337,8 +334,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
         body: "Ứng dụng phát video với phụ đề của bạn. Bạn có thể chỉnh sửa thời gian, sửa bản dịch và xuất tệp SRT cuối cùng.",
       },
     ],
-    howToNote:
-      "Video lưu trên máy tính của bạn. Translator hoạt động cục bộ—không có gì được tải lên máy chủ của chúng tôi.",
+    howToNote: getWatchExperienceCopy("vi").processing,
     pricingTitle: "Miễn phí và trả phí",
     pricingFree:
       "Tải video, chỉnh sửa phụ đề, quản lý thư viện và xuất SRT.",
@@ -359,8 +355,8 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     ],
     aboutTitle: "Về bài viết này",
     aboutBody: [
-      "Video YouTube được nhúng trực tiếp từ First We Feast. 30 giây đầu tiên của phụ đề có thể hiển thị bằng tiếng Anh, tiếng Hàn (한국어), tiếng Tây Ban Nha (Español) hoặc tiếng Bồ Đào Nha. Cả bốn bản phụ đề đều được phiên âm và dịch trong Translator (chỉ 30 giây đầu), không phải phụ đề tự động của YouTube.",
-      "Nguồn: Hot Ones mùa 8, do Sean Evans dẫn chương trình, có Gordon Ramsay. First We Feast. Xuất bản ngày 22 tháng 8 năm 2026. Video bằng tiếng Anh.",
+      "Trang này nhúng video gốc từ YouTube và cung cấp bản xem trước 30 giây với phụ đề tiếng Anh, Tây Ban Nha, Hàn, Bồ Đào Nha và Việt. Năm bản phụ đề được tạo bằng Translator. Bạn có thể xem toàn bộ video gốc qua liên kết YouTube.",
+      "Nguồn: Hot Ones mùa 8, do Sean Evans dẫn chương trình, có Gordon Ramsay. First We Feast. Xuất bản ngày 24 tháng 1 năm 2019. Video bằng tiếng Anh.",
     ],
   },
 };

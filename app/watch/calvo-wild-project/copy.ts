@@ -187,9 +187,9 @@ export const calvoWildProjectCopy: Record<SupportedLocale, WatchPageCopy> = {
     ],
   },
   vi: {
-    title: "Xem Alejandro G. Calvo trên Wild Project với Phụ Đề Tiếng Việt | Translator",
+    title: "Alejandro G. Calvo trên The Wild Project: xem trước 30 giây | Translator",
     description:
-      "Nhà phê bình phim Tây Ban Nha Alejandro G. Calvo thảo luận về TOP 60 películas với Jordi Wild. Cuộc phỏng vấn tiếng Tây Ban Nha về điện ảnh, phê bình và nghề thủ công.",
+      "Alejandro G. Calvo và J. Maquiavello bàn về điện ảnh trên The Wild Project. Xem trước với phụ đề tiếng Anh, Hàn hoặc Bồ Đào Nha; chưa có tiếng Việt.",
     keywords: [
       "Alejandro G. Calvo phỏng vấn",
       "Wild Project",

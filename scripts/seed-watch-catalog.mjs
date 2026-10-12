@@ -25,6 +25,7 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "url";
 import {
   expectedVttFileNames,
+  loadValidatedWatchVtts,
   validateWatchCatalog,
 } from "./watch-catalog-validation.mjs";
 
@@ -108,8 +109,7 @@ async function loadCatalogFromLib() {
   return catalog;
 }
 
-async function uploadVtt(vttPath, fileName) {
-  const content = await readFile(vttPath, "utf-8");
+async function uploadVtt({ content, fileName }) {
   
   const command = new PutObjectCommand({
     Bucket: R2_BUCKET,
@@ -154,8 +154,11 @@ async function seed() {
     }
   }
   
-  for (const vttFile of vttFiles) {
-    await uploadVtt(join(publicWatchDir, vttFile), vttFile);
+  const prepared = await loadValidatedWatchVtts(
+    vttFiles.map((file) => join(publicWatchDir, file)),
+  );
+  for (const file of prepared) {
+    await uploadVtt(file);
   }
   
   console.log(`✓ Uploaded ${vttFiles.length} VTT files`);

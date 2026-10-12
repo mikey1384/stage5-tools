@@ -1,10 +1,14 @@
 import * as http from "node:http";
 import * as https from "node:https";
+import unavailableVideos from "../lib/watch/unavailable-videos.json" with { type: "json" };
+import { isVideoUploadDate } from "../lib/watch/publication-date.mjs";
 
 const AUDIT_BASE_URL =
   process.env.RENDERED_AUDIT_BASE_URL ?? "http://127.0.0.1:8793";
 const REQUEST_HOST = process.env.RENDERED_AUDIT_HOST ?? "translator.tools";
-const SITE_ORIGIN = "https://translator.tools";
+const SITE_ORIGIN = `https://${REQUEST_HOST}`;
+const IS_STAGE5 = REQUEST_HOST === "stage5.tools";
+const EXPECT_ADS = process.env.RENDERED_AUDIT_WATCH_ADS_ENABLED === "true";
 const EXPECTED_GTM_ID =
   process.env.RENDERED_AUDIT_GTM_ID ?? "GTM-WTQTZDM4";
 const WATCH_ASSETS_BASE =
@@ -115,6 +119,11 @@ async function request(
 ) {
   const requested = new URL(siteUrl, SITE_ORIGIN);
   const target = new URL(`${requested.pathname}${requested.search}`, AUDIT_BASE_URL);
+  // Public checks must resolve and negotiate TLS for the actual host under test.
+  // Only the local Worker harness should reuse a transport host with Host overrides.
+  if (host && !["127.0.0.1", "localhost"].includes(target.hostname)) {
+    target.hostname = host;
+  }
   const headers = {
     "user-agent":
       "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
@@ -152,26 +161,35 @@ async function request(
         });
       });
     });
+    req.setTimeout(30_000, () => req.destroy(new Error(`Request timed out: ${target}`)));
     req.on("error", reject);
     req.end();
   });
 }
 
-function collectStructuredDataTypes(value, types = new Set()) {
+function collectStructuredDataTypes(value, types = new Set(), pageUrl) {
   if (Array.isArray(value)) {
-    for (const child of value) collectStructuredDataTypes(child, types);
+    for (const child of value) collectStructuredDataTypes(child, types, pageUrl);
     return types;
   }
   if (!value || typeof value !== "object") return types;
 
   const type = value["@type"];
+  if (type === "VideoObject" || (Array.isArray(type) && type.includes("VideoObject"))) {
+    if (!isVideoUploadDate(value.uploadDate)) {
+      fail(pageUrl, "VideoObject uploadDate must include a valid source time and timezone");
+    }
+    if (value.contentUrl && /^https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//i.test(value.contentUrl)) {
+      fail(pageUrl, "VideoObject contentUrl points to a YouTube page rather than media bytes; use embedUrl");
+    }
+  }
   if (Array.isArray(type)) {
     for (const item of type) if (typeof item === "string") types.add(item);
   } else if (typeof type === "string") {
     types.add(type);
   }
   for (const child of Object.values(value)) {
-    collectStructuredDataTypes(child, types);
+    collectStructuredDataTypes(child, types, pageUrl);
   }
   return types;
 }
@@ -221,6 +239,8 @@ async function auditIndexablePage(entry) {
   }
 
   const html = await response.text();
+  const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] ?? "";
+  if (!head) fail(entry.url, "missing initial document head");
   const htmlTag = html.match(/<html\b[^>]*>/i)?.[0];
   const htmlLang = htmlTag ? getAttribute(htmlTag, "lang") : undefined;
   const expectedLocale = expectedLocaleForUrl(entry.url);
@@ -228,7 +248,7 @@ async function auditIndexablePage(entry) {
     fail(entry.url, `expected html lang=${expectedLocale}, received ${htmlLang ?? "none"}`);
   }
 
-  const titles = [...html.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)].map(
+  const titles = [...head.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)].map(
     (match) => decodeEntities(match[1].trim()),
   );
   if (titles.length !== 1 || !titles[0]) {
@@ -243,7 +263,7 @@ async function auditIndexablePage(entry) {
     }
   }
 
-  const descriptions = metadataValues(html, "name", "description");
+  const descriptions = metadataValues(head, "name", "description");
   if (descriptions.length !== 1 || !descriptions[0].trim()) {
     fail(entry.url, `expected one non-empty meta description, found ${descriptions.length}`);
   } else {
@@ -269,7 +289,7 @@ async function auditIndexablePage(entry) {
     englishUrl: entry.alternates.get("en"),
   });
 
-  const canonicalLinks = linkValues(html, "canonical");
+  const canonicalLinks = linkValues(head, "canonical");
   const canonicalUrls = canonicalLinks.map((tag) => getAttribute(tag, "href"));
   if (canonicalUrls.length !== 1) {
     fail(entry.url, `expected one canonical link, found ${canonicalUrls.length}`);
@@ -288,7 +308,7 @@ async function auditIndexablePage(entry) {
   }
 
   const htmlAlternates = new Map();
-  for (const tag of linkValues(html, "alternate")) {
+  for (const tag of linkValues(head, "alternate")) {
     const hreflang = getAttribute(tag, "hreflang");
     const href = getAttribute(tag, "href");
     if (!hreflang || !href) continue;
@@ -320,12 +340,12 @@ async function auditIndexablePage(entry) {
     fail(entry.url, "x-default must match the English alternate");
   }
 
-  const ogUrl = metadataValues(html, "property", "og:url");
+  const ogUrl = metadataValues(head, "property", "og:url");
   if (ogUrl.length !== 1 || canonicalizeUrl(ogUrl[0]) !== canonicalizeUrl(entry.url)) {
     fail(entry.url, `og:url does not match the canonical URL`);
   }
   for (const property of ["og:title", "og:description", "og:image"]) {
-    if (metadataValues(html, "property", property).filter(Boolean).length === 0) {
+    if (metadataValues(head, "property", property).filter(Boolean).length === 0) {
       fail(entry.url, `missing ${property}`);
     }
   }
@@ -335,7 +355,7 @@ async function auditIndexablePage(entry) {
     "twitter:description",
     "twitter:image",
   ]) {
-    if (metadataValues(html, "name", name).filter(Boolean).length === 0) {
+    if (metadataValues(head, "name", name).filter(Boolean).length === 0) {
       fail(entry.url, `missing ${name}`);
     }
   }
@@ -351,7 +371,7 @@ async function auditIndexablePage(entry) {
   const structuredDataTypes = new Set();
   for (const script of jsonLdScripts) {
     try {
-      collectStructuredDataTypes(JSON.parse(script[1]), structuredDataTypes);
+      collectStructuredDataTypes(JSON.parse(script[1]), structuredDataTypes, entry.url);
     } catch (error) {
       fail(entry.url, `invalid JSON-LD: ${error.message}`);
     }
@@ -361,6 +381,18 @@ async function auditIndexablePage(entry) {
   const isWatchDetail = englishPath.startsWith("/watch/");
   if (isWatchDetail) {
     watchDetailCount += 1;
+    const playerChoice = tags(html, "section").find(tag => getAttribute(tag, "data-youtube-choice") === "required");
+    if (!playerChoice || getAttribute(playerChoice, "data-player-origin") !== SITE_ORIGIN) {
+      fail(entry.url, "YouTube choice is missing or its player origin differs from the rendering host");
+    }
+    if (tags(html, "iframe").some(tag => /youtube(?:-nocookie)?\.com/.test(getAttribute(tag, "src") ?? ""))) {
+      fail(entry.url, "YouTube iframe loads before the visitor chooses to connect");
+    }
+    for (const title of [titles[0], ...metadataValues(head, "property", "og:title"), ...metadataValues(head, "name", "twitter:title")]) {
+      if (!/\| Stage5$/.test(title ?? "")) {
+        fail(entry.url, "Watch title does not identify Stage5 in document/social metadata");
+      }
+    }
     for (const type of ["Article", "VideoObject"]) {
       if (!structuredDataTypes.has(type)) {
         fail(entry.url, `missing ${type} structured data`);
@@ -404,10 +436,10 @@ async function auditIndexablePage(entry) {
     html,
     "adsense-production-bootstrap",
   );
-  if (adsenseBootstraps.length !== (isWatchDetail ? 1 : 0)) {
+  if (adsenseBootstraps.length !== (isWatchDetail && EXPECT_ADS ? 1 : 0)) {
     fail(
       entry.url,
-      `expected ${isWatchDetail ? 1 : 0} guarded AdSense bootstrap, found ${adsenseBootstraps.length}`,
+      `expected ${isWatchDetail && EXPECT_ADS ? 1 : 0} guarded AdSense bootstrap, found ${adsenseBootstraps.length}`,
     );
   }
   if (isWatchDetail && adsenseBootstraps.length === 1) {
@@ -517,6 +549,9 @@ async function auditNotFound(path) {
   if (!hasDirective(robots, "noindex")) {
     fail(path, "404 response is missing noindex");
   }
+  if (scriptBodiesById(html, "adsense-production-bootstrap").length > 0) {
+    fail(path, "404 response must not initialize AdSense");
+  }
 }
 
 async function auditVtt(file) {
@@ -564,6 +599,17 @@ if (new Set(sitemapEntries.map((entry) => entry.url)).size !== sitemapEntries.le
 
 await runPool(sitemapEntries, auditIndexablePage);
 
+await runPool(sitemapEntries, async entry => {
+  const path = new URL(entry.url).pathname;
+  const alias = await request(path, { host: `www.${REQUEST_HOST}` });
+  if (alias.status !== 308 || alias.headers.get("location") !== entry.url) fail(entry.url, "www alias must redirect directly to its canonical URL");
+  if (englishPathForUrl(entry.url) !== "/") {
+    const otherHost = IS_STAGE5 ? "translator.tools" : "stage5.tools";
+    const moved = await request(`${path}?utm_source=migration-audit`, { host: otherHost });
+    if (moved.status !== 308 || moved.headers.get("location") !== `${entry.url}?utm_source=migration-audit`) fail(entry.url, "cross-domain redirect must preserve the exact path and query");
+  }
+});
+
 for (const [url, metadata] of localizedMetadata) {
   if (metadata.locale === "en" || !metadata.englishUrl) continue;
   const englishMetadata = localizedMetadata.get(metadata.englishUrl);
@@ -582,7 +628,9 @@ for (const [url, metadata] of localizedMetadata) {
 
 let watchCatalog = [];
 try {
+  if (IS_STAGE5) {
   const catalogResponse = await fetch(`${WATCH_ASSETS_BASE}/catalog.json`, {
+    signal: AbortSignal.timeout(30_000),
     headers: {
       "user-agent": "TranslatorRenderedSeoAudit/1.0",
     },
@@ -604,11 +652,23 @@ try {
       watchCatalog = [];
     }
   }
+  }
 } catch (error) {
   fail(`${WATCH_ASSETS_BASE}/catalog.json`, `request failed: ${error.message}`);
 }
 
 if (watchCatalog.length > 0) {
+  const unavailableEntries = watchCatalog.filter((entry) =>
+    Object.hasOwn(unavailableVideos, entry.videoId),
+  );
+  await runPool(unavailableEntries.flatMap((entry) =>
+    (entry.supportedLocales ?? Object.keys(entry.copy ?? {})).map((locale) =>
+      `${locale === "en" ? "" : `/${locale}`}/watch/${entry.slug}`,
+    ),
+  ), auditNotFound);
+  watchCatalog = watchCatalog.filter((entry) =>
+    !Object.hasOwn(unavailableVideos, entry.videoId),
+  );
   const slugs = watchCatalog.map((entry) => entry.slug);
   if (new Set(slugs).size !== slugs.length) {
     fail(`${WATCH_ASSETS_BASE}/catalog.json`, "catalog contains duplicate slugs");
@@ -659,21 +719,22 @@ for (const invalidVttPath of [
   }
 }
 
-const explicitNoindexPaths = [
-  "/checkout/cancelled",
-  "/checkout/success",
+const explicitNoindexPaths = IS_STAGE5 ? [
   "/echo/privacy",
   "/echo/support",
   "/echo/terms",
+] : [
+  "/checkout/cancelled",
+  "/checkout/success",
 ];
 await runPool(explicitNoindexPaths, (path) => auditNoindex(path, { follow: true }));
 
-const localizedNoindexPaths = nonEnglishLocales.flatMap((locale) =>
+const localizedNoindexPaths = IS_STAGE5 ? [] : nonEnglishLocales.flatMap((locale) =>
   ["contact", "privacy", "terms"].map((path) => `/${locale}/${path}`),
 );
 await runPool(localizedNoindexPaths, auditNoindex);
 
-const localizedEnglishOnlyPaths = nonEnglishLocales.flatMap((locale) =>
+const localizedEnglishOnlyPaths = IS_STAGE5 ? [] : nonEnglishLocales.flatMap((locale) =>
   ["agents", "open-source"].map((path) => ({
     path: `/${locale}/${path}`,
     expectedPath: `/${path}`,
@@ -687,9 +748,9 @@ const firstWatchEntry = sitemapEntries.find(
   (entry) => englishPathForUrl(entry.url).split("/").filter(Boolean).length === 2 &&
     englishPathForUrl(entry.url).startsWith("/watch/"),
 );
-if (!firstWatchEntry) {
+if (!firstWatchEntry && IS_STAGE5) {
   fail("sitemap", "contains no Watch detail URL");
-} else {
+} else if (firstWatchEntry) {
   const watchSlug = englishPathForUrl(firstWatchEntry.url).split("/").at(-1);
   await runPool(
     [
@@ -731,6 +792,7 @@ if (auditedHostGuard) {
     "www.stage5.tools",
   ];
   const nonProductionHosts = [
+    "stage5-web.mikey1384.workers.dev",
     "stage5-tools.pages.dev",
     "rendered-audit.stage5-tools.pages.dev",
     "localhost",

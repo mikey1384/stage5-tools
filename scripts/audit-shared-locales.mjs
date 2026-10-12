@@ -12,6 +12,7 @@ const filesToCompile = [
   "lib/required-shared-string-keys.ts",
   "lib/translate-language-slugs.ts",
   "lib/locales.ts",
+  "lib/interface-strings.ts",
   "lib/strings.ts",
 ];
 
