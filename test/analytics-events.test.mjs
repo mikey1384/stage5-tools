@@ -5,6 +5,7 @@ import {
   createAgentWorkflowEvent,
   createFaqIntentEvent,
   createHomeLandingIntentEvent,
+  createMobileDownloadEvent,
   createWatchAppCtaEvent,
   createWatchCaptionLoadEvent,
   createWatchCutoffEvent,
@@ -177,4 +178,13 @@ test("uses only a bounded current Watch caption language for CTA telemetry", () 
     "ko",
   );
   assert.equal(resolveWatchSelectedLanguage(null, "pt"), "pt");
+});
+
+test("creates the bounded mobile download payload", () => {
+  assert.deepEqual(createMobileDownloadEvent("copy", "hero_download", "/ko"), {
+    event: "download_mobile_redirect",
+    action: "copy",
+    placement: "hero_download",
+    page_path: "/ko",
+  });
 });

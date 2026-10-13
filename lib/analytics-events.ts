@@ -78,6 +78,29 @@ export function createWindowsInstallHelpEvent(
   };
 }
 
+export type MobileDownloadAction = "shown" | "share" | "copy" | "email";
+export type MobileDownloadPlacement = "hero_download" | "all_versions";
+
+export type MobileDownloadEventPayload = {
+  event: "download_mobile_redirect";
+  action: MobileDownloadAction;
+  placement: MobileDownloadPlacement;
+  page_path: string;
+};
+
+export function createMobileDownloadEvent(
+  action: MobileDownloadAction,
+  placement: MobileDownloadPlacement,
+  pagePath: string,
+): MobileDownloadEventPayload {
+  return {
+    event: "download_mobile_redirect",
+    action,
+    placement,
+    page_path: pagePath,
+  };
+}
+
 export type WatchPlayEventPayload = {
   event: "watch_play";
   page_path: string;

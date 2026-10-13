@@ -1,6 +1,8 @@
 "use client";
 
 import { DownloadButton } from "./DownloadButton";
+import { MobileDownloadPanel } from "./MobileDownloadPanel";
+import { useIsPhoneOrTablet } from "../hooks/useIsPhoneOrTablet";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, type Locale } from "../lib/interface-strings";
 import type { WatchAppCtaPlacement } from "../lib/analytics-events";
@@ -28,10 +30,23 @@ export function AllDownloadButtons({
   watchContext,
 }: AllDownloadButtonsProps) {
   const { platform } = usePlatformDetection();
+  const isPhoneOrTablet = useIsPhoneOrTablet();
 
   // Determine which button should be primary based on user's platform
   const isMacUser = platform === "mac";
   const isWindowsUser = platform === "windows";
+
+  if (isPhoneOrTablet) {
+    return (
+      <div className={`flex flex-col items-center justify-center ${className}`}>
+        <MobileDownloadPanel
+          locale={locale}
+          placement="all_versions"
+          surface={surface}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

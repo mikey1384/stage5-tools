@@ -465,6 +465,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         "body": "Translator 1.21.0 offers optional analytics in Settings → Privacy, off by default. When enabled, Stage5 can send bounded usage, reliability and purchase events to Google Analytics, including app version, platform, language, feature names, outcomes and purchase totals. Events use a pseudonymous installation identifier; they are not anonymous. The analytics payload excludes media, subtitle/prompt contents, API keys and local file paths. Turning the setting off stops new optional reports and clears pending reports; the app shows if it cannot confirm the server preference. This does not erase events already delivered or required billing records."
       },
       {
+        "title": "Anonymous usage counts",
+        "body": "From Translator 1.25.0, the app also sends anonymous daily counts of product steps, such as app opened, video download started or finished, transcription or translation started, completed or failed, and checkout opened. Each count contains only the step name, day, platform (Mac or Windows) and app version. It has no installation, device or account identifier and no media, subtitles, prompts, URLs, file paths or settings. Stage5 stores only daily totals, not the sender's IP address. These counts show where the app fails people, so they are sent whether or not optional analytics is on."
+      },
+      {
         "title": "Retention and deletion",
         "body": "Local files and saved credentials remain until you remove them or use the relevant app/system cleanup controls. Cloud processing can create temporary audio, text, generated results and job/retry records. Their lifetime depends on job completion, recovery and cleanup; we do not promise zero retention or a universal deletion deadline. Unsent optional app analytics expire after 72 hours. Stage5 schedules detailed delivered analytics for redaction after 90 days, retaining minimal delivery receipts; cleanup is batched, and a closed app clears expired local reports when it next runs. Payment, credit, security and support records are retained for their operational purpose and applicable legal obligations. Providers and connected agents apply their own retention/deletion terms and account settings. Contact us about access or deletion of Stage5-held records."
       },
@@ -555,6 +559,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         "title": "선택적 앱 분석",
         "body": "Translator 1.21.0의 설정 → 개인정보 보호에서 선택적 분석을 제공하며 기본값은 꺼짐입니다. 활성화하면 Stage5는 앱 버전, 플랫폼, 언어, 기능명, 결과와 구매 총액 등을 포함하는 제한된 사용·안정성·구매 이벤트를 Google Analytics에 보낼 수 있습니다. 이벤트는 가명 처리된 설치 식별자를 사용하며 익명 정보는 아닙니다. 분석 데이터에는 미디어, 자막·프롬프트 내용, API 키와 로컬 파일 경로가 포함되지 않습니다. 끄면 새 선택적 보고가 중단되고 대기 중인 보고가 삭제됩니다. 서버의 설정 확인이 되지 않으면 앱이 표시합니다. 이미 전달된 이벤트나 필수 결제 기록은 삭제되지 않습니다."
+      },
+      {
+        "title": "익명 사용 집계",
+        "body": "Translator 1.25.0부터 앱은 앱 실행, 동영상 다운로드 시작·완료, 전사·번역 시작·완료·실패, 결제 화면 열기 같은 제품 단계의 익명 일일 횟수도 보냅니다. 각 집계에는 단계 이름, 날짜, 플랫폼(Mac 또는 Windows), 앱 버전만 담기며, 설치·기기·계정 식별자나 미디어, 자막, 프롬프트, URL, 파일 경로, 설정은 포함되지 않습니다. Stage5는 일별 합계만 저장하며 보낸 사람의 IP 주소는 저장하지 않습니다. 이 집계는 앱이 어디서 사용자를 놓치는지 파악하기 위한 것이므로 선택적 분석 설정과 관계없이 전송됩니다."
       },
       {
         "title": "보관과 삭제",
@@ -649,6 +657,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         "body": "Translator 1.21.0 ofrece análisis opcionales en Ajustes → Privacidad, desactivados por defecto. Si los activas, Stage5 puede enviar a Google Analytics eventos de uso, fiabilidad y compras con campos limitados: versión, plataforma, idioma, funciones, resultados e importes de compra. Utilizan un identificador seudónimo de instalación; no son anónimos. No incluyen archivos multimedia, contenido de subtítulos o instrucciones, claves API ni rutas locales. Desactivarlos detiene nuevos informes opcionales y borra los pendientes; la aplicación indica si no puede confirmar la preferencia del servidor. No elimina eventos ya entregados ni registros de pago obligatorios."
       },
       {
+        "title": "Recuentos de uso anónimos",
+        "body": "Desde Translator 1.25.0, la aplicación también envía recuentos diarios anónimos de pasos del producto, como abrir la aplicación, iniciar o terminar una descarga de video, iniciar, completar o fallar una transcripción o traducción, y abrir el pago. Cada recuento contiene solo el nombre del paso, el día, la plataforma (Mac o Windows) y la versión de la aplicación. No incluye identificadores de instalación, dispositivo o cuenta, ni medios, subtítulos, instrucciones, URL, rutas de archivos o ajustes. Stage5 guarda solo totales diarios, no la dirección IP del remitente. Estos recuentos muestran dónde falla la aplicación, por lo que se envían aunque el análisis opcional esté desactivado."
+      },
+      {
         "title": "Conservación y eliminación",
         "body": "Los archivos y credenciales locales permanecen hasta que los elimines o uses las funciones de limpieza correspondientes. La nube puede crear audio, texto, resultados y registros temporales de tareas y reintentos. Su duración depende de la finalización, recuperación y limpieza; no prometemos retención cero ni un plazo universal de borrado. Los análisis opcionales sin enviar caducan a las 72 horas. Stage5 programa la supresión de detalles analíticos entregados después de 90 días, conservando recibos mínimos de entrega. La limpieza se hace por lotes; si la aplicación está cerrada, limpia los informes locales caducados al volver a ejecutarse. Los registros de pagos, créditos, seguridad y asistencia se conservan por su finalidad operativa y las obligaciones legales aplicables. Proveedores y agentes aplican sus propias condiciones y ajustes de conservación y eliminación. Contáctanos para acceder a registros de Stage5 o solicitar su borrado."
       },
@@ -739,6 +751,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         "title": "任意のアプリ分析",
         "body": "Translator 1.21.0では設定のプライバシー項目に任意の分析機能があり、初期状態はオフです。有効にすると、Stage5はアプリ版、プラットフォーム、言語、機能名、結果、購入総額など、項目を限定した利用・信頼性・購入イベントをGoogle Analyticsへ送信できます。仮名化したインストール識別子を使うため、匿名データではありません。分析データにはメディア、字幕・プロンプトの内容、APIキー、ローカルのパスは含まれません。オフにすると新たな任意レポートを停止し、未送信分を消去します。サーバー側の設定を確認できない場合はアプリに表示されます。送信済みイベントや必要な決済記録は消えません。"
+      },
+      {
+        "title": "匿名の利用回数",
+        "body": "Translator 1.25.0以降、アプリは、アプリの起動、動画ダウンロードの開始・完了、文字起こしや翻訳の開始・完了・失敗、購入画面の表示といった製品ステップの匿名の日次回数も送信します。各回数に含まれるのはステップ名、日付、プラットフォーム（MacまたはWindows）、アプリのバージョンのみで、インストール・端末・アカウントの識別子や、メディア、字幕、プロンプト、URL、ファイルパス、設定は含まれません。Stage5は日ごとの合計のみを保存し、送信者のIPアドレスは保存しません。アプリがどこで利用者を取りこぼしているかを把握するためのものなので、任意の分析設定にかかわらず送信されます。"
       },
       {
         "title": "保存と削除",
@@ -833,6 +849,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         "body": "Translator 1.21.0 在“设置 → 隐私”中提供默认关闭的可选分析。启用后，Stage5 可向 Google Analytics 发送字段受限的使用、可靠性和购买事件，包括应用版本、平台、语言、功能名称、结果及购买总额。事件使用假名化安装标识符，并非匿名数据。分析载荷不包含媒体、字幕或提示词内容、API 密钥和本地路径。关闭后会停止新的可选报告并清除待发送报告；若无法确认服务器偏好，应用会提示。这不会删除已送达的事件或必要的支付记录。"
       },
       {
+        "title": "匿名使用计数",
+        "body": "从 Translator 1.25.0 起，应用还会发送产品步骤的匿名每日计数，例如打开应用、开始或完成视频下载、开始/完成/失败的转录或翻译，以及打开结账页面。每条计数只包含步骤名称、日期、平台（Mac 或 Windows）和应用版本，不包含安装、设备或账户标识，也不包含媒体、字幕、提示词、URL、文件路径或设置。Stage5 只保存每日总数，不保存发送者的 IP 地址。这些计数用于发现应用在哪些环节流失用户，因此无论是否开启可选分析都会发送。"
+      },
+      {
         "title": "保留与删除",
         "body": "本地文件和保存的凭据会保留，直到你删除或使用相应应用、系统清理功能。云端处理可能产生临时音频、文本、生成结果以及任务和重试记录。其存续时间取决于任务完成、恢复和清理过程；我们不承诺零保留或统一删除期限。未发送的可选应用分析在 72 小时后过期。Stage5 安排在已送达分析满 90 天后清除详细字段，保留最少的送达回执。清理为批量执行；应用关闭期间过期的本地报告会在下次运行时清理。支付、额度、安全和支持记录按运营目的及适用法律义务保留。提供商和连接的智能体遵循各自的保留、删除条款及账户设置。若需访问或删除 Stage5 持有的记录，请联系我们。"
       },
@@ -923,6 +943,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         "title": "Analyse facultative de l’application",
         "body": "Translator 1.21.0 propose une analyse facultative dans Paramètres → Confidentialité, désactivée par défaut. Si elle est activée, Stage5 peut envoyer à Google Analytics des événements limités d’utilisation, de fiabilité et d’achat : version, plateforme, langue, fonctions, résultats et montants. Ils utilisent un identifiant pseudonyme d’installation et ne sont pas anonymes. Le contenu analytique exclut médias, textes des sous-titres et instructions, clés API et chemins locaux. La désactivation arrête les nouveaux rapports facultatifs et efface ceux en attente ; l’application indique si la préférence du serveur ne peut pas être confirmée. Cela n’efface ni les événements déjà transmis ni les registres de paiement nécessaires."
+      },
+      {
+        "title": "Comptages d’utilisation anonymes",
+        "body": "Depuis Translator 1.25.0, l’application envoie aussi des comptages quotidiens anonymes d’étapes du produit, comme l’ouverture de l’application, le début ou la fin d’un téléchargement vidéo, le début, la réussite ou l’échec d’une transcription ou d’une traduction, et l’ouverture du paiement. Chaque comptage contient uniquement le nom de l’étape, le jour, la plateforme (Mac ou Windows) et la version de l’application. Il ne comporte aucun identifiant d’installation, d’appareil ou de compte, ni médias, sous-titres, consignes, URL, chemins de fichiers ou réglages. Stage5 conserve uniquement des totaux quotidiens, pas l’adresse IP de l’expéditeur. Ces comptages montrent où l’application perd des utilisateurs ; ils sont donc envoyés que l’analyse facultative soit activée ou non."
       },
       {
         "title": "Conservation et suppression",
@@ -1017,6 +1041,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         "body": "Translator 1.21.0 bietet unter Einstellungen → Datenschutz eine standardmäßig ausgeschaltete optionale Analyse. Wenn aktiviert, kann Stage5 begrenzte Nutzungs-, Zuverlässigkeits- und Kaufereignisse an Google Analytics senden, etwa App-Version, Plattform, Sprache, Funktionsnamen, Ergebnisse und Kaufbeträge. Sie verwenden eine pseudonyme Installationskennung und sind nicht anonym. Die Analyse übermittelt keine Medien, Untertitel- oder Anweisungstexte, API-Schlüssel oder lokalen Dateipfade. Ausschalten beendet neue optionale Berichte und löscht ausstehende Berichte; die App zeigt an, wenn die Servereinstellung nicht bestätigt werden kann. Bereits zugestellte Ereignisse oder notwendige Zahlungsunterlagen werden dadurch nicht gelöscht."
       },
       {
+        "title": "Anonyme Nutzungszählungen",
+        "body": "Ab Translator 1.25.0 sendet die App außerdem anonyme tägliche Zählungen von Produktschritten, etwa App geöffnet, Videodownload gestartet oder abgeschlossen, Transkription oder Übersetzung gestartet, abgeschlossen oder fehlgeschlagen und Bezahlseite geöffnet. Jede Zählung enthält nur den Schrittnamen, den Tag, die Plattform (Mac oder Windows) und die App-Version. Sie enthält keine Installations-, Geräte- oder Kontokennung und keine Medien, Untertitel, Anweisungen, URLs, Dateipfade oder Einstellungen. Stage5 speichert nur Tagessummen, nicht die IP-Adresse des Absenders. Diese Zählungen zeigen, wo die App Nutzer verliert, und werden deshalb unabhängig von der optionalen Analyse gesendet."
+      },
+      {
         "title": "Aufbewahrung und Löschung",
         "body": "Lokale Dateien und Zugangsdaten bleiben, bis du sie löschst oder entsprechende Bereinigungsfunktionen nutzt. Cloud-Verarbeitung kann temporäres Audio, Text, Ergebnisse sowie Auftrags- und Wiederholungsdaten erzeugen. Ihre Dauer hängt von Abschluss, Wiederherstellung und Bereinigung ab; wir garantieren weder Nullspeicherung noch eine einheitliche Löschfrist. Nicht gesendete optionale App-Analysedaten verfallen nach 72 Stunden. Stage5 plant die Entfernung übermittelter Analysedetails nach 90 Tagen und behält minimale Zustellnachweise. Die Bereinigung erfolgt stapelweise; eine geschlossene App entfernt abgelaufene lokale Berichte beim nächsten Start. Zahlungs-, Guthaben-, Sicherheits- und Supportunterlagen werden für ihren betrieblichen Zweck und geltende rechtliche Pflichten aufbewahrt. Anbieter und Agenten nutzen eigene Aufbewahrungs- und Löschbedingungen sowie Kontoeinstellungen. Kontaktiere uns für Auskunft oder Löschung von Stage5-Daten."
       },
@@ -1109,6 +1137,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         "body": "O Translator 1.21.0 oferece análise opcional em Configurações → Privacidade, desativada por padrão. Se ativada, a Stage5 pode enviar ao Google Analytics eventos limitados de uso, confiabilidade e compra, incluindo versão, plataforma, idioma, funções, resultados e valores de compra. Os eventos usam um identificador pseudônimo de instalação; não são anônimos. Não incluem mídias, conteúdo de legendas ou instruções, chaves API nem caminhos locais. Desativar interrompe novos relatórios opcionais e limpa os pendentes; o aplicativo informa se não puder confirmar a preferência do servidor. Isso não apaga eventos já entregues nem registros de pagamento necessários."
       },
       {
+        "title": "Contagens de uso anônimas",
+        "body": "A partir do Translator 1.25.0, o aplicativo também envia contagens diárias anônimas de etapas do produto, como abrir o aplicativo, iniciar ou concluir um download de vídeo, iniciar, concluir ou falhar uma transcrição ou tradução e abrir o pagamento. Cada contagem contém apenas o nome da etapa, o dia, a plataforma (Mac ou Windows) e a versão do aplicativo. Não inclui identificadores de instalação, dispositivo ou conta, nem mídia, legendas, instruções, URLs, caminhos de arquivos ou configurações. A Stage5 guarda apenas totais diários, não o endereço IP do remetente. Essas contagens mostram onde o aplicativo perde pessoas, por isso são enviadas com ou sem a análise opcional ativada."
+      },
+      {
         "title": "Retenção e exclusão",
         "body": "Arquivos e credenciais locais permanecem até serem removidos ou até você usar os controles de limpeza correspondentes. O processamento na nuvem pode criar áudio, texto, resultados e registros temporários de tarefas e tentativas. A duração depende da conclusão, recuperação e limpeza; não prometemos retenção zero nem prazo universal de exclusão. Eventos analíticos opcionais não enviados expiram após 72 horas. A Stage5 programa a remoção de detalhes analíticos entregues após 90 dias, mantendo recibos mínimos de entrega. A limpeza é feita em lotes; o aplicativo fechado limpa relatórios locais expirados na próxima execução. Registros de pagamentos, créditos, segurança e suporte são retidos para sua finalidade operacional e obrigações legais aplicáveis. Provedores e agentes seguem seus próprios termos de retenção, exclusão e configurações de conta. Entre em contato para acessar ou excluir registros mantidos pela Stage5."
       },
@@ -1199,6 +1231,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       {
         "title": "Phân tích ứng dụng tùy chọn",
         "body": "Translator 1.21.0 có phân tích tùy chọn tại Cài đặt → Quyền riêng tư, mặc định tắt. Khi bật, Stage5 có thể gửi tới Google Analytics các sự kiện sử dụng, độ tin cậy và mua hàng với trường dữ liệu giới hạn: phiên bản, nền tảng, ngôn ngữ, tên tính năng, kết quả và tổng tiền mua. Sự kiện dùng mã định danh cài đặt được giả danh hóa, không phải dữ liệu ẩn danh. Nội dung phân tích không gồm tệp đa phương tiện, văn bản phụ đề/câu lệnh, khóa API hay đường dẫn cục bộ. Tắt sẽ dừng báo cáo tùy chọn mới và xóa báo cáo đang chờ; ứng dụng sẽ báo nếu không xác nhận được tùy chọn phía máy chủ. Điều này không xóa sự kiện đã gửi hay hồ sơ thanh toán bắt buộc."
+      },
+      {
+        "title": "Số đếm sử dụng ẩn danh",
+        "body": "Từ Translator 1.25.0, ứng dụng cũng gửi số đếm ẩn danh theo ngày cho các bước sản phẩm, như mở ứng dụng, bắt đầu hoặc hoàn tất tải video, bắt đầu, hoàn tất hoặc thất bại khi chép lời hay dịch, và mở trang thanh toán. Mỗi số đếm chỉ gồm tên bước, ngày, nền tảng (Mac hoặc Windows) và phiên bản ứng dụng, không có mã định danh cài đặt, thiết bị hay tài khoản, cũng không có nội dung đa phương tiện, phụ đề, lời nhắc, URL, đường dẫn tệp hay cài đặt. Stage5 chỉ lưu tổng theo ngày, không lưu địa chỉ IP của người gửi. Các số đếm này cho thấy ứng dụng đang để mất người dùng ở đâu, nên được gửi dù phân tích tùy chọn có bật hay không."
       },
       {
         "title": "Lưu giữ và xóa",

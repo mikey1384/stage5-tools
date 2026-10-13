@@ -2,6 +2,7 @@ import type {
   AgentWorkflowEventPayload,
   FaqIntentEventPayload,
   LandingIntentEventPayload,
+  MobileDownloadEventPayload,
   WatchAppCtaEventPayload,
   WatchCaptionLoadEventPayload,
   WatchCutoffEventPayload,
@@ -59,6 +60,10 @@ export function trackAgentWorkflow(payload: AgentWorkflowEventPayload): void {
 export function trackWindowsInstallHelp(
   payload: WindowsInstallHelpEventPayload,
 ): void {
+  pushAnalyticsEvent(payload);
+}
+
+export function trackMobileDownload(payload: MobileDownloadEventPayload): void {
   pushAnalyticsEvent(payload);
 }
 

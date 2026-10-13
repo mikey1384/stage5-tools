@@ -12,6 +12,7 @@ authoritative, and what must never enter analytics.
 | Did a FAQ visitor choose a product action?        | Translator website data layer                         | `faq_intent_click`                                     |
 | Did an agent-page visitor choose a workflow?      | Translator website data layer                         | `agent_workflow_click`                                 |
 | Did a Windows visitor open install guidance?      | Translator website data layer                         | `windows_install_help_open`                            |
+| Did a phone visitor send themselves the link?     | Translator website data layer (not yet in GTM v5)     | `download_mobile_redirect` (`action`: shown/share/copy/email) |
 | Did a Watch visitor start the embedded video?     | Translator website data layer                         | `watch_play`                                           |
 | Did the 30-second Watch preview reach its limit?  | Translator website data layer                         | `watch_cutoff`                                         |
 | Did a Watch visitor change caption language?      | Translator website data layer                         | `watch_lang_change`                                    |

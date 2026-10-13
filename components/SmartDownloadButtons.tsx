@@ -1,6 +1,8 @@
 "use client";
 
 import { DownloadButton } from "./DownloadButton";
+import { MobileDownloadPanel } from "./MobileDownloadPanel";
+import { useIsPhoneOrTablet } from "../hooks/useIsPhoneOrTablet";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, type Locale } from "../lib/interface-strings";
 
@@ -14,6 +16,15 @@ export function SmartDownloadButtons({
   className = "",
 }: SmartDownloadButtonsProps) {
   const { platform } = usePlatformDetection();
+  const isPhoneOrTablet = useIsPhoneOrTablet();
+
+  if (isPhoneOrTablet) {
+    return (
+      <div className={`flex justify-center ${className}`}>
+        <MobileDownloadPanel locale={locale} placement="all_versions" />
+      </div>
+    );
+  }
 
   const showWindows = platform === "windows" || platform === "unknown";
   const showMac = platform === "mac" || platform === "unknown";

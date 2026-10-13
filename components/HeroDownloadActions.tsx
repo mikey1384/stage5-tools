@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useIsPhoneOrTablet } from "../hooks/useIsPhoneOrTablet";
 import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { t, type Locale } from "../lib/interface-strings";
 import { DownloadButton } from "./DownloadButton";
+import { MobileDownloadPanel } from "./MobileDownloadPanel";
 import { WindowsInstallHelp } from "./WindowsInstallHelp";
 
 interface HeroDownloadActionsProps {
@@ -16,6 +18,7 @@ export function HeroDownloadActions({
   className = "",
 }: HeroDownloadActionsProps) {
   const { platform, architecture } = usePlatformDetection();
+  const isPhoneOrTablet = useIsPhoneOrTablet();
   const hasDetectedPlatform = platform !== "unknown";
 
   const recommendedPlatform = platform === "windows" ? "win" : "mac";
@@ -30,6 +33,14 @@ export function HeroDownloadActions({
     recommendedPlatform === "win"
       ? t("downloadWindows", locale)
       : `${t("download", locale)} (${recommendedArchitecture === "x64" ? "Intel" : "Apple Silicon"})`;
+
+  if (isPhoneOrTablet) {
+    return (
+      <div className={`flex flex-col items-center gap-3 ${className}`}>
+        <MobileDownloadPanel locale={locale} placement="hero_download" />
+      </div>
+    );
+  }
 
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
