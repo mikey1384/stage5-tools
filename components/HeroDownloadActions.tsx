@@ -58,6 +58,7 @@ export function HeroDownloadActions({
             trackingLabel="Hero CTA"
             variant="primary"
             size="normal"
+            className="max-w-full text-center"
           />
           <Link
             href="#all-downloads"
@@ -72,7 +73,7 @@ export function HeroDownloadActions({
       ) : (
         <Link
           href="#all-downloads"
-          className="inline-flex items-center px-8 py-4 text-lg font-medium text-black bg-white hover:bg-gray-100 rounded-2xl transition-all duration-300"
+          className="inline-flex max-w-full items-center px-8 py-4 text-center text-lg font-medium text-black bg-white hover:bg-gray-100 rounded-2xl transition-all duration-300"
         >
           {t("homeDownloadAllVersions", locale)}
         </Link>

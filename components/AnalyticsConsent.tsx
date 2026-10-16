@@ -16,6 +16,8 @@ export function AnalyticsConsent() {
   const [open, setOpen] = useState(false);
   const [notice, setNotice] = useState<"saved" | "temporary" | null>(null);
   const button = useRef<HTMLButtonElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const openedFromSettings = useRef(false);
   const privatePage = isPrivateEditorPathname(pathname);
 
   useEffect(() => {
@@ -28,35 +30,56 @@ export function AnalyticsConsent() {
     return () => window.removeEventListener("stage5-consent-change", sync);
   }, [pathname, privatePage]);
 
+  useEffect(() => {
+    if (!notice) return;
+    const timer = window.setTimeout(() => setNotice(null), 4000);
+    return () => window.clearTimeout(timer);
+  }, [notice]);
+
+  useEffect(() => {
+    if (open && openedFromSettings.current) closeButton.current?.focus({ preventScroll: true });
+  }, [open]);
+
+  function close() {
+    setOpen(false);
+    if (openedFromSettings.current) button.current?.focus({ preventScroll: true });
+    openedFromSettings.current = false;
+  }
+
   function choose(value: "granted" | "denied") {
     const result = window.stage5AnalyticsConsent?.choose(value);
     if (!result) return;
     setNotice(result.saved ? "saved" : "temporary");
-    setOpen(false);
-    button.current?.focus();
+    close();
   }
 
   if (!ready || privatePage) return null;
   return (
     <aside className={styles.root} aria-label={copy.settings}>
-      {open ? (
-        <section className={styles.card} aria-labelledby="analytics-choice-title"
-          onKeyDown={(event) => { if (event.key === "Escape") { setOpen(false); button.current?.focus(); } }}>
-          <div className={styles.heading}>
-            <h2 id="analytics-choice-title">{copy.title}</h2>
-            <button className={styles.close} aria-label={copy.close} onClick={() => { setOpen(false); button.current?.focus(); }}>×</button>
-          </div>
-          <p>{copy.body}</p>
-          <a href={`${locale === "en" ? "" : `/${locale}`}/privacy#website-analytics`}>{copy.policy}</a>
-          <div className={styles.actions}>
-            <button onClick={() => choose("denied")}>{copy.reject}</button>
-            <button onClick={() => choose("granted")}>{copy.allow}</button>
-          </div>
-        </section>
-      ) : null}
-      {notice ? <p className={styles.notice} role="status">{copy[notice]}</p> : null}
+      <div className={styles.panel}>
+        {open ? (
+          <section className={styles.card} aria-labelledby="analytics-choice-title"
+            onKeyDown={(event) => { if (event.key === "Escape") close(); }}>
+            <div className={styles.heading}>
+              <h2 id="analytics-choice-title">{copy.title}</h2>
+              <button ref={closeButton} className={styles.close} aria-label={copy.close} onClick={close}>×</button>
+            </div>
+            <p>{copy.body}</p>
+            <a href={`${locale === "en" ? "" : `/${locale}`}/privacy#website-analytics`}>{copy.policy}</a>
+            <div className={styles.actions}>
+              <button onClick={() => choose("denied")}>{copy.reject}</button>
+              <button onClick={() => choose("granted")}>{copy.allow}</button>
+            </div>
+          </section>
+        ) : null}
+        {notice ? <p className={styles.notice} role="status">{copy[notice]}</p> : null}
+      </div>
       <button ref={button} className={styles.reopen} aria-expanded={open}
-        onClick={() => { setNotice(null); setOpen(!open); }}>{copy.settings}</button>
+        onClick={() => {
+          setNotice(null);
+          if (open) close();
+          else { openedFromSettings.current = true; setOpen(true); }
+        }}>{copy.settings}</button>
     </aside>
   );
 }

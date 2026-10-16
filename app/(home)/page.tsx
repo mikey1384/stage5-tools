@@ -239,15 +239,15 @@ export default async function Home({
             </div>
           </div>
 
-          <div className="mt-12 grid gap-10 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.55fr)] xl:items-end">
-            <div>
+          <div className="mt-12 grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.55fr)] xl:items-end">
+            <div className="min-w-0">
               <Eyebrow>{copy.eyebrow}</Eyebrow>
-              <h1 className="mt-7 max-w-[1120px] font-[var(--font-montserrat)] text-[clamp(3.55rem,8.6vw,8.7rem)] font-bold leading-[0.88] tracking-[-0.065em] text-[#f3f1e9]">
+              <h1 className="mt-7 max-w-[1120px] [&:lang(de)]:hyphens-auto [overflow-wrap:anywhere] font-[var(--font-montserrat)] text-[clamp(3.55rem,8.6vw,8.7rem)] font-bold leading-[0.88] tracking-[-0.065em] text-[#f3f1e9]">
                 {copy.title}
               </h1>
             </div>
 
-            <div className="border-l border-white/20 pl-6 xl:mb-2 xl:pl-8">
+            <div className="min-w-0 border-l border-white/20 pl-6 xl:mb-2 xl:pl-8">
               <p className="max-w-xl text-lg leading-8 text-white/72 md:text-xl">
                 {copy.subtitle}
               </p>
