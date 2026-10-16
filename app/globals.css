@@ -46,3 +46,18 @@ body {
     backdrop-filter: saturate(180%) blur(20px);
   }
 }
+
+/* Translator "soul" home motion (2026-10). */
+@keyframes soul-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes soul-pulse {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+.soul-rise { animation: soul-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.soul-bar { transform-origin: center; animation: soul-pulse 1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .soul-rise, .soul-bar { animation: none; }
+}

@@ -4,6 +4,7 @@ import { AllDownloadButtons } from "../../components/AllDownloadButtons";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { GitHubRepositoryLink } from "../../components/GitHubRepositoryLink";
 import { HomeIntentLinks } from "../../components/HomeIntentLinks";
+import { HeroLanguageShowcase } from "../../components/home/HeroLanguageShowcase";
 import { HomepageScreenshotSlot } from "../../components/HomepageScreenshotSlot";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
@@ -18,10 +19,11 @@ import {
   TRANSLATOR_REPOSITORY_URL,
 } from "../../lib/open-source";
 import { productHuntReviews } from "../../lib/reviews";
-import { t, type Locale } from "../../lib/strings";
+import type { Locale } from "../../lib/strings";
 
 import { getHomeMetadata, getHomeSeoContext, homeCopy } from "./home-copy";
 import { homeExperienceCopy } from "./home-experience-copy";
+import { homeSoulCopy } from "./home-soul-copy";
 
 const screenshots = {
   hero: {
@@ -143,42 +145,52 @@ function getHomeStructuredData(locale: Locale) {
   };
 }
 
-const languageLinks = [
-  { labelKey: "langSpanish" as const, href: "/translate/spanish" },
-  { labelKey: "langKorean" as const, href: "/translate/korean" },
-  { labelKey: "langJapanese" as const, href: "/translate/japanese" },
-  { labelKey: "langChinese" as const, href: "/translate/chinese" },
-  { labelKey: "langFrench" as const, href: "/translate/french" },
-  { labelKey: "langGerman" as const, href: "/translate/german" },
-  { labelKey: "langPortuguese" as const, href: "/translate/portuguese" },
-];
-
-const otherLanguages = [
-  "langArabic" as const,
-  "langBengali" as const,
-  "langCzech" as const,
-  "langDanish" as const,
-  "langDutch" as const,
-  "langEnglish" as const,
-  "langFinnish" as const,
-  "langGreek" as const,
-  "langHebrew" as const,
-  "langHindi" as const,
-  "langHungarian" as const,
-  "langIndonesian" as const,
-  "langItalian" as const,
-  "langMalay" as const,
-  "langNorwegian" as const,
-  "langPolish" as const,
-  "langRomanian" as const,
-  "langRussian" as const,
-  "langSwedish" as const,
-  "langTagalog" as const,
-  "langThai" as const,
-  "langTurkish" as const,
-  "langUkrainian" as const,
-  "langUrdu" as const,
-  "langVietnamese" as const,
+// All 39 subtitle languages in their own script. Languages with a dedicated
+// landing page link to it.
+const nativeLanguages: ReadonlyArray<{
+  native: string;
+  lang: string;
+  href?: string;
+}> = [
+  { native: "English", lang: "en" },
+  { native: "한국어", lang: "ko", href: "/translate/korean" },
+  { native: "日本語", lang: "ja", href: "/translate/japanese" },
+  { native: "简体中文", lang: "zh-Hans", href: "/translate/chinese" },
+  { native: "繁體中文", lang: "zh-Hant", href: "/translate/chinese" },
+  { native: "Tiếng Việt", lang: "vi" },
+  { native: "Español", lang: "es", href: "/translate/spanish" },
+  { native: "Français", lang: "fr", href: "/translate/french" },
+  { native: "Deutsch", lang: "de", href: "/translate/german" },
+  { native: "Italiano", lang: "it" },
+  { native: "Português", lang: "pt", href: "/translate/portuguese" },
+  { native: "Русский", lang: "ru" },
+  { native: "Nederlands", lang: "nl" },
+  { native: "Polski", lang: "pl" },
+  { native: "Svenska", lang: "sv" },
+  { native: "Türkçe", lang: "tr" },
+  { native: "Norsk", lang: "no" },
+  { native: "Dansk", lang: "da" },
+  { native: "Suomi", lang: "fi" },
+  { native: "Ελληνικά", lang: "el" },
+  { native: "Čeština", lang: "cs" },
+  { native: "Magyar", lang: "hu" },
+  { native: "Română", lang: "ro" },
+  { native: "Українська", lang: "uk" },
+  { native: "हिन्दी", lang: "hi" },
+  { native: "Bahasa Indonesia", lang: "id" },
+  { native: "ไทย", lang: "th" },
+  { native: "Bahasa Melayu", lang: "ms" },
+  { native: "Tagalog", lang: "tl" },
+  { native: "বাংলা", lang: "bn" },
+  { native: "தமிழ்", lang: "ta" },
+  { native: "తెలుగు", lang: "te" },
+  { native: "मराठी", lang: "mr" },
+  { native: "اردو", lang: "ur" },
+  { native: "العربية", lang: "ar" },
+  { native: "עברית", lang: "he" },
+  { native: "فارسی", lang: "fa" },
+  { native: "Kiswahili", lang: "sw" },
+  { native: "Afrikaans", lang: "af" },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -220,409 +232,233 @@ export default async function Home({
     },
   ];
 
+  const soul = homeSoulCopy[locale];
+  const featureHrefs = [
+    "/video-downloader",
+    "/translate",
+    "/subtitle-editor",
+    "/dubbing",
+    "/#clips",
+    "/video-discovery",
+    "/#multitab",
+    "/agents",
+  ];
+
   return (
-    <main className="min-h-screen overflow-hidden bg-[#07080a] text-[#f3f1e9] selection:bg-[#ff5a9d] selection:text-black">
+    <main className="min-h-screen overflow-hidden bg-[#0F0E13] font-[family-name:var(--font-body)] text-[#F4F1EA] [&:lang(ko)]:[word-break:keep-all] selection:bg-[#FFD84D] selection:text-[#17140A]">
       <script
         id="structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
       />
 
-      <div className="mx-auto max-w-[1500px] px-5 md:px-8">
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8">
         <SiteNav locale={locale} />
 
-        <section className="pb-20 pt-8 md:pb-28 md:pt-12">
-          <div className="border-t border-white/20 pt-5">
-            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.28em] text-white/60">
-              <span>Stage5 / Translator</span>
-              <span>macOS + Windows</span>
-            </div>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.55fr)] xl:items-end">
-            <div className="min-w-0">
-              <Eyebrow>{copy.eyebrow}</Eyebrow>
-              <h1 className="mt-7 max-w-[1120px] [&:lang(de)]:hyphens-auto [overflow-wrap:anywhere] font-[var(--font-montserrat)] text-[clamp(3.55rem,8.6vw,8.7rem)] font-bold leading-[0.88] tracking-[-0.065em] text-[#f3f1e9]">
-                {copy.title}
-              </h1>
-            </div>
-
-            <div className="min-w-0 border-l border-white/20 pl-6 xl:mb-2 xl:pl-8">
-              <p className="max-w-xl text-lg leading-8 text-white/72 md:text-xl">
-                {copy.subtitle}
-              </p>
-              <div className="mt-8">
-                <HeroDownloadActions locale={locale} className="items-start" />
-              </div>
-              <p className="mt-5 max-w-lg text-sm leading-6 text-white/60">
-                {copy.heroNote}{" "}
-                <Link
-                  href={localizedHref("/pricing")}
-                  className="font-semibold text-[#a9bfff] underline decoration-[#a9bfff]/40 underline-offset-4 transition hover:text-white"
-                >
-                  {copy.heroPricingLink}
-                </Link>
-              </p>
-              <HomeIntentLinks links={homeIntentLinks} />
-            </div>
-          </div>
-
-          <div className="mt-14 border-y border-white/20 py-4 md:mt-20">
-            <div className="grid gap-4 md:grid-cols-4 md:gap-0">
-              {copy.heroPoints.map((point, index) => (
-                <div
-                  key={point}
-                  className="grid grid-cols-[2rem_1fr] gap-3 py-2 md:border-l md:border-white/15 md:px-5 md:first:border-l-0 md:first:pl-0"
-                >
-                  <span className="font-mono text-xs text-[#ff75ac]">
-                    0{index + 1}
-                  </span>
-                  <span className="text-sm leading-6 text-white/70">
-                    {point}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <figure className="mt-8 md:mt-12">
-            <ProductFrame label={copy.mockSearchTag} tone="blue">
-              <HomepageScreenshotSlot
-                src={screenshots.hero.src}
-                alt={experience.heroAlt}
-                width={screenshots.hero.width}
-                height={screenshots.hero.height}
-                loading="eager"
-                fetchPriority="high"
-                className="bg-[#172032]"
-                imageClassName="block h-auto w-full"
-                fallback={<ScreenshotFallback label={copy.mockSearchQuery} />}
-              />
-            </ProductFrame>
-            <figcaption className="mt-4 grid gap-2 border-b border-white/20 pb-8 text-sm leading-6 text-white/60 md:grid-cols-[1fr_auto]">
-              <span>{experience.heroCaption}</span>
-              <span className="font-mono uppercase tracking-[0.2em] text-white/60">
-                Translation only / current app
-              </span>
-            </figcaption>
-          </figure>
-
-          <div className="mt-10 grid border-y border-white/20 md:grid-cols-[0.78fr_1.22fr]">
-            <div className="py-8 md:border-r md:border-white/20 md:pr-8">
-              <Eyebrow>{experience.displayEyebrow}</Eyebrow>
-              <h2 className="mt-5 max-w-xl text-3xl font-semibold tracking-[-0.04em] md:text-5xl">
-                {experience.displayTitle}
-              </h2>
-              <p className="mt-5 max-w-xl text-sm leading-7 text-white/52 md:text-base">
-                {experience.displayDescription}
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3">
-              {experience.displayModes.map((mode, index) => (
-                <div
-                  key={mode.label}
-                  className="border-t border-white/15 py-7 md:border-l md:border-t-0 md:px-6"
-                >
-                  <span className="font-mono text-[10px] text-[#ff75ac]">
-                    0{index + 1}
-                  </span>
-                  <h3 className="mt-4 text-lg font-semibold text-white">
-                    {mode.label}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-white/60">
-                    {mode.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid border-b border-white/20 md:grid-cols-4">
-            {copy.metrics.map((metric, index) => (
-              <div
-                key={`${metric.value}-${metric.label}`}
-                className="py-8 md:border-l md:border-white/15 md:px-6 md:first:border-l-0 md:first:pl-0"
+        <section className="flex flex-col gap-12 pb-20 pt-6 lg:flex-row lg:items-center lg:gap-14 lg:pb-24 lg:pt-12">
+          <div className="flex min-w-0 flex-1 flex-col gap-6 lg:max-w-[540px]">
+            <SoulEyebrow>{copy.eyebrow}</SoulEyebrow>
+            <h1 className="m-0 font-[family-name:var(--font-display)] text-[clamp(2.5rem,5.6vw,4.4rem)] font-extrabold leading-[1.02] tracking-[-0.035em] [overflow-wrap:anywhere] [&:lang(de)]:hyphens-auto">
+              {soul.heroTitleBefore}
+              <span className="text-[#FFD84D]">{soul.heroTitleHighlight}</span>
+              {soul.heroTitleAfter}
+            </h1>
+            <p className="m-0 max-w-[34rem] text-lg leading-8 text-[#B7B2BF] md:text-xl">
+              {soul.heroSubtitle}
+            </p>
+            <HeroDownloadActions locale={locale} className="items-start" />
+            <p className="m-0 max-w-lg text-sm leading-6 text-[#A39FAD]">
+              {soul.heroNote}{" "}
+              <Link
+                href={localizedHref("/pricing")}
+                className="font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 transition hover:text-[#FFE680]"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="text-4xl font-semibold tracking-[-0.05em] text-white md:text-5xl">
-                    {metric.value}
-                  </span>
-                  <span className="font-mono text-[10px] text-white/60">
-                    0{index + 1}
-                  </span>
-                </div>
-                <div className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-                  {metric.label}
-                </div>
-                <p className="mt-3 max-w-xs text-sm leading-6 text-white/60">
-                  {metric.detail}
-                </p>
-              </div>
+                {copy.heroPricingLink}
+              </Link>
+            </p>
+            <HomeIntentLinks links={homeIntentLinks} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <HeroLanguageShowcase
+              image={{
+                src: screenshots.hero.src,
+                width: screenshots.hero.width,
+                height: screenshots.hero.height,
+                alt: experience.heroAlt,
+              }}
+            />
+          </div>
+        </section>
+
+        <SoulSection>
+          <SoulHeading>{soul.momentsTitle}</SoulHeading>
+          <ol className="m-0 grid list-none gap-5 p-0 md:grid-cols-3">
+            {soul.moments.map((moment, index) => (
+              <li
+                key={moment.title}
+                className="flex flex-col gap-3 rounded-[22px] border border-[#25222C] bg-[#15131A] p-6"
+              >
+                <span className="font-[family-name:var(--font-display)] text-[44px] font-extrabold leading-none text-[#FFD84D]">
+                  {index + 1}
+                </span>
+                <span className="text-xl font-semibold">{moment.title}</span>
+                <span className="text-base leading-7 text-[#A39FAD]">
+                  {moment.body}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </SoulSection>
+
+        <SoulSection>
+          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
+            <SoulHeading flush>{soul.featuresTitle}</SoulHeading>
+            <span className="text-base text-[#A39FAD]">
+              {soul.featuresSubtitle}
+            </span>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {soul.features.map((feature, index) => (
+              <Link
+                key={feature.title}
+                href={localizedHref(featureHrefs[index])}
+                className="group flex flex-col gap-2.5 rounded-[20px] border border-[#25222C] bg-[#15131A] p-6 text-[#F4F1EA] transition hover:-translate-y-0.5 hover:border-[#4A4553] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFD84D]"
+              >
+                <span className="text-lg font-semibold">{feature.title}</span>
+                <span className="text-[15px] leading-6 text-[#A39FAD]">
+                  {feature.body}
+                </span>
+                <span className="mt-auto pt-1 text-sm font-semibold text-[#FFD84D]">
+                  {feature.cta} →
+                </span>
+              </Link>
             ))}
           </div>
-        </section>
+        </SoulSection>
 
-        <section className="border-t border-white/20 py-24 md:py-32">
-          <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-            <div className="lg:sticky lg:top-10 lg:self-start">
-              <Eyebrow>{copy.sellingEyebrow}</Eyebrow>
-              <h2 className="mt-7 max-w-3xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-                {copy.sellingTitle}
-              </h2>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-white/58">
-                {copy.sellingDescription}
-              </p>
-            </div>
-
-            <div className="border-t border-white/20">
-              {copy.sellingPoints.map((point, index) => (
-                <article
-                  key={point.title}
-                  className="group grid gap-5 border-b border-white/20 py-8 md:grid-cols-[4rem_1fr_auto] md:items-start"
-                >
-                  <span className="font-mono text-xs text-[#ff75ac]">
-                    0{index + 1}
-                  </span>
-                  <div>
-                    <h3 className="text-2xl font-semibold tracking-[-0.025em] text-white md:text-3xl">
-                      {point.title}
-                    </h3>
-                    <p className="mt-3 max-w-2xl text-base leading-7 text-white/52">
-                      {point.description}
-                    </p>
-                  </div>
-                  <Link
-                    href={localizedHref(point.href)}
-                    className="text-sm font-semibold text-[#a9bfff] transition group-hover:translate-x-1 group-hover:text-white"
-                  >
-                    {point.cta} →
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-20 grid gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-            <figure>
-              <ProductFrame label={copy.sellingPoints[0].title} tone="pink">
-                <HomepageScreenshotSlot
-                  src={screenshots.source.src}
-                  alt={copy.sellingPoints[0].title}
-                  width={screenshots.source.width}
-                  height={screenshots.source.height}
-                  className="bg-[#111724]"
-                  imageClassName="block h-auto w-full"
-                  fallback={
-                    <ScreenshotFallback label={copy.sellingPoints[0].title} />
-                  }
-                />
-              </ProductFrame>
-            </figure>
-
-            <figure className="lg:mt-28">
-              <ProductFrame label={copy.sellingPoints[2].title} tone="blue">
-                <HomepageScreenshotSlot
-                  src={screenshots.editor.src}
-                  alt={copy.sellingPoints[2].title}
-                  width={screenshots.editor.width}
-                  height={screenshots.editor.height}
-                  className="bg-[#111724]"
-                  imageClassName="block h-auto w-full"
-                  fallback={
-                    <ScreenshotFallback label={copy.sellingPoints[2].title} />
-                  }
-                />
-              </ProductFrame>
-            </figure>
-          </div>
-        </section>
-      </div>
-
-      <section className="bg-[#ece8de] text-[#101114]">
-        <div className="mx-auto max-w-[1500px] px-5 py-24 md:px-8 md:py-32">
-          <div
-            id="multitab"
-            className="grid scroll-mt-10 gap-12 border-t border-black/25 pt-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20"
-          >
+        <SoulSection id="multitab">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <Eyebrow dark>{copy.viewerEyebrow}</Eyebrow>
-              <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-                {copy.viewerTitle}
-              </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-black/62">
+              <SoulEyebrow>{copy.viewerEyebrow}</SoulEyebrow>
+              <SoulHeading>{copy.viewerTitle}</SoulHeading>
+              <p className="m-0 max-w-xl text-base leading-7 text-[#A39FAD]">
                 {copy.viewerDescription}
               </p>
             </div>
-
-            <figure className="border border-black/20 bg-[#090d14] p-2 md:p-3">
-              <HomepageScreenshotSlot
-                src={screenshots.multitab.src}
-                alt={copy.viewerAlt}
-                width={screenshots.multitab.width}
-                height={screenshots.multitab.height}
-                className="overflow-hidden border border-white/15 bg-[#141b26] shadow-[0_32px_80px_rgba(0,0,0,0.34)]"
-                imageClassName="block h-auto w-full"
-                fallback={<ScreenshotFallback label={copy.viewerWindowTitle} />}
-              />
-              <figcaption className="px-2 pb-1 pt-3 text-sm leading-6 text-white/55">
+            <figure className="m-0">
+              <SoulFrame>
+                <HomepageScreenshotSlot
+                  src={screenshots.multitab.src}
+                  alt={copy.viewerAlt}
+                  width={screenshots.multitab.width}
+                  height={screenshots.multitab.height}
+                  className="bg-[#1A1820]"
+                  imageClassName="block h-auto w-full"
+                  fallback={<ScreenshotFallback label={copy.viewerWindowTitle} />}
+                />
+              </SoulFrame>
+              <figcaption className="mt-3 text-sm leading-6 text-[#8C8796]">
                 {copy.viewerScreenshotCaption}
               </figcaption>
             </figure>
           </div>
+        </SoulSection>
 
-          <div className="mt-16 border-t border-black/25 pt-8 md:mt-20">
-            <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
-              <div>
-                <Eyebrow dark>{experience.stylesEyebrow}</Eyebrow>
-                <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                  {experience.stylesTitle}
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
-                  {experience.stylesDescription}
-                </p>
-              </div>
-              <div className="grid gap-6 md:grid-cols-2">
-                <figure className="border border-black/20 bg-[#10151f] p-2 md:p-3">
-                  <HomepageScreenshotSlot
-                    src={screenshots.originalClassic.src}
-                    alt={experience.classicCaption}
-                    width={screenshots.originalClassic.width}
-                    height={screenshots.originalClassic.height}
-                    className="overflow-hidden border border-white/10 bg-[#141b26]"
-                    imageClassName="block h-auto w-full"
-                    fallback={
-                      <ScreenshotFallback label={experience.classicCaption} />
-                    }
-                  />
-                  <figcaption className="px-2 pb-1 pt-3 text-sm leading-6 text-white/58">
-                    {experience.classicCaption}
-                  </figcaption>
-                </figure>
-                <figure className="border border-black/20 bg-[#10151f] p-2 md:mt-10 md:p-3">
-                  <HomepageScreenshotSlot
-                    src={screenshots.dualLineBox.src}
-                    alt={experience.dualCaption}
-                    width={screenshots.dualLineBox.width}
-                    height={screenshots.dualLineBox.height}
-                    className="overflow-hidden border border-white/10 bg-[#141b26]"
-                    imageClassName="block h-auto w-full"
-                    fallback={
-                      <ScreenshotFallback label={experience.dualCaption} />
-                    }
-                  />
-                  <figcaption className="px-2 pb-1 pt-3 text-sm leading-6 text-white/58">
-                    {experience.dualCaption}
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-16 grid gap-10 border-t border-black/25 pt-8 md:mt-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
-            <figure className="order-2 border border-black/20 bg-[#10151f] p-2 lg:order-1 md:p-3">
-              <HomepageScreenshotSlot
-                src={screenshots.library.src}
-                alt={experience.libraryCaption}
-                width={screenshots.library.width}
-                height={screenshots.library.height}
-                className="overflow-hidden border border-white/10 bg-[#141b26]"
-                imageClassName="block h-auto w-full"
-                fallback={
-                  <ScreenshotFallback label={experience.libraryTitle} />
-                }
-              />
-              <figcaption className="px-2 pb-1 pt-3 text-sm leading-6 text-white/58">
-                {experience.libraryCaption}
-              </figcaption>
-            </figure>
-            <div className="order-1 lg:order-2">
-              <Eyebrow dark>{experience.libraryEyebrow}</Eyebrow>
-              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {experience.libraryTitle}
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
-                {experience.libraryDescription}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-16 grid gap-10 border-t border-black/25 pt-8 md:mt-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16">
-            <figure className="order-2 border border-black/20 bg-[#121826] p-2 md:order-1 md:p-3">
-              <HomepageScreenshotSlot
-                src={screenshots.clips.src}
-                alt={copy.actionAlt}
-                width={screenshots.clips.width}
-                height={screenshots.clips.height}
-                className="overflow-hidden"
-                imageClassName="block h-auto w-full"
-                fallback={<ScreenshotFallback label={copy.actionWindowTitle} />}
-              />
-              <figcaption className="px-2 pb-1 pt-3 text-sm leading-6 text-white/55">
+        <SoulSection id="clips">
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <figure className="m-0 lg:order-1">
+              <SoulFrame>
+                <HomepageScreenshotSlot
+                  src={screenshots.clips.src}
+                  alt={copy.actionAlt}
+                  width={screenshots.clips.width}
+                  height={screenshots.clips.height}
+                  className="bg-[#1A1820]"
+                  imageClassName="block h-auto w-full"
+                  fallback={<ScreenshotFallback label={copy.actionWindowTitle} />}
+                />
+              </SoulFrame>
+              <figcaption className="mt-3 text-sm leading-6 text-[#8C8796]">
                 {copy.actionScreenshotCaption}
               </figcaption>
             </figure>
-
-            <div className="order-1 md:order-2">
-              <Eyebrow dark>{copy.actionEyebrow}</Eyebrow>
-              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {copy.actionTitle}
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-black/62">
+            <div className="lg:order-2">
+              <SoulEyebrow>{copy.actionEyebrow}</SoulEyebrow>
+              <SoulHeading>{copy.actionTitle}</SoulHeading>
+              <p className="m-0 max-w-xl text-base leading-7 text-[#A39FAD]">
                 {copy.actionDescription}
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </SoulSection>
 
-      <div className="mx-auto max-w-[1500px] px-5 md:px-8">
-        <section className="py-24 md:py-32">
-          <div className="grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-24">
-            <div>
-              <Eyebrow>{copy.comparisonEyebrow}</Eyebrow>
-              <h2 className="mt-7 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] md:text-7xl">
-                {copy.comparisonTitle}
-              </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/55">
-                {copy.comparisonDescription}
-              </p>
-            </div>
+        <SoulSection>
+          <SoulEyebrow>{copy.languagesEyebrow}</SoulEyebrow>
+          <SoulHeading>{copy.languagesTitle}</SoulHeading>
+          <p className="m-0 mb-7 max-w-2xl text-base leading-7 text-[#A39FAD]">
+            {copy.languagesDescription}
+          </p>
+          <ul className="m-0 flex list-none flex-wrap gap-2.5 p-0">
+            {nativeLanguages.map((language) => (
+              <li key={language.native}>
+                {language.href ? (
+                  <Link
+                    href={localizedHref(language.href)}
+                    lang={language.lang}
+                    className="inline-block rounded-full border border-[#FFD84D]/60 px-4 py-2 text-[15px] text-[#F4F1EA] transition hover:border-[#FFD84D] hover:text-[#FFD84D]"
+                  >
+                    {language.native}
+                  </Link>
+                ) : (
+                  <span
+                    lang={language.lang}
+                    className="inline-block rounded-full border border-[#2A2732] px-4 py-2 text-[15px] text-[#D9D5CE]"
+                  >
+                    {language.native}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </SoulSection>
 
-            <div className="border-t border-white/25">
-              <div className="grid grid-cols-2 border-b border-white/25 py-4 text-[10px] font-semibold uppercase tracking-[0.2em]">
-                <span className="pr-5 text-white/60">{copy.typicalLabel}</span>
-                <span className="border-l border-white/20 pl-5 text-[#a9bfff]">
-                  {copy.translatorLabel}
+        <SoulSection>
+          <SoulHeading>{soul.pricingTitle}</SoulHeading>
+          <div className="grid gap-4 md:grid-cols-3">
+            {soul.pricing.map((card, index) => (
+              <div
+                key={card.value}
+                className={`flex flex-col gap-2 rounded-[20px] border p-6 ${
+                  index === 1 ? "border-[#FFD84D]" : "border-[#25222C]"
+                }`}
+              >
+                <span
+                  className={`font-[family-name:var(--font-display)] text-3xl font-extrabold ${
+                    index === 1 ? "text-[#FFD84D]" : ""
+                  }`}
+                >
+                  {card.value}
+                </span>
+                <span className="text-base leading-7 text-[#A39FAD]">
+                  {card.body}
                 </span>
               </div>
-              {copy.comparisonRows.map((row, index) => (
-                <div
-                  key={`${row.typical}-${row.translator}`}
-                  className="grid grid-cols-2 border-b border-white/20 py-7 text-sm leading-7 md:text-base"
-                >
-                  <div className="pr-5 text-white/60">
-                    <span className="mr-3 font-mono text-[10px]">
-                      0{index + 1}
-                    </span>
-                    {row.typical}
-                  </div>
-                  <div className="border-l border-white/20 pl-5 text-white/80">
-                    {row.translator}
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        </section>
+          <Link
+            href={localizedHref("/pricing")}
+            className="mt-5 inline-block text-[15px] font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 hover:text-[#FFE680]"
+          >
+            {copy.heroPricingLink} →
+          </Link>
+        </SoulSection>
 
-        <section className="border-y border-white/20 py-16 md:py-24">
+        <SoulSection>
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
             <div>
-              <Eyebrow>{copy.socialEyebrow}</Eyebrow>
-              <h2 className="mt-6 max-w-5xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {copy.socialTitle}
-              </h2>
-              <p className="mt-5 max-w-3xl text-base leading-7 text-white/55">
+              <SoulEyebrow>{copy.socialEyebrow}</SoulEyebrow>
+              <SoulHeading flush>{copy.socialTitle}</SoulHeading>
+              <p className="m-0 mt-4 max-w-3xl text-base leading-7 text-[#A39FAD]">
                 {copy.socialDescription}
               </p>
             </div>
@@ -630,186 +466,113 @@ export default async function Home({
               href="https://www.producthunt.com/products/translator-3"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 text-sm font-semibold text-[#a9bfff] underline decoration-[#a9bfff]/40 underline-offset-4 transition hover:text-white"
+              className="shrink-0 text-sm font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 hover:text-[#FFE680]"
             >
               {copy.productHuntLinkLabel}
             </a>
           </div>
-
-          <div className="mt-10 grid border-t border-white/20 lg:grid-cols-3">
-            {productHuntReviews.map((review, index) => (
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {productHuntReviews.map((review) => (
               <blockquote
                 key={`${review.author}-${review.quote}`}
-                className="border-b border-white/20 py-8 lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
+                className="m-0 rounded-[20px] border border-[#25222C] bg-[#15131A] p-6"
               >
-                <span className="font-mono text-xs text-[#ff75ac]">
-                  0{index + 1}
-                </span>
-                <p className="mt-5 text-xl leading-8 tracking-[-0.02em] text-white md:text-2xl">
+                <p className="m-0 text-lg leading-8 text-[#F4F1EA]">
                   “{review.quote}”
                 </p>
-                <footer className="mt-7 text-sm text-white/60">
+                <footer className="mt-5 text-sm text-[#8C8796]">
                   {review.author} / {review.source}
                 </footer>
               </blockquote>
             ))}
           </div>
-        </section>
+        </SoulSection>
 
-        <section id="agents" className="scroll-mt-8 border-b border-white/20 py-16 md:py-24">
-          <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
+        <SoulSection id="agents">
+          <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
-              <Eyebrow>{experience.agentEyebrow}</Eyebrow>
-              <h2 className="mt-6 max-w-5xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {experience.agentTitle}
-              </h2>
-              <p className="mt-5 max-w-3xl text-base leading-7 text-white/55">
+              <SoulEyebrow>{experience.agentEyebrow}</SoulEyebrow>
+              <SoulHeading>{experience.agentTitle}</SoulHeading>
+              <p className="m-0 max-w-2xl text-base leading-7 text-[#A39FAD]">
                 {experience.agentDescription}
               </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <Link
                   href="/agents"
-                  className="inline-flex items-center justify-center border border-[#ff75ac] bg-[#ff75ac] px-6 py-3 text-sm font-semibold text-black transition hover:border-white hover:bg-white"
+                  className="inline-flex items-center justify-center rounded-full border border-[#3A3644] bg-[#1F1C26] px-6 py-3 text-sm font-semibold text-[#F4F1EA] transition hover:border-[#FFD84D]"
                 >
                   {experience.agentCta} →
                 </Link>
-                <Link
-                  href={localizedHref("/#all-downloads")}
-                  className="text-sm font-semibold text-white/65 underline decoration-white/25 underline-offset-4 transition hover:text-white"
-                >
-                  {t("navDownload", locale)} ↓
-                </Link>
-              </div>
-              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/15 pt-5 font-mono text-[11px] text-white/60">
-                <a className="underline underline-offset-4 hover:text-white" href="/llms.txt">
-                  llms.txt
-                </a>
-                <a className="underline underline-offset-4 hover:text-white" href="/llms-full.txt">
-                  llms-full.txt
-                </a>
-                <a
-                  className="underline underline-offset-4 hover:text-white"
-                  href="/agent-manifest.json"
-                >
-                  agent-manifest.json
-                </a>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-[#8C8796]">
+                  <a className="underline underline-offset-4 hover:text-[#F4F1EA]" href="/llms.txt">
+                    llms.txt
+                  </a>
+                  <a className="underline underline-offset-4 hover:text-[#F4F1EA]" href="/llms-full.txt">
+                    llms-full.txt
+                  </a>
+                  <a className="underline underline-offset-4 hover:text-[#F4F1EA]" href="/agent-manifest.json">
+                    agent-manifest.json
+                  </a>
+                </div>
               </div>
             </div>
-            <ol className="border-t border-white/25 lg:border-l lg:border-t-0 lg:pl-10">
+            <ol className="m-0 list-none divide-y divide-[#25222C] border-y border-[#25222C] p-0">
               {experience.agentPoints.map((point, index) => (
                 <li
                   key={point}
-                  className="grid grid-cols-[2.25rem_1fr] gap-4 border-b border-white/15 py-7 text-sm leading-7 text-white/65"
+                  className="grid grid-cols-[2rem_1fr] gap-3 py-5 text-[15px] leading-7 text-[#A39FAD]"
                 >
-                  <span className="font-mono text-[10px] text-[#ff75ac]">
-                    0{index + 1}
+                  <span className="font-[family-name:var(--font-display)] font-bold text-[#FFD84D]">
+                    {index + 1}
                   </span>
                   <span>{point}</span>
                 </li>
               ))}
             </ol>
           </div>
-        </section>
+        </SoulSection>
 
-        <section className="border-b border-white/20 py-16 md:py-24">
-          <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
+        <SoulSection>
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <Eyebrow>{openSourceCopy.eyebrow}</Eyebrow>
-              <h2 className="mt-6 max-w-4xl text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {openSourceCopy.title}
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-white/55">
+              <SoulEyebrow>{openSourceCopy.eyebrow}</SoulEyebrow>
+              <SoulHeading flush>{openSourceCopy.title}</SoulHeading>
+              <p className="m-0 mt-4 max-w-2xl text-base leading-7 text-[#A39FAD]">
                 {openSourceCopy.description}
               </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <GitHubRepositoryLink
-                  label={openSourceCopy.repositoryCta}
-                  placement="homepage_open_source_section"
-                  className="inline-flex items-center justify-center border border-[#a9bfff] bg-[#a9bfff] px-6 py-3 text-sm font-semibold text-black transition hover:border-white hover:bg-white"
-                >
-                  {openSourceCopy.repositoryCta} ↗
-                </GitHubRepositoryLink>
-                <Link
-                  href={localizedHref("/open-source")}
-                  className="text-sm font-semibold text-white/65 underline decoration-white/25 underline-offset-4 transition hover:text-white"
-                >
-                  {openSourceCopy.detailsCta} →
-                </Link>
-              </div>
             </div>
-
-            <div className="border-t border-white/25 lg:border-l lg:border-t-0 lg:pl-10">
-              <div className="flex items-center justify-between border-b border-white/15 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
-                <span>github.com</span>
-                <span>public / MIT</span>
-              </div>
-              <div className="break-all border-b border-white/15 py-7 font-mono text-sm leading-7 text-[#a9bfff]">
-                github.com/mikey1384/translator
-              </div>
-              <ol className="divide-y divide-white/15">
-                {openSourceCopy.facts.map((fact, index) => (
-                  <li
-                    key={fact}
-                    className="grid grid-cols-[2rem_1fr] gap-4 py-5 text-sm leading-6 text-white/65"
-                  >
-                    <span className="font-mono text-[10px] text-[#ff75ac]">
-                      0{index + 1}
-                    </span>
-                    <span>{fact}</span>
-                  </li>
-                ))}
-              </ol>
+            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
+              <GitHubRepositoryLink
+                label={openSourceCopy.repositoryCta}
+                placement="homepage_open_source_section"
+                className="inline-flex items-center justify-center rounded-full border border-[#3A3644] bg-[#1F1C26] px-6 py-3 text-sm font-semibold text-[#F4F1EA] transition hover:border-[#FFD84D]"
+              >
+                {openSourceCopy.repositoryCta} ↗
+              </GitHubRepositoryLink>
+              <Link
+                href={localizedHref("/open-source")}
+                className="text-sm font-semibold text-[#A39FAD] underline decoration-[#A39FAD]/40 underline-offset-4 hover:text-[#F4F1EA]"
+              >
+                {openSourceCopy.detailsCta} →
+              </Link>
             </div>
           </div>
-        </section>
-
-        <section className="py-16 md:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-            <div>
-              <Eyebrow>{copy.languagesEyebrow}</Eyebrow>
-              <h2 className="mt-6 text-3xl font-semibold leading-[1.02] tracking-[-0.045em] md:text-5xl">
-                {copy.languagesTitle}
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-white/55">
-                {copy.languagesDescription}
-              </p>
-            </div>
-
-            <div className="border-t border-white/25 pt-8">
-              <div className="flex flex-wrap gap-x-7 gap-y-5">
-                {languageLinks.map((language) => (
-                  <Link
-                    key={language.href}
-                    href={localizedHref(language.href)}
-                    className="text-2xl font-semibold tracking-[-0.03em] text-white underline decoration-white/20 underline-offset-8 transition hover:text-[#a9bfff] md:text-4xl"
-                  >
-                    {t(language.labelKey, locale)}
-                  </Link>
-                ))}
-              </div>
-              <div className="mt-12 flex flex-wrap gap-x-5 gap-y-3 text-sm leading-7 text-white/60">
-                {otherLanguages.map((langKey) => (
-                  <span key={langKey}>{t(langKey, locale)}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        </SoulSection>
       </div>
 
-      <section id="all-downloads" className="bg-[#a9bfff] text-[#0b0c10]">
-        <div className="mx-auto max-w-[1500px] px-5 py-24 text-center md:px-8 md:py-32">
-          <Eyebrow dark>{copy.bottomEyebrow}</Eyebrow>
-          <h2 className="mx-auto mt-7 max-w-6xl text-6xl font-semibold leading-[0.92] tracking-[-0.06em] md:text-8xl lg:text-9xl">
-            {copy.bottomTitle}
+      <section
+        id="all-downloads"
+        className="border-t border-[#25222C] bg-[#15131A]"
+      >
+        <div className="mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 py-20 text-center md:px-8 md:py-28">
+          <h2 className="m-0 max-w-[46rem] font-[family-name:var(--font-display)] text-[clamp(2.1rem,4.6vw,3.6rem)] font-extrabold leading-[1.05] tracking-[-0.035em]">
+            {soul.closingTitle}
           </h2>
-          <p className="mx-auto mt-7 max-w-2xl text-lg leading-8 text-black/60">
+          <p className="m-0 max-w-2xl text-lg leading-8 text-[#A39FAD]">
             {copy.bottomDescription}
           </p>
-          <div className="mt-10">
-            <AllDownloadButtons locale={locale} surface="light" />
-          </div>
-          <p className="mt-5 text-sm text-black/70">{t("footer", locale)}</p>
+          <AllDownloadButtons locale={locale} surface="dark" />
+          <p className="m-0 text-sm text-[#8C8796]">{soul.closingNote}</p>
         </div>
       </section>
 
@@ -818,48 +581,52 @@ export default async function Home({
   );
 }
 
-function Eyebrow({
-  children,
-  dark = false,
-}: {
-  children: React.ReactNode;
-  dark?: boolean;
-}) {
+function SoulEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className={`flex items-center gap-3 font-mono text-[10px] font-semibold uppercase tracking-[0.28em] ${
-        dark ? "text-black/70" : "text-white/60"
-      }`}
-    >
-      <span className={`h-px w-8 ${dark ? "bg-black/35" : "bg-[#ff75ac]"}`} />
-      <span>{children}</span>
+    <div className="mb-4 text-[13px] font-semibold uppercase tracking-[0.16em] text-[#FFD84D] [&:lang(ja)]:tracking-[0.04em] [&:lang(ko)]:tracking-[0.04em] [&:lang(zh)]:tracking-[0.04em]">
+      {children}
     </div>
   );
 }
 
-function ProductFrame({
-  label,
-  tone,
+function SoulHeading({
+  children,
+  flush = false,
+}: {
+  children: React.ReactNode;
+  flush?: boolean;
+}) {
+  return (
+    <h2
+      className={`m-0 font-[family-name:var(--font-display)] text-[clamp(1.85rem,3.4vw,2.8rem)] font-bold leading-[1.08] tracking-[-0.03em] ${
+        flush ? "" : "mb-7"
+      }`}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function SoulSection({
+  id,
   children,
 }: {
-  label: string;
-  tone: "blue" | "pink";
+  id?: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className="overflow-hidden border border-white/20 bg-[#10141d] shadow-[0_40px_100px_rgba(0,0,0,0.45)]">
-      <div className="flex items-center justify-between border-b border-white/15 bg-[#0b0d12] px-4 py-3">
-        <div className="flex gap-2" aria-hidden="true">
-          <span className="h-2 w-2 rounded-full bg-white/28" />
-          <span className="h-2 w-2 rounded-full bg-white/16" />
-          <span
-            className={`h-2 w-2 rounded-full ${tone === "blue" ? "bg-[#a9bfff]" : "bg-[#ff75ac]"}`}
-          />
-        </div>
-        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-white/60">
-          {label}
-        </span>
-      </div>
+    <section
+      id={id}
+      className="scroll-mt-8 border-t border-[#25222C] py-16 md:py-20"
+    >
+      {children}
+    </section>
+  );
+}
+
+function SoulFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="overflow-hidden rounded-[22px] border border-[#2A2732] bg-[#1A1820]">
       {children}
     </div>
   );
@@ -867,7 +634,7 @@ function ProductFrame({
 
 function ScreenshotFallback({ label }: { label: string }) {
   return (
-    <div className="flex min-h-[360px] items-end bg-[#121826] p-8 text-xl text-white">
+    <div className="flex min-h-[320px] items-end bg-[#1A1820] p-8 text-xl text-[#F4F1EA]">
       {label}
     </div>
   );

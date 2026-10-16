@@ -27,10 +27,11 @@ export function SiteNav({ locale, supportedLocales, site = "translator" }: SiteN
             href={homeHref}
             className="group flex items-baseline gap-2 text-white"
           >
-            <span className="font-[var(--font-montserrat)] text-xl font-bold lowercase tracking-[-0.045em]">
+            <span className="font-[family-name:var(--font-display)] text-[22px] font-extrabold lowercase tracking-[-0.03em]">
               translator
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/60 transition group-hover:text-white/80">
+            <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-[#FFD84D]" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#8C8796] transition group-hover:text-[#B7B2BF]">
               by Stage5
             </span>
           </Link>}
@@ -38,7 +39,7 @@ export function SiteNav({ locale, supportedLocales, site = "translator" }: SiteN
             <LanguageMenu supportedLocales={supportedLocales} />
             <NavDownloadLink
               href={downloadHref}
-              className="border border-[#a9bfff] bg-[#a9bfff] px-4 py-2 text-xs font-semibold text-black transition hover:border-white hover:bg-white"
+              className="rounded-full border border-[#FFD84D] bg-[#FFD84D] px-4 py-2 text-xs font-semibold text-[#17140A] transition hover:border-[#FFE680] hover:bg-[#FFE680]"
             >
               {downloadLabel}
             </NavDownloadLink>
@@ -51,7 +52,7 @@ export function SiteNav({ locale, supportedLocales, site = "translator" }: SiteN
           <LanguageMenu supportedLocales={supportedLocales} />
           <NavDownloadLink
             href={downloadHref}
-            className="border border-[#a9bfff] bg-[#a9bfff] px-5 py-2.5 text-xs font-semibold text-black transition hover:border-white hover:bg-white"
+            className="rounded-full border border-[#FFD84D] bg-[#FFD84D] px-5 py-2.5 text-sm font-semibold text-[#17140A] transition hover:border-[#FFE680] hover:bg-[#FFE680]"
           >
             {downloadLabel}
           </NavDownloadLink>

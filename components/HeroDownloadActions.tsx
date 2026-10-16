@@ -44,7 +44,7 @@ export function HeroDownloadActions({
 
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
-      <span className="text-xs uppercase tracking-widest text-gray-400">
+      <span className="text-xs uppercase tracking-widest text-[#8C8796]">
         {hasDetectedPlatform
           ? t("homeDownloadRecommended", locale)
           : t("homeDownloadChoose", locale)}
@@ -62,7 +62,7 @@ export function HeroDownloadActions({
           />
           <Link
             href="#all-downloads"
-            className="text-sm font-semibold text-gray-300 transition hover:text-white"
+            className="text-sm font-semibold text-[#B7B2BF] transition hover:text-[#F4F1EA]"
           >
             {t("homeDownloadAllVersions", locale)}
           </Link>
@@ -73,7 +73,7 @@ export function HeroDownloadActions({
       ) : (
         <Link
           href="#all-downloads"
-          className="inline-flex max-w-full items-center px-8 py-4 text-center text-lg font-medium text-black bg-white hover:bg-gray-100 rounded-2xl transition-all duration-300"
+          className="inline-flex max-w-full items-center px-8 py-4 text-center text-lg font-semibold text-[#17140A] bg-[#FFD84D] hover:bg-[#FFE680] rounded-full transition-all duration-300"
         >
           {t("homeDownloadAllVersions", locale)}
         </Link>

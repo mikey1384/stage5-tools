@@ -28,12 +28,12 @@ export function HomeIntentLinks({ links }: { links: readonly HomeIntentLink[] })
               ),
             )
           }
-          className="group inline-flex items-center gap-2 rounded-full border border-white/16 px-3 py-2 text-xs font-semibold text-white/62 transition hover:border-[#a9bfff]/60 hover:bg-[#a9bfff]/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a9bfff]"
+          className="group inline-flex items-center gap-2 rounded-full border border-[#2A2732] px-3 py-2 text-xs font-semibold text-[#B7B2BF] transition hover:border-[#FFD84D]/60 hover:bg-[#FFD84D]/10 hover:text-[#F4F1EA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD84D]"
         >
           <span>{link.label}</span>
           <span
             aria-hidden="true"
-            className="text-[#a9bfff] transition-transform group-hover:translate-x-0.5"
+            className="text-[#FFD84D] transition-transform group-hover:translate-x-0.5"
           >
             →
           </span>

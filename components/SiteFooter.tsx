@@ -73,7 +73,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-gray-900 pt-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-[#25222C] pt-8 text-sm text-gray-400 md:flex-row md:items-center md:justify-between">
           <span>{t("copyright", locale)}</span>
           <span>
             {t("footerQuestions", locale)}{" "}

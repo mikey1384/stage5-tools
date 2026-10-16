@@ -165,14 +165,14 @@ export function MobileDownloadPanel({
   const isLight = surface === "light";
   const panelClasses = isLight
     ? "border-black/15 bg-white/40 text-[#0b0c10]"
-    : "border-white/15 bg-white/[0.04] text-white";
-  const mutedClasses = isLight ? "text-black/65" : "text-gray-300";
+    : "border-[#2A2732] bg-[#15131A] text-[#F4F1EA]";
+  const mutedClasses = isLight ? "text-black/65" : "text-[#B7B2BF]";
   const primaryClasses = isLight
     ? "border-[#0b0c10] bg-[#0b0c10] text-white"
-    : "border-[#a9bfff] bg-[#a9bfff] text-black";
+    : "border-[#FFD84D] bg-[#FFD84D] text-[#17140A]";
   const secondaryClasses = isLight
     ? "border-black/25 text-black"
-    : "border-white/25 text-white";
+    : "border-[#3A3644] text-[#F4F1EA]";
 
   return (
     <div

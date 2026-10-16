@@ -97,10 +97,10 @@ export function DownloadButton({
   const buttonClasses = isPrimary
     ? surface === "light"
       ? "border border-[#0b0c10] bg-[#0b0c10] text-white shadow-[0_14px_34px_rgba(0,0,0,0.24)] hover:-translate-y-0.5 hover:border-[#242631] hover:bg-[#242631] hover:shadow-[0_18px_42px_rgba(0,0,0,0.3)]"
-      : "border border-[#a9bfff] bg-[#a9bfff] text-black shadow-[0_14px_34px_rgba(0,0,0,0.24)] hover:-translate-y-0.5 hover:border-white hover:bg-white"
+      : "border border-[#FFD84D] bg-[#FFD84D] text-[#17140A] shadow-[0_14px_34px_rgba(0,0,0,0.28)] hover:-translate-y-0.5 hover:border-[#FFE680] hover:bg-[#FFE680]"
     : surface === "light"
       ? "border border-black/25 bg-white/15 text-black hover:-translate-y-0.5 hover:border-black/50 hover:bg-white/40"
-      : "border border-white/25 bg-transparent text-white hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/10";
+      : "border border-[#3A3644] bg-[#1F1C26] text-[#F4F1EA] hover:-translate-y-0.5 hover:border-[#4A4553] hover:bg-[#25222C]";
 
   const sizeClasses = isSmall ? "px-6 py-3 text-base" : "px-8 py-4 text-lg";
 
@@ -150,7 +150,7 @@ export function DownloadButton({
     <Link
       href={downloadUrl}
       onClick={handleDownloadClick}
-      className={`relative inline-flex items-center justify-center rounded-[18px] ${sizeClasses} font-semibold ${buttonClasses} transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/20 ${className}`}
+      className={`relative inline-flex items-center justify-center rounded-full ${sizeClasses} font-semibold ${buttonClasses} transition-all duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#FFD84D]/40 ${className}`}
     >
       {badge ? (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-black/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-black shadow-[0_5px_14px_rgba(0,0,0,0.16)]">

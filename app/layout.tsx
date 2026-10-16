@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Geist,
+  Geist_Mono,
+  Instrument_Sans,
+  Montserrat,
+} from "next/font/google";
 import { ADSENSE_CLIENT_ID } from "../lib/adsense";
 import { getLocale } from "../lib/get-locale";
 import { getSite } from "../lib/get-site";
@@ -24,6 +30,19 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+});
+
+// Translator's display and body faces (self-hosted by next/font at build).
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-display",
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  display: "swap",
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-body",
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -88,7 +107,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${bricolage.variable} ${instrumentSans.variable} antialiased`}
       >
         {gtmId ? (
           <script
