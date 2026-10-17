@@ -62,9 +62,9 @@ const screenshots = {
     height: 1080,
   },
   clips: {
-    src: "/screenshots/highlight-clips-editorial-2026-08.webp",
-    width: 1920,
-    height: 1080,
+    src: "/screenshots/clips-shorts-2026-10.webp",
+    width: 2304,
+    height: 1752,
   },
 } as const;
 
@@ -92,7 +92,7 @@ function getHomeStructuredData(locale: Locale) {
       "https://translator.tools/screenshots/download-library-2026-08.webp",
       "https://translator.tools/screenshots/subtitle-editor-workflow-editorial-2026-08.webp",
       "https://translator.tools/screenshots/video-downloader-workflow-editorial-2026-08.webp",
-      "https://translator.tools/screenshots/highlight-clips-editorial-2026-08.webp",
+      "https://translator.tools/screenshots/clips-shorts-2026-10.webp",
     ],
     featureList: [
       "Download or import internet videos",
@@ -382,6 +382,7 @@ export default async function Home({
               </SoulFrame>
               <figcaption className="mt-3 text-sm leading-6 text-[#8C8796]">
                 {copy.actionScreenshotCaption}
+                <FilmCredit />
               </figcaption>
             </figure>
             <div className="lg:order-2">
