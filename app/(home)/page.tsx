@@ -27,14 +27,14 @@ import { homeSoulCopy } from "./home-soul-copy";
 
 const screenshots = {
   hero: {
-    src: "/screenshots/subtitle-display-translation-only-2026-08.webp",
+    src: "/screenshots/player-ko-2026-10.webp",
     width: 2400,
     height: 1600,
   },
   multitab: {
-    src: "/screenshots/multitab-workspace-2026-08.webp",
+    src: "/screenshots/tabs-workspace-2026-10.webp",
     width: 2400,
-    height: 1440,
+    height: 1744,
   },
   originalClassic: {
     src: "/screenshots/subtitle-display-original-classic-2026-08.webp",
@@ -85,8 +85,8 @@ function getHomeStructuredData(locale: Locale) {
     image:
       "https://translator.tools/translator-social-card-editorial-2026-08.png",
     screenshot: [
-      "https://translator.tools/screenshots/subtitle-display-translation-only-2026-08.webp",
-      "https://translator.tools/screenshots/multitab-workspace-2026-08.webp",
+      "https://translator.tools/screenshots/player-ko-2026-10.webp",
+      "https://translator.tools/screenshots/tabs-workspace-2026-10.webp",
       "https://translator.tools/screenshots/subtitle-display-original-classic-2026-08.webp",
       "https://translator.tools/screenshots/subtitle-display-dual-linebox-2026-08.webp",
       "https://translator.tools/screenshots/download-library-2026-08.webp",
@@ -287,6 +287,7 @@ export default async function Home({
                 alt: experience.heroAlt,
               }}
             />
+            <FilmCredit />
           </div>
         </section>
 
@@ -359,6 +360,7 @@ export default async function Home({
               </SoulFrame>
               <figcaption className="mt-3 text-sm leading-6 text-[#8C8796]">
                 {copy.viewerScreenshotCaption}
+                <FilmCredit />
               </figcaption>
             </figure>
           </div>
@@ -637,5 +639,22 @@ function ScreenshotFallback({ label }: { label: string }) {
     <div className="flex min-h-[320px] items-end bg-[#1A1820] p-8 text-xl text-[#F4F1EA]">
       {label}
     </div>
+  );
+}
+
+/** CC BY 3.0 attribution for the film stills in the screenshots. */
+function FilmCredit() {
+  return (
+    <span className="mt-2 block text-xs leading-5 text-[#6F6A78]">
+      Film:{" "}
+      <a
+        href="https://mango.blender.org"
+        className="underline decoration-[#3A3644] underline-offset-2 hover:text-[#A39FAD]"
+        rel="noopener"
+      >
+        Tears of Steel
+      </a>{" "}
+      © Blender Foundation, CC BY 3.0
+    </span>
   );
 }
