@@ -8,13 +8,20 @@ import { useEffect, useState } from "react";
 // and the first frame's alt describes what is shown.
 
 const FRAMES = [
-  { native: "한국어", src: "/screenshots/player-ko-2026-10.webp" },
-  { native: "Español", src: "/screenshots/player-es-2026-10.webp" },
-  { native: "日本語", src: "/screenshots/player-ja-2026-10.webp" },
-  { native: "Tiếng Việt", src: "/screenshots/player-vi-2026-10.webp" },
-  { native: "Français", src: "/screenshots/player-fr-2026-10.webp" },
-  { native: "العربية", src: "/screenshots/player-ar-2026-10.webp" },
+  { lang: "ko", native: "한국어", src: "/screenshots/player-ko-2026-10.webp" },
+  { lang: "es", native: "Español", src: "/screenshots/player-es-2026-10.webp" },
+  { lang: "ja", native: "日本語", src: "/screenshots/player-ja-2026-10.webp" },
+  { lang: "vi", native: "Tiếng Việt", src: "/screenshots/player-vi-2026-10.webp" },
+  { lang: "fr", native: "Français", src: "/screenshots/player-fr-2026-10.webp" },
+  { lang: "ar", native: "العربية", src: "/screenshots/player-ar-2026-10.webp" },
 ] as const;
+
+/** Frames rotated so the viewer's own language (when we have it) comes first. */
+function framesStartingWith(lang?: string) {
+  const start = FRAMES.findIndex((frame) => frame.lang === lang);
+  if (start <= 0) return FRAMES;
+  return [...FRAMES.slice(start), ...FRAMES.slice(0, start)];
+}
 
 export interface HeroImage {
   src: string;
@@ -23,7 +30,18 @@ export interface HeroImage {
   alt: string;
 }
 
-export function HeroLanguageShowcase({ image }: { image: HeroImage }) {
+export function HeroLanguageShowcase({
+  image,
+  startLang,
+  priority = true,
+}: {
+  image: HeroImage;
+  /** Show this language's frame first when a screenshot exists for it. */
+  startLang?: string;
+  priority?: boolean;
+}) {
+  const frames = framesStartingWith(startLang);
+  const firstSrc = frames === FRAMES ? image.src : frames[0].src;
   const [index, setIndex] = useState(0);
   // Load the other languages only after the first frame is on screen.
   const [loadRest, setLoadRest] = useState(false);
@@ -44,21 +62,21 @@ export function HeroLanguageShowcase({ image }: { image: HeroImage }) {
     };
   }, []);
 
-  const current = FRAMES[index];
+  const current = frames[index];
 
   return (
     <figure className="relative m-0 overflow-hidden rounded-[26px] border border-[#2A2732] bg-[#1A1820]">
       <Image
-        src={image.src}
+        src={firstSrc}
         width={image.width}
         height={image.height}
         alt={image.alt}
-        priority
+        priority={priority}
         sizes="(min-width: 1024px) 620px, 100vw"
         className="block h-auto w-full"
       />
       {loadRest
-        ? FRAMES.slice(1).map((frame, i) => (
+        ? frames.slice(1).map((frame, i) => (
             <Image
               key={frame.src}
               src={frame.src}

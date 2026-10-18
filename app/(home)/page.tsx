@@ -133,7 +133,7 @@ function getHomeStructuredData(locale: Locale) {
     publisher: {
       "@type": "Organization",
       name: "Stage5 Tools",
-      url: "https://translator.tools",
+      url: "https://stage5.tools",
     },
     offers: {
       "@type": "Offer",

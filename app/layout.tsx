@@ -62,6 +62,7 @@ const organizationStructuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Stage5 Tools",
+  alternateName: "Stage5",
   url: STAGE5_ORIGIN,
   logo: "https://stage5.tools/brand/stage5-wordmark-v1.png",
   legalName: "Stage5 Tools LLC",

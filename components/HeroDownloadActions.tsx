@@ -11,11 +11,14 @@ import { WindowsInstallHelp } from "./WindowsInstallHelp";
 interface HeroDownloadActionsProps {
   locale: Locale;
   className?: string;
+  /** link_label sent with the download click; distinguishes CTA surfaces. */
+  trackingLabel?: string;
 }
 
 export function HeroDownloadActions({
   locale,
   className = "",
+  trackingLabel = "Hero CTA",
 }: HeroDownloadActionsProps) {
   const { platform, architecture } = usePlatformDetection();
   const isPhoneOrTablet = useIsPhoneOrTablet();
@@ -55,7 +58,7 @@ export function HeroDownloadActions({
             label={label}
             platform={recommendedPlatform}
             architecture={recommendedArchitecture}
-            trackingLabel="Hero CTA"
+            trackingLabel={trackingLabel}
             variant="primary"
             size="normal"
             className="max-w-full text-center"

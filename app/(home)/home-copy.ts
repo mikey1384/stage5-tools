@@ -84,9 +84,9 @@ type HomeCopy = {
 const baseHomeCopy = {
   en: {
     pageTitle:
-      "AI Video Translator for Subtitles, Dubbing & Clips | Translator",
+      "AI Video Translator for Subtitles & Dubbing | Stage5 Translator",
     metadataDescription:
-      "Translate multiple videos in one desktop app with browser-style tabs: import, transcribe, review subtitles in context, dub, clip, and export. Free for macOS and Windows.",
+      "Paste a video link or open a file: Translator downloads it, writes AI subtitles, translates them into 39 languages and can dub it. Free for Mac and Windows, with 5 free AI minutes a month.",
     eyebrow: "The complete AI video translation workflow",
     title: "The video translator that finishes the job.",
     subtitle:
@@ -236,7 +236,7 @@ const baseHomeCopy = {
     actionAlt: "Reviewing highlight clip candidates",
   },
   ko: {
-    pageTitle: "AI 영상 번역기 - 자막 번역·더빙·클립까지 한 번에 | Translator",
+    pageTitle: "AI 영상 번역기 - 자막 번역·더빙·클립까지 한 번에 | Stage5 Translator",
     metadataDescription:
       "여러 영상을 브라우저처럼 탭에 열고 다운로드, 음성 인식, 자막 번역·검수, 더빙, 클립, 내보내기까지 한 번에. macOS·Windows용 무료 데스크톱 앱입니다.",
     eyebrow: "영상 번역의 처음부터 끝까지",
@@ -391,7 +391,7 @@ export const homeCopy = {
   es: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Subtítulos traducidos con IA para videos de internet | App de escritorio gratis",
+      "Stage5 Translator - Subtítulos traducidos con IA para videos de internet | App de escritorio gratis",
     metadataDescription:
       "Descarga o importa un video de internet, genera subtítulos traducidos de alta calidad, revísalos y edítalos, y exporta un video subtitulado o un SRT limpio desde una app de escritorio.",
     eyebrow: "Subtítulos traducidos con IA, del video al export",
@@ -550,7 +550,7 @@ export const homeCopy = {
   ja: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - インターネット動画にAI翻訳字幕を作るデスクトップアプリ | 無料ダウンロード",
+      "Stage5 Translator - インターネット動画にAI翻訳字幕を作るデスクトップアプリ | 無料ダウンロード",
     metadataDescription:
       "インターネット動画をダウンロードまたは読み込み、高品質な翻訳字幕を生成し、確認と編集を行って、字幕付き動画やきれいなSRTとして書き出せます。",
     eyebrow: "動画から書き出しまでつながるAI翻訳字幕",
@@ -697,7 +697,7 @@ export const homeCopy = {
   },
   zh: {
     ...baseHomeCopy.en,
-    pageTitle: "Translator - 为互联网视频生成 AI 翻译字幕 | 免费桌面应用",
+    pageTitle: "Stage5 Translator - 为互联网视频生成 AI 翻译字幕 | 免费桌面应用",
     metadataDescription:
       "下载或导入互联网视频，生成高质量翻译字幕，在视频中审核和编辑，然后导出成品字幕视频或干净的 SRT。",
     eyebrow: "从视频到导出的 AI 翻译字幕",
@@ -838,7 +838,7 @@ export const homeCopy = {
   fr: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Sous-titres traduits par IA pour vidéos internet | App desktop gratuite",
+      "Stage5 Translator - Sous-titres traduits par IA pour vidéos internet | App desktop gratuite",
     metadataDescription:
       "Téléchargez ou importez une vidéo internet, générez des sous-titres traduits de haute qualité, relisez-les et éditez-les, puis exportez une vidéo sous-titrée ou un SRT propre.",
     eyebrow: "Sous-titres traduits par IA, de la vidéo à l’export",
@@ -996,7 +996,7 @@ export const homeCopy = {
   de: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - KI-übersetzte Untertitel für Internetvideos | Kostenlose Desktop-App",
+      "Stage5 Translator - KI-übersetzte Untertitel für Internetvideos | Kostenlose Desktop-App",
     metadataDescription:
       "Lade ein Internetvideo herunter oder importiere es, generiere hochwertige übersetzte Untertitel, prüfe und bearbeite sie und exportiere ein untertiteltes Video oder eine saubere SRT-Datei.",
     eyebrow: "KI-übersetzte Untertitel vom Video bis zum Export",
@@ -1153,7 +1153,7 @@ export const homeCopy = {
   pt: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Translator - Legendas traduzidas por IA para vídeos da internet | App desktop grátis",
+      "Stage5 Translator - Legendas traduzidas por IA para vídeos da internet | App desktop grátis",
     metadataDescription:
       "Baixe ou importe um vídeo da internet, gere legendas traduzidas de alta qualidade, revise e edite, depois exporte um vídeo legendado ou um SRT limpo em um app desktop.",
     eyebrow: "Legendas traduzidas por IA, do vídeo ao export",
@@ -1309,7 +1309,7 @@ export const homeCopy = {
   vi: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Công cụ dịch phụ đề video bằng AI | Tool dịch phụ đề cho video internet | Translator",
+      "Công cụ dịch phụ đề video bằng AI | Tool dịch phụ đề cho video internet | Stage5 Translator",
     metadataDescription:
       "Công cụ dịch phụ đề video chuyên nghiệp: tải video, tạo và dịch phụ đề trực tiếp, rà soát từng dòng trong ngữ cảnh, xuất SRT hoặc video có phụ đề. Dịch phụ đề sang 39 ngôn ngữ.",
     eyebrow: "Công cụ dịch phụ đề video chuyên nghiệp",

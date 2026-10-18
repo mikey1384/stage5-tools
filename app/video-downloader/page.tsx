@@ -6,6 +6,9 @@ import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
+import { HeroLanguageShowcase } from "../../components/home/HeroLanguageShowcase";
+import { homeSoulCopy } from "../(home)/home-soul-copy";
+import { subtitlePathCopy } from "./subtitle-path-copy";
 import { getLocale } from "../../lib/get-locale";
 import {
   homeHrefForLocale,
@@ -607,6 +610,8 @@ export default async function VideoDownloaderPage({
   const params = await searchParams;
   const locale = await getLocale(params);
   const copy = getPageCopy(locale);
+  const pathCopy = subtitlePathCopy[locale];
+  const soul = homeSoulCopy[locale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
 
@@ -682,6 +687,12 @@ export default async function VideoDownloaderPage({
               <p className="mt-5 max-w-2xl text-sm leading-6 text-gray-400">
                 {t("videoDownloaderFreeNote", locale)}
               </p>
+              <a
+                href="#in-your-language"
+                className="mt-4 inline-block text-sm font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 transition hover:text-[#FFE680]"
+              >
+                {pathCopy.heroLink}
+              </a>
             </div>
 
             <div className="space-y-4">
@@ -700,6 +711,85 @@ export default async function VideoDownloaderPage({
               </div>
               <p className="text-sm leading-6 text-gray-400">
                 {copy.intakeCaption}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="in-your-language"
+          aria-labelledby="in-your-language-title"
+          className="mt-10 scroll-mt-8 rounded-[32px] border border-[#2A2732] bg-[#0F0E13] px-6 py-10 font-[family-name:var(--font-body)] text-[#F4F1EA] md:mt-14 md:px-10 md:py-14 [&:lang(ko)]:[word-break:keep-all]"
+        >
+          {/* DOM order header -> screenshot -> actions keeps the picture next to
+              the promise on phones; on desktop the screenshot spans the right. */}
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-x-14 lg:gap-y-0">
+            <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+              <div className="mb-4 text-[13px] font-semibold uppercase tracking-[0.16em] text-[#FFD84D] [&:lang(ja)]:tracking-[0.04em] [&:lang(ko)]:tracking-[0.04em] [&:lang(zh)]:tracking-[0.04em]">
+                {pathCopy.eyebrow}
+              </div>
+              <h2
+                id="in-your-language-title"
+                className="m-0 font-[family-name:var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] font-extrabold leading-[1.05] tracking-[-0.03em] [overflow-wrap:anywhere] [&:lang(de)]:hyphens-auto"
+              >
+                {pathCopy.titleBefore}
+                <span className="text-[#FFD84D]">{pathCopy.titleHighlight}</span>
+                {pathCopy.titleAfter}
+              </h2>
+              <p className="m-0 mt-5 max-w-[34rem] text-lg leading-8 text-[#B7B2BF]">
+                {pathCopy.body}
+              </p>
+            </div>
+            <figure className="m-0 min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
+              <HeroLanguageShowcase
+                image={{
+                  src: "/screenshots/player-ko-2026-10.webp",
+                  width: 2400,
+                  height: 1600,
+                  // The figcaption below describes the screenshots.
+                  alt: "",
+                }}
+                startLang={locale}
+                priority={false}
+              />
+              <figcaption className="mt-3 text-sm leading-6 text-[#8C8796]">
+                {pathCopy.caption}
+                <span className="mt-2 block text-xs leading-5 text-[#6F6A78]">
+                  Film:{" "}
+                  <a
+                    href="https://mango.blender.org"
+                    className="underline decoration-[#3A3644] underline-offset-2 hover:text-[#A39FAD]"
+                    rel="noopener"
+                  >
+                    Tears of Steel
+                  </a>{" "}
+                  © Blender Foundation, CC BY 3.0
+                </span>
+              </figcaption>
+            </figure>
+            <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+              <ol className="m-0 lg:mt-7 list-none space-y-3 p-0">
+                {pathCopy.steps.map((step, index) => (
+                  <li
+                    key={step}
+                    className="grid grid-cols-[2rem_1fr] items-baseline gap-2 text-base leading-7 text-[#D9D5CE]"
+                  >
+                    <span className="font-[family-name:var(--font-display)] text-xl font-extrabold text-[#FFD84D]">
+                      {index + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-8">
+                <HeroDownloadActions
+                  locale={locale}
+                  className="items-start"
+                  trackingLabel="Downloader - subtitles in your language"
+                />
+              </div>
+              <p className="m-0 mt-5 max-w-lg text-sm leading-6 text-[#A39FAD]">
+                {soul.heroNote}
               </p>
             </div>
           </div>

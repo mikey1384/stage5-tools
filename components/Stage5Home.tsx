@@ -7,13 +7,13 @@ import { HOME_LOCALIZED_LOCALES, localizePathForLocale, type Locale } from "../l
 import { buildMetadata } from "../lib/seo";
 import { STAGE5_ORIGIN, TRANSLATOR_ORIGIN } from "../lib/site-routing";
 import { reflectCopy } from "../lib/reflect/copy";
-import { portfolioCopy } from "../lib/portfolio-copy";
+import { portfolioCopy, portfolioSearchCopy } from "../lib/portfolio-copy";
 import { t } from "../lib/strings";
 import "./stage5-portfolio.css";
 
 export function getStage5HomeMetadata(locale: Locale) {
-  const c = portfolioCopy[locale];
-  const metadata = buildMetadata({ title: `Stage5 — ${c.title.replace("\n", " ")}`, description: c.description, path: "/", keywords: ["Stage5", "Translator", "Echo"], locale, availableLocales: HOME_LOCALIZED_LOCALES, origin: STAGE5_ORIGIN });
+  const search = portfolioSearchCopy[locale];
+  const metadata = buildMetadata({ title: search.metaTitle, description: search.metaDescription, path: "/", keywords: ["Stage5", "Stage5 Translator", "Translator", "Echo"], locale, availableLocales: HOME_LOCALIZED_LOCALES, origin: STAGE5_ORIGIN });
   // Retain the existing social-card asset until a separate replacement is prepared.
   return metadata;
 }

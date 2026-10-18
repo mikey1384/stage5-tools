@@ -140,3 +140,54 @@ export const portfolioCopy = {
     hello: "Schreib uns", footer: "Bleib neugierig. Entwickle dich weiter.", translatorAlt: "Translator-Arbeitsbereich mit Video- und Untertitelwerkzeugen", echoAlt: "Echos Schreibansicht In meinem Tempo", appLink: "Echo im App Store ansehen",
   },
 } satisfies Record<Locale, PortfolioCopy>;
+
+// Search-result title and description for the stage5.tools homepage. Brand
+// searches for "Stage5" should say plainly what Stage5 makes; the page's own
+// headline (`title` above) stays the editorial line.
+export const portfolioSearchCopy = {
+  en: {
+    metaTitle: "Stage5 — Translator for video subtitles & dubbing, and Echo",
+    metaDescription:
+      "Stage5 makes Translator, a free Mac and Windows app that downloads videos, writes AI subtitles, translates them into 39 languages and dubs them — plus Echo for iPhone.",
+  },
+  ko: {
+    metaTitle: "Stage5 — 영상 자막·번역·더빙 앱 Translator, 그리고 Echo",
+    metaDescription:
+      "Stage5의 Translator는 영상을 내려받고 AI로 자막을 만들어 39개 언어로 번역하고 더빙까지 해 주는 Mac·Windows 무료 앱이에요. iPhone 글쓰기 앱 Echo도 만나 보세요.",
+  },
+  es: {
+    metaTitle: "Stage5 — Translator, subtítulos y doblaje para videos, y Echo",
+    metaDescription:
+      "Stage5 crea Translator, una app gratuita para Mac y Windows que descarga videos, escribe subtítulos con IA, los traduce a 39 idiomas y los dobla. Y también Echo para iPhone.",
+  },
+  pt: {
+    metaTitle: "Stage5 — Translator, legendas e dublagem de vídeos, e Echo",
+    metaDescription:
+      "A Stage5 cria o Translator, um app grátis para Mac e Windows que baixa vídeos, escreve legendas com IA, traduz para 39 idiomas e faz a dublagem. E também o Echo para iPhone.",
+  },
+  vi: {
+    metaTitle: "Stage5 — Translator: phụ đề, dịch và lồng tiếng video, cùng Echo",
+    metaDescription:
+      "Stage5 làm ra Translator, ứng dụng miễn phí cho Mac và Windows: tải video, tạo phụ đề bằng AI, dịch sang 39 ngôn ngữ và lồng tiếng. Cùng Echo, ứng dụng viết trên iPhone.",
+  },
+  ja: {
+    metaTitle: "Stage5 — 動画の字幕・翻訳・吹き替えアプリ Translator と Echo",
+    metaDescription:
+      "Stage5 の Translator は、動画をダウンロードし、AI で字幕を作って 39 言語に翻訳し、吹き替えまでできる Mac・Windows 用の無料アプリです。iPhone 向けの書くアプリ Echo もあります。",
+  },
+  zh: {
+    metaTitle: "Stage5 — 视频字幕、翻译与配音应用 Translator，以及 Echo",
+    metaDescription:
+      "Stage5 出品的 Translator 是一款免费的 Mac 和 Windows 应用：下载视频，用 AI 生成字幕，翻译成 39 种语言，还能配音。另有 iPhone 写作应用 Echo。",
+  },
+  fr: {
+    metaTitle: "Stage5 — Translator, sous-titres et doublage vidéo, et Echo",
+    metaDescription:
+      "Stage5 crée Translator, une app gratuite pour Mac et Windows qui télécharge des vidéos, écrit des sous-titres par IA, les traduit en 39 langues et les double. Et aussi Echo pour iPhone.",
+  },
+  de: {
+    metaTitle: "Stage5 — Translator für Video-Untertitel und Vertonung, und Echo",
+    metaDescription:
+      "Stage5 entwickelt Translator, eine kostenlose App für Mac und Windows, die Videos herunterlädt, KI-Untertitel schreibt, sie in 39 Sprachen übersetzt und vertont – dazu Echo fürs iPhone.",
+  },
+} satisfies Record<Locale, { metaTitle: string; metaDescription: string }>;
