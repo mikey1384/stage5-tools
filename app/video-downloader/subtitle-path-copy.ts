@@ -34,7 +34,7 @@ export const subtitlePathCopy: Record<Locale, SubtitlePathCopy> = {
   ko: {
     heroLink: "한국어 자막도 필요하세요? 방법 보기 ↓",
     eyebrow: "한국어로 보고 싶다면",
-    titleBefore: "영상을 받았다면, 이제 ",
+    titleBefore: "영상을 내려받고, ",
     titleHighlight: "한국어",
     titleAfter: "로 보세요.",
     body: "영상을 내려받는 바로 그 앱이 영상을 듣고 자막을 만들고, 39개 언어 중 원하는 언어로 번역해 줘요. 자연스러운 목소리로 더빙할 수도 있어요. 결제하기 전에 내 영상으로 먼저 써 보세요.",
@@ -64,7 +64,7 @@ export const subtitlePathCopy: Record<Locale, SubtitlePathCopy> = {
   ja: {
     heroLink: "日本語字幕も欲しいですか？方法を見る ↓",
     eyebrow: "自分の言葉で見たいなら",
-    titleBefore: "保存した動画を、そのまま",
+    titleBefore: "動画をダウンロードして、そのまま",
     titleHighlight: "日本語",
     titleAfter: "で。",
     body: "動画をダウンロードするこのアプリは、音声を聞き取って字幕を書き起こし、39 言語のどれにでも翻訳できます。自然な声で吹き替えることもできます。お金を払う前に、まずはご自分の動画で試してみてください。",
