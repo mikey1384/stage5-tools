@@ -88,6 +88,27 @@ test("Watch metadata and locale alternates credit Stage5 while product metadata 
   assert.equal(reference.title, "How Translator works");
 });
 
+test("the Vietnamese translation sample has reciprocal indexable alternates without restoring other excluded locales", async () => {
+  const fields = { title: "Dịch phụ đề", description: "Dịch phụ đề video", keywords: [], path: "/translate" };
+  const vietnamese = buildMetadata({ ...fields, locale: "vi" });
+  assert.equal(vietnamese.alternates.canonical, "https://translator.tools/vi/translate");
+  assert.equal(vietnamese.robots, undefined);
+  assert.deepEqual(Object.keys(vietnamese.alternates.languages).sort(), ["en", "es", "ko", "vi", "x-default", "zh"]);
+  for (const locale of ["en", "ko", "es", "zh", "vi"]) {
+    const alternate = buildMetadata({ ...fields, locale });
+    assert.deepEqual(alternate.alternates.languages, vietnamese.alternates.languages);
+  }
+  for (const locale of ["ja", "fr", "de", "pt"]) {
+    assert.equal(buildMetadata({ ...fields, locale }).robots.index, false);
+  }
+  const sitemap = await buildSiteSitemap("translator");
+  const entry = sitemap.find(item => item.url === "https://translator.tools/vi/translate");
+  assert(entry);
+  assert.deepEqual(entry.alternates.languages, vietnamese.alternates.languages);
+  assert.equal(canonicalRedirectUrl("stage5.tools", "/vi/translate"), entry.url);
+  assert.equal(canonicalRedirectUrl("www.translator.tools", "/vi/translate"), entry.url);
+});
+
 test("each domain advertises only its own canonical route inventory", async () => {
   const priorBase = process.env.WATCH_ASSETS_BASE;
   const priorUrl = process.env.WATCH_CATALOG_URL;
@@ -96,9 +117,9 @@ test("each domain advertises only its own canonical route inventory", async () =
   try {
     const translator = await buildSiteSitemap("translator");
     const stage5 = await buildSiteSitemap("stage5");
-    // 149 routes minus the 63 localized pages Google declines to index
-    // (NOINDEXED_LOCALIZED_PAGES in lib/locales.ts).
-    assert.equal(translator.length, 86);
+    // The Vietnamese subtitle task page is eligible again; the other
+    // localized exclusions in NOINDEXED_LOCALIZED_PAGES remain in place.
+    assert.equal(translator.length, 87);
     const translatorUrls = translator.map(entry => entry.url);
     for (const kept of ["https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing"]) {
       assert(translatorUrls.includes(kept), kept);
