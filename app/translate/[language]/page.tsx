@@ -25,6 +25,9 @@ import {
 } from "../../../lib/seo";
 import { t } from "../../../lib/strings";
 
+import { TranslationLandingPage } from "../../../components/TranslationLandingPage";
+import { getTranslationLandingContent } from "../../../lib/translation-landing-content";
+
 export const dynamicParams = false;
 
 const watchSubtitleScreenshot = {
@@ -46,6 +49,8 @@ export async function generateMetadata({
   if (!isTranslatedLanguageSlug(language)) return {};
 
   const locale = await getLocale();
+  const landing = getTranslationLandingContent(locale, `/translate/${language}`);
+  if (landing) return buildMetadata({ title: landing.title, description: landing.description, path: landing.path, keywords: [], locale });
   const content = getLanguagePageContent(locale, language);
 
   return buildMetadata({
@@ -69,6 +74,8 @@ export default async function LanguagePage({
 
   const queryParams = await searchParams;
   const locale = await getLocale(queryParams);
+  const landing = getTranslationLandingContent(locale, `/translate/${language}`);
+  if (landing) return <TranslationLandingPage copy={landing} />;
   const content = getLanguagePageContent(locale, language);
   const homeHref = homeHrefForLocale(locale);
   const languagePath = `/translate/${language}`;

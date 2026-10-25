@@ -6,7 +6,7 @@ import { FeatureDownloadCta } from "../../components/FeatureDownloadCta";
 import { HeroDownloadActions } from "../../components/HeroDownloadActions";
 import { SiteFooter } from "../../components/SiteFooter";
 import { SiteNav } from "../../components/SiteNav";
-import { VietnameseTranslatePage } from "../../components/VietnameseTranslatePage";
+import { TranslationLandingPage } from "../../components/TranslationLandingPage";
 import { getLocale } from "../../lib/get-locale";
 import { serializeJsonLd } from "../../lib/json-ld";
 import type { Locale } from "../../lib/locales";
@@ -20,7 +20,7 @@ import {
   buildSoftwareApplicationStructuredData,
 } from "../../lib/seo";
 import { t } from "../../lib/strings";
-import { vietnameseTranslateContent } from "../../lib/translate-vietnamese-content";
+import { getTranslationLandingContent } from "../../lib/translation-landing-content";
 
 type TranslatePageCopy = {
   heroEyebrow: string;
@@ -1080,12 +1080,13 @@ function getPageCopy(locale: Locale): TranslatePageCopy {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  if (locale === "vi") {
+  const landing = getTranslationLandingContent(locale, "/translate");
+  if (landing) {
     return buildMetadata({
-      title: vietnameseTranslateContent.title,
-      description: vietnameseTranslateContent.description,
+      title: landing.title,
+      description: landing.description,
       path: "/translate",
-      keywords: ["dịch phụ đề", "dịch phụ đề video", "dịch SRT", "dịch video tiếng Anh sang tiếng Việt"],
+      keywords: [],
       locale,
     });
   }
@@ -1106,7 +1107,8 @@ export default async function TranslatePage({
 }) {
   const params = await searchParams;
   const locale = await getLocale(params);
-  if (locale === "vi") return <VietnameseTranslatePage />;
+  const landing = getTranslationLandingContent(locale, "/translate");
+  if (landing) return <TranslationLandingPage copy={landing} />;
   const copy = getPageCopy(locale);
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);

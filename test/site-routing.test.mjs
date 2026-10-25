@@ -88,17 +88,17 @@ test("Watch metadata and locale alternates credit Stage5 while product metadata 
   assert.equal(reference.title, "How Translator works");
 });
 
-test("the Vietnamese translation sample has reciprocal indexable alternates without restoring other excluded locales", async () => {
+test("the Vietnamese and Portuguese translation pages have reciprocal indexable alternates", async () => {
   const fields = { title: "Dịch phụ đề", description: "Dịch phụ đề video", keywords: [], path: "/translate" };
   const vietnamese = buildMetadata({ ...fields, locale: "vi" });
   assert.equal(vietnamese.alternates.canonical, "https://translator.tools/vi/translate");
   assert.equal(vietnamese.robots, undefined);
-  assert.deepEqual(Object.keys(vietnamese.alternates.languages).sort(), ["en", "es", "ko", "vi", "x-default", "zh"]);
-  for (const locale of ["en", "ko", "es", "zh", "vi"]) {
+  assert.deepEqual(Object.keys(vietnamese.alternates.languages).sort(), ["en", "es", "ko", "pt", "vi", "x-default", "zh"]);
+  for (const locale of ["en", "ko", "es", "zh", "pt", "vi"]) {
     const alternate = buildMetadata({ ...fields, locale });
     assert.deepEqual(alternate.alternates.languages, vietnamese.alternates.languages);
   }
-  for (const locale of ["ja", "fr", "de", "pt"]) {
+  for (const locale of ["ja", "fr", "de"]) {
     assert.equal(buildMetadata({ ...fields, locale }).robots.index, false);
   }
   const sitemap = await buildSiteSitemap("translator");
@@ -117,11 +117,11 @@ test("each domain advertises only its own canonical route inventory", async () =
   try {
     const translator = await buildSiteSitemap("translator");
     const stage5 = await buildSiteSitemap("stage5");
-    // The Vietnamese subtitle task page is eligible again; the other
+    // The Vietnamese and Portuguese subtitle task pages are eligible; other
     // localized exclusions in NOINDEXED_LOCALIZED_PAGES remain in place.
-    assert.equal(translator.length, 87);
+    assert.equal(translator.length, 88);
     const translatorUrls = translator.map(entry => entry.url);
-    for (const kept of ["https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing"]) {
+    for (const kept of ["https://translator.tools/pt/translate", "https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing"]) {
       assert(translatorUrls.includes(kept), kept);
     }
     for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/es"]) {

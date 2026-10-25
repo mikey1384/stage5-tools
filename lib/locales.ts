@@ -197,7 +197,7 @@ const NOINDEXED_LOCALIZED_PAGES: Record<string, readonly Locale[]> = {
   "/faq": ["es", "ja", "fr", "de", "pt", "vi"],
   "/pricing": ["es", "fr", "de", "pt", "vi"],
   "/subtitle-editor": ["ja", "fr", "de"],
-  "/translate": ["ja", "fr", "de", "pt"],
+  "/translate": ["ja", "fr", "de"],
   "/translate/chinese": ["es", "fr", "de", "pt", "vi"],
   "/translate/french": ["es", "ja", "fr", "de"],
   "/translate/german": ["es", "de"],

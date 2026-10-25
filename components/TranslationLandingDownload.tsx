@@ -6,6 +6,8 @@ import { usePlatformDetection } from "../hooks/usePlatformDetection";
 import { DownloadButton } from "./DownloadButton";
 import { MobileDownloadPanel } from "./MobileDownloadPanel";
 
+import { translationLandingUI, type TranslationLandingLocale } from "../lib/translation-landing-ui";
+
 const installers = {
   "mac-arm64": { platform: "mac", architecture: "arm64", name: "Mac (Apple Silicon)" },
   "mac-x64": { platform: "mac", architecture: "x64", name: "Mac (Intel)" },
@@ -14,7 +16,8 @@ const installers = {
 
 type Installer = keyof typeof installers;
 
-export function VietnameseTranslateDownload() {
+export function TranslationLandingDownload({ locale, trackingLabel }: { locale: TranslationLandingLocale; trackingLabel: string }) {
+  const ui = translationLandingUI[locale];
   const { platform, architecture } = usePlatformDetection();
   const isPhoneOrTablet = useIsPhoneOrTablet();
   const [selection, setSelection] = useState<Installer | null>(null);
@@ -25,13 +28,13 @@ export function VietnameseTranslateDownload() {
   const installer = installers[selected];
 
   if (isPhoneOrTablet) {
-    return <MobileDownloadPanel locale="vi" placement="hero_download" />;
+    return <MobileDownloadPanel locale={locale} placement="hero_download" />;
   }
 
   return (
     <div className="flex w-full max-w-md flex-col gap-4">
       <label htmlFor="translation-installer" className="text-sm font-semibold text-[#D9D5CE]">
-        Chọn máy tính của bạn
+        {ui.chooseComputer}
       </label>
       <select
         id="translation-installer"
@@ -44,10 +47,10 @@ export function VietnameseTranslateDownload() {
         ))}
       </select>
       <DownloadButton
-        label={`Tải cho ${installer.name}`}
+        label={`${ui.downloadFor} ${installer.name}`}
         platform={installer.platform}
         architecture={installer.architecture}
-        trackingLabel="Translate - Vietnamese subtitles"
+        trackingLabel={trackingLabel}
         className="w-full text-center"
       />
     </div>
