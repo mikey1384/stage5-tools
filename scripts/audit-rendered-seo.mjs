@@ -744,6 +744,8 @@ await runPool(localizedEnglishOnlyPaths, ({ path, expectedPath }) =>
   auditRedirect(path, expectedPath),
 );
 
+await runPool(["/_global-error", "/vi/_global-error"], auditNotFound);
+
 const firstWatchEntry = sitemapEntries.find(
   (entry) => englishPathForUrl(entry.url).split("/").filter(Boolean).length === 2 &&
     englishPathForUrl(entry.url).startsWith("/watch/"),

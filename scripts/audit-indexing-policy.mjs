@@ -119,8 +119,11 @@ if (!existsSync(appPathsManifestPath)) {
     "/watch/[slug]",
   ]);
 
+  // Next includes its internal error renderers in this manifest. They are not
+  // public page routes and must never become sitemap entries.
+  const internalErrorPages = new Set(["/_not-found/page", "/_global-error/page"]);
   const pageRoutes = Object.keys(appPathsManifest)
-    .filter((route) => route.endsWith("/page") && route !== "/_not-found/page")
+    .filter((route) => route.endsWith("/page") && !internalErrorPages.has(route))
     .map((route) => {
       const withoutPage = route.replace(/\/page$/, "");
       const withoutGroups = withoutPage.replace(/\/\([^/]+\)/g, "");

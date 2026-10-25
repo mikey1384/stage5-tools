@@ -97,6 +97,16 @@ export function middleware(req: NextRequest) {
   const isLocalizedPath = pathLocale !== DEFAULT_LOCALE;
   const isCrawler = isCrawlerRequest(req);
   const requestHostname = getRequestHostname(req);
+  // Next 16's internal error renderer is present in its app manifest, but
+  // requesting it directly must not expose an indexable HTTP 200 error page.
+  if (englishPath === "/_global-error") {
+    const notFoundUrl = url.clone();
+    notFoundUrl.pathname = "/_not-found";
+    return NextResponse.rewrite(notFoundUrl, {
+      status: 404,
+      headers: { "X-Robots-Tag": "noindex, nofollow" },
+    });
+  }
   const canonicalRedirect = canonicalRedirectUrl(requestHostname, `${pathname}${url.search}`);
   if (canonicalRedirect) return NextResponse.redirect(canonicalRedirect, 308);
   const isStage5 = siteForHostname(requestHostname) === "stage5";
