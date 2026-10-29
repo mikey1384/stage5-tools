@@ -309,6 +309,9 @@ export default async function Home({
               </li>
             ))}
           </ol>
+          <p className="mb-0 mt-5 max-w-4xl text-sm leading-6 text-[#A39FAD]">
+            {soul.webVideoNote}
+          </p>
         </SoulSection>
 
         <SoulSection>
