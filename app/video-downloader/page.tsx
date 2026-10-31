@@ -587,6 +587,58 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
   ],
 };
 
+// Search-result title (before " | Translator") and meta description. Kept
+// apart from the H1 so titles stay near 60 characters and descriptions near
+// 155. Keep "YouTube" in every title: it carries the page's current rankings.
+// Sites named here must also be in DOWNLOADER_NAMED_SITES (lib/downloader-sites.ts).
+const metadataCopy: Record<Locale, { title: string; description: string }> = {
+  en: {
+    title: "Free video downloader for YouTube & most sites",
+    description:
+      "Download videos free from YouTube, Facebook, Vimeo and most other public sites. Page not recognized? Play it in Translator’s browser and pick the video.",
+  },
+  ko: {
+    title: "무료 동영상 다운로더: YouTube와 대부분의 웹사이트",
+    description:
+      "YouTube, Facebook, Vimeo 등 대부분의 공개 사이트에서 영상을 무료로 내려받으세요. 인식되지 않는 페이지는 Translator 브라우저에서 재생하고 영상을 고르면 돼요.",
+  },
+  es: {
+    title: "Descargar videos de YouTube y la mayoría de webs",
+    description:
+      "Descarga gratis videos de YouTube, Facebook, Vimeo y la mayoría de sitios públicos. ¿Página no reconocida? Reprodúcela en Translator y elige el video.",
+  },
+  ja: {
+    title: "無料動画ダウンローダー：YouTubeとほとんどのサイトに対応",
+    description:
+      "YouTube、Facebook、Vimeoなど、ほとんどの公開サイトから無料で動画を保存できます。認識されないページは、Translatorのブラウザーで再生して動画を選べます。",
+  },
+  zh: {
+    title: "免费视频下载器：支持 YouTube 和大多数网站",
+    description:
+      "免费下载 YouTube、Facebook、Vimeo 等大多数公开网站的视频。页面无法识别时，可在 Translator 内置浏览器中播放并选中视频。",
+  },
+  fr: {
+    title: "Téléchargeur vidéo YouTube et la plupart des sites",
+    description:
+      "Téléchargez gratuitement les vidéos de YouTube, Facebook, Vimeo et de la plupart des sites publics. Page non reconnue ? Lisez-la dans Translator.",
+  },
+  de: {
+    title: "Video-Downloader: YouTube und die meisten Websites",
+    description:
+      "Lade kostenlos Videos von YouTube, Facebook, Vimeo und den meisten öffentlichen Seiten. Seite nicht erkannt? Im Translator-Browser abspielen und wählen.",
+  },
+  pt: {
+    title: "Baixar vídeos do YouTube e da maioria dos sites",
+    description:
+      "Baixe grátis vídeos do YouTube, Facebook, Vimeo, Globo e da maioria dos sites públicos. Página não reconhecida? Reproduza no Translator e escolha o vídeo.",
+  },
+  vi: {
+    title: "Tải video từ YouTube và hầu hết các trang web",
+    description:
+      "Tải video miễn phí từ YouTube, Facebook, Vimeo và hầu hết trang công khai. Trang không được nhận diện? Phát trong trình duyệt Translator rồi chọn video.",
+  },
+};
+
 function getPageCopy(locale: Locale): VideoDownloaderPageCopy {
   return pageCopy[locale] ?? pageCopy.en!;
 }
@@ -594,8 +646,8 @@ function getPageCopy(locale: Locale): VideoDownloaderPageCopy {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   return buildMetadata({
-    title: `${t("videoDownloaderTitle", locale)} | Translator`,
-    description: t("videoDownloaderSubtitle", locale),
+    title: `${metadataCopy[locale].title} | Translator`,
+    description: metadataCopy[locale].description,
     path: "/video-downloader",
     keywords: metadataKeywords[locale] ?? metadataKeywords.en!,
     locale,
@@ -637,6 +689,7 @@ export default async function VideoDownloaderPage({
       bullets: [
         t("videoDownloaderPlatform1", locale),
         t("videoDownloaderPlatform2", locale),
+        t("videoDownloaderPlatform3", locale),
       ],
     },
     {
@@ -857,7 +910,7 @@ export default async function VideoDownloaderPage({
               {utilityCards.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6"
+                  className="rounded-[28px] border border-white/10 bg-white/[0.04] p-6 [&:lang(ko)]:[word-break:keep-all]"
                 >
                   <h3 className="text-xl font-semibold text-white">
                     {item.title}

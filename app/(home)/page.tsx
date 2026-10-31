@@ -309,7 +309,16 @@ export default async function Home({
               </li>
             ))}
           </ol>
-          <p className="mb-0 mt-5 max-w-4xl text-sm leading-6 text-[#A39FAD]">
+          <p className="mb-0 mt-6 max-w-4xl text-base leading-7 text-[#D9D5CE]">
+            {soul.mostSitesLine}{" "}
+            <Link
+              href={localizedHref("/video-downloader")}
+              className="whitespace-nowrap font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 transition hover:text-[#FFE680]"
+            >
+              {soul.mostSitesCta} →
+            </Link>
+          </p>
+          <p className="mb-0 mt-3 max-w-4xl text-sm leading-6 text-[#A39FAD]">
             {soul.webVideoNote}
           </p>
         </SoulSection>

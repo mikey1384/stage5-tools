@@ -1,3 +1,4 @@
+import { downloaderSiteList } from "./downloader-sites";
 import { interfaceStrings } from "./interface-strings";
 import type { Locale } from "./locales";
 import {
@@ -125,12 +126,12 @@ export const strings = {
       "Subtitle editing is free. AI features are optional and credit-based.",
 
     // Video Downloader page
-    videoDownloaderTitle: "Free video downloader for YouTube and more",
+    videoDownloaderTitle: "Free video downloader for YouTube and most websites",
     videoDownloaderSubtitle:
-      "Translator makes it easy to download videos from a URL, save them in high quality, and jump straight into subtitle editing or AI translation.",
+      "Paste a link from YouTube, Facebook, Vimeo, TED or most other public video sites and save the video in the quality you need. If a page isn’t recognized, play it in Translator’s built-in browser and pick the video.",
     videoDownloaderFeature1Title: "Paste a URL, get a clean file",
     videoDownloaderFeature1Desc:
-      "Grab a video from YouTube or other popular platforms with a single link.",
+      "Grab a video from YouTube or most other public video sites with a single link.",
     videoDownloaderFeature2Title: "Choose the quality you need",
     videoDownloaderFeature2Desc:
       "Pick from available resolutions and audio options for faster subtitle work.",
@@ -141,11 +142,15 @@ export const strings = {
     videoDownloaderStep1: "Paste the video URL into Translator.",
     videoDownloaderStep2: "Select quality and download.",
     videoDownloaderStep3: "Edit or translate subtitles instantly.",
-    videoDownloaderPlatforms: "Supported platforms",
+    videoDownloaderPlatforms: "Supported sites",
     videoDownloaderPlatformsDesc:
-      "Download from YouTube and other popular platforms that allow direct URL-based downloads.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Other major platforms (availability varies)",
+      "Translator downloads from most public video sites. Paste the link and choose the quality.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("en")} and hundreds more public sites`,
+    videoDownloaderPlatform2:
+      "Page not recognized? Play it in Translator’s built-in browser and pick the video",
+    videoDownloaderPlatform3:
+      "Not supported: copy-protected services like Netflix and Disney+, and private videos",
     videoDownloaderQuality: "Quality options",
     videoDownloaderQualityDesc:
       "Choose the resolution that best fits your workflow, from quick drafts to high-quality exports.",
@@ -174,7 +179,7 @@ export const strings = {
       "Yes. Download the video, import or generate subtitles, and translate them with AI.",
     faqQ4: "Which platforms are supported?",
     faqA4:
-      "Translator is available for macOS (Apple Silicon + Intel) and Windows.",
+      `Translator runs on macOS (Apple Silicon + Intel) and Windows. It downloads videos from most public websites, including ${downloaderSiteList("en")}. If a page isn’t recognized, play it in Translator’s built-in browser and pick the video. Copy-protected services like Netflix and Disney+, and private videos, aren’t supported.`,
     faqQ5: "What are the system requirements?",
     faqA5:
       "A modern macOS or Windows computer with enough storage for video files is recommended.",
@@ -383,27 +388,28 @@ export const strings = {
       "자막 편집은 무료입니다. AI 기능은 선택 사항이며 크레딧이 소모됩니다.",
 
     // Video Downloader page
-    videoDownloaderTitle: "YouTube 등 무료 동영상 다운로더",
+    videoDownloaderTitle: "YouTube부터 대부분의 웹사이트까지, 무료 동영상 다운로더",
     videoDownloaderSubtitle:
-      "Translator로 URL에서 영상을 쉽게 다운로드하고, 원하는 품질로 저장하고, 바로 자막 편집이나 AI 번역으로 넘어가세요.",
+      "YouTube, Facebook, Vimeo, TED 등 대부분의 공개 영상 사이트에서 링크만 붙여넣으면 원하는 화질로 영상을 내려받을 수 있어요. 인식되지 않는 페이지는 Translator 안의 브라우저에서 재생하고 영상을 고르면 돼요.",
     videoDownloaderFeature1Title: "URL을 붙여넣고 깔끔한 파일 받기",
     videoDownloaderFeature1Desc:
-      "링크 하나로 YouTube와 기타 주요 플랫폼의 영상을 가져올 수 있습니다.",
+      "링크 하나로 YouTube를 비롯한 대부분의 공개 영상 사이트에서 영상을 내려받아요.",
     videoDownloaderFeature2Title: "필요한 화질 선택",
-    videoDownloaderFeature2Desc:
-      "자막 작업이나 내보내기에 맞게 해상도와 오디오 옵션을 고를 수 있습니다.",
+    videoDownloaderFeature2Desc: "자막 작업이나 내보내기에 맞게 해상도와 오디오 옵션을 고를 수 있습니다.",
     videoDownloaderFeature3Title: "바로 자막 작업 가능",
-    videoDownloaderFeature3Desc:
-      "편집, 번역, 내보내기에 바로 쓸 수 있는 MP4 파일을 다운로드합니다.",
+    videoDownloaderFeature3Desc: "편집, 번역, 내보내기에 바로 쓸 수 있는 MP4 파일을 다운로드합니다.",
     videoDownloaderHowItWorks: "작동 방식",
     videoDownloaderStep1: "Translator에 비디오 URL을 붙여넣습니다.",
     videoDownloaderStep2: "화질을 선택하고 다운로드합니다.",
     videoDownloaderStep3: "바로 자막을 편집하거나 번역합니다.",
-    videoDownloaderPlatforms: "지원 플랫폼",
-    videoDownloaderPlatformsDesc:
-      "직접 URL 기반 다운로드를 허용하는 YouTube와 기타 인기 플랫폼에서 영상을 가져올 수 있습니다.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "기타 주요 플랫폼 (가용성은 다를 수 있음)",
+    videoDownloaderPlatforms: "지원 사이트",
+    videoDownloaderPlatformsDesc: "대부분의 공개 영상 사이트를 지원해요. 링크를 붙여넣고 화질만 고르세요.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("ko")} 등 수백 개의 공개 사이트`,
+    videoDownloaderPlatform2:
+      "인식되지 않는 페이지는 Translator 안의 브라우저에서 재생하고 영상을 고르면 돼요",
+    videoDownloaderPlatform3:
+      "Netflix, Disney+처럼 복사 방지가 걸린 서비스와 비공개 영상은 지원하지 않아요",
     videoDownloaderQuality: "화질 옵션",
     videoDownloaderQualityDesc:
       "빠르게 작업할 때부터 고품질로 내보낼 때까지, 상황에 맞는 해상도를 고를 수 있습니다.",
@@ -415,8 +421,7 @@ export const strings = {
     videoDownloaderTranslateAi: "AI로 자막 번역",
     videoDownloaderTranslateAiDesc:
       "GPT-5.1로 자막을 39개 언어로 번역하고, 필요하면 품질 모드에서 GPT-5.4 검토를 더할 수 있습니다.",
-    videoDownloaderFreeNote:
-      "다운로드는 무료입니다. AI 기능(전사·번역·요약·더빙)은 크레딧을 사용합니다.",
+    videoDownloaderFreeNote: "다운로드는 무료입니다. AI 기능(전사·번역·요약·더빙)은 크레딧을 사용합니다.",
 
     // FAQ page
     faqTitle: "자주 묻는 질문",
@@ -432,7 +437,7 @@ export const strings = {
       "네. 영상을 다운로드하고, 자막을 가져오거나 생성한 다음, AI로 번역하면 됩니다.",
     faqQ4: "어떤 플랫폼을 지원하나요?",
     faqA4:
-      "Translator는 macOS(Apple Silicon, Intel)와 Windows에서 사용할 수 있습니다.",
+      `Translator는 macOS(Apple Silicon, Intel)와 Windows에서 사용할 수 있습니다. 영상은 ${downloaderSiteList("ko")} 등 대부분의 공개 웹사이트에서 내려받을 수 있고, 인식되지 않는 페이지는 Translator 안의 브라우저에서 재생한 뒤 영상을 고르면 됩니다. Netflix, Disney+처럼 복사 방지가 걸린 서비스와 비공개 영상은 지원하지 않습니다.`,
     faqQ5: "시스템 요구 사항은 무엇인가요?",
     faqA5:
       "영상 파일을 저장할 충분한 여유 공간이 있는 최신 macOS 또는 Windows 컴퓨터를 권장합니다.",
@@ -670,12 +675,13 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "Explorar traducción con IA →",
     subtitleEditorFreeNote:
       "La edición de subtítulos es gratis. Las funciones IA son opcionales y usan créditos.",
-    videoDownloaderTitle: "Descargador gratuito de videos para YouTube y más",
+    videoDownloaderTitle:
+      "Descargador de videos gratis para YouTube y la mayoría de sitios web",
     videoDownloaderSubtitle:
-      "Translator facilita descargar videos desde una URL, guardarlos en alta calidad y pasar directo a la edición de subtítulos o a la traducción con IA.",
+      "Pega un enlace de YouTube, Facebook, Vimeo, TED o de la mayoría de sitios de video públicos y guarda el video en la calidad que necesites. Si una página no se reconoce, reprodúcela en el navegador integrado de Translator y elige el video.",
     videoDownloaderFeature1Title: "Pega una URL y obtén un archivo limpio",
     videoDownloaderFeature1Desc:
-      "Obtén un video de YouTube u otras plataformas populares con un solo enlace.",
+      "Obtén un video de YouTube o de la mayoría de sitios de video públicos con un solo enlace.",
     videoDownloaderFeature2Title: "Elige la calidad que necesitas",
     videoDownloaderFeature2Desc:
       "Selecciona entre resoluciones y opciones de audio disponibles para trabajar más rápido con subtítulos.",
@@ -686,11 +692,15 @@ export const extraStrings: Partial<Record<
     videoDownloaderStep1: "Pega la URL del video en Translator.",
     videoDownloaderStep2: "Elige la calidad y descarga.",
     videoDownloaderStep3: "Edita o traduce subtítulos al instante.",
-    videoDownloaderPlatforms: "Plataformas compatibles",
+    videoDownloaderPlatforms: "Sitios compatibles",
     videoDownloaderPlatformsDesc:
-      "Descarga desde YouTube y otras plataformas populares que permiten descargas directas por URL.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Otras plataformas principales (la disponibilidad varía)",
+      "Translator descarga de la mayoría de sitios de video públicos. Pega el enlace y elige la calidad.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("es")} y cientos de sitios públicos más`,
+    videoDownloaderPlatform2:
+      "¿La página no se reconoce? Reprodúcela en el navegador integrado de Translator y elige el video",
+    videoDownloaderPlatform3:
+      "No compatibles: servicios con protección anticopia como Netflix y Disney+, ni videos privados",
     videoDownloaderQuality: "Opciones de calidad",
     videoDownloaderQualityDesc:
       "Elige la resolución que mejor encaje con tu flujo, desde borradores rápidos hasta exportaciones de alta calidad.",
@@ -717,7 +727,7 @@ export const extraStrings: Partial<Record<
       "Sí. Descarga el video, importa o genera subtítulos y tradúcelos con IA.",
     faqQ4: "¿Qué plataformas son compatibles?",
     faqA4:
-      "Translator está disponible para macOS (Apple Silicon + Intel) y Windows.",
+      `Translator está disponible para macOS (Apple Silicon + Intel) y Windows. Descarga videos de la mayoría de sitios web públicos, como ${downloaderSiteList("es")}. Si una página no se reconoce, reprodúcela en el navegador integrado de Translator y elige el video. No son compatibles los servicios con protección anticopia como Netflix y Disney+, ni los videos privados.`,
     faqQ5: "¿Cuáles son los requisitos del sistema?",
     faqA5:
       "Se recomienda un equipo moderno con macOS o Windows y suficiente espacio para archivos de video.",
@@ -904,30 +914,28 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "AI 翻訳を見る →",
     subtitleEditorFreeNote:
       "字幕編集は無料です。AI 機能は任意で、クレジット制です。",
-    videoDownloaderTitle: "YouTube など向けの無料動画ダウンローダー",
+    videoDownloaderTitle: "YouTubeをはじめ、ほとんどのサイトに対応した無料動画ダウンローダー",
     videoDownloaderSubtitle:
-      "Translator なら URL から動画を簡単にダウンロードし、高画質で保存して、すぐに字幕編集や AI 翻訳へ進めます。",
+      "YouTube、Facebook、Vimeo、TEDなど、ほとんどの公開動画サイトのリンクを貼るだけで、必要な画質で動画を保存できます。認識されないページは、Translatorの内蔵ブラウザーで再生して動画を選んでください。",
     videoDownloaderFeature1Title: "URL を貼るだけでクリーンなファイルを取得",
-    videoDownloaderFeature1Desc:
-      "1 本のリンクで YouTube や人気プラットフォームの動画を取得できます。",
+    videoDownloaderFeature1Desc: "リンク1本で、YouTubeをはじめほとんどの公開動画サイトから動画を取得できます。",
     videoDownloaderFeature2Title: "必要な画質を選ぶ",
-    videoDownloaderFeature2Desc:
-      "字幕作業を速くするために、利用可能な解像度や音声オプションから選べます。",
+    videoDownloaderFeature2Desc: "字幕作業を速くするために、利用可能な解像度や音声オプションから選べます。",
     videoDownloaderFeature3Title: "すぐ字幕作業に入れる",
-    videoDownloaderFeature3Desc:
-      "編集、翻訳、書き出し向けに最適化された MP4 をダウンロードできます。",
+    videoDownloaderFeature3Desc: "編集、翻訳、書き出し向けに最適化された MP4 をダウンロードできます。",
     videoDownloaderHowItWorks: "使い方",
     videoDownloaderStep1: "Translator に動画 URL を貼り付けます。",
     videoDownloaderStep2: "画質を選んでダウンロードします。",
     videoDownloaderStep3: "すぐ字幕を編集または翻訳します。",
-    videoDownloaderPlatforms: "対応プラットフォーム",
-    videoDownloaderPlatformsDesc:
-      "URL ベースの直接ダウンロードを許可する YouTube などの主要プラットフォームから取得できます。",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "その他の主要プラットフォーム（利用可否は変動）",
+    videoDownloaderPlatforms: "対応サイト",
+    videoDownloaderPlatformsDesc: "ほとんどの公開動画サイトに対応しています。リンクを貼って画質を選ぶだけです。",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("ja")}など、数百の公開サイト`,
+    videoDownloaderPlatform2: "認識されないページは、Translatorの内蔵ブラウザーで再生して動画を選べます",
+    videoDownloaderPlatform3:
+      "NetflixやDisney+などのコピー保護されたサービスと、非公開の動画には対応していません",
     videoDownloaderQuality: "画質オプション",
-    videoDownloaderQualityDesc:
-      "素早いドラフトから高品質書き出しまで、ワークフローに合う解像度を選べます。",
+    videoDownloaderQualityDesc: "素早いドラフトから高品質書き出しまで、ワークフローに合う解像度を選べます。",
     videoDownloaderQuality1: "可能な場合は複数解像度に対応",
     videoDownloaderQuality2: "文字起こし用の音声のみ書き出し",
     videoDownloaderPairEditor: "字幕エディターと組み合わせる",
@@ -936,8 +944,7 @@ export const extraStrings: Partial<Record<
     videoDownloaderTranslateAi: "AI で字幕を翻訳",
     videoDownloaderTranslateAiDesc:
       "GPT で 39 の対応言語へ字幕翻訳し、品質モードでは Claude レビューを追加できます。",
-    videoDownloaderFreeNote:
-      "ダウンロードは無料です。AI 機能（文字起こし、翻訳、要約、吹き替え）はクレジットを使います。",
+    videoDownloaderFreeNote: "ダウンロードは無料です。AI 機能（文字起こし、翻訳、要約、吹き替え）はクレジットを使います。",
     faqTitle: "よくある質問",
     faqSubtitle:
       "字幕形式から AI 翻訳クレジットまで、Translator について知っておきたいことをまとめました。",
@@ -951,7 +958,7 @@ export const extraStrings: Partial<Record<
       "はい。動画をダウンロードし、字幕を読み込むか生成して、AI で翻訳できます。",
     faqQ4: "どのプラットフォームに対応していますか？",
     faqA4:
-      "Translator は macOS（Apple Silicon / Intel）と Windows に対応しています。",
+      `Translator は macOS（Apple Silicon / Intel）と Windows に対応しています。動画は${downloaderSiteList("ja")}など、ほとんどの公開サイトからダウンロードできます。認識されないページは、Translatorの内蔵ブラウザーで再生して動画を選んでください。NetflixやDisney+などのコピー保護されたサービスと、非公開の動画には対応していません。`,
     faqQ5: "動作環境は？",
     faqA5:
       "動画ファイルを保存できる十分な容量を持つ最新の macOS または Windows マシンを推奨します。",
@@ -1138,40 +1145,35 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "查看 AI 翻译 →",
     subtitleEditorFreeNote:
       "字幕编辑免费。AI 功能可选并按积分计费。",
-    videoDownloaderTitle: "适用于 YouTube 等平台的免费视频下载器",
+    videoDownloaderTitle: "免费视频下载器：支持 YouTube 和大多数网站",
     videoDownloaderSubtitle:
-      "Translator 让你可以轻松通过 URL 下载视频，以高质量保存，并立即进入字幕编辑或 AI 翻译。",
+      "粘贴 YouTube、Facebook、Vimeo、TED 等大多数公开视频网站的链接，就能按需要的画质保存视频。页面无法识别时，在 Translator 内置浏览器里播放视频，再选中它。",
     videoDownloaderFeature1Title: "粘贴 URL，得到干净文件",
-    videoDownloaderFeature1Desc:
-      "通过一个链接即可抓取 YouTube 或其他主流平台的视频。",
+    videoDownloaderFeature1Desc: "一个链接，就能从 YouTube 和大多数公开视频网站获取视频。",
     videoDownloaderFeature2Title: "选择你需要的质量",
-    videoDownloaderFeature2Desc:
-      "从可用分辨率和音频选项中选择，更快进入字幕工作。",
+    videoDownloaderFeature2Desc: "从可用分辨率和音频选项中选择，更快进入字幕工作。",
     videoDownloaderFeature3Title: "立即进入字幕流程",
-    videoDownloaderFeature3Desc:
-      "下载适合编辑、翻译和导出的 MP4 文件。",
+    videoDownloaderFeature3Desc: "下载适合编辑、翻译和导出的 MP4 文件。",
     videoDownloaderHowItWorks: "使用方式",
     videoDownloaderStep1: "把视频 URL 粘贴到 Translator 中。",
     videoDownloaderStep2: "选择质量并下载。",
     videoDownloaderStep3: "立即编辑或翻译字幕。",
-    videoDownloaderPlatforms: "支持的平台",
-    videoDownloaderPlatformsDesc:
-      "可从支持基于 URL 直接下载的 YouTube 和其他热门平台下载。",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "其他主流平台（可用性会变化）",
+    videoDownloaderPlatforms: "支持的网站",
+    videoDownloaderPlatformsDesc: "支持大多数公开视频网站：粘贴链接，选好画质即可。",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("zh")}，以及数百个其他公开网站`,
+    videoDownloaderPlatform2: "页面无法识别？在 Translator 内置浏览器中播放，然后选中视频",
+    videoDownloaderPlatform3: "不支持 Netflix、Disney+ 等受复制保护的服务，也不支持私密视频",
     videoDownloaderQuality: "画质选项",
-    videoDownloaderQualityDesc:
-      "根据你的工作流选择合适分辨率，从快速草稿到高质量导出都能覆盖。",
+    videoDownloaderQualityDesc: "根据你的工作流选择合适分辨率，从快速草稿到高质量导出都能覆盖。",
     videoDownloaderQuality1: "有条件时支持多种分辨率",
     videoDownloaderQuality2: "用于转录的纯音频导出",
     videoDownloaderPairEditor: "搭配字幕编辑器使用",
-    videoDownloaderPairEditorDesc:
-      "无需离开 Translator，即可同步和合并字幕、编辑时间并导出 SRT 文件。",
+    videoDownloaderPairEditorDesc: "无需离开 Translator，即可同步和合并字幕、编辑时间并导出 SRT 文件。",
     videoDownloaderTranslateAi: "用 AI 翻译字幕",
     videoDownloaderTranslateAiDesc:
       "用 GPT 将字幕翻译成 39 种支持语言，并在质量模式下可选增加 Claude 复审。",
-    videoDownloaderFreeNote:
-      "下载免费。AI 功能（转录、翻译、摘要、配音）会消耗积分。",
+    videoDownloaderFreeNote: "下载免费。AI 功能（转录、翻译、摘要、配音）会消耗积分。",
     faqTitle: "常见问题",
     faqSubtitle:
       "关于 Translator 的一切，从字幕格式到 AI 翻译积分，这里都有答案。",
@@ -1185,7 +1187,7 @@ export const extraStrings: Partial<Record<
       "可以。下载视频，导入或生成字幕，然后用 AI 翻译。",
     faqQ4: "支持哪些平台？",
     faqA4:
-      "Translator 支持 macOS（Apple Silicon + Intel）和 Windows。",
+      `Translator 支持 macOS（Apple Silicon + Intel）和 Windows。可以从大多数公开网站下载视频，包括${downloaderSiteList("zh")}。页面无法识别时，在 Translator 内置浏览器中播放并选中视频。不支持 Netflix、Disney+ 等受复制保护的服务，也不支持私密视频。`,
     faqQ5: "系统要求是什么？",
     faqA5:
       "建议使用较新的 macOS 或 Windows 电脑，并具备足够的视频存储空间。",
@@ -1344,12 +1346,13 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "Découvrir la traduction IA →",
     subtitleEditorFreeNote:
       "L’édition des sous-titres est gratuite. Les fonctions IA sont optionnelles et basées sur des crédits.",
-    videoDownloaderTitle: "Téléchargeur vidéo gratuit pour YouTube et plus encore",
+    videoDownloaderTitle:
+      "Téléchargeur vidéo gratuit pour YouTube et la plupart des sites",
     videoDownloaderSubtitle:
-      "Translator vous permet de télécharger facilement des vidéos depuis une URL, de les enregistrer en haute qualité, puis de passer directement à l’édition de sous-titres ou à la traduction IA.",
+      "Collez un lien YouTube, Facebook, Vimeo, TED ou de la plupart des sites vidéo publics et enregistrez la vidéo dans la qualité voulue. Si une page n’est pas reconnue, lisez-la dans le navigateur intégré de Translator et choisissez la vidéo.",
     videoDownloaderFeature1Title: "Collez une URL, obtenez un fichier propre",
     videoDownloaderFeature1Desc:
-      "Récupérez une vidéo depuis YouTube ou d’autres plateformes populaires à partir d’un simple lien.",
+      "Récupérez une vidéo de YouTube ou de la plupart des sites vidéo publics à partir d’un simple lien.",
     videoDownloaderFeature2Title: "Choisissez la qualité qu’il vous faut",
     videoDownloaderFeature2Desc:
       "Sélectionnez la résolution et les options audio disponibles pour accélérer le travail sur les sous-titres.",
@@ -1360,11 +1363,15 @@ export const extraStrings: Partial<Record<
     videoDownloaderStep1: "Collez l’URL de la vidéo dans Translator.",
     videoDownloaderStep2: "Sélectionnez la qualité et téléchargez.",
     videoDownloaderStep3: "Modifiez ou traduisez les sous-titres immédiatement.",
-    videoDownloaderPlatforms: "Plateformes prises en charge",
+    videoDownloaderPlatforms: "Sites pris en charge",
     videoDownloaderPlatformsDesc:
-      "Téléchargez depuis YouTube et d’autres plateformes populaires qui autorisent le téléchargement direct via URL.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Autres grandes plateformes (selon disponibilité)",
+      "Translator télécharge depuis la plupart des sites vidéo publics. Collez le lien et choisissez la qualité.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("fr")} et des centaines d’autres sites publics`,
+    videoDownloaderPlatform2:
+      "Page non reconnue ? Lisez-la dans le navigateur intégré de Translator et choisissez la vidéo",
+    videoDownloaderPlatform3:
+      "Non pris en charge : les services protégés contre la copie comme Netflix et Disney+, et les vidéos privées",
     videoDownloaderQuality: "Options de qualité",
     videoDownloaderQualityDesc:
       "Choisissez la résolution la mieux adaptée à votre workflow, des brouillons rapides aux exports haute qualité.",
@@ -1391,7 +1398,7 @@ export const extraStrings: Partial<Record<
       "Oui. Téléchargez la vidéo, importez ou générez les sous-titres, puis traduisez-les avec l’IA.",
     faqQ4: "Quelles plateformes sont prises en charge ?",
     faqA4:
-      "Translator est disponible sur macOS (Apple Silicon + Intel) et Windows.",
+      `Translator est disponible sur macOS (Apple Silicon + Intel) et Windows. Il télécharge les vidéos de la plupart des sites publics, dont ${downloaderSiteList("fr")}. Si une page n’est pas reconnue, lisez-la dans le navigateur intégré de Translator et choisissez la vidéo. Les services protégés contre la copie comme Netflix et Disney+, ainsi que les vidéos privées, ne sont pas pris en charge.`,
     faqQ5: "Quelles sont les configurations requises ?",
     faqA5:
       "Un ordinateur macOS ou Windows récent avec suffisamment d’espace de stockage pour les fichiers vidéo est recommandé.",
@@ -1583,12 +1590,13 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "KI-Übersetzung entdecken →",
     subtitleEditorFreeNote:
       "Untertitelbearbeitung ist kostenlos. KI-Funktionen sind optional und creditbasiert.",
-    videoDownloaderTitle: "Kostenloser Video-Downloader für YouTube und mehr",
+    videoDownloaderTitle:
+      "Kostenloser Video-Downloader für YouTube und die meisten Websites",
     videoDownloaderSubtitle:
-      "Mit Translator kannst du Videos per URL einfach herunterladen, in hoher Qualität speichern und direkt in die Untertitelbearbeitung oder KI-Übersetzung wechseln.",
+      "Füge einen Link von YouTube, Facebook, Vimeo, TED oder den meisten anderen öffentlichen Videoseiten ein und speichere das Video in der Qualität, die du brauchst. Wird eine Seite nicht erkannt, spiel sie im integrierten Browser von Translator ab und wähle das Video aus.",
     videoDownloaderFeature1Title: "URL einfügen, saubere Datei erhalten",
     videoDownloaderFeature1Desc:
-      "Hole dir mit einem einzigen Link ein Video von YouTube oder anderen beliebten Plattformen.",
+      "Hol dir mit einem einzigen Link ein Video von YouTube oder den meisten anderen öffentlichen Videoseiten.",
     videoDownloaderFeature2Title: "Wähle die Qualität, die du brauchst",
     videoDownloaderFeature2Desc:
       "Wähle aus verfügbaren Auflösungen und Audiooptionen für schnellere Untertitel-Workflows.",
@@ -1599,11 +1607,15 @@ export const extraStrings: Partial<Record<
     videoDownloaderStep1: "Füge die Video-URL in Translator ein.",
     videoDownloaderStep2: "Qualität wählen und herunterladen.",
     videoDownloaderStep3: "Untertitel sofort bearbeiten oder übersetzen.",
-    videoDownloaderPlatforms: "Unterstützte Plattformen",
+    videoDownloaderPlatforms: "Unterstützte Websites",
     videoDownloaderPlatformsDesc:
-      "Lade von YouTube und anderen beliebten Plattformen herunter, die direkte URL-basierte Downloads erlauben.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Weitere große Plattformen (Verfügbarkeit variiert)",
+      "Translator lädt von den meisten öffentlichen Videoseiten herunter. Link einfügen, Qualität wählen, fertig.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("de")} und Hunderte weitere öffentliche Seiten`,
+    videoDownloaderPlatform2:
+      "Seite nicht erkannt? Spiel sie im integrierten Browser von Translator ab und wähle das Video aus",
+    videoDownloaderPlatform3:
+      "Nicht unterstützt: kopiergeschützte Dienste wie Netflix und Disney+ sowie private Videos",
     videoDownloaderQuality: "Qualitätsoptionen",
     videoDownloaderQualityDesc:
       "Wähle die Auflösung, die am besten zu deinem Workflow passt, von schnellen Entwürfen bis zu hochwertigen Exporten.",
@@ -1630,7 +1642,7 @@ export const extraStrings: Partial<Record<
       "Ja. Lade das Video herunter, importiere oder generiere Untertitel und übersetze sie dann mit KI.",
     faqQ4: "Welche Plattformen werden unterstützt?",
     faqA4:
-      "Translator ist für macOS (Apple Silicon + Intel) und Windows verfügbar.",
+      `Translator ist für macOS (Apple Silicon + Intel) und Windows verfügbar. Videos lädt es von den meisten öffentlichen Websites herunter, darunter ${downloaderSiteList("de")}. Wird eine Seite nicht erkannt, spiel sie im integrierten Browser von Translator ab und wähle das Video aus. Kopiergeschützte Dienste wie Netflix und Disney+ sowie private Videos werden nicht unterstützt.`,
     faqQ5: "Welche Systemanforderungen gibt es?",
     faqA5:
       "Empfohlen wird ein aktueller macOS- oder Windows-Computer mit ausreichend Speicherplatz für Videodateien.",
@@ -1822,12 +1834,13 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "Explorar tradução com IA →",
     subtitleEditorFreeNote:
       "A edição de legendas é gratuita. Os recursos de IA são opcionais e cobrados por créditos.",
-    videoDownloaderTitle: "Baixador de vídeos gratuito para YouTube e mais",
+    videoDownloaderTitle:
+      "Baixador de vídeos grátis para YouTube e a maioria dos sites",
     videoDownloaderSubtitle:
-      "O Translator facilita baixar vídeos por URL, salvá-los em alta qualidade e seguir direto para a edição de legendas ou para a tradução com IA.",
+      "Cole um link do YouTube, Facebook, Vimeo, TED ou da maioria dos sites de vídeo públicos e salve o vídeo na qualidade que precisar. Se uma página não for reconhecida, reproduza no navegador integrado do Translator e escolha o vídeo.",
     videoDownloaderFeature1Title: "Cole uma URL e obtenha um arquivo limpo",
     videoDownloaderFeature1Desc:
-      "Capture um vídeo do YouTube ou de outras plataformas populares com um único link.",
+      "Pegue um vídeo do YouTube ou da maioria dos sites de vídeo públicos com um único link.",
     videoDownloaderFeature2Title: "Escolha a qualidade que você precisa",
     videoDownloaderFeature2Desc:
       "Selecione entre as resoluções e opções de áudio disponíveis para acelerar o trabalho com legendas.",
@@ -1838,11 +1851,15 @@ export const extraStrings: Partial<Record<
     videoDownloaderStep1: "Cole a URL do vídeo no Translator.",
     videoDownloaderStep2: "Escolha a qualidade e baixe.",
     videoDownloaderStep3: "Edite ou traduza as legendas na hora.",
-    videoDownloaderPlatforms: "Plataformas compatíveis",
+    videoDownloaderPlatforms: "Sites compatíveis",
     videoDownloaderPlatformsDesc:
-      "Baixe do YouTube e de outras plataformas populares que permitem downloads diretos por URL.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Outras grandes plataformas (a disponibilidade varia)",
+      "O Translator baixa da maioria dos sites de vídeo públicos. Cole o link e escolha a qualidade.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("pt")} e centenas de outros sites públicos`,
+    videoDownloaderPlatform2:
+      "Página não reconhecida? Reproduza no navegador integrado do Translator e escolha o vídeo",
+    videoDownloaderPlatform3:
+      "Não compatíveis: serviços com proteção contra cópia, como Netflix e Disney+, e vídeos privados",
     videoDownloaderQuality: "Opções de qualidade",
     videoDownloaderQualityDesc:
       "Escolha a resolução que melhor se adapta ao seu fluxo de trabalho, de rascunhos rápidos a exportações em alta qualidade.",
@@ -1869,7 +1886,7 @@ export const extraStrings: Partial<Record<
       "Sim. Baixe o vídeo, importe ou gere as legendas e depois traduza com IA.",
     faqQ4: "Quais plataformas são compatíveis?",
     faqA4:
-      "O Translator está disponível para macOS (Apple Silicon + Intel) e Windows.",
+      `O Translator está disponível para macOS (Apple Silicon + Intel) e Windows. Ele baixa vídeos da maioria dos sites públicos, como ${downloaderSiteList("pt")}. Se uma página não for reconhecida, reproduza no navegador integrado do Translator e escolha o vídeo. Serviços com proteção contra cópia, como Netflix e Disney+, e vídeos privados não são compatíveis.`,
     faqQ5: "Quais são os requisitos do sistema?",
     faqA5:
       "Recomendamos um computador macOS ou Windows moderno com espaço suficiente para armazenar arquivos de vídeo.",
@@ -2092,12 +2109,13 @@ export const extraStrings: Partial<Record<
     subtitleEditorExploreTranslation: "Khám phá Dịch bằng AI →",
     subtitleEditorFreeNote:
       "Chỉnh sửa phụ đề là miễn phí. Các tính năng AI là tùy chọn và dùng tín dụng.",
-    videoDownloaderTitle: "Công cụ tải video miễn phí cho YouTube và hơn thế nữa",
+    videoDownloaderTitle:
+      "Tải video miễn phí từ YouTube và hầu hết các trang web",
     videoDownloaderSubtitle:
-      "Translator giúp bạn dễ dàng tải video từ URL, lưu ở chất lượng cao và chuyển thẳng sang chỉnh sửa phụ đề hoặc dịch bằng AI.",
+      "Dán liên kết từ YouTube, Facebook, Vimeo, TED hoặc hầu hết các trang video công khai và lưu video ở chất lượng bạn cần. Nếu trang không được nhận diện, hãy phát trong trình duyệt tích hợp của Translator rồi chọn video.",
     videoDownloaderFeature1Title: "Dán URL, lấy tệp sạch",
     videoDownloaderFeature1Desc:
-      "Lấy video từ YouTube hoặc các nền tảng phổ biến khác chỉ với một liên kết.",
+      "Lấy video từ YouTube hoặc hầu hết các trang video công khai chỉ với một liên kết.",
     videoDownloaderFeature2Title: "Chọn chất lượng bạn cần",
     videoDownloaderFeature2Desc:
       "Chọn giữa các độ phân giải và tùy chọn âm thanh có sẵn để làm việc với phụ đề nhanh hơn.",
@@ -2108,11 +2126,15 @@ export const extraStrings: Partial<Record<
     videoDownloaderStep1: "Dán URL video vào Translator.",
     videoDownloaderStep2: "Chọn chất lượng và tải xuống.",
     videoDownloaderStep3: "Chỉnh hoặc dịch phụ đề ngay.",
-    videoDownloaderPlatforms: "Nền tảng được hỗ trợ",
+    videoDownloaderPlatforms: "Trang web được hỗ trợ",
     videoDownloaderPlatformsDesc:
-      "Tải từ YouTube và các nền tảng phổ biến khác cho phép tải trực tiếp qua URL.",
-    videoDownloaderPlatform1: "YouTube",
-    videoDownloaderPlatform2: "Các nền tảng lớn khác (khả dụng có thể khác nhau)",
+      "Translator tải được video từ hầu hết các trang video công khai. Dán liên kết rồi chọn chất lượng.",
+    videoDownloaderPlatform1:
+      `${downloaderSiteList("vi")} và hàng trăm trang công khai khác`,
+    videoDownloaderPlatform2:
+      "Trang không được nhận diện? Hãy phát trong trình duyệt tích hợp của Translator rồi chọn video",
+    videoDownloaderPlatform3:
+      "Không hỗ trợ: dịch vụ có bảo vệ chống sao chép như Netflix, Disney+ và video riêng tư",
     videoDownloaderQuality: "Tùy chọn chất lượng",
     videoDownloaderQualityDesc:
       "Chọn độ phân giải phù hợp nhất với quy trình của bạn, từ bản nháp nhanh đến xuất chất lượng cao.",
@@ -2139,7 +2161,7 @@ export const extraStrings: Partial<Record<
       "Có. Hãy tải video, nhập hoặc tạo phụ đề, rồi dịch chúng bằng AI.",
     faqQ4: "Những nền tảng nào được hỗ trợ?",
     faqA4:
-      "Translator có sẵn cho macOS (Apple Silicon + Intel) và Windows.",
+      `Translator có sẵn cho macOS (Apple Silicon + Intel) và Windows. Ứng dụng tải video từ hầu hết các trang web công khai, như ${downloaderSiteList("vi")}. Nếu trang không được nhận diện, hãy phát trong trình duyệt tích hợp của Translator rồi chọn video. Không hỗ trợ các dịch vụ có bảo vệ chống sao chép như Netflix, Disney+ và video riêng tư.`,
     faqQ5: "Yêu cầu hệ thống là gì?",
     faqA5:
       "Nên dùng máy macOS hoặc Windows hiện đại với đủ dung lượng lưu trữ cho tệp video.",
