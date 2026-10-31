@@ -37,6 +37,7 @@ type PricingPageCopy = {
     value: string;
   }>;
   packFootnote: string;
+  currencyNote: string;
   byoEyebrow: string;
   byoTitle: string;
   byoDescription: string;
@@ -104,15 +105,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsEyebrow: "Example credit packs",
     packsTitle: "Stage5 credit packs still work like a simple wallet.",
     packsDescription:
-      "These are rough translation-equivalent estimates based on current app heuristics. Quality modes, dubbing, and different AI paths can consume more.",
+      "These are conservative estimates of transcription plus draft translation for each pack, rounded down. Quality translation modes, dubbing, and other AI paths use more. A new install normally gets about 12 minutes free, once.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 minutes" },
-      { name: "Starter", price: "$5", value: "~8 hours" },
-      { name: "Standard", price: "$10", value: "~18 hours" },
-      { name: "Pro", price: "$50", value: "~127 hours" },
+      { name: "Micro", price: "US$1", value: "about 29 minutes" },
+      { name: "Starter", price: "US$5", value: "about 4.8 hours" },
+      { name: "Standard", price: "US$10", value: "about 11.3 hours" },
+      { name: "Pro", price: "US$50", value: "about 78 hours" },
     ],
     packFootnote:
       "Use credits when you want convenience. Use BYO when you want the app workflow but prefer provider-direct billing.",
+    currencyNote:
+      "Prices are in US dollars. Checkout shows the price in your local currency when your payment method supports it.",
     byoEyebrow: "When BYO makes sense",
     byoTitle:
       "BYO is for people who already pay for AI and do not want to pay twice.",
@@ -200,15 +203,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsEyebrow: "크레딧 충전 예시",
     packsTitle: "필요할 때 충전하고, 사용한 만큼 차감됩니다.",
     packsDescription:
-      "아래 시간은 현재 앱의 번역 예상치를 기준으로 한 대략적인 수치입니다. 품질 설정, 더빙, 선택한 AI 모델에 따라 실제 사용량은 달라질 수 있습니다.",
+      "각 팩에서 전사와 초안 번역을 합쳐 얻을 수 있는 시간을 보수적으로 계산해 내림한 값입니다. 고품질 번역 모드, 더빙, 다른 AI 경로는 더 많이 사용합니다. 새로 설치하면 보통 약 12분이 한 번 무료로 제공됩니다.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50분" },
-      { name: "Starter", price: "$5", value: "~8시간" },
-      { name: "Standard", price: "$10", value: "~18시간" },
-      { name: "Pro", price: "$50", value: "~127시간" },
+      { name: "Micro", price: "US$1", value: "약 29분" },
+      { name: "Starter", price: "US$5", value: "약 4.8시간" },
+      { name: "Standard", price: "US$10", value: "약 11.3시간" },
+      { name: "Pro", price: "US$50", value: "약 78시간" },
     ],
     packFootnote:
       "간편하게 시작하려면 크레딧을, 기존 AI 계정으로 직접 결제하려면 BYO를 선택하세요. 작업 방식은 어느 쪽이든 같습니다.",
+    currencyNote:
+      "가격은 미국 달러(US$) 기준입니다. 결제 화면에서는 결제 수단이 지원하는 경우 현지 통화로 가격이 표시됩니다.",
     byoEyebrow: "BYO가 더 잘 맞는 경우",
     byoTitle: "이미 API 키가 있다면 같은 AI 비용을 두 번 낼 이유가 없습니다.",
     byoDescription:
@@ -295,15 +300,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsTitle:
       "Los packs de créditos Stage5 siguen funcionando como una cartera simple.",
     packsDescription:
-      "Son estimaciones aproximadas equivalentes a traducción basadas en las heurísticas actuales de la app. Los modos de calidad, el doblaje y otras rutas de IA pueden consumir más.",
+      "Son estimaciones prudentes de transcripción más traducción en borrador para cada paquete, redondeadas a la baja. Los modos de traducción de calidad, el doblaje y otras rutas de IA consumen más. Una instalación nueva suele recibir unos 12 minutos gratis, una sola vez.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 minutos" },
-      { name: "Starter", price: "$5", value: "~8 horas" },
-      { name: "Standard", price: "$10", value: "~18 horas" },
-      { name: "Pro", price: "$50", value: "~127 horas" },
+      { name: "Micro", price: "US$1", value: "unos 29 minutos" },
+      { name: "Starter", price: "US$5", value: "unas 4,8 horas" },
+      { name: "Standard", price: "US$10", value: "unas 11,3 horas" },
+      { name: "Pro", price: "US$50", value: "unas 78 horas" },
     ],
     packFootnote:
       "Usa créditos cuando quieras comodidad. Usa BYO cuando quieras el flujo de la app pero prefieras facturación directa con el proveedor.",
+    currencyNote:
+      "Los precios están en dólares estadounidenses. El pago muestra el precio en tu moneda local cuando tu método de pago lo admite.",
     byoEyebrow: "Cuándo tiene sentido BYO",
     byoTitle: "BYO es para quien ya paga IA y no quiere pagar dos veces.",
     byoDescription:
@@ -389,15 +396,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsEyebrow: "クレジットパック例",
     packsTitle: "Stage5 クレジットパックは、今もシンプルなウォレット感覚です。",
     packsDescription:
-      "現在のアプリの目安に基づく、おおよその翻訳換算です。品質モード、吹き替え、別の AI 経路では消費が増えることがあります。",
+      "各パックで得られる文字起こし＋下訳の翻訳時間を、控えめに見積もって切り捨てた目安です。高品質の翻訳モード、吹き替え、その他の AI 経路ではより多く消費します。新規インストールでは通常、約12分が一度だけ無料で付与されます。",
     packs: [
-      { name: "Micro", price: "$1", value: "約50分" },
-      { name: "Starter", price: "$5", value: "約8時間" },
-      { name: "Standard", price: "$10", value: "約18時間" },
-      { name: "Pro", price: "$50", value: "約127時間" },
+      { name: "Micro", price: "US$1", value: "約29分" },
+      { name: "Starter", price: "US$5", value: "約4.8時間" },
+      { name: "Standard", price: "US$10", value: "約11.3時間" },
+      { name: "Pro", price: "US$50", value: "約78時間" },
     ],
     packFootnote:
       "手軽さを重視するならクレジット。アプリの流れは欲しいけれど請求はプロバイダー直結がいいなら BYO です。",
+    currencyNote:
+      "価格は米ドル（US$）表記です。お支払い方法が対応している場合、決済画面では現地通貨で価格が表示されます。",
     byoEyebrow: "BYO が合うケース",
     byoTitle: "BYO は、すでに AI に払っていて二重に払いたくない人向けです。",
     byoDescription:
@@ -484,15 +493,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsEyebrow: "积分包示例",
     packsTitle: "Stage5 积分包本质上仍然像一个简单钱包。",
     packsDescription:
-      "这些是基于当前应用估算逻辑的大致翻译等价量。质量模式、配音和不同 AI 路径可能会消耗更多。",
+      "这是各档积分包可完成的转写加初稿翻译时长，按保守口径向下取整。高质量翻译模式、配音和其他 AI 路径会消耗更多。新安装通常会一次性赠送约 12 分钟。",
     packs: [
-      { name: "Micro", price: "$1", value: "约50分钟" },
-      { name: "Starter", price: "$5", value: "约8小时" },
-      { name: "Standard", price: "$10", value: "约18小时" },
-      { name: "Pro", price: "$50", value: "约127小时" },
+      { name: "Micro", price: "US$1", value: "约 29 分钟" },
+      { name: "Starter", price: "US$5", value: "约 4.8 小时" },
+      { name: "Standard", price: "US$10", value: "约 11.3 小时" },
+      { name: "Pro", price: "US$50", value: "约 78 小时" },
     ],
     packFootnote:
       "想省事就用积分。想保留应用流程，但希望走服务商直付，就用 BYO。",
+    currencyNote:
+      "价格以美元（US$）计。如果你的支付方式支持，结账页面会以你的本地货币显示价格。",
     byoEyebrow: "什么情况下适合 BYO",
     byoTitle: "BYO 适合那些本来就在为 AI 付费、不想再付第二次的人。",
     byoDescription:
@@ -578,15 +589,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsTitle:
       "Les packs de crédits Stage5 fonctionnent toujours comme un portefeuille simple.",
     packsDescription:
-      "Ce sont des estimations grossières équivalentes à la traduction, basées sur les heuristiques actuelles de l'app. Les modes qualité, le doublage et d'autres parcours IA peuvent consommer plus.",
+      "Ce sont des estimations prudentes de transcription plus traduction brouillon pour chaque pack, arrondies à l'inférieur. Les modes de traduction qualité, le doublage et d'autres parcours IA consomment plus. Une nouvelle installation reçoit normalement environ 12 minutes gratuites, une seule fois.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 minutes" },
-      { name: "Starter", price: "$5", value: "~8 heures" },
-      { name: "Standard", price: "$10", value: "~18 heures" },
-      { name: "Pro", price: "$50", value: "~127 heures" },
+      { name: "Micro", price: "US$1", value: "environ 29 minutes" },
+      { name: "Starter", price: "US$5", value: "environ 4,8 heures" },
+      { name: "Standard", price: "US$10", value: "environ 11,3 heures" },
+      { name: "Pro", price: "US$50", value: "environ 78 heures" },
     ],
     packFootnote:
       "Utilisez les crédits pour la simplicité. Utilisez BYO si vous voulez le flux de l'app mais préférez une facturation fournisseur directe.",
+    currencyNote:
+      "Les prix sont en dollars américains (US$). Le paiement affiche le prix dans votre devise locale lorsque votre moyen de paiement le permet.",
     byoEyebrow: "Quand BYO a du sens",
     byoTitle:
       "BYO est fait pour les gens qui paient déjà l'IA et ne veulent pas payer deux fois.",
@@ -674,15 +687,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsTitle:
       "Stage5-Credit-Pakete funktionieren weiter wie eine einfache Wallet.",
     packsDescription:
-      "Das sind grobe Übersetzungs-Äquivalente auf Basis der aktuellen App-Heuristiken. Qualitätsmodi, Dubbing und andere KI-Wege können mehr verbrauchen.",
+      "Das sind vorsichtige Schätzungen für Transkription plus Entwurfsübersetzung je Paket, abgerundet. Qualitäts-Übersetzungsmodi, Dubbing und andere KI-Wege verbrauchen mehr. Eine Neuinstallation erhält normalerweise einmalig etwa 12 Minuten gratis.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 Minuten" },
-      { name: "Starter", price: "$5", value: "~8 Stunden" },
-      { name: "Standard", price: "$10", value: "~18 Stunden" },
-      { name: "Pro", price: "$50", value: "~127 Stunden" },
+      { name: "Micro", price: "US$1", value: "etwa 29 Minuten" },
+      { name: "Starter", price: "US$5", value: "etwa 4,8 Stunden" },
+      { name: "Standard", price: "US$10", value: "etwa 11,3 Stunden" },
+      { name: "Pro", price: "US$50", value: "etwa 78 Stunden" },
     ],
     packFootnote:
       "Nutze Credits für Bequemlichkeit. Nutze BYO, wenn du den App-Workflow willst, aber lieber direkt beim Provider abrechnen möchtest.",
+    currencyNote:
+      "Die Preise sind in US-Dollar (US$) angegeben. Beim Bezahlen wird der Preis in deiner Landeswährung angezeigt, sofern deine Zahlungsmethode das unterstützt.",
     byoEyebrow: "Wann BYO sinnvoll ist",
     byoTitle:
       "BYO ist für Leute, die ohnehin für KI zahlen und nicht doppelt zahlen wollen.",
@@ -771,15 +786,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsTitle:
       "Os pacotes de crédito Stage5 continuam funcionando como uma carteira simples.",
     packsDescription:
-      "Essas são estimativas aproximadas equivalentes à tradução, baseadas nas heurísticas atuais do app. Modos de qualidade, dublagem e caminhos diferentes de IA podem consumir mais.",
+      "São estimativas conservadoras de transcrição mais tradução em rascunho para cada pacote, arredondadas para baixo. Modos de tradução de qualidade, dublagem e outros caminhos de IA consomem mais. Uma instalação nova normalmente recebe cerca de 12 minutos grátis, uma única vez.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 minutos" },
-      { name: "Starter", price: "$5", value: "~8 horas" },
-      { name: "Standard", price: "$10", value: "~18 horas" },
-      { name: "Pro", price: "$50", value: "~127 horas" },
+      { name: "Micro", price: "US$1", value: "cerca de 29 minutos" },
+      { name: "Starter", price: "US$5", value: "cerca de 4,8 horas" },
+      { name: "Standard", price: "US$10", value: "cerca de 11,3 horas" },
+      { name: "Pro", price: "US$50", value: "cerca de 78 horas" },
     ],
     packFootnote:
       "Use créditos quando quiser praticidade. Use BYO quando quiser o fluxo do app, mas preferir cobrança direta no provedor.",
+    currencyNote:
+      "Os preços são em dólares americanos (US$). O pagamento mostra o preço na sua moeda local quando a sua forma de pagamento permite.",
     byoEyebrow: "Quando o BYO faz sentido",
     byoTitle: "BYO é para quem já paga por IA e não quer pagar duas vezes.",
     byoDescription:
@@ -866,15 +883,17 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
     packsTitle:
       "Các gói credit Stage5 vẫn hoạt động như một chiếc ví đơn giản.",
     packsDescription:
-      "Đây là các ước lượng tương đương dịch thô dựa trên heuristic hiện tại của ứng dụng. Chế độ chất lượng, lồng tiếng và các đường AI khác có thể tiêu tốn nhiều hơn.",
+      "Đây là ước tính thận trọng cho phần phiên âm cộng dịch nháp của mỗi gói, đã làm tròn xuống. Chế độ dịch chất lượng, lồng tiếng và các đường AI khác tiêu tốn nhiều hơn. Bản cài mới thường nhận khoảng 12 phút miễn phí, một lần duy nhất.",
     packs: [
-      { name: "Micro", price: "$1", value: "~50 phút" },
-      { name: "Starter", price: "$5", value: "~8 giờ" },
-      { name: "Standard", price: "$10", value: "~18 giờ" },
-      { name: "Pro", price: "$50", value: "~127 giờ" },
+      { name: "Micro", price: "US$1", value: "khoảng 29 phút" },
+      { name: "Starter", price: "US$5", value: "khoảng 4,8 giờ" },
+      { name: "Standard", price: "US$10", value: "khoảng 11,3 giờ" },
+      { name: "Pro", price: "US$50", value: "khoảng 78 giờ" },
     ],
     packFootnote:
       "Dùng credit khi bạn muốn sự tiện lợi. Dùng BYO khi bạn muốn quy trình của ứng dụng nhưng thích thanh toán trực tiếp với nhà cung cấp.",
+    currencyNote:
+      "Giá tính bằng đô la Mỹ (US$). Trang thanh toán hiển thị giá theo đơn vị tiền tệ địa phương của bạn nếu phương thức thanh toán hỗ trợ.",
     byoEyebrow: "Khi nào BYO hợp lý",
     byoTitle:
       "BYO dành cho những người đã trả tiền cho AI và không muốn trả hai lần.",
@@ -1067,6 +1086,9 @@ export default async function PricingPage({
           </div>
           <p className="mt-6 max-w-3xl text-sm leading-6 text-gray-400">
             {copy.packFootnote}
+          </p>
+          <p className="mt-2 text-sm text-gray-400">
+            {copy.currencyNote}
           </p>
         </section>
 
