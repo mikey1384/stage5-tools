@@ -21,9 +21,18 @@ stay outside Git.
   `stage5-tools` is the retained fallback, with automatic production/preview
   builds paused. Read both surfaces before future publication or rollback.
   Current production receipt: `docs/seo-production-migration-retry-2026-09-05.json`.
-- The local September 5 candidate uses Next.js 15.5.25 and OpenNext Cloudflare
-  1.20.6. The deprecated next-on-pages adapter cannot build this patched version.
-  `npm run pages` therefore fails closed; do not downgrade security patches.
+- The site uses Next.js 16.4.3 and OpenNext Cloudflare 1.20.13 (upgraded from
+  15.5.25 / 1.20.6 in `b72967f`, live since `SEO-TRANSLATE-2026-10-25`), with
+  `eslint-config-next` pinned to the same Next version. The deprecated
+  next-on-pages adapter cannot build it, so `npm run pages` fails closed; do not
+  downgrade security patches. Keep `middleware.ts`: Next 16's `proxy.ts` always
+  runs on the Node.js runtime, which OpenNext Cloudflare 1.20.13 still marks as
+  experimental and unmaintained. Ship future framework upgrades as their own
+  approved release, not inside a content release.
+- `npm run workers:preview` serves every request as the first route host
+  (`stage5.tools`) whatever `Host` header is sent, so the translator.tools
+  rendered audit and alternate-host checks need a local config without
+  `routes` (e.g. a copy of `wrangler.worker.toml` under `.local/`).
 - `wrangler.toml` preserves the Pages fallback configuration.
   `wrangler.worker.toml` now records the four verified HTTPS production routes.
   `https://stage5-web.mikey1384.workers.dev` remains an isolated noindex preview
@@ -237,3 +246,7 @@ Reply posted and verified: https://github.com/microsoft/winget-pkgs/pull/414314#
 `SEO-TRIM-2026-10-13-01` is live at Worker `586329c8-b76a-42ef-bd01-01a332dad5bc` (approved by Mikey). It marks `noindex, follow` and drops from the sitemap the 63 localized translator.tools pages Search Console reported as "Crawled - currently not indexed" with < 10 impressions in 90 days (`NOINDEXED_LOCALIZED_PAGES` in `lib/locales.ts`; sitemap 149 → 86). Indexed pages, English, Korean and stage5.tools are unchanged. Built from the live `c52c9a62` source + 4 files, so master's unpublished drafts (`lib/legal-content.ts` edited after the September 27 publication, `YouTubeDemo.tsx`, `lib/watch/video-choice-copy.ts`) are still not live; do not deploy master wholesale. Rollback: `c52c9a62-8dbe-4b16-94b3-9fd81086038e` via `.local/seo-trim-20261013/deploy.sh`. Receipt: `stage5-ops/docs/seo-trim-publication-2026-10-13.md`. Search data comes from `stage5-ops/scripts/gsc.py`, not the web UI.
 
 `SEO-DOWNLOADER-2026-10-19-01` is live at Worker `4c53abad-48c3-4092-9b54-01d1c8918f00` (approved by Mikey). Every `/video-downloader` page gets a "subtitles in your language" path to the app (new section after the hero, real app screenshots, existing download button; clicks labelled `Downloader - subtitles in your language`), and stage5.tools / translator.tools home titles name the product. Downloader page titles/descriptions are unchanged on purpose. Built from the live `bcd6296` source (= master) + branch `seo-downloader-path`, now merged to master, so master matches live again. Rollback: `459db03b-8c50-4380-86f5-1980349e055b` via `.local/seo-downloader-path-20261019/deploy.sh`. Receipt and experiment log: `stage5-ops/docs/seo-downloader-publication-2026-10-19.md` (kept out of this public repo with the other ops records).
+
+`SEO-TRANSLATE-2026-10-25` is live at Worker `c55741b0-113f-4c69-b1c0-c95f40e55faa`, 100% from 2026-10-25T11:39:08Z (approved by Mikey). It adds the 12 subtitle-translation landing pages under `/translate` (English, Vietnamese, Portuguese and Spanish paths, e.g. `/translate/spanish`, `/vi/translate/korean`) with a shared layout and real app captures. Source: commit `c0cf171`, which also carries `b72967f` (the Next.js 16.4.3 / OpenNext 1.20.13 build toolchain and the internal-error route guard). Rollback: `4c53abad-48c3-4092-9b54-01d1c8918f00`. Frozen artifact: `.local/seo-translate-pages/release/`. Receipt: `stage5-ops/docs/seo-translate-pages-publication-2026-10-25.md`.
+
+`WEB-VIDEO-HOME-2026-10-29-01` is live at Worker `60e6222d-43be-4183-a7c2-d790fe5a45cc`, 100% from 2026-10-29T05:36:09Z (approved by Mikey, shipped with Translator 1.30.1). It changes only the existing Translator homepage copy and compatibility note, in all nine locales, to explain watching online videos with translated subtitles; no routes were added and downloader, pricing and Stage5 pages are unchanged. Source: commit `39ed557`, which is also master, so master matches live again. Rollback: `c55741b0-113f-4c69-b1c0-c95f40e55faa`. Frozen artifact: `.local/web-video-landing/release/`. Receipt: `stage5-ops/docs/translator-web-video-release-2026-10-29.md`; experiment entry `WEB-VIDEO-HOME-2026-10-29-01` in `stage5-ops/docs/landing-page-experiments.md`.
