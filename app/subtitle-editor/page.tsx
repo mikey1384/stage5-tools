@@ -258,59 +258,59 @@ const pageCopy: Partial<Record<Locale, SubtitleEditorPageCopy>> = {
   fr: {
     heroEyebrow: "Corrigez les sous-titres sans vous battre avec l'outil",
     heroPoints: [
-      "Ajustez le timing en restant près de la video",
+      "Ajustez le timing en restant près de la vidéo",
       "Fusionnez, nettoyez et peaufinez les pistes dans un seul flux",
-      "Gardez l'edition reliee a la traduction et aux exports finaux",
+      "Gardez l'édition reliée à la traduction et aux exports finaux",
     ],
     screenshotCaption:
-      "Le travail sur les sous-titres est plus simple quand la video, les lignes et la suite restent au meme endroit au lieu d'etre eparpilles entre plusieurs outils.",
-    screenshotAlt: "Modification et revision des sous-titres dans Translator",
+      "Le travail sur les sous-titres est plus simple quand la vidéo, les lignes et la suite restent au même endroit au lieu d'être éparpillés entre plusieurs outils.",
+    screenshotAlt: "Modification et révision des sous-titres dans Translator",
     outcomesEyebrow: "Ce que vous obtenez",
     outcomesTitle:
-      "L'editeur de sous-titres est pense pour produire un resultat final plus propre, pas seulement pour deplacer du texte.",
-    workflowEyebrow: "Comment ca marche",
+      "L'éditeur de sous-titres est pense pour produire un résultat final plus propre, pas seulement pour déplacer du texte.",
+    workflowEyebrow: "Comment ça marche",
     workflowTitle:
       "Nettoyez, synchronisez et terminez les sous-titres sans casser le rythme.",
     workflowSteps: [
       {
         step: "01",
-        title: "Importez les sous-titres ou generez-les",
-        body: "Partez d'un fichier existant ou creez-en un depuis la video pour avoir une base concrete sur laquelle travailler.",
+        title: "Importez les sous-titres ou générez-les",
+        body: "Partez d'un fichier existant ou créez-en un depuis la vidéo pour avoir une base concrète sur laquelle travailler.",
       },
       {
         step: "02",
         title: "Corrigez le timing et nettoyez les lignes",
-        body: "Ajustez la synchro, fusionnez les fragments maladroits et rendez le texte plus lisible tout en le comparant a la video.",
+        body: "Ajustez la synchro, fusionnez les fragments maladroits et rendez le texte plus lisible tout en le comparant à la vidéo.",
       },
       {
         step: "03",
-        title: "Exportez ou passez a la suite",
-        body: "Repartez avec des sous-titres plus propres, incrustez-les dans la video ou envoyez-les directement en traduction sans reconstruire le flux.",
+        title: "Exportez ou passez à la suite",
+        body: "Repartez avec des sous-titres plus propres, incrustez-les dans la vidéo ou envoyez-les directement en traduction sans reconstruire le flux.",
       },
     ],
-    bridgeTitle: "Besoin de recuperer la video d'abord ou envie de continuer apres l'edition ?",
+    bridgeTitle: "Besoin de récupérer la vidéo d'abord ou envie de continuer après l'édition ?",
     bridgeBody:
-      "Recuperez la source depuis une URL ou utilisez les sous-titres nettoyes comme base pour la traduction et les sorties suivantes.",
-    bridgePrimary: "Voir le telechargeur video",
+      "Récupérez la source depuis une URL ou utilisez les sous-titres nettoyés comme base pour la traduction et les sorties suivantes.",
+    bridgePrimary: "Voir le téléchargeur vidéo",
     bridgeSecondary: "Voir la traduction IA",
     ctaTitle:
-      "Telechargez Translator et nettoyez les sous-titres au meme endroit ou vous regardez, traduisez et exportez.",
+      "Téléchargez Translator et nettoyez les sous-titres au même endroit où vous regardez, traduisez et exportez.",
     ctaBody:
-      "Corrigez les lignes, corrigez le timing et avancez sans transformer le sous-titrage en seconde chaine d'outils.",
+      "Corrigez les lignes, corrigez le timing et avancez sans transformer le sous-titrage en seconde chaîne d'outils.",
   },
   de: {
-    heroEyebrow: "Untertitel korrigieren, ohne mit dem Tool zu kaempfen",
+    heroEyebrow: "Untertitel korrigieren, ohne mit dem Tool zu kämpfen",
     heroPoints: [
       "Timing anpassen und dabei nah am Video bleiben",
-      "Spuren in einem Ablauf zusammenfuehren, bereinigen und polieren",
-      "Die Bearbeitung direkt mit Uebersetzung und Export verbunden halten",
+      "Spuren in einem Ablauf zusammenführen, bereinigen und polieren",
+      "Die Bearbeitung direkt mit Übersetzung und Export verbunden halten",
     ],
     screenshotCaption:
-      "Untertitelarbeit ist einfacher, wenn Video, Zeilen und naechste Schritte am selben Ort bleiben statt ueber mehrere Tools verteilt zu sein.",
-    screenshotAlt: "Untertitel in Translator bearbeiten und pruefen",
+      "Untertitelarbeit ist einfacher, wenn Video, Zeilen und nächste Schritte am selben Ort bleiben statt über mehrere Tools verteilt zu sein.",
+    screenshotAlt: "Untertitel in Translator bearbeiten und prüfen",
     outcomesEyebrow: "Was du bekommst",
     outcomesTitle:
-      "Der Untertitel-Editor ist dafuer gebaut, ein saubereres Endergebnis zu liefern und nicht nur Text zu verschieben.",
+      "Der Untertitel-Editor ist dafür gebaut, ein saubereres Endergebnis zu liefern und nicht nur Text zu verschieben.",
     workflowEyebrow: "So funktioniert es",
     workflowTitle:
       "Untertitel bereinigen, synchronisieren und fertigstellen, ohne den Fluss zu unterbrechen.",
@@ -322,38 +322,38 @@ const pageCopy: Partial<Record<Locale, SubtitleEditorPageCopy>> = {
       },
       {
         step: "02",
-        title: "Timing korrigieren und Zeilen aufraeumen",
-        body: "Passe die Synchronisierung an, fuehre unpassende Fragmente zusammen und forme den Text waehrend der Vorschau mit dem Video lesbarer.",
+        title: "Timing korrigieren und Zeilen aufräumen",
+        body: "Passe die Synchronisierung an, führe unpassende Fragmente zusammen und forme den Text während der Vorschau mit dem Video lesbarer.",
       },
       {
         step: "03",
         title: "Exportieren oder direkt weitermachen",
-        body: "Nimm sauberere Untertitel mit, brenne sie ins Video ein oder gehe ohne Neuaufbau direkt in die Uebersetzung weiter.",
+        body: "Nimm sauberere Untertitel mit, brenne sie ins Video ein oder gehe ohne Neuaufbau direkt in die Übersetzung weiter.",
       },
     ],
     bridgeTitle: "Brauchst du zuerst das Video oder willst du nach der Bearbeitung direkt weitermachen?",
     bridgeBody:
-      "Hol die Quelle per URL herein oder nutze die bereinigten Untertitel direkt als Grundlage fuer Uebersetzung und weitere Ausgaben.",
+      "Hol die Quelle per URL herein oder nutze die bereinigten Untertitel direkt als Grundlage für Übersetzung und weitere Ausgaben.",
     bridgePrimary: "Video-Downloader ansehen",
-    bridgeSecondary: "KI-Uebersetzung ansehen",
+    bridgeSecondary: "KI-Übersetzung ansehen",
     ctaTitle:
-      "Lade Translator herunter und bereinige Untertitel dort, wo du auch ansiehst, uebersetzt und exportierst.",
+      "Lade Translator herunter und bereinige Untertitel dort, wo du auch ansiehst, übersetzt und exportierst.",
     ctaBody:
-      "Korrigiere die Zeilen, korrigiere das Timing und arbeite weiter, ohne fuer Untertitel eine zweite Toolchain aufzubauen.",
+      "Korrigiere die Zeilen, korrigiere das Timing und arbeite weiter, ohne für Untertitel eine zweite Toolchain aufzubauen.",
   },
   pt: {
     heroEyebrow: "Arrume as legendas sem brigar com a ferramenta",
     heroPoints: [
-      "Ajuste o tempo sem sair de perto do video",
-      "Junte, limpe e refine as faixas em um so fluxo",
-      "Mantenha a edicao ligada a traducao e aos exports finais",
+      "Ajuste o tempo sem sair de perto do vídeo",
+      "Junte, limpe e refine as faixas em um só fluxo",
+      "Mantenha a edição ligada à tradução e aos exports finais",
     ],
     screenshotCaption:
-      "Trabalhar nas legendas fica mais facil quando o video, as linhas e o proximo passo continuam no mesmo lugar em vez de ficarem espalhados entre ferramentas separadas.",
-    screenshotAlt: "Edicao e revisao de legendas no Translator",
-    outcomesEyebrow: "O que voce recebe",
+      "Trabalhar nas legendas fica mais fácil quando o vídeo, as linhas e o próximo passo continuam no mesmo lugar em vez de ficarem espalhados entre ferramentas separadas.",
+    screenshotAlt: "Edição e revisão de legendas no Translator",
+    outcomesEyebrow: "O que você recebe",
     outcomesTitle:
-      "O editor de legendas foi feito para chegar a um resultado final mais limpo, nao so para mover texto.",
+      "O editor de legendas foi feito para chegar a um resultado final mais limpo, não só para mover texto.",
     workflowEyebrow: "Como funciona",
     workflowTitle:
       "Limpe, sincronize e finalize as legendas sem quebrar o fluxo.",
@@ -361,26 +361,26 @@ const pageCopy: Partial<Record<Locale, SubtitleEditorPageCopy>> = {
       {
         step: "01",
         title: "Importe as legendas ou gere uma base",
-        body: "Comece com um arquivo existente ou crie um a partir do video para ter algo concreto em maos.",
+        body: "Comece com um arquivo existente ou crie um a partir do vídeo para ter algo concreto em mãos.",
       },
       {
         step: "02",
         title: "Corrija o tempo e limpe as linhas",
-        body: "Ajuste a sincronia, junte fragmentos estranhos e deixe o texto mais legivel enquanto compara com o video.",
+        body: "Ajuste a sincronia, junte fragmentos estranhos e deixe o texto mais legível enquanto compara com o vídeo.",
       },
       {
         step: "03",
-        title: "Exporte ou siga para a proxima etapa",
-        body: "Saia com legendas mais limpas, grave-as no video ou mande direto para traducao sem montar o fluxo de novo.",
+        title: "Exporte ou siga para a próxima etapa",
+        body: "Saia com legendas mais limpas, grave-as no vídeo ou mande direto para tradução sem montar o fluxo de novo.",
       },
     ],
-    bridgeTitle: "Precisa do video primeiro ou quer continuar depois da edicao?",
+    bridgeTitle: "Precisa do vídeo primeiro ou quer continuar depois da edição?",
     bridgeBody:
-      "Traga a fonte por uma URL ou use as legendas limpas como base para traducao e para as proximas saidas.",
-    bridgePrimary: "Ver downloader de video",
-    bridgeSecondary: "Ver traducao com IA",
+      "Traga a fonte por uma URL ou use as legendas limpas como base para tradução e para as próximas saídas.",
+    bridgePrimary: "Ver downloader de vídeo",
+    bridgeSecondary: "Ver tradução com IA",
     ctaTitle:
-      "Baixe o Translator e limpe as legendas no mesmo lugar em que voce assiste, traduz e exporta.",
+      "Baixe o Translator e limpe as legendas no mesmo lugar em que você assiste, traduz e exporta.",
     ctaBody:
       "Acerte as linhas, acerte o tempo e siga em frente sem transformar o trabalho de legendas em outra cadeia de ferramentas.",
   },
@@ -448,12 +448,12 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
     "무료 자막 편집기",
   ],
   es: [
-    "editor de subtitulos",
+    "editor de subtítulos",
     "editor SRT",
-    "sincronizar subtitulos",
-    "unir subtitulos",
-    "tiempos de subtitulos",
-    "editor de subtitulos gratis",
+    "sincronizar subtítulos",
+    "unir subtítulos",
+    "tiempos de subtítulos",
+    "editor de subtítulos gratis",
   ],
   ja: [
     "字幕エディタ",
@@ -472,18 +472,18 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
     "免费字幕编辑器",
   ],
   fr: [
-    "editeur de sous-titres",
-    "editeur SRT",
+    "éditeur de sous-titres",
+    "éditeur SRT",
     "synchroniser sous-titres",
     "fusionner sous-titres",
     "timing sous-titres",
-    "editeur de sous-titres gratuit",
+    "éditeur de sous-titres gratuit",
   ],
   de: [
     "untertitel-editor",
     "SRT-editor",
     "untertitel synchronisieren",
-    "untertitel zusammenfuehren",
+    "untertitel zusammenführen",
     "untertitel timing",
     "kostenloser untertitel-editor",
   ],
@@ -493,7 +493,7 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
     "sincronizar legendas",
     "juntar legendas",
     "tempo das legendas",
-    "editor de legendas gratis",
+    "editor de legendas grátis",
   ],
   vi: [
     "trình chỉnh sửa phụ đề",
