@@ -22,6 +22,7 @@ const { canonicalRedirectUrl, canonicalSiteUrl, siteForHostname } = require("../
 const { isProductionHostname } = require("../lib/third-party-script-bootstrap.ts");
 const { buildMetadata } = require("../lib/seo.ts");
 const { buildSiteSitemap } = require("../app/sitemap.ts");
+const { translationLandingPages } = require("../lib/translation-landing-content.ts");
 if (originalLoader) require.extensions[".ts"] = originalLoader;
 else delete require.extensions[".ts"];
 
@@ -107,6 +108,52 @@ test("the Vietnamese and Portuguese translation pages have reciprocal indexable 
   assert.deepEqual(entry.alternates.languages, vietnamese.alternates.languages);
   assert.equal(canonicalRedirectUrl("stage5.tools", "/vi/translate"), entry.url);
   assert.equal(canonicalRedirectUrl("www.translator.tools", "/vi/translate"), entry.url);
+});
+
+test("hreflang joins only translation pages that translate in the same direction", async () => {
+  const sitemap = await buildSiteSitemap("translator");
+  const languagesOf = (url) => sitemap.find(entry => entry.url === url)?.alternates.languages;
+  const keys = (url) => Object.keys(languagesOf(url)).sort();
+  const t = (locale, slug) => `https://translator.tools${locale === "en" ? "" : `/${locale}`}/translate/${slug}`;
+
+  // Viewer pages: foreign-language video -> subtitles in the reader's language.
+  assert.deepEqual(keys(t("en", "korean")), ["en", "vi", "x-default"]);
+  assert.deepEqual(keys(t("vi", "korean")), ["en", "vi", "x-default"]);
+  assert.deepEqual(keys(t("en", "japanese")), ["en", "vi", "x-default"]);
+  assert.deepEqual(keys(t("en", "german")), ["en", "x-default"]);
+  assert.deepEqual(keys(t("es", "portuguese")), ["es"]);
+  // The "translate into X" pages keep their own group, without English.
+  assert.deepEqual(keys(t("ko", "korean")), ["de", "es", "ko", "zh"]);
+  assert.deepEqual(keys(t("ko", "japanese")), ["ko", "zh"]);
+  assert.deepEqual(keys(t("ko", "german")), ["fr", "ja", "ko", "pt", "vi", "zh"]);
+  assert.deepEqual(keys(t("en", "portuguese")), ["de", "en", "ja", "ko", "x-default", "zh"]);
+  // Unaffected groups are unchanged.
+  assert.deepEqual(keys(t("en", "spanish")), ["en", "es", "ja", "ko", "pt", "vi", "x-default", "zh"]);
+
+  for (const entry of sitemap) {
+    const metadataLocale = new URL(entry.url).pathname.split("/")[1];
+    const locale = ["ko", "es", "ja", "zh", "fr", "de", "pt", "vi"].includes(metadataLocale) ? metadataLocale : "en";
+    const path = new URL(entry.url).pathname.replace(new RegExp(`^/${locale}(?=/|$)`), "") || "/";
+    const metadata = buildMetadata({ title: "t", description: "d", keywords: [], path, locale });
+    assert.equal(metadata.alternates.canonical, entry.url);
+    assert.deepEqual(metadata.alternates.languages, entry.alternates.languages, entry.url);
+  }
+  for (const page of translationLandingPages) {
+    if (page.path !== "/translate") assert.match(page.direction ?? "", /^[a-z]+>[a-z]+$/, `${page.locale}:${page.path}`);
+  }
+});
+
+test("English pair pages do not share template FAQs or steps", () => {
+  const pairs = translationLandingPages.filter(page => page.locale === "en" && page.path !== "/translate");
+  assert.equal(pairs.length, 6);
+  const seen = new Map();
+  for (const page of pairs) {
+    assert(page.sources && page.pitfalls, page.path);
+    for (const text of [...page.faqs.map(faq => faq.question), ...page.steps.map(step => step.body), ...page.pitfalls.items.map(item => item.title)]) {
+      assert(!seen.has(text), `${page.path} repeats "${text}" from ${seen.get(text)}`);
+      seen.set(text, page.path);
+    }
+  }
 });
 
 test("each domain advertises only its own canonical route inventory", async () => {

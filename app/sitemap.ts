@@ -10,6 +10,7 @@ import {
 import { getSite } from "../lib/get-site";
 import { STAGE5_ORIGIN, TRANSLATOR_ORIGIN, type Site } from "../lib/site-routing";
 import { TRANSLATED_LANGUAGE_SLUGS } from "../lib/translate-language-slugs";
+import { equivalentLocalesForPage } from "../lib/translate-page-direction";
 import { loadWatchCatalog } from "../lib/watch/catalog-loader";
 import { getWatchSupportedLocales } from "../lib/watch/catalog";
 
@@ -65,25 +66,25 @@ export async function buildSiteSitemap(site: Site): Promise<MetadataRoute.Sitema
     const localize = route.availableLocales
       ? localizeSupportedPathForLocale
       : localizePathForLocale;
-    const englishUrl = absoluteUrl(localize("en", route.path));
-    const fullSiteLanguages: Record<string, string> = {
-      "x-default": englishUrl,
-    };
-    for (const locale of availableLocales) {
-      fullSiteLanguages[locale] = absoluteUrl(
-        localize(locale, route.path),
-      );
-    }
-
-    const shared = {
-      alternates: {
-        languages: fullSiteLanguages,
-      },
+    // Each URL lists only the alternates that do the same job (see
+    // translate-page-direction.ts); x-default is the English member, if any.
+    const languagesFor = (locale: Locale): Record<string, string> => {
+      const group = route.availableLocales
+        ? availableLocales
+        : equivalentLocalesForPage(locale, route.path, availableLocales);
+      const languages: Record<string, string> = {};
+      if (route.availableLocales || group.includes("en")) {
+        languages["x-default"] = absoluteUrl(localize("en", route.path));
+      }
+      for (const member of group) {
+        languages[member] = absoluteUrl(localize(member, route.path));
+      }
+      return languages;
     };
 
     return availableLocales.map((locale) => ({
       url: absoluteUrl(localize(locale, route.path)),
-      ...shared,
+      alternates: { languages: languagesFor(locale) },
     }));
   });
 }

@@ -9,6 +9,7 @@ import {
   type Locale,
 } from "./locales";
 import { canonicalOriginForPath, canonicalSiteUrl, STAGE5_ORIGIN } from "./site-routing";
+import { equivalentLocalesForPage } from "./translate-page-direction";
 
 const BASE_URL = "https://translator.tools";
 
@@ -61,10 +62,12 @@ export function buildMetadata({
   const canonicalUrl = new URL(canonicalPath, canonicalOrigin).toString();
   const resolvedAvailableLocales = availableLocales
     ? [...new Set([DEFAULT_LOCALE, ...availableLocales])]
-    : indexableLocalesForPath(englishPath);
+    : equivalentLocalesForPage(locale, englishPath, indexableLocalesForPath(englishPath));
   const shouldIndex = availableLocales
     ? resolvedAvailableLocales.includes(locale)
     : shouldIndexLocalePath(locale, englishPath);
+  // x-default names the English page; a group without an English equivalent
+  // (for example the "translate into Korean" pages) has no default.
   const languageUrls = Object.fromEntries(
     resolvedAvailableLocales.map((supportedLocale) => [
       supportedLocale,
@@ -88,7 +91,9 @@ export function buildMetadata({
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        "x-default": languageUrls[DEFAULT_LOCALE],
+        ...(languageUrls[DEFAULT_LOCALE]
+          ? { "x-default": languageUrls[DEFAULT_LOCALE] }
+          : {}),
         ...languageUrls,
       },
     },

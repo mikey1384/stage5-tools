@@ -7,6 +7,7 @@ export const translationLandingUI = {
     chooseComputer: "Choose your computer", downloadFor: "Download for", faq: "Questions about subtitle translation",
     editor: "Explore the subtitle editor", related: "More subtitle translation guides",
     offer: "Free app download; AI tasks may have a cost depending on usage.",
+    example: "Example", original: "Original",
   },
   pt: {
     home: "Início", breadcrumb: "Traduzir legendas", platformNote: "Para Mac e Windows · Exporte SRT ou vídeo legendado",
@@ -16,6 +17,7 @@ export const translationLandingUI = {
     chooseComputer: "Escolha seu computador", downloadFor: "Baixar para", faq: "Dúvidas sobre tradução de legendas",
     editor: "Conheça o editor de legendas", related: "Mais opções para traduzir legendas",
     offer: "Download gratuito do aplicativo; tarefas de IA podem ter custo conforme o uso.",
+    example: "Exemplo", original: "Original",
   },
   es: {
     home: "Inicio", breadcrumb: "Traducir subtítulos", platformNote: "Para Mac y Windows · Exporta SRT o vídeo subtitulado",
@@ -25,6 +27,7 @@ export const translationLandingUI = {
     chooseComputer: "Elige tu ordenador", downloadFor: "Descargar para", faq: "Preguntas sobre la traducción de subtítulos",
     editor: "Conoce el editor de subtítulos", related: "Más guías de traducción de subtítulos",
     offer: "Descarga gratuita de la aplicación; las tareas de IA pueden tener un coste según el uso.",
+    example: "Ejemplo", original: "Original",
   },
   vi: {
     home: "Trang chủ", breadcrumb: "Dịch phụ đề", platformNote: "Ứng dụng cho Mac và Windows · Xuất SRT hoặc video có phụ đề",
@@ -34,6 +37,7 @@ export const translationLandingUI = {
     chooseComputer: "Chọn máy tính của bạn", downloadFor: "Tải cho", faq: "Câu hỏi thường gặp",
     editor: "Tìm hiểu cách chỉnh sửa phụ đề", related: "Dịch phụ đề từ các ngôn ngữ khác",
     offer: "Tải ứng dụng miễn phí; các tác vụ AI có thể phát sinh chi phí tùy cách sử dụng.",
+    example: "Ví dụ", original: "Câu gốc",
   },
 } as const;
 export type TranslationLandingLocale = keyof typeof translationLandingUI;
