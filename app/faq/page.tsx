@@ -95,34 +95,34 @@ const pageCopy: Partial<Record<Locale, FaqPageCopy>> = {
   },
   es: {
     metadataDescription:
-      "Respuestas sobre precios, formatos, plataformas, requisitos de internet y sobre como Translator maneja traduccion con IA, subtitulos y exportaciones.",
-    heroEyebrow: "Respuestas rapidas",
+      "Respuestas sobre precios, formatos, plataformas, requisitos de internet y sobre cómo Translator maneja traducción con IA, subtítulos y exportaciones.",
+    heroEyebrow: "Respuestas rápidas",
     heroPoints: [
-      "Que es gratis y que usa creditos",
+      "Que es gratis y que usa créditos",
       "Que formatos y plataformas admite la app",
-      "Como funcionan la traduccion, las exportaciones y las funciones que dependen de internet",
+      "Como funcionan la traducción, las exportaciones y las funciones que dependen de internet",
     ],
     sectionEyebrow: "Preguntas comunes",
     sectionTitle: "Las respuestas que la gente suele necesitar antes de instalar o pagar.",
     bottomCards: [
       {
-        title: "Quieres ver primero la traduccion?",
-        body: "Si quieres entender como funciona la traduccion de subtitulos antes de entrar en detalles, la pagina de traduccion es la mejor siguiente parada.",
-        ctaLabel: "Ver Traduccion con IA",
+        title: "Quieres ver primero la traducción?",
+        body: "Si quieres entender cómo funciona la traducción de subtítulos antes de entrar en detalles, la página de traducción es la mejor siguiente parada.",
+        ctaLabel: "Ver Traducción con IA",
         href: "/translate",
       },
       {
-        title: "Necesitas la version sobre precios?",
-        body: "Si la pregunta real es que sigue siendo gratis y cuando empieza a costar dinero, la pagina de precios explica la diferencia entre herramientas gratis, creditos y BYO.",
+        title: "Necesitas la versión sobre precios?",
+        body: "Si la pregunta real es qué sigue siendo gratis y cuándo empieza a costar dinero, la página de precios explica la diferencia entre herramientas gratis, créditos y BYO.",
         ctaLabel: "Ver Precios",
         href: "/pricing",
       },
     ],
     ctaTitle: "Descarga Translator y entiende el resto cuando tengas la app delante.",
     ctaBody:
-      "La mayoria entiende el producto mucho mas rapido cuando puede probar las herramientas gratis, abrir un video y sentir el flujo por si misma.",
+      "La mayoría entiende el producto mucho más rápido cuando puede probar las herramientas gratis, abrir un video y sentir el flujo por sí misma.",
     ctaNote:
-      "La descarga y la edicion de subtitulos son gratis. La IA solo cuesta cuando realmente usas funciones de IA.",
+      "La descarga y la edición de subtítulos son gratis. La IA solo cuesta cuando realmente usas funciones de IA.",
   },
   ja: {
     metadataDescription:
@@ -188,96 +188,96 @@ const pageCopy: Partial<Record<Locale, FaqPageCopy>> = {
   },
   fr: {
     metadataDescription:
-      "Reponses sur les tarifs, les formats, les plateformes, les besoins en internet et sur la facon dont Translator gere la traduction IA, les sous-titres et les exports.",
-    heroEyebrow: "Reponses rapides",
+      "Réponses sur les tarifs, les formats, les plateformes, les besoins en internet et sur la façon dont Translator gère la traduction IA, les sous-titres et les exports.",
+    heroEyebrow: "Réponses rapides",
     heroPoints: [
-      "Ce qui est gratuit et ce qui utilise des credits",
+      "Ce qui est gratuit et ce qui utilise des crédits",
       "Les formats et plateformes pris en charge",
-      "Le fonctionnement de la traduction, des exports et des fonctions qui dependent d'internet",
+      "Le fonctionnement de la traduction, des exports et des fonctions qui dépendent d'internet",
     ],
     sectionEyebrow: "Questions courantes",
-    sectionTitle: "Les reponses dont les gens ont le plus souvent besoin avant d'installer ou de payer.",
+    sectionTitle: "Les réponses dont les gens ont le plus souvent besoin avant d'installer ou de payer.",
     bottomCards: [
       {
         title: "Vous voulez voir la traduction d'abord ?",
-        body: "Si vous voulez comprendre le flux de traduction de sous-titres avant d'entrer dans les details, la page traduction est la meilleure suite.",
+        body: "Si vous voulez comprendre le flux de traduction de sous-titres avant d'entrer dans les détails, la page traduction est la meilleure suite.",
         ctaLabel: "Voir la traduction IA",
         href: "/translate",
       },
       {
-        title: "Vous cherchez surtout la reponse cote prix ?",
-        body: "Si la vraie question est ce qui reste gratuit et quand l'argent entre en jeu, la page tarifs explique la difference entre outils gratuits, credits et BYO.",
+        title: "Vous cherchez surtout la réponse côté prix ?",
+        body: "Si la vraie question est ce qui reste gratuit et quand l'argent entre en jeu, la page tarifs explique la difference entre outils gratuits, crédits et BYO.",
         ctaLabel: "Voir les tarifs",
         href: "/pricing",
       },
     ],
-    ctaTitle: "Telechargez Translator et clarifiez le reste une fois l'app sous les yeux.",
+    ctaTitle: "Téléchargez Translator et clarifiez le reste une fois l'app sous les yeux.",
     ctaBody:
-      "La plupart des gens comprennent beaucoup plus vite le produit une fois qu'ils peuvent essayer les outils gratuits, ouvrir une video et sentir le flux.",
+      "La plupart des gens comprennent beaucoup plus vite le produit une fois qu'ils peuvent essayer les outils gratuits, ouvrir une vidéo et sentir le flux.",
     ctaNote:
-      "Le telechargement et l'edition de sous-titres sont gratuits. L'IA ne coute de l'argent que lorsque vous lancez vraiment des fonctions IA.",
+      "Le téléchargement et l'édition de sous-titres sont gratuits. L'IA ne coûte de l'argent que lorsque vous lancez vraiment des fonctions IA.",
   },
   de: {
     metadataDescription:
-      "Antworten zu Preisen, Formaten, Plattformen, Internetbedarf und dazu, wie Translator KI-Uebersetzung, Untertitel und Exporte handhabt.",
+      "Antworten zu Preisen, Formaten, Plattformen, Internetbedarf und dazu, wie Translator KI-Übersetzung, Untertitel und Exporte handhabt.",
     heroEyebrow: "Schnelle Antworten",
     heroPoints: [
       "Was kostenlos ist und was Credits verbraucht",
-      "Welche Dateiformate und Plattformen die App unterstuetzt",
-      "Wie Uebersetzung, Exporte und internetabhaengige Funktionen funktionieren",
+      "Welche Dateiformate und Plattformen die App unterstützt",
+      "Wie Übersetzung, Exporte und internetabhängige Funktionen funktionieren",
     ],
-    sectionEyebrow: "Hauefige Fragen",
+    sectionEyebrow: "Häufige Fragen",
     sectionTitle: "Die Antworten, die die meisten vor Installation oder Zahlung zuerst brauchen.",
     bottomCards: [
       {
-        title: "Willst du zuerst die Uebersetzung sehen?",
-        body: "Wenn du erst verstehen willst, wie die Untertitel-Uebersetzung ablaeuft, bevor du in Details gehst, ist die Uebersetzungsseite der beste naechste Schritt.",
-        ctaLabel: "KI-Uebersetzung ansehen",
+        title: "Willst du zuerst die Übersetzung sehen?",
+        body: "Wenn du erst verstehen willst, wie die Untertitel-Übersetzung abläuft, bevor du in Details gehst, ist die Übersetzungsseite der beste nächste Schritt.",
+        ctaLabel: "KI-Übersetzung ansehen",
         href: "/translate",
       },
       {
         title: "Brauchst du die Preisversion davon?",
-        body: "Wenn die eigentliche Frage ist, was kostenlos bleibt und wann Geld ins Spiel kommt, erklaert die Preisseite den Unterschied zwischen kostenlosen Tools, Credits und BYO.",
+        body: "Wenn die eigentliche Frage ist, was kostenlos bleibt und wann Geld ins Spiel kommt, erklärt die Preisseite den Unterschied zwischen kostenlosen Tools, Credits und BYO.",
         ctaLabel: "Preise ansehen",
         href: "/pricing",
       },
     ],
-    ctaTitle: "Lade Translator herunter und klaere den Rest, wenn die App vor dir ist.",
+    ctaTitle: "Lade Translator herunter und kläre den Rest, wenn die App vor dir ist.",
     ctaBody:
-      "Die meisten verstehen das Produkt viel schneller, sobald sie die kostenlosen Tools ausprobieren, ein Video oeffnen und den Ablauf selbst sehen koennen.",
+      "Die meisten verstehen das Produkt viel schneller, sobald sie die kostenlosen Tools ausprobieren, ein Video öffnen und den Ablauf selbst sehen können.",
     ctaNote:
       "Download und Untertitelbearbeitung sind kostenlos. KI kostet nur dann Geld, wenn du KI-Funktionen wirklich startest.",
   },
   pt: {
     metadataDescription:
-      "Respostas sobre preco, formatos, plataformas, necessidade de internet e sobre como o Translator lida com traducao por IA, legendas e exportacoes.",
-    heroEyebrow: "Respostas rapidas",
+      "Respostas sobre preço, formatos, plataformas, necessidade de internet e sobre como o Translator lida com tradução por IA, legendas e exportações.",
+    heroEyebrow: "Respostas rápidas",
     heroPoints: [
-      "O que e gratis e o que usa creditos",
+      "O que é grátis e o que usa créditos",
       "Quais formatos e plataformas o app suporta",
-      "Como funcionam traducao, exportacoes e recursos que dependem da internet",
+      "Como funcionam tradução, exportações e recursos que dependem da internet",
     ],
     sectionEyebrow: "Perguntas comuns",
     sectionTitle: "As respostas que as pessoas costumam precisar antes de instalar ou pagar.",
     bottomCards: [
       {
-        title: "Quer ver a traducao primeiro?",
-        body: "Se voce quer entender como a traducao de legendas funciona antes de entrar nos detalhes, a pagina de traducao e a melhor proxima parada.",
-        ctaLabel: "Ver traducao com IA",
+        title: "Quer ver a tradução primeiro?",
+        body: "Se você quer entender como a tradução de legendas funciona antes de entrar nos detalhes, a página de tradução é a melhor próxima parada.",
+        ctaLabel: "Ver tradução com IA",
         href: "/translate",
       },
       {
-        title: "Precisa da versao sobre preco?",
-        body: "Se a pergunta real e o que continua gratis e quando o dinheiro entra na conversa, a pagina de precos explica a diferenca entre ferramentas gratis, creditos e BYO.",
-        ctaLabel: "Ver precos",
+        title: "Precisa da versão sobre preço?",
+        body: "Se a pergunta real é o que continua grátis e quando o dinheiro entra na conversa, a página de preços explica a diferença entre ferramentas grátis, créditos e BYO.",
+        ctaLabel: "Ver preços",
         href: "/pricing",
       },
     ],
     ctaTitle: "Baixe o Translator e entenda o resto quando o app estiver na sua frente.",
     ctaBody:
-      "A maioria das pessoas entende o produto muito mais rapido quando pode testar as ferramentas gratis, abrir um video e sentir como o fluxo funciona.",
+      "A maioria das pessoas entende o produto muito mais rápido quando pode testar as ferramentas grátis, abrir um vídeo e sentir como o fluxo funciona.",
     ctaNote:
-      "Baixar e editar legendas e gratis. A IA so custa dinheiro quando voce realmente usa recursos de IA.",
+      "Baixar e editar legendas é grátis. A IA só custa dinheiro quando você realmente usa recursos de IA.",
   },
   vi: {
     metadataDescription:
@@ -329,8 +329,8 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
   ],
   es: [
     "FAQ de Translator",
-    "FAQ del editor de subtitulos",
-    "ayuda de traduccion de video",
+    "FAQ del editor de subtítulos",
+    "ayuda de traducción de video",
     "preguntas sobre traductor SRT",
   ],
   ja: [
@@ -347,20 +347,20 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
   ],
   fr: [
     "FAQ Translator",
-    "FAQ editeur de sous-titres",
-    "aide traduction video",
+    "FAQ éditeur de sous-titres",
+    "aide traduction vidéo",
     "questions traducteur SRT",
   ],
   de: [
     "Translator FAQ",
     "Untertitel-Editor FAQ",
-    "Hilfe zur Video-Uebersetzung",
-    "SRT-Uebersetzer Fragen",
+    "Hilfe zur Video-Übersetzung",
+    "SRT-Übersetzer Fragen",
   ],
   pt: [
     "FAQ do Translator",
     "FAQ do editor de legendas",
-    "ajuda com traducao de video",
+    "ajuda com tradução de vídeo",
     "perguntas sobre tradutor SRT",
   ],
   vi: [

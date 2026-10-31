@@ -62,21 +62,21 @@ const pageCopy: Partial<Record<Locale, ContactPageCopy>> = {
   },
   es: {
     metadataDescription:
-      "Contacta con Stage5 sobre soporte, precios, alianzas y flujos de Translator mas intensos.",
+      "Contacta con Stage5 sobre soporte, precios, alianzas y flujos de Translator más intensos.",
     heroEyebrow: "Habla con una persona",
     heroPoints: [
-      "Haz preguntas sobre el producto o la configuracion",
-      "Habla de precios, BYO o uso mas pesado",
-      "Escribe si estas intentando hacer que Translator encaje en un flujo real",
+      "Haz preguntas sobre el producto o la configuración",
+      "Habla de precios, BYO o uso más pesado",
+      "Escribe si estás intentando hacer que Translator encaje en un flujo real",
     ],
     sectionEyebrow: "Como contactarnos",
-    sectionTitle: "Mantenlo simple. Si el sitio no lo respondio, solo pregunta.",
-    quickLinksTitle: "Paginas utiles antes de escribir",
-    ctaTitle: "Descarga primero Translator si quieres la respuesta mas rapida.",
+    sectionTitle: "Mantenlo simple. Si el sitio no lo respondió, solo pregunta.",
+    quickLinksTitle: "Páginas útiles antes de escribir",
+    ctaTitle: "Descarga primero Translator si quieres la respuesta más rápida.",
     ctaBody:
-      "Muchas preguntas se aclaran en cuanto abres la app y tienes delante las herramientas gratis. Si no, escribenos despues de eso.",
+      "Muchas preguntas se aclaran en cuanto abres la app y tienes delante las herramientas gratis. Si no, escríbenos después de eso.",
     ctaNote:
-      "La descarga y la edicion de subtitulos son gratis. La IA solo cuesta cuando realmente usas funciones de IA.",
+      "La descarga y la edición de subtítulos son gratis. La IA solo cuesta cuando realmente usas funciones de IA.",
   },
   ja: {
     metadataDescription:
@@ -117,28 +117,28 @@ const pageCopy: Partial<Record<Locale, ContactPageCopy>> = {
   fr: {
     metadataDescription:
       "Contactez Stage5 pour le support, les tarifs, les partenariats et les usages Translator plus lourds.",
-    heroEyebrow: "Parlez a un humain",
+    heroEyebrow: "Parlez à un humain",
     heroPoints: [
       "Posez vos questions produit ou configuration",
       "Parlez tarifs, BYO ou usage plus intensif",
-      "Ecrivez si vous essayez de faire entrer Translator dans un vrai flux",
+      "Écrivez si vous essayez de faire entrer Translator dans un vrai flux",
     ],
     sectionEyebrow: "Comment nous joindre",
-    sectionTitle: "Faites simple. Si le site n'a pas repondu, demandez.",
-    quickLinksTitle: "Bonnes pages a verifier avant d'ecrire",
-    ctaTitle: "Telechargez d'abord Translator si vous voulez la reponse la plus rapide.",
+    sectionTitle: "Faites simple. Si le site n'a pas répondu, demandez.",
+    quickLinksTitle: "Bonnes pages à vérifier avant d'écrire",
+    ctaTitle: "Téléchargez d'abord Translator si vous voulez la réponse la plus rapide.",
     ctaBody:
-      "Beaucoup de questions deviennent evidentes une fois l'app ouverte et les outils gratuits sous les yeux. Sinon, envoyez-nous un email apres cela.",
+      "Beaucoup de questions deviennent évidentes une fois l'app ouverte et les outils gratuits sous les yeux. Sinon, envoyez-nous un email après cela.",
     ctaNote:
-      "Le telechargement et l'edition de sous-titres sont gratuits. L'IA ne coute de l'argent que lorsque vous lancez vraiment des fonctions IA.",
+      "Le téléchargement et l'édition de sous-titres sont gratuits. L'IA ne coûte de l'argent que lorsque vous lancez vraiment des fonctions IA.",
   },
   de: {
     metadataDescription:
-      "Kontaktiere Stage5 zu Support, Preisen, Partnerschaften und groesseren Translator-Workflows.",
+      "Kontaktiere Stage5 zu Support, Preisen, Partnerschaften und größeren Translator-Workflows.",
     heroEyebrow: "Mit einem Menschen sprechen",
     heroPoints: [
       "Fragen zu Produkt oder Einrichtung stellen",
-      "Preise, BYO oder groessere Nutzung besprechen",
+      "Preise, BYO oder größere Nutzung besprechen",
       "Schreiben, wenn du Translator in einen echten Workflow einpassen willst",
     ],
     sectionEyebrow: "So erreichst du uns",
@@ -146,27 +146,27 @@ const pageCopy: Partial<Record<Locale, ContactPageCopy>> = {
     quickLinksTitle: "Gute Seiten vor dem Schreiben",
     ctaTitle: "Lade zuerst Translator herunter, wenn du die schnellste Antwort willst.",
     ctaBody:
-      "Viele Fragen klaeren sich, sobald die App offen ist und die kostenlosen Tools vor dir liegen. Wenn nicht, schreib uns danach eine Mail.",
+      "Viele Fragen klären sich, sobald die App offen ist und die kostenlosen Tools vor dir liegen. Wenn nicht, schreib uns danach eine Mail.",
     ctaNote:
       "Download und Untertitelbearbeitung sind kostenlos. KI kostet nur dann Geld, wenn du KI-Funktionen wirklich startest.",
   },
   pt: {
     metadataDescription:
-      "Fale com a Stage5 sobre suporte, precos, parcerias e fluxos mais pesados no Translator.",
+      "Fale com a Stage5 sobre suporte, preços, parcerias e fluxos mais pesados no Translator.",
     heroEyebrow: "Fale com uma pessoa",
     heroPoints: [
-      "Tire duvidas sobre produto ou configuracao",
-      "Converse sobre precos, BYO ou uso mais pesado",
+      "Tire dúvidas sobre produto ou configuração",
+      "Converse sobre preços, BYO ou uso mais pesado",
       "Entre em contato se estiver tentando encaixar o Translator em um fluxo real",
     ],
     sectionEyebrow: "Como falar com a gente",
-    sectionTitle: "Sem complicar. Se o site nao respondeu, e so perguntar.",
-    quickLinksTitle: "Paginas boas para ver antes de escrever",
-    ctaTitle: "Baixe primeiro o Translator se quiser a resposta mais rapida.",
+    sectionTitle: "Sem complicar. Se o site não respondeu, é só perguntar.",
+    quickLinksTitle: "Páginas boas para ver antes de escrever",
+    ctaTitle: "Baixe primeiro o Translator se quiser a resposta mais rápida.",
     ctaBody:
-      "Muitas perguntas ficam obvias quando o app esta aberto e as ferramentas gratis estao na sua frente. Se nao, mande email depois disso.",
+      "Muitas perguntas ficam óbvias quando o app está aberto e as ferramentas grátis estão na sua frente. Se não, mande email depois disso.",
     ctaNote:
-      "Baixar e editar legendas e gratis. A IA so custa dinheiro quando voce realmente usa recursos de IA.",
+      "Baixar e editar legendas é grátis. A IA só custa dinheiro quando você realmente usa recursos de IA.",
   },
   vi: {
     metadataDescription:
@@ -203,8 +203,8 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
   es: [
     "contacto de Translator",
     "soporte de Stage5 Tools",
-    "ayuda con traduccion de video",
-    "contacto para traduccion empresarial",
+    "ayuda con traducción de video",
+    "contacto para traducción empresarial",
   ],
   ja: [
     "Translator お問い合わせ",
@@ -221,20 +221,20 @@ const metadataKeywords: Partial<Record<Locale, string[]>> = {
   fr: [
     "contact Translator",
     "support Stage5 Tools",
-    "aide traduction video",
+    "aide traduction vidéo",
     "contact traduction entreprise",
   ],
   de: [
     "Translator Kontakt",
     "Stage5 Tools Support",
-    "Hilfe zur Video-Uebersetzung",
-    "Anfrage fuer Unternehmens-Uebersetzung",
+    "Hilfe zur Video-Übersetzung",
+    "Anfrage für Unternehmens-Übersetzung",
   ],
   pt: [
     "contato do Translator",
     "suporte Stage5 Tools",
-    "ajuda com traducao de video",
-    "contato para traducao empresarial",
+    "ajuda com tradução de vídeo",
+    "contato para tradução empresarial",
   ],
   vi: [
     "liên hệ Translator",
