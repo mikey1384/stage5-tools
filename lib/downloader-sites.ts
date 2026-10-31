@@ -10,8 +10,10 @@ import type { Locale } from "./locales";
 // Translator (paste link, or pick the video in the built-in browser). Every
 // site below passed that check in the 2026-10-31 coverage test.
 //
-// Pending verification in the app — add only once confirmed:
-//   TikTok, X (Twitter), Reddit, Twitch, Instagram
+// Verified in the app 2026-10-31 (stage5-ops/docs/download-coverage-app-verify-2026-10-31.md):
+// X, Twitch, Instagram (public posts), SOOP. Held back: TikTok (downloads, but
+// the in-app player can't play its HEVC files yet), Reddit (sign-in wall),
+// France.tv and TVer (geo-locked).
 //
 // Text only: never pair these names with third-party logos or trademark art.
 // The downloader hero line, page titles and meta descriptions
@@ -28,12 +30,16 @@ export const DOWNLOADER_NAMED_SITES = [
   "Bilibili",
   "BBC",
   "CNN",
+  "X",
+  "Twitch",
+  "Instagram",
 ] as const;
 
 // Verified local sites appended for visitors of one language, so a Brazilian
 // sees Globo and a German reader sees ZDF. Same verification rule as above.
 export const DOWNLOADER_LOCAL_SITES: Partial<Record<Locale, readonly string[]>> =
   {
+    ko: ["SOOP"],
     es: ["RTVE"],
     fr: ["Arte"],
     de: ["ZDF", "ARD Mediathek"],
