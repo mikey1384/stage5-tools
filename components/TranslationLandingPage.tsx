@@ -105,14 +105,19 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
                 aria-label={ui.imageLink}
                 className="block overflow-hidden rounded-2xl border border-[#2A2732] bg-[#0F0E13] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FFD84D] md:rounded-[26px]"
               >
-                <Image
-                  src={copy.image.src}
-                  alt={copy.image.alt}
-                  width={2400}
-                  height={copy.image.height ?? 1600}
-                  sizes="(min-width: 1100px) 1024px, 100vw"
-                  className="block h-auto w-full"
-                />
+                <picture>
+                  {copy.image.mobileSrc ? (
+                    <source media="(max-width: 640px)" srcSet={copy.image.mobileSrc} />
+                  ) : null}
+                  <Image
+                    src={copy.image.src}
+                    alt={copy.image.alt}
+                    width={2400}
+                    height={copy.image.height ?? 1600}
+                    sizes="(min-width: 1100px) 1024px, 100vw"
+                    className="block h-auto w-full"
+                  />
+                </picture>
               </a>
               <figcaption className="mt-4 max-w-3xl text-sm leading-6 text-[#B7B2BF]">
                 {copy.image.caption}

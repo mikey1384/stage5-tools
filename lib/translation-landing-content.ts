@@ -14,7 +14,7 @@ export type TranslationLandingContent = {
   eyebrow: string;
   stepsHeading: string;
   steps: readonly Step[];
-  image: { src: string; alt: string; caption: string; height?: number };
+  image: { src: string; alt: string; caption: string; height?: number; mobileSrc?: string };
   faqs: readonly FAQ[];
   trackingLabel: string;
   related: readonly { path: string; label: string }[];
@@ -33,12 +33,12 @@ const englishSteps = (target: string): Step[] => [
   { title: "Review and export", body: "Check each line against the video, edit the wording, then save an SRT or export the video with subtitles." },
 ];
 const enImage = {
-  src: "/screenshots/player-en-2026-10.png", height: 1456,
+  src: "/screenshots/player-en-2026-10.webp", mobileSrc: "/screenshots/player-en-2026-10-1200.webp", height: 1456,
   alt: "Translator playing Tears of Steel with English captions and its subtitle editor alongside the video.",
   caption: "The English-caption preview in Translator. This demonstration uses the English-language film Tears of Steel; it is not footage in the source language described above.",
 };
 const ptImage = {
-  src: "/screenshots/player-pt-2026-10.png", height: 1456,
+  src: "/screenshots/player-pt-2026-10.webp", mobileSrc: "/screenshots/player-pt-2026-10-1200.webp", height: 1456,
   alt: "Translator showing a Tears of Steel scene with Portuguese subtitles and the original English dialogue alongside the translation.",
   caption: "Portuguese subtitles in the real app, with English dialogue and the translation available for review. The example uses the English-language film Tears of Steel.",
 };
@@ -185,7 +185,7 @@ export const translationLandingPages: readonly TranslationLandingContent[] = [
     heading: "Translate video subtitles into your language", eyebrow: "VIDEO + SRT · SUBTITLE TRANSLATION",
     intro: "Translate the dialogue in a video without losing track of the scene. Start with a video or SRT in Translator, choose your subtitle language, and review the original and translation side by side before exporting.",
     stepsHeading: "From a video or SRT to translated subtitles", target: "your subtitle language", trackingLabel: "Translate - AI subtitle translator",
-    image: { src: "/screenshots/player-hi-2026-10.png", height: 1456, alt: "Translator showing Hindi subtitles on Tears of Steel alongside the English dialogue and translated lines.", caption: "English dialogue with Hindi subtitles in Translator, using a scene from Tears of Steel. Review the wording and line breaks beside the video before exporting." },
+    image: { src: "/screenshots/player-hi-2026-10.webp", mobileSrc: "/screenshots/player-hi-2026-10-1200.webp", height: 1456, alt: "Translator showing Hindi subtitles on Tears of Steel alongside the English dialogue and translated lines.", caption: "English dialogue with Hindi subtitles in Translator, using a scene from Tears of Steel. Review the wording and line breaks beside the video before exporting." },
     specificFAQ: { question: "Can I translate English subtitles into Hindi?", answer: "Yes. Open an English video or SRT, choose Hindi as the target, then review the translated lines. Check names, mixed English and Hindi speech, and how the Devanagari text wraps on screen. The same workflow supports other subtitle languages." },
   }),
 ];
