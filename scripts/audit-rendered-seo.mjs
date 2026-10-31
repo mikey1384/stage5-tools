@@ -213,6 +213,10 @@ const failures = [];
 const titleOwners = new Map();
 const descriptionOwners = new Map();
 const localizedMetadata = new Map();
+// Rendered translation direction of each /translate/{language} page, read from
+// <main data-translation-direction>. hreflang may only join equal directions.
+const renderedDirections = new Map();
+const translateDetailPattern = /^\/translate\/[a-z]+$/;
 let adsenseClientId;
 let watchDetailCount = 0;
 let vttCount = 0;
@@ -273,6 +277,15 @@ async function auditIndexablePage(entry) {
       fail(entry.url, `duplicates ${expectedLocale} description from ${prior}`);
     } else {
       descriptionOwners.set(key, entry.url);
+    }
+  }
+  const mainTag = html.match(/<main\b[^>]*>/i)?.[0];
+  const direction = mainTag ? getAttribute(mainTag, "data-translation-direction") : undefined;
+  if (translateDetailPattern.test(englishPathForUrl(entry.url))) {
+    if (!direction || !/^[a-z]+>[a-z]+$/.test(direction)) {
+      fail(entry.url, "translation page must render data-translation-direction on <main>");
+    } else {
+      renderedDirections.set(canonicalizeUrl(entry.url), direction);
     }
   }
   const h1 = decodeEntities(
@@ -609,6 +622,39 @@ await runPool(sitemapEntries, async entry => {
     if (moved.status !== 308 || moved.headers.get("location") !== `${entry.url}?utm_source=migration-audit`) fail(entry.url, "cross-domain redirect must preserve the exact path and query");
   }
 });
+
+// hreflang groups must be reciprocal and, for translation pages, must only join
+// pages that translate in the same direction (e.g. never an English
+// "Korean to English" page with a Korean "translate into Korean" page).
+const sitemapAlternates = new Map(
+  sitemapEntries.map((entry) => [canonicalizeUrl(entry.url), entry.alternates]),
+);
+let directionGroupsChecked = 0;
+for (const entry of sitemapEntries) {
+  const self = canonicalizeUrl(entry.url);
+  const ownDirection = renderedDirections.get(self);
+  if (ownDirection) directionGroupsChecked += 1;
+  for (const [hreflang, href] of entry.alternates) {
+    if (hreflang === "x-default") continue;
+    const other = canonicalizeUrl(href);
+    if (other === self) continue;
+    const back = sitemapAlternates.get(other);
+    if (!back || ![...back.values()].some((value) => canonicalizeUrl(value) === self)) {
+      fail(entry.url, `hreflang=${hreflang} alternate ${href} does not link back`);
+    }
+    if (!ownDirection) continue;
+    const otherDirection = renderedDirections.get(other);
+    if (otherDirection !== ownDirection) {
+      fail(
+        entry.url,
+        `hreflang=${hreflang} joins a different translation direction: ${ownDirection} vs ${otherDirection ?? "none"} at ${href}`,
+      );
+    }
+  }
+}
+if (!IS_STAGE5 && directionGroupsChecked === 0) {
+  fail(SITE_ORIGIN, "no translation-direction pages were checked");
+}
 
 for (const [url, metadata] of localizedMetadata) {
   if (metadata.locale === "en" || !metadata.englishUrl) continue;

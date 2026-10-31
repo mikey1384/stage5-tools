@@ -27,6 +27,7 @@ import { t } from "../../../lib/strings";
 
 import { TranslationLandingPage } from "../../../components/TranslationLandingPage";
 import { getTranslationLandingContent } from "../../../lib/translation-landing-content";
+import { translatePageDirection } from "../../../lib/translate-page-direction";
 
 export const dynamicParams = false;
 
@@ -94,7 +95,10 @@ export default async function LanguagePage({
   ]);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main
+      className="min-h-screen bg-black text-white"
+      data-translation-direction={translatePageDirection(locale, languagePath) ?? undefined}
+    >
       <script
         id="structured-data-language-translate"
         type="application/ld+json"

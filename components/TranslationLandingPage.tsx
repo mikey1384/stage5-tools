@@ -7,6 +7,7 @@ import {
 } from "../lib/seo";
 import type { TranslationLandingContent } from "../lib/translation-landing-content";
 import { translationLandingUI } from "../lib/translation-landing-ui";
+import { translatePageDirection } from "../lib/translate-page-direction";
 import { homeHrefForLocale, localizePathForLocale } from "../lib/locale-routing";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { SiteFooter } from "./SiteFooter";
@@ -39,8 +40,13 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
     })),
   };
 
+  const direction = translatePageDirection(locale, copy.path);
+
   return (
-    <main className="min-h-screen bg-black font-[family-name:var(--font-body)] text-[#F4F1EA]">
+    <main
+      className="min-h-screen bg-black font-[family-name:var(--font-body)] text-[#F4F1EA]"
+      data-translation-direction={direction ?? undefined}
+    >
       <script
         id="structured-data-translate"
         type="application/ld+json"
@@ -75,6 +81,22 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
               {ui.platformNote}
             </p>
           </header>
+
+          {copy.sources && (
+            <section aria-labelledby="translation-sources" className="border-t border-[#2A2732] py-10 md:py-12">
+              <h2 id="translation-sources" className="text-2xl font-semibold tracking-tight md:text-3xl">
+                {copy.sources.heading}
+              </h2>
+              <ul className="mt-8 grid list-none gap-8 p-0 md:grid-cols-3 md:gap-10">
+                {copy.sources.items.map((item) => (
+                  <li key={item.title}>
+                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <p className="mt-3 text-base leading-7 text-[#B7B2BF]">{item.body}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section aria-labelledby="translation-steps" className="border-t border-[#2A2732] py-10 md:py-12">
             <h2 id="translation-steps" className="text-2xl font-semibold tracking-tight md:text-3xl">
@@ -124,6 +146,41 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
               </figcaption>
             </figure>
           </section>
+
+          {copy.pitfalls && (
+            <section aria-labelledby="translation-pitfalls" className="border-t border-[#2A2732] py-12 md:py-16">
+              <h2 id="translation-pitfalls" className="text-2xl font-semibold tracking-tight md:text-3xl">
+                {copy.pitfalls.heading}
+              </h2>
+              <div className="mt-8 grid gap-10">
+                {copy.pitfalls.items.map((item) => (
+                  <article key={item.title} className="grid gap-5 md:grid-cols-[1fr_1fr] md:gap-10">
+                    <div>
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <p className="mt-3 text-base leading-7 text-[#B7B2BF]">{item.body}</p>
+                    </div>
+                    {item.example && (
+                      <figure className="m-0 min-w-0 rounded-2xl border border-[#2A2732] bg-[#0F0E13] p-5">
+                        <figcaption className="text-xs font-semibold uppercase tracking-wide text-[#FFD84D]">{ui.example}</figcaption>
+                        <dl className="mt-3 grid gap-3 text-base leading-7">
+                          <div>
+                            <dt className="text-xs text-[#8D8896]">{ui.original}</dt>
+                            <dd lang={copy.pitfalls?.originalLang} className="m-0 break-words text-[#F4F1EA]">{item.example.original}</dd>
+                          </div>
+                          {item.example.variants.map((variant) => (
+                            <div key={variant.label}>
+                              <dt className="text-xs text-[#8D8896]">{variant.label}</dt>
+                              <dd lang={copy.pitfalls?.variantLang} className="m-0 break-words text-[#D9D5CE]">{variant.text}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </figure>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section id="all-downloads" aria-labelledby="translation-download" className="scroll-mt-8 rounded-[28px] border border-[#2A2732] bg-[#0F0E13] p-6 md:p-10">
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">

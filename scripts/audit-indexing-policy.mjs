@@ -24,8 +24,12 @@ async function renderSitemapForAudit() {
       new URL("../app/sitemap.ts", import.meta.url),
     );
     const sitemapModule = require(sitemapPath);
-    const entries = [...await sitemapModule.buildSiteSitemap("translator"), ...await sitemapModule.buildSiteSitemap("stage5")];
-    return entries
+    const landingModule = require(fileURLToPath(
+      new URL("../lib/translation-landing-content.ts", import.meta.url),
+    ));
+    const translatorEntries = await sitemapModule.buildSiteSitemap("translator");
+    const entries = [...translatorEntries, ...await sitemapModule.buildSiteSitemap("stage5")];
+    const xml = entries
       .map((entry) => {
         let xml = `<loc>${entry.url}</loc>`;
         for (const [locale, href] of Object.entries(
@@ -43,15 +47,71 @@ async function renderSitemapForAudit() {
         return xml;
       })
       .join("\n");
+    return { xml, translatorEntries, landingPages: landingModule.translationLandingPages };
   } finally {
     if (originalLoader) require.extensions[".ts"] = originalLoader;
     else delete require.extensions[".ts"];
   }
 }
 
-const sitemap = await renderSitemapForAudit();
+const {
+  xml: sitemap,
+  translatorEntries,
+  landingPages,
+} = await renderSitemapForAudit();
 
 const failures = [];
+
+// hreflang must join only pages that do the same job. A language-detail page
+// translates "into <language>" unless its landing copy declares another
+// direction, e.g. the English /translate/korean page is Korean -> English.
+const localeFromUrl = (url) => {
+  const first = new URL(url).pathname.split("/").filter(Boolean)[0];
+  return ["ko", "es", "ja", "zh", "fr", "de", "pt", "vi"].includes(first) ? first : "en";
+};
+const englishPathFromUrl = (url) => {
+  const segments = new URL(url).pathname.split("/").filter(Boolean);
+  if (localeFromUrl(url) !== "en") segments.shift();
+  return `/${segments.join("/")}`;
+};
+const detailPathPattern = /^\/translate\/[a-z]+$/;
+for (const page of landingPages) {
+  if (detailPathPattern.test(page.path) && !/^[a-z]+>[a-z]+$/.test(page.direction ?? "")) {
+    failures.push(`translation landing ${page.locale}:${page.path} must declare its direction`);
+  }
+}
+const directionOf = (url) => {
+  const path = englishPathFromUrl(url);
+  if (!detailPathPattern.test(path)) return null;
+  const locale = localeFromUrl(url);
+  const landing = landingPages.find((page) => page.locale === locale && page.path === path);
+  return landing?.direction ?? `own>${path.slice("/translate/".length)}`;
+};
+let directionEntries = 0;
+for (const entry of translatorEntries) {
+  const own = directionOf(entry.url);
+  const languages = entry.alternates?.languages ?? {};
+  if (own === null) continue;
+  directionEntries += 1;
+  if (languages[localeFromUrl(entry.url)] !== entry.url) {
+    failures.push(`${entry.url} must list itself as its ${localeFromUrl(entry.url)} alternate`);
+  }
+  for (const [hreflang, href] of Object.entries(languages)) {
+    if (hreflang === "x-default") {
+      if (href !== languages.en) failures.push(`${entry.url} x-default must be its English equivalent`);
+      continue;
+    }
+    if (directionOf(href) !== own) {
+      failures.push(
+        `${entry.url} hreflang=${hreflang} joins a different translation direction (${own} vs ${directionOf(href)})`,
+      );
+    }
+  }
+  if (!languages.en && languages["x-default"]) {
+    failures.push(`${entry.url} declares x-default without an English equivalent`);
+  }
+}
+if (directionEntries === 0) failures.push("no translation-direction sitemap entries were checked");
 const baseUrl = "https://translator.tools";
 const utilityPaths = ["contact", "privacy", "terms"];
 const englishOnlyPaths = ["agents", "open-source"];
