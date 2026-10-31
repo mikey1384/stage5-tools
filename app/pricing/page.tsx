@@ -110,7 +110,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "about 29 minutes" },
       { name: "Starter", price: "US$5", value: "about 4.8 hours" },
       { name: "Standard", price: "US$10", value: "about 11.3 hours" },
-      { name: "Pro", price: "US$50", value: "about 78 hours" },
+      { name: "Pro", price: "US$50", value: "about 77 hours" },
     ],
     packFootnote:
       "Use credits when you want convenience. Use BYO when you want the app workflow but prefer provider-direct billing.",
@@ -208,7 +208,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "약 29분" },
       { name: "Starter", price: "US$5", value: "약 4.8시간" },
       { name: "Standard", price: "US$10", value: "약 11.3시간" },
-      { name: "Pro", price: "US$50", value: "약 78시간" },
+      { name: "Pro", price: "US$50", value: "약 77시간" },
     ],
     packFootnote:
       "간편하게 시작하려면 크레딧을, 기존 AI 계정으로 직접 결제하려면 BYO를 선택하세요. 작업 방식은 어느 쪽이든 같습니다.",
@@ -305,7 +305,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "unos 29 minutos" },
       { name: "Starter", price: "US$5", value: "unas 4,8 horas" },
       { name: "Standard", price: "US$10", value: "unas 11,3 horas" },
-      { name: "Pro", price: "US$50", value: "unas 78 horas" },
+      { name: "Pro", price: "US$50", value: "unas 77 horas" },
     ],
     packFootnote:
       "Usa créditos cuando quieras comodidad. Usa BYO cuando quieras el flujo de la app pero prefieras facturación directa con el proveedor.",
@@ -401,7 +401,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "約29分" },
       { name: "Starter", price: "US$5", value: "約4.8時間" },
       { name: "Standard", price: "US$10", value: "約11.3時間" },
-      { name: "Pro", price: "US$50", value: "約78時間" },
+      { name: "Pro", price: "US$50", value: "約77時間" },
     ],
     packFootnote:
       "手軽さを重視するならクレジット。アプリの流れは欲しいけれど請求はプロバイダー直結がいいなら BYO です。",
@@ -498,7 +498,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "约 29 分钟" },
       { name: "Starter", price: "US$5", value: "约 4.8 小时" },
       { name: "Standard", price: "US$10", value: "约 11.3 小时" },
-      { name: "Pro", price: "US$50", value: "约 78 小时" },
+      { name: "Pro", price: "US$50", value: "约 77 小时" },
     ],
     packFootnote:
       "想省事就用积分。想保留应用流程，但希望走服务商直付，就用 BYO。",
@@ -594,7 +594,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "environ 29 minutes" },
       { name: "Starter", price: "US$5", value: "environ 4,8 heures" },
       { name: "Standard", price: "US$10", value: "environ 11,3 heures" },
-      { name: "Pro", price: "US$50", value: "environ 78 heures" },
+      { name: "Pro", price: "US$50", value: "environ 77 heures" },
     ],
     packFootnote:
       "Utilisez les crédits pour la simplicité. Utilisez BYO si vous voulez le flux de l'app mais préférez une facturation fournisseur directe.",
@@ -692,7 +692,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "etwa 29 Minuten" },
       { name: "Starter", price: "US$5", value: "etwa 4,8 Stunden" },
       { name: "Standard", price: "US$10", value: "etwa 11,3 Stunden" },
-      { name: "Pro", price: "US$50", value: "etwa 78 Stunden" },
+      { name: "Pro", price: "US$50", value: "etwa 77 Stunden" },
     ],
     packFootnote:
       "Nutze Credits für Bequemlichkeit. Nutze BYO, wenn du den App-Workflow willst, aber lieber direkt beim Provider abrechnen möchtest.",
@@ -791,7 +791,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "cerca de 29 minutos" },
       { name: "Starter", price: "US$5", value: "cerca de 4,8 horas" },
       { name: "Standard", price: "US$10", value: "cerca de 11,3 horas" },
-      { name: "Pro", price: "US$50", value: "cerca de 78 horas" },
+      { name: "Pro", price: "US$50", value: "cerca de 77 horas" },
     ],
     packFootnote:
       "Use créditos quando quiser praticidade. Use BYO quando quiser o fluxo do app, mas preferir cobrança direta no provedor.",
@@ -888,7 +888,7 @@ const pageCopy: Partial<Record<Locale, PricingPageCopy>> = {
       { name: "Micro", price: "US$1", value: "khoảng 29 phút" },
       { name: "Starter", price: "US$5", value: "khoảng 4,8 giờ" },
       { name: "Standard", price: "US$10", value: "khoảng 11,3 giờ" },
-      { name: "Pro", price: "US$50", value: "khoảng 78 giờ" },
+      { name: "Pro", price: "US$50", value: "khoảng 77 giờ" },
     ],
     packFootnote:
       "Dùng credit khi bạn muốn sự tiện lợi. Dùng BYO khi bạn muốn quy trình của ứng dụng nhưng thích thanh toán trực tiếp với nhà cung cấp.",
