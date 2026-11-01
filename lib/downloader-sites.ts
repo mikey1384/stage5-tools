@@ -11,9 +11,8 @@ import type { Locale } from "./locales";
 // site below passed that check in the 2026-10-31 coverage test.
 //
 // Verified in the app 2026-10-31 (stage5-ops/docs/download-coverage-app-verify-2026-10-31.md):
-// X, Twitch, Instagram (public posts), SOOP. Held back: TikTok (downloads, but
-// the in-app player can't play its HEVC files yet), Reddit (sign-in wall),
-// France.tv and TVer (geo-locked).
+// X, Twitch, Instagram (public posts), SOOP; TikTok since app 1.32.2 (plays in
+// the app). Held back: Reddit (sign-in wall), France.tv and TVer (geo-locked).
 //
 // Text only: never pair these names with third-party logos or trademark art.
 // The downloader hero line, page titles and meta descriptions
@@ -22,6 +21,7 @@ import type { Locale } from "./locales";
 // ---------------------------------------------------------------------------
 export const DOWNLOADER_NAMED_SITES = [
   "YouTube",
+  "TikTok",
   "Facebook",
   "Vimeo",
   "Dailymotion",
