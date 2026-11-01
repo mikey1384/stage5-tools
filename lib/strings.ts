@@ -379,7 +379,7 @@ export const strings = {
       "깔끔한 자막 파일을 내보내거나 비디오에 자막을 삽입합니다.",
     subtitleEditorNeedVideo: "먼저 비디오가 필요하신가요?",
     subtitleEditorNeedVideoDesc:
-      "YouTube와 기타 플랫폼에서 영상을 다운로드하고 바로 자막 작업으로 들어갈 수 있습니다.",
+      "YouTube 포함 대부분의 웹사이트에서 영상을 다운로드하고 바로 자막 작업으로 들어갈 수 있습니다.",
     subtitleEditorReadyTranslate: "번역할 준비가 되셨나요?",
     subtitleEditorReadyTranslateDesc:
       "톤과 맥락을 유지하면서 AI로 39개 언어로 자막을 번역하세요.",

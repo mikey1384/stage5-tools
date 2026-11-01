@@ -598,7 +598,7 @@ const metadataCopy: Record<Locale, { title: string; description: string }> = {
       "Download videos free from YouTube, Facebook, Vimeo and most other public sites. Page not recognized? Play it in Translator’s browser and pick the video.",
   },
   ko: {
-    title: "무료 동영상 다운로더: YouTube와 대부분의 웹사이트",
+    title: "무료 동영상 다운로더: YouTube 포함 대부분의 웹사이트",
     description:
       "YouTube, Facebook, Vimeo 등 대부분의 공개 사이트에서 영상을 무료로 내려받으세요. 인식되지 않는 페이지는 Translator 브라우저에서 재생하고 영상을 고르면 돼요.",
   },
