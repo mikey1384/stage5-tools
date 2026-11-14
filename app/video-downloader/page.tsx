@@ -15,7 +15,12 @@ import {
   localizePathForLocale,
 } from "../../lib/locale-routing";
 import type { Locale } from "../../lib/locales";
-import { buildMetadata } from "../../lib/seo";
+import { serializeJsonLd } from "../../lib/json-ld";
+import {
+  buildBreadcrumbStructuredData,
+  buildMetadata,
+  buildSoftwareApplicationStructuredData,
+} from "../../lib/seo";
 import { t } from "../../lib/strings";
 
 type VideoDownloaderPageCopy = {
@@ -702,8 +707,31 @@ export default async function VideoDownloaderPage({
     },
   ];
 
+  const softwareApplicationStructuredData =
+    buildSoftwareApplicationStructuredData({
+      description: metadataCopy[locale].description,
+      path: "/video-downloader",
+      locale,
+    });
+  const breadcrumbStructuredData = buildBreadcrumbStructuredData(locale, [
+    { name: t("breadcrumbHome", locale), path: "/" },
+    { name: t("navVideoDownloader", locale), path: "/video-downloader" },
+  ]);
+
   return (
     <main className="min-h-screen bg-black text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(softwareApplicationStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(breadcrumbStructuredData),
+        }}
+      />
       <div className="container mx-auto px-6">
         <SiteNav locale={locale} />
 

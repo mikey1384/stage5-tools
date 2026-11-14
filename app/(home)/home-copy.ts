@@ -391,7 +391,7 @@ export const homeCopy = {
   es: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Stage5 Translator - Subtítulos traducidos con IA para videos de internet | App de escritorio gratis",
+      "Traductor de subtítulos con IA | Stage5 Translator",
     metadataDescription:
       "Descarga o importa un video de internet, genera subtítulos traducidos de alta calidad, revísalos y edítalos, y exporta un video subtitulado o un SRT limpio desde una app de escritorio.",
     eyebrow: "Subtítulos traducidos con IA, del video al export",
@@ -1153,7 +1153,7 @@ export const homeCopy = {
   pt: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Stage5 Translator - Legendas traduzidas por IA para vídeos da internet | App desktop grátis",
+      "Tradutor de legendas com IA para vídeos | Stage5 Translator",
     metadataDescription:
       "Baixe ou importe um vídeo da internet, gere legendas traduzidas de alta qualidade, revise e edite, depois exporte um vídeo legendado ou um SRT limpo em um app desktop.",
     eyebrow: "Legendas traduzidas por IA, do vídeo ao export",
@@ -1309,7 +1309,7 @@ export const homeCopy = {
   vi: {
     ...baseHomeCopy.en,
     pageTitle:
-      "Công cụ dịch phụ đề video bằng AI | Tool dịch phụ đề cho video internet | Stage5 Translator",
+      "Dịch phụ đề video bằng AI | Stage5 Translator",
     metadataDescription:
       "Công cụ dịch phụ đề video chuyên nghiệp: tải video, tạo và dịch phụ đề trực tiếp, rà soát từng dòng trong ngữ cảnh, xuất SRT hoặc video có phụ đề. Dịch phụ đề sang 39 ngôn ngữ.",
     eyebrow: "Công cụ dịch phụ đề video chuyên nghiệp",

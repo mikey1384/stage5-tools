@@ -190,21 +190,24 @@ export function localizedLocalesForPath(englishPath: string): Locale[] {
 // render for visitors but are noindex and out of the sitemap, so crawling goes
 // to pages that rank. Korean is never listed: Naver traffic is not visible in
 // Search Console. Re-check with stage5-ops/scripts/gsc.py before extending.
+// 2026-11-14: added 12 more pages Google dropped to "Crawled - currently not
+// indexed" with < 10 impressions over 2026-07-15..2026-11-11, and made the
+// Spanish home indexable (Spanish is now the top-clicking language).
 const NOINDEXED_LOCALIZED_PAGES: Record<string, readonly Locale[]> = {
-  "/": ["es", "ja", "zh", "fr", "de"],
-  "/about": ["es", "ja", "fr", "pt", "vi"],
+  "/": ["ja", "zh", "fr", "de"],
+  "/about": ["es", "ja", "fr", "de", "pt", "vi"],
   "/dubbing": ["ja", "fr", "de", "pt"],
   "/faq": ["es", "ja", "fr", "de", "pt", "vi"],
   "/pricing": ["es", "fr", "de", "pt", "vi"],
-  "/subtitle-editor": ["ja", "fr", "de"],
+  "/subtitle-editor": ["ja", "fr", "de", "pt"],
   "/translate": ["ja", "fr", "de"],
-  "/translate/chinese": ["es", "fr", "de", "pt", "vi"],
-  "/translate/french": ["es", "ja", "fr", "de"],
-  "/translate/german": ["es", "de"],
+  "/translate/chinese": ["es", "ja", "fr", "de", "pt", "vi"],
+  "/translate/french": ["es", "ja", "fr", "de", "pt"],
+  "/translate/german": ["es", "ja", "fr", "de", "pt"],
   "/translate/japanese": ["es", "ja", "fr", "de", "pt"],
-  "/translate/korean": ["ja", "fr", "pt"],
-  "/translate/portuguese": ["fr", "pt", "vi"],
-  "/translate/spanish": ["fr", "de"],
+  "/translate/korean": ["ja", "zh", "fr", "pt"],
+  "/translate/portuguese": ["es", "ja", "fr", "de", "pt", "vi"],
+  "/translate/spanish": ["ja", "fr", "de"],
   "/video-discovery": ["es", "ja", "fr", "de", "vi"],
   "/video-downloader": ["ja"],
 };

@@ -121,14 +121,14 @@ test("hreflang joins only translation pages that translate in the same direction
   assert.deepEqual(keys(t("vi", "korean")), ["en", "vi", "x-default"]);
   assert.deepEqual(keys(t("en", "japanese")), ["en", "vi", "x-default"]);
   assert.deepEqual(keys(t("en", "german")), ["en", "x-default"]);
-  assert.deepEqual(keys(t("es", "portuguese")), ["es"]);
+  assert.equal(languagesOf(t("es", "portuguese")), undefined);
   // The "translate into X" pages keep their own group, without English.
-  assert.deepEqual(keys(t("ko", "korean")), ["de", "es", "ko", "zh"]);
+  assert.deepEqual(keys(t("ko", "korean")), ["de", "es", "ko"]);
   assert.deepEqual(keys(t("ko", "japanese")), ["ko", "zh"]);
-  assert.deepEqual(keys(t("ko", "german")), ["fr", "ja", "ko", "pt", "vi", "zh"]);
-  assert.deepEqual(keys(t("en", "portuguese")), ["de", "en", "ja", "ko", "x-default", "zh"]);
+  assert.deepEqual(keys(t("ko", "german")), ["ko", "vi", "zh"]);
+  assert.deepEqual(keys(t("en", "portuguese")), ["en", "ko", "x-default", "zh"]);
   // Unaffected groups are unchanged.
-  assert.deepEqual(keys(t("en", "spanish")), ["en", "es", "ja", "ko", "pt", "vi", "x-default", "zh"]);
+  assert.deepEqual(keys(t("en", "spanish")), ["en", "es", "ko", "pt", "vi", "x-default", "zh"]);
 
   for (const entry of sitemap) {
     const metadataLocale = new URL(entry.url).pathname.split("/")[1];
@@ -166,12 +166,12 @@ test("each domain advertises only its own canonical route inventory", async () =
     const stage5 = await buildSiteSitemap("stage5");
     // The Vietnamese and Portuguese subtitle task pages are eligible; other
     // localized exclusions in NOINDEXED_LOCALIZED_PAGES remain in place.
-    assert.equal(translator.length, 88);
+    assert.equal(translator.length, 77);
     const translatorUrls = translator.map(entry => entry.url);
-    for (const kept of ["https://translator.tools/pt/translate", "https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing"]) {
+    for (const kept of ["https://translator.tools/pt/translate", "https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing", "https://translator.tools/es", "https://translator.tools/fr/video-downloader", "https://translator.tools/vi/translate/german"]) {
       assert(translatorUrls.includes(kept), kept);
     }
-    for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/es"]) {
+    for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/de", "https://translator.tools/es/translate/portuguese", "https://translator.tools/pt/translate/german", "https://translator.tools/de/about"]) {
       assert(!translatorUrls.includes(dropped), dropped);
     }
     assert(translator.every(entry => entry.url.startsWith("https://translator.tools/")));
