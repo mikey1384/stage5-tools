@@ -166,12 +166,12 @@ test("each domain advertises only its own canonical route inventory", async () =
     const stage5 = await buildSiteSitemap("stage5");
     // The Vietnamese and Portuguese subtitle task pages are eligible; other
     // localized exclusions in NOINDEXED_LOCALIZED_PAGES remain in place.
-    assert.equal(translator.length, 77);
+    assert.equal(translator.length, 80);
     const translatorUrls = translator.map(entry => entry.url);
-    for (const kept of ["https://translator.tools/pt/translate", "https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing", "https://translator.tools/es", "https://translator.tools/fr/video-downloader", "https://translator.tools/vi/translate/german"]) {
+    for (const kept of ["https://translator.tools/pt/translate", "https://translator.tools/pt/video-downloader", "https://translator.tools/vi/translate/japanese", "https://translator.tools/ko/pricing", "https://translator.tools/zh/translate/chinese", "https://translator.tools/pricing", "https://translator.tools/es", "https://translator.tools/fr/video-downloader", "https://translator.tools/vi/translate/german", "https://translator.tools/video-downloader/with-subtitles", "https://translator.tools/pt/video-downloader/with-subtitles", "https://translator.tools/es/video-downloader/with-subtitles"]) {
       assert(translatorUrls.includes(kept), kept);
     }
-    for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/de", "https://translator.tools/es/translate/portuguese", "https://translator.tools/pt/translate/german", "https://translator.tools/de/about"]) {
+    for (const dropped of ["https://translator.tools/de/pricing", "https://translator.tools/ja/faq", "https://translator.tools/fr/subtitle-editor", "https://translator.tools/de/translate/chinese", "https://translator.tools/de", "https://translator.tools/es/translate/portuguese", "https://translator.tools/pt/translate/german", "https://translator.tools/de/about", "https://translator.tools/ko/video-downloader/with-subtitles"]) {
       assert(!translatorUrls.includes(dropped), dropped);
     }
     assert(translator.every(entry => entry.url.startsWith("https://translator.tools/")));

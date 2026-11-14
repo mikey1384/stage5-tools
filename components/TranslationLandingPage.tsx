@@ -24,10 +24,13 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
     locale,
   });
   application.offers.description = ui.offer;
+  const parentPath = copy.section?.parentPath ?? "/translate";
+  const parentLabel = copy.section?.breadcrumb ?? ui.breadcrumb;
+  const isHub = copy.path === parentPath;
   const breadcrumbs = buildBreadcrumbStructuredData(locale, [
     { name: ui.home, path: "/" },
-    { name: ui.breadcrumb, path: "/translate" },
-    ...(copy.path === "/translate" ? [] : [{ name: copy.heading, path: copy.path }]),
+    { name: parentLabel, path: parentPath },
+    ...(isHub ? [] : [{ name: copy.heading, path: copy.path }]),
   ]);
   const faq = {
     "@context": "https://schema.org",
@@ -64,7 +67,7 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
       />
       <div className="container mx-auto px-5 sm:px-6">
         <SiteNav locale={locale} />
-        <Breadcrumbs items={[{ label: ui.home, href: homeHrefForLocale(locale) }, { label: ui.breadcrumb, ...(copy.path !== "/translate" ? { href: localize("/translate") } : {}) }, ...(copy.path === "/translate" ? [] : [{ label: copy.heading }])]} />
+        <Breadcrumbs items={[{ label: ui.home, href: homeHrefForLocale(locale) }, { label: parentLabel, ...(!isHub ? { href: localize(parentPath) } : {}) }, ...(isHub ? [] : [{ label: copy.heading }])]} />
 
         <div className="mx-auto max-w-5xl pb-20">
           <header className="pb-10 pt-6 md:pb-14 md:pt-10">
@@ -202,7 +205,7 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
           </section>
 
           <section aria-labelledby="translation-faq" className="pt-14 md:pt-20">
-            <h2 id="translation-faq" className="text-3xl font-semibold tracking-tight">{ui.faq}</h2>
+            <h2 id="translation-faq" className="text-3xl font-semibold tracking-tight">{copy.section?.faqHeading ?? ui.faq}</h2>
             <div className="mt-8 divide-y divide-[#2A2732] border-y border-[#2A2732]">
               {copy.faqs.map(({ question, answer }) => (
                 <div key={question} className="py-6">
@@ -215,7 +218,7 @@ export function TranslationLandingPage({ copy }: { copy: TranslationLandingConte
               {ui.editor}
             </Link>
             {copy.related.length > 0 && (
-              <nav aria-label={ui.related} className="mt-8 flex flex-wrap gap-x-6 gap-y-4 border-t border-[#2A2732] pt-6 text-sm text-[#D9D5CE]">
+              <nav aria-label={copy.section?.relatedHeading ?? ui.related} className="mt-8 flex flex-wrap gap-x-6 gap-y-4 border-t border-[#2A2732] pt-6 text-sm text-[#D9D5CE]">
                 {copy.related.map(link => <Link key={link.path} href={localize(link.path)} className="underline underline-offset-4">{link.label}</Link>)}
               </nav>
             )}

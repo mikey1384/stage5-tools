@@ -42,6 +42,10 @@ const MAJOR_EXPANDED_PATHS = new Set<string>([
   "/reflect",
 ]);
 const ENGLISH_ONLY_PATHS = new Set<string>(["/agents", "/open-source"]);
+// Pages written for specific languages only; every other locale gets English.
+const LOCALE_LIMITED_PATHS: Record<string, readonly Locale[]> = {
+  "/video-downloader/with-subtitles": ["es", "pt"],
+};
 const ENGLISH_INDEX_ONLY_PATHS = new Set<string>([
   "/contact",
   "/privacy",
@@ -155,6 +159,8 @@ export function supportsLocalePath(locale: Locale, englishPath: string): boolean
 
   if (locale === DEFAULT_LOCALE) return true;
   if (isEnglishOnlyPath(normalizedEnglishPath)) return false;
+  const limitedLocales = LOCALE_LIMITED_PATHS[normalizedEnglishPath];
+  if (limitedLocales) return limitedLocales.includes(locale);
   
   // Check for /watch pages
   const watchLocales = getWatchPageLocales(normalizedEnglishPath);

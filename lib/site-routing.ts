@@ -46,7 +46,7 @@ export function canonicalRedirectUrl(hostname: string, pathAndQuery: string): st
   if (canonicalOriginForPath(url.pathname) === STAGE5_ORIGIN) {
     targetHost = "stage5.tools";
   } else if (siteForHostname(host) === "stage5") {
-    if (translatorRoutes.has(english) || /^\/(translate|checkout|open-source)\//.test(english)) {
+    if (translatorRoutes.has(english) || /^\/(translate|checkout|open-source|video-downloader)\//.test(english)) {
       targetHost = "translator.tools";
     }
   }

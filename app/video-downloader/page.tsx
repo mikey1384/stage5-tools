@@ -22,6 +22,10 @@ import {
   buildSoftwareApplicationStructuredData,
 } from "../../lib/seo";
 import { t } from "../../lib/strings";
+import {
+  getSubtitleGuideContent,
+  SUBTITLE_GUIDE_PATH,
+} from "../../lib/subtitle-guide-content";
 
 type VideoDownloaderPageCopy = {
   heroEyebrow: string;
@@ -671,6 +675,7 @@ export default async function VideoDownloaderPage({
   const soul = homeSoulCopy[locale];
   const homeHref = homeHrefForLocale(locale);
   const localizeHref = (href: string) => localizePathForLocale(locale, href);
+  const subtitleGuide = getSubtitleGuideContent(locale);
 
   const highlights = [
     {
@@ -872,6 +877,14 @@ export default async function VideoDownloaderPage({
               <p className="m-0 mt-5 max-w-lg text-sm leading-6 text-[#A39FAD]">
                 {soul.heroNote}
               </p>
+              {subtitleGuide ? (
+                <Link
+                  href={localizeHref(SUBTITLE_GUIDE_PATH)}
+                  className="mt-4 inline-block text-sm font-semibold text-[#FFD84D] underline decoration-[#FFD84D]/40 underline-offset-4 transition hover:text-[#FFE680]"
+                >
+                  {subtitleGuide.heading}
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>

@@ -30,6 +30,9 @@ export type TranslationLandingContent = {
   faqs: readonly FAQ[];
   trackingLabel: string;
   related: readonly { path: string; label: string }[];
+  // Pages outside /translate (the downloader guides) name their own parent
+  // section; the default is the /translate hub.
+  section?: { breadcrumb: string; parentPath: string; faqHeading: string; relatedHeading: string };
 };
 
 const englishPracticalFAQs: FAQ[] = [

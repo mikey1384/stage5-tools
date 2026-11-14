@@ -27,6 +27,7 @@ const staticRoutes: RouteDef[] = [
   { path: "/video-discovery" },
   { path: "/dubbing" },
   { path: "/video-downloader" },
+  { path: "/video-downloader/with-subtitles" },
   { path: "/subtitle-editor" },
   { path: "/translate" },
   ...TRANSLATED_LANGUAGE_SLUGS.map((slug) => ({
