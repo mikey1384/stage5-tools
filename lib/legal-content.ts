@@ -406,7 +406,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "Stage5 Tools privacy",
       "data policy"
     ],
-    "intro": "This Privacy Policy explains how Stage5 Tools collects, uses, and protects information when you use the Translator app, translator.tools, or stage5.tools, including Watch. Policy revision: 27 September 2026.",
+    "intro": "This Privacy Policy explains how Stage5 Tools collects, uses, and protects information when you use the Translator app, translator.tools, or stage5.tools, including Watch. Policy revision: 14 November 2026.",
     "sections": [
       {
         "title": "Who operates Translator",
@@ -461,6 +461,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "Job details kept with credit records",
+        "body": "From Translator 1.34.0, when you run a credit-based transcription or translation, Stage5 records the source language, the target language and the full length of the video with that job's credit record. These details are linked to the same device identifier as your credit balance. They do not include titles, URLs, file names, audio, subtitle text or prompts. We use them to show an accurate price before you pay, to size the free preview, and to understand which kinds of videos the app is used for. They are kept as long as the credit records they belong to. Jobs run with your own provider keys do not create these records."
+      },
+      {
         "title": "Optional app analytics",
         "body": "Translator 1.21.0 offers optional analytics in Settings → Privacy, off by default. When enabled, Stage5 can send bounded usage, reliability and purchase events to Google Analytics, including app version, platform, language, feature names, outcomes and purchase totals. Events use a pseudonymous installation identifier; they are not anonymous. The analytics payload excludes media, subtitle/prompt contents, API keys and local file paths. Turning the setting off stops new optional reports and clears pending reports; the app shows if it cannot confirm the server preference. This does not erase events already delivered or required billing records."
       },
@@ -502,7 +506,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "Stage5 Tools 개인정보",
       "데이터 보호 정책"
     ],
-    "intro": "본 개인정보 처리방침은 Stage5 Tools가 Translator 앱, translator.tools, stage5.tools 및 Watch 이용 과정에서 정보를 수집, 이용, 보호하는 방법을 설명합니다. 정책 개정일: 2026년 9월 27일.",
+    "intro": "본 개인정보 처리방침은 Stage5 Tools가 Translator 앱, translator.tools, stage5.tools 및 Watch 이용 과정에서 정보를 수집, 이용, 보호하는 방법을 설명합니다. 정책 개정일: 2026년 11월 14일.",
     "sections": [
       {
         "title": "Translator 운영자",
@@ -557,6 +561,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "크레딧 기록과 함께 보관되는 작업 정보",
+        "body": "Translator 1.34.0부터 크레딧으로 받아쓰기나 번역을 실행하면 Stage5는 해당 작업의 크레딧 기록과 함께 원본 언어, 번역 대상 언어, 영상의 전체 길이를 기록합니다. 이 정보는 크레딧 잔액과 같은 기기 식별자에 연결됩니다. 제목, URL, 파일 이름, 오디오, 자막 텍스트, 프롬프트는 포함하지 않습니다. 결제 전에 정확한 가격을 보여 주고, 무료 미리보기 분량을 정하고, 앱이 어떤 종류의 영상에 쓰이는지 파악하는 데 사용합니다. 이 정보는 해당 크레딧 기록이 보관되는 동안 함께 보관됩니다. 직접 등록한 제공업체 키로 실행한 작업에서는 이 기록이 만들어지지 않습니다."
+      },
+      {
         "title": "선택적 앱 분석",
         "body": "Translator 1.21.0의 설정 → 개인정보 보호에서 선택적 분석을 제공하며 기본값은 꺼짐입니다. 활성화하면 Stage5는 앱 버전, 플랫폼, 언어, 기능명, 결과와 구매 총액 등을 포함하는 제한된 사용·안정성·구매 이벤트를 Google Analytics에 보낼 수 있습니다. 이벤트는 가명 처리된 설치 식별자를 사용하며 익명 정보는 아닙니다. 분석 데이터에는 미디어, 자막·프롬프트 내용, API 키와 로컬 파일 경로가 포함되지 않습니다. 끄면 새 선택적 보고가 중단되고 대기 중인 보고가 삭제됩니다. 서버의 설정 확인이 되지 않으면 앱이 표시합니다. 이미 전달된 이벤트나 필수 결제 기록은 삭제되지 않습니다."
       },
@@ -598,7 +606,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "privacidad Stage5 Tools",
       "política de datos"
     ],
-    "intro": "Esta Política de privacidad explica cómo Stage5 Tools recopila, usa y protege la información cuando utilizas la aplicación Translator, translator.tools o stage5.tools, incluido Watch. Revisión de la política: 27 de septiembre de 2026.",
+    "intro": "Esta Política de privacidad explica cómo Stage5 Tools recopila, usa y protege la información cuando utilizas la aplicación Translator, translator.tools o stage5.tools, incluido Watch. Revisión de la política: 14 de noviembre de 2026.",
     "sections": [
       {
         "title": "Quién opera Translator",
@@ -653,6 +661,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "Datos del trabajo que se guardan con los registros de créditos",
+        "body": "A partir de Translator 1.34.0, cuando ejecutas una transcripción o traducción con créditos, Stage5 registra el idioma de origen, el idioma de destino y la duración completa del vídeo junto con el registro de créditos de ese trabajo. Estos datos se vinculan al mismo identificador de dispositivo que tu saldo de créditos. No incluyen títulos, URL, nombres de archivo, audio, texto de subtítulos ni instrucciones. Los usamos para mostrar un precio exacto antes de que pagues, para ajustar la vista previa gratuita y para entender con qué tipos de vídeo se usa la aplicación. Se conservan mientras se conserven los registros de créditos a los que pertenecen. Los trabajos ejecutados con tus propias claves de proveedor no generan estos registros."
+      },
+      {
         "title": "Análisis opcionales de la aplicación",
         "body": "Translator 1.21.0 ofrece análisis opcionales en Ajustes → Privacidad, desactivados por defecto. Si los activas, Stage5 puede enviar a Google Analytics eventos de uso, fiabilidad y compras con campos limitados: versión, plataforma, idioma, funciones, resultados e importes de compra. Utilizan un identificador seudónimo de instalación; no son anónimos. No incluyen archivos multimedia, contenido de subtítulos o instrucciones, claves API ni rutas locales. Desactivarlos detiene nuevos informes opcionales y borra los pendientes; la aplicación indica si no puede confirmar la preferencia del servidor. No elimina eventos ya entregados ni registros de pago obligatorios."
       },
@@ -694,7 +706,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "Stage5 Tools プライバシー",
       "データポリシー"
     ],
-    "intro": "本プライバシーポリシーは、Translator アプリ、translator.tools、stage5.tools（Watch を含む）の利用時に Stage5 Tools が情報をどのように収集、利用、保護するかを説明するものです。 方針改定日：2026年9月27日。",
+    "intro": "本プライバシーポリシーは、Translator アプリ、translator.tools、stage5.tools（Watch を含む）の利用時に Stage5 Tools が情報をどのように収集、利用、保護するかを説明するものです。 方針改定日：2026年11月14日。",
     "sections": [
       {
         "title": "Translatorの運営者",
@@ -749,6 +761,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "クレジット記録とともに保存されるジョブ情報",
+        "body": "Translator 1.34.0 以降、クレジットを使って文字起こしまたは翻訳を実行すると、Stage5 はそのジョブのクレジット記録とともに、元の言語、翻訳先の言語、動画全体の長さを記録します。これらの情報は、クレジット残高と同じデバイス識別子に関連付けられます。タイトル、URL、ファイル名、音声、字幕テキスト、プロンプトは含まれません。お支払い前に正確な料金を表示するため、無料プレビューの長さを決めるため、およびアプリがどのような動画に使われているかを把握するために使用します。これらの情報は、対応するクレジット記録が保存されている間、保存されます。ご自身のプロバイダーキーで実行したジョブでは、この記録は作成されません。"
+      },
+      {
         "title": "任意のアプリ分析",
         "body": "Translator 1.21.0では設定のプライバシー項目に任意の分析機能があり、初期状態はオフです。有効にすると、Stage5はアプリ版、プラットフォーム、言語、機能名、結果、購入総額など、項目を限定した利用・信頼性・購入イベントをGoogle Analyticsへ送信できます。仮名化したインストール識別子を使うため、匿名データではありません。分析データにはメディア、字幕・プロンプトの内容、APIキー、ローカルのパスは含まれません。オフにすると新たな任意レポートを停止し、未送信分を消去します。サーバー側の設定を確認できない場合はアプリに表示されます。送信済みイベントや必要な決済記録は消えません。"
       },
@@ -790,7 +806,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "Stage5 Tools 隐私",
       "数据政策"
     ],
-    "intro": "本隐私政策说明了当你使用 Translator 应用、translator.tools 或 stage5.tools（包括 Watch）时，Stage5 Tools 如何收集、使用和保护相关信息。 政策修订日期：2026年9月27日。",
+    "intro": "本隐私政策说明了当你使用 Translator 应用、translator.tools 或 stage5.tools（包括 Watch）时，Stage5 Tools 如何收集、使用和保护相关信息。 政策修订日期：2026年11月14日。",
     "sections": [
       {
         "title": "Translator 的运营方",
@@ -845,6 +861,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "与额度记录一同保存的任务信息",
+        "body": "自 Translator 1.34.0 起，当你使用额度进行转录或翻译时，Stage5 会在该任务的额度记录中一并记录源语言、目标语言和视频的完整时长。这些信息与你的额度余额关联到同一个设备标识符。其中不包含标题、网址、文件名、音频、字幕文本或提示词。我们用这些信息在你付款前显示准确的价格、确定免费预览的长度，并了解应用被用于哪些类型的视频。这些信息的保存期限与其所属的额度记录相同。使用你自己的服务商密钥运行的任务不会产生这些记录。"
+      },
+      {
         "title": "可选应用分析",
         "body": "Translator 1.21.0 在“设置 → 隐私”中提供默认关闭的可选分析。启用后，Stage5 可向 Google Analytics 发送字段受限的使用、可靠性和购买事件，包括应用版本、平台、语言、功能名称、结果及购买总额。事件使用假名化安装标识符，并非匿名数据。分析载荷不包含媒体、字幕或提示词内容、API 密钥和本地路径。关闭后会停止新的可选报告并清除待发送报告；若无法确认服务器偏好，应用会提示。这不会删除已送达的事件或必要的支付记录。"
       },
@@ -886,7 +906,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "confidentialité Stage5 Tools",
       "politique de données"
     ],
-    "intro": "Cette politique de confidentialité explique comment Stage5 Tools collecte, utilise et protège les informations lorsque vous utilisez l’application Translator, translator.tools ou stage5.tools, y compris Watch. Révision de la politique : 27 septembre 2026.",
+    "intro": "Cette politique de confidentialité explique comment Stage5 Tools collecte, utilise et protège les informations lorsque vous utilisez l’application Translator, translator.tools ou stage5.tools, y compris Watch. Révision de la politique : 14 novembre 2026.",
     "sections": [
       {
         "title": "Qui exploite Translator",
@@ -941,6 +961,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "Détails des tâches conservés avec les relevés de crédits",
+        "body": "À partir de Translator 1.34.0, lorsque vous lancez une transcription ou une traduction payée en crédits, Stage5 enregistre la langue source, la langue cible et la durée totale de la vidéo avec le relevé de crédits de cette tâche. Ces détails sont liés au même identifiant d'appareil que votre solde de crédits. Ils ne contiennent ni titres, ni URL, ni noms de fichiers, ni audio, ni texte de sous-titres, ni instructions. Nous les utilisons pour afficher un prix exact avant le paiement, pour ajuster l'aperçu gratuit et pour comprendre avec quels types de vidéos l'application est utilisée. Ils sont conservés aussi longtemps que les relevés de crédits auxquels ils se rattachent. Les tâches exécutées avec vos propres clés de fournisseur ne créent pas ces enregistrements."
+      },
+      {
         "title": "Analyse facultative de l’application",
         "body": "Translator 1.21.0 propose une analyse facultative dans Paramètres → Confidentialité, désactivée par défaut. Si elle est activée, Stage5 peut envoyer à Google Analytics des événements limités d’utilisation, de fiabilité et d’achat : version, plateforme, langue, fonctions, résultats et montants. Ils utilisent un identifiant pseudonyme d’installation et ne sont pas anonymes. Le contenu analytique exclut médias, textes des sous-titres et instructions, clés API et chemins locaux. La désactivation arrête les nouveaux rapports facultatifs et efface ceux en attente ; l’application indique si la préférence du serveur ne peut pas être confirmée. Cela n’efface ni les événements déjà transmis ni les registres de paiement nécessaires."
       },
@@ -982,7 +1006,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "Stage5 Tools Datenschutz",
       "Datenrichtlinie"
     ],
-    "intro": "Diese Datenschutzerklärung erläutert, wie Stage5 Tools Informationen erfasst, nutzt und schützt, wenn du die Translator-App, translator.tools oder stage5.tools einschließlich Watch verwendest. Fassung der Richtlinie: 27. September 2026.",
+    "intro": "Diese Datenschutzerklärung erläutert, wie Stage5 Tools Informationen erfasst, nutzt und schützt, wenn du die Translator-App, translator.tools oder stage5.tools einschließlich Watch verwendest. Fassung der Richtlinie: 14. November 2026.",
     "sections": [
       {
         "title": "Wer Translator betreibt",
@@ -1037,6 +1061,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "Auftragsdetails, die mit Guthabeneinträgen gespeichert werden",
+        "body": "Ab Translator 1.34.0 speichert Stage5 bei jeder Transkription oder Übersetzung, die du mit Guthaben ausführst, die Ausgangssprache, die Zielsprache und die Gesamtlänge des Videos zusammen mit dem Guthabeneintrag dieses Auftrags. Diese Angaben sind mit derselben Gerätekennung verknüpft wie dein Guthaben. Sie enthalten keine Titel, URLs, Dateinamen, Audiodaten, Untertiteltexte oder Prompts. Wir nutzen sie, um vor der Zahlung einen genauen Preis anzuzeigen, die kostenlose Vorschau zu bemessen und zu verstehen, für welche Arten von Videos die App genutzt wird. Sie werden so lange aufbewahrt wie die Guthabeneinträge, zu denen sie gehören. Aufträge, die mit deinen eigenen Anbieter-Schlüsseln laufen, erzeugen diese Einträge nicht."
+      },
+      {
         "title": "Optionale App-Analyse",
         "body": "Translator 1.21.0 bietet unter Einstellungen → Datenschutz eine standardmäßig ausgeschaltete optionale Analyse. Wenn aktiviert, kann Stage5 begrenzte Nutzungs-, Zuverlässigkeits- und Kaufereignisse an Google Analytics senden, etwa App-Version, Plattform, Sprache, Funktionsnamen, Ergebnisse und Kaufbeträge. Sie verwenden eine pseudonyme Installationskennung und sind nicht anonym. Die Analyse übermittelt keine Medien, Untertitel- oder Anweisungstexte, API-Schlüssel oder lokalen Dateipfade. Ausschalten beendet neue optionale Berichte und löscht ausstehende Berichte; die App zeigt an, wenn die Servereinstellung nicht bestätigt werden kann. Bereits zugestellte Ereignisse oder notwendige Zahlungsunterlagen werden dadurch nicht gelöscht."
       },
@@ -1078,7 +1106,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "privacidade Stage5 Tools",
       "política de dados"
     ],
-    "intro": "Esta Política de privacidade explica como a Stage5 Tools coleta, usa e protege informações quando você utiliza o aplicativo Translator, translator.tools ou stage5.tools, incluindo o Watch. Revisão da política: 27 de setembro de 2026.",
+    "intro": "Esta Política de privacidade explica como a Stage5 Tools coleta, usa e protege informações quando você utiliza o aplicativo Translator, translator.tools ou stage5.tools, incluindo o Watch. Revisão da política: 14 de novembro de 2026.",
     "sections": [
       {
         "title": "Quem opera o Translator",
@@ -1133,6 +1161,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
         ]
       },
       {
+        "title": "Detalhes do trabalho guardados com os registros de créditos",
+        "body": "A partir do Translator 1.34.0, quando você executa uma transcrição ou tradução com créditos, a Stage5 registra o idioma de origem, o idioma de destino e a duração total do vídeo junto com o registro de créditos desse trabalho. Esses detalhes ficam vinculados ao mesmo identificador de dispositivo do seu saldo de créditos. Eles não incluem títulos, URLs, nomes de arquivo, áudio, texto de legendas nem prompts. Usamos esses dados para mostrar um preço exato antes do pagamento, para definir o tamanho da prévia gratuita e para entender com que tipos de vídeo o aplicativo é usado. Eles são mantidos enquanto os registros de créditos a que pertencem forem mantidos. Trabalhos executados com suas próprias chaves de provedor não geram esses registros."
+      },
+      {
         "title": "Análise opcional do aplicativo",
         "body": "O Translator 1.21.0 oferece análise opcional em Configurações → Privacidade, desativada por padrão. Se ativada, a Stage5 pode enviar ao Google Analytics eventos limitados de uso, confiabilidade e compra, incluindo versão, plataforma, idioma, funções, resultados e valores de compra. Os eventos usam um identificador pseudônimo de instalação; não são anônimos. Não incluem mídias, conteúdo de legendas ou instruções, chaves API nem caminhos locais. Desativar interrompe novos relatórios opcionais e limpa os pendentes; o aplicativo informa se não puder confirmar a preferência do servidor. Isso não apaga eventos já entregues nem registros de pagamento necessários."
       },
@@ -1174,7 +1206,7 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
       "quyền riêng tư Stage5 Tools",
       "chính sách dữ liệu"
     ],
-    "intro": "Chính sách quyền riêng tư này giải thích cách Stage5 Tools thu thập, sử dụng và bảo vệ thông tin khi bạn dùng ứng dụng Translator, translator.tools hoặc stage5.tools, bao gồm Watch. Ngày sửa đổi chính sách: 27 tháng 9 năm 2026.",
+    "intro": "Chính sách quyền riêng tư này giải thích cách Stage5 Tools thu thập, sử dụng và bảo vệ thông tin khi bạn dùng ứng dụng Translator, translator.tools hoặc stage5.tools, bao gồm Watch. Ngày sửa đổi chính sách: 14 tháng 11 năm 2026.",
     "sections": [
       {
         "title": "Đơn vị vận hành Translator",
@@ -1227,6 +1259,10 @@ export const privacyContent: Partial<Record<Locale, LegalPageContent>> = {
             "href": "https://stripe.com/privacy"
           }
         ]
+      },
+      {
+        "title": "Thông tin tác vụ được lưu cùng bản ghi tín dụng",
+        "body": "Từ Translator 1.34.0, khi bạn chạy phiên âm hoặc dịch bằng tín dụng, Stage5 ghi lại ngôn ngữ gốc, ngôn ngữ đích và toàn bộ thời lượng video cùng với bản ghi tín dụng của tác vụ đó. Các thông tin này được liên kết với cùng mã định danh thiết bị như số dư tín dụng của bạn. Chúng không bao gồm tiêu đề, URL, tên tệp, âm thanh, văn bản phụ đề hay câu lệnh. Chúng tôi dùng các thông tin này để hiển thị giá chính xác trước khi bạn thanh toán, để xác định độ dài bản xem trước miễn phí và để hiểu ứng dụng được dùng cho những loại video nào. Chúng được lưu giữ trong cùng thời gian với các bản ghi tín dụng tương ứng. Các tác vụ chạy bằng khóa nhà cung cấp của riêng bạn không tạo ra các bản ghi này."
       },
       {
         "title": "Phân tích ứng dụng tùy chọn",
