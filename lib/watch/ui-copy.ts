@@ -294,7 +294,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Đọc thêm →",
     freeLabel: "Miễn phí:",
     paidLabel: "Trả phí:",
-    pricingLink: "Xem các gói tín dụng và ước tính →",
+    pricingLink: "Xem các gói credit và ước tính →",
     downloadLinkText: "Tìm hiểu về tải video →",
     ctaNote:
       "Tải video và chỉnh sửa phụ đề là miễn phí. Phiên âm và dịch bằng AI cần tín dụng Stage5 hoặc khóa API riêng của bạn.",
