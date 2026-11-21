@@ -69,7 +69,7 @@ export const leeJungJaeHuntPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> 
     pricingFree:
       "Downloading videos, managing your library, editing subtitles manually, and exporting SRT files.",
     pricingPaid:
-      "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
+      "AI transcription and translation. You can use Stage5 credits or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
     section2Title: "Try editing for meaning, not just word count",
     section2Body: [
       "The greeting identifies two people with similar names: Lee Dong-jin is the host; Lee Jung-jae is the guest and director. Keep those roles clear when shortening a subtitle. Korean forms of address can carry that information even when an English sentence would normally omit them.",

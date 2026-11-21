@@ -81,7 +81,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingFree:
       "Downloading videos, subtitle editing, library management, and SRT export.",
     pricingPaid:
-      "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or pay $10 once to unlock BYO and use your own API key.",
+      "AI transcription and translation. You can use Stage5 credits or pay $10 once to unlock BYO and use your own API key.",
     freeLabel: "Free:",
     paidLabel: "Paid:",
     downloadTitle: "Download Translator",
@@ -147,7 +147,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingFree:
       "Descarga de videos, edición de subtítulos, gestión de biblioteca y exportación de SRT.",
     pricingPaid:
-      "Transcripción y traducción con IA. Puedes usar créditos Stage5 (ejemplo: $1 por ~50 minutos, $10 por ~18 horas) o pagar $10 una vez para desbloquear BYO y usar tu propia clave API.",
+      "Transcripción y traducción con IA. Puedes usar créditos Stage5 o pagar $10 una vez para desbloquear BYO y usar tu propia clave API.",
     freeLabel: "Gratis:",
     paidLabel: "De pago:",
     downloadTitle: "Descarga Translator",
@@ -212,7 +212,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingTitle: "무료 기능과 유료 기능",
     pricingFree: "영상 다운로드, 자막 편집, 라이브러리 관리, SRT 내보내기.",
     pricingPaid:
-      "AI 전사 및 번역. Stage5 크레딧(예: ~50분에 $1, ~18시간에 $10) 또는 $10에 한 번 결제하여 BYO를 잠금 해제하고 자체 API 키를 사용할 수 있습니다.",
+      "AI 전사 및 번역. Stage5 크레딧을 사용하거나 $10에 한 번 결제하여 BYO를 잠금 해제하고 자체 API 키를 사용할 수 있습니다.",
     freeLabel: "무료:",
     paidLabel: "유료:",
     downloadTitle: "Translator 다운로드",
@@ -278,7 +278,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingFree:
       "Download de vídeos, edição de legendas, gerenciamento de biblioteca e exportação de SRT.",
     pricingPaid:
-      "Transcrição e tradução com IA. Você pode usar créditos Stage5 (exemplo: $1 por ~50 minutos, $10 por ~18 horas) ou pagar $10 uma vez para desbloquear BYO e usar sua própria chave API.",
+      "Transcrição e tradução com IA. Você pode usar créditos Stage5 ou pagar $10 uma vez para desbloquear BYO e usar sua própria chave API.",
     freeLabel: "Grátis:",
     paidLabel: "Pago:",
     downloadTitle: "Baixe o Translator",
@@ -339,7 +339,7 @@ export const ramsayHotOnesCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingFree:
       "Tải video, chỉnh sửa phụ đề, quản lý thư viện và xuất SRT.",
     pricingPaid:
-      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 (ví dụ: $1 cho ~50 phút, $10 cho ~18 giờ) hoặc trả $10 một lần để mở khóa BYO và sử dụng khóa API riêng của bạn.",
+      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 hoặc trả $10 một lần để mở khóa BYO và sử dụng khóa API riêng của bạn.",
     freeLabel: "Miễn phí:",
     paidLabel: "Trả phí:",
     downloadTitle: "Tải Translator",

@@ -67,7 +67,7 @@ export const calvoWildProjectCopy: Record<SupportedLocale, WatchPageCopy> = {
     pricingFree:
       "Downloading videos, managing your library, editing subtitles manually, and exporting SRT files.",
     pricingPaid:
-      "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
+      "AI transcription and translation. You can use Stage5 credits or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
     section2Title: "Spanish film content in English",
     section2Body: [
       "Spain produces film criticism, director interviews, and cinema discussions that don't always make it to English-speaking audiences. YouTube hosts thousands of Spanish-language film conversations, but most don't have English subtitles, and YouTube's auto-generated translations are often incomplete or missing for older videos.",

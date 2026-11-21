@@ -47,7 +47,7 @@ export const koreEdaPiarchiaCopy: Record<SupportedLocale, WatchPageCopy> = {
 ],
   "pricingTitle": "What's free, what's paid",
   "pricingFree": "Downloading videos, managing your library, editing subtitles manually, and exporting SRT files.",
-  "pricingPaid": "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
+  "pricingPaid": "AI transcription and translation. You can use Stage5 credits or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
   "section2Title": "A chapter guide and a subtitle check",
   "section2Body": [
   "In the original video, After Life begins at 05:27, Nobody Knows at 11:34, Shoplifters at 39:23 and Monster at 42:40. Use those chapter points to find a discussion of a film you know; they are positions in the full source, beyond this page’s sample.",

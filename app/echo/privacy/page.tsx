@@ -28,7 +28,7 @@ export default function EchoPrivacyPolicy() {
       <div className="max-w-3xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
         <p className="text-gray-500 mb-8">Echo - Daily Reflection App</p>
-        <p className="text-sm text-gray-400 mb-12">Last updated: January 23, 2026</p>
+        <p className="text-sm text-gray-400 mb-12">Last updated: November 21, 2026</p>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-10" id="reflect">
@@ -81,7 +81,11 @@ export default function EchoPrivacyPolicy() {
               <li>AI-generated grades and feedback</li>
               <li>Streak and completion data</li>
               <li>Submission timestamps</li>
+              <li>The age range you choose during onboarding, stored as an estimated birth year</li>
             </ul>
+            <p className="mb-4">
+              We use your age range only to suit questions to your age.
+            </p>
 
             <h3 className="text-xl font-medium mt-6 mb-3">Profile Insights</h3>
             <p className="mb-4">
@@ -137,25 +141,54 @@ export default function EchoPrivacyPolicy() {
               <li>Send push notifications (daily reminders, streak alerts)</li>
               <li>Send transactional emails (password resets, account notifications)</li>
               <li>Process and manage subscriptions</li>
-              <li>Enable the public feed feature (only for content you choose to share)</li>
+              <li>Run the anonymous community feed (only for reflections you choose to share)</li>
               <li>Improve and optimize the app experience</li>
               <li>Prevent fraud and enforce our terms of service</li>
             </ul>
           </section>
 
           <section className="mb-10">
-            <h2 className="text-2xl font-semibold mb-4">Public Feed & Shared Content</h2>
+            <h2 className="text-2xl font-semibold mb-4">Community Feed & Sharing</h2>
             <p className="mb-4">
-              Echo includes an optional public feed where you can share polished versions of your reflections.
-              When you choose to share a response:
+              Echo has an optional community feed. Posts in it are anonymous. When you share a reflection
+              to the feed:
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-1">
-              <li>Your display name and profile picture will be visible</li>
-              <li>The shared reflection will be visible to other Echo users</li>
-              <li>You can delete shared content at any time</li>
+              <li>
+                Other Echo users see the question and the version of your reflection you choose: your own
+                final version or the AI-polished version. They also see its grade.
+              </li>
+              <li>
+                Other users do not see your name, username, profile picture, or any other account
+                details. Echo still knows which account shared the post, so you can manage it.
+              </li>
+              <li>
+                We save a copy of the shared text and, when it is written in another language, an English
+                translation, so readers can switch between the two.
+              </li>
+              <li>
+                Shared posts are rated automatically for mature content. Mature posts stay listed in the
+                feed but cannot be opened.
+              </li>
+              <li>
+                You can unshare a post at any time. Other users then stop seeing its text.
+              </li>
             </ul>
             <p className="mb-4">
-              Sharing is always optional. Your private reflections are never shared unless you explicitly choose to publish them.
+              Anything you write in a reflection is shared as written. If the text mentions your name or
+              other details about you, readers can see them.
+            </p>
+            <p className="mb-4">
+              Sharing is always optional. Your private reflections are never shared unless you choose to
+              share them.
+            </p>
+            <h3 className="text-xl font-medium mt-6 mb-3">Sharing outside Echo</h3>
+            <p className="mb-4">
+              You can also send a reflection to other apps with your device&apos;s share sheet. Echo creates
+              a text message containing the question, your reflection, your AI feedback if you choose to
+              include it, and a link to Echo on the App Store. Echo does not create a public web page for
+              it. Once you send it, the app you choose and the people you send it to handle it under their
+              own terms.
             </p>
           </section>
 

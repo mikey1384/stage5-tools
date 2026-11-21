@@ -6,6 +6,7 @@ export interface WatchUiCopy {
   readMore: string;
   freeLabel: string;
   paidLabel: string;
+  pricingLink: string;
   downloadLinkText: string;
   ctaNote: string;
   captionLanguageLabel: string;
@@ -217,6 +218,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Read more →",
     freeLabel: "Free:",
     paidLabel: "Paid:",
+    pricingLink: "See credit packs and estimates →",
     downloadLinkText: "Learn about video downloading →",
     ctaNote:
       "Download and subtitle editing are free. AI transcription and translation require Stage5 credits or your own API key.",
@@ -235,6 +237,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Leer más →",
     freeLabel: "Gratis:",
     paidLabel: "De pago:",
+    pricingLink: "Ver paquetes de créditos y estimaciones →",
     downloadLinkText: "Más información sobre la descarga de videos →",
     ctaNote:
       "La descarga y la edición de subtítulos son gratis. La transcripción y traducción con IA requieren créditos Stage5 o tu propia clave API.",
@@ -253,6 +256,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "더 읽기 →",
     freeLabel: "무료:",
     paidLabel: "유료:",
+    pricingLink: "크레딧 팩과 예상 사용량 보기 →",
     downloadLinkText: "영상 다운로드 자세히 보기 →",
     ctaNote:
       "영상 다운로드와 자막 편집은 무료입니다. AI 전사와 번역에는 Stage5 크레딧 또는 자체 API 키가 필요합니다.",
@@ -271,6 +275,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Leia mais →",
     freeLabel: "Grátis:",
     paidLabel: "Pago:",
+    pricingLink: "Ver pacotes de créditos e estimativas →",
     downloadLinkText: "Saiba mais sobre download de vídeos →",
     ctaNote:
       "O download e a edição de legendas são grátis. A transcrição e a tradução por IA exigem créditos Stage5 ou sua própria chave de API.",
@@ -289,6 +294,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Đọc thêm →",
     freeLabel: "Miễn phí:",
     paidLabel: "Trả phí:",
+    pricingLink: "Xem các gói tín dụng và ước tính →",
     downloadLinkText: "Tìm hiểu về tải video →",
     ctaNote:
       "Tải video và chỉnh sửa phụ đề là miễn phí. Phiên âm và dịch bằng AI cần tín dụng Stage5 hoặc khóa API riêng của bạn.",
@@ -307,6 +313,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "続きを読む →",
     freeLabel: "無料:",
     paidLabel: "有料:",
+    pricingLink: "クレジットパックと目安を見る →",
     downloadLinkText: "動画のダウンロードについて →",
     ctaNote:
       "動画のダウンロードと字幕編集は無料です。AI文字起こしと翻訳にはStage5クレジットまたはご自身のAPIキーが必要です。",
@@ -325,6 +332,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "阅读更多 →",
     freeLabel: "免费:",
     paidLabel: "付费:",
+    pricingLink: "查看积分包和用量估算 →",
     downloadLinkText: "了解视频下载 →",
     ctaNote:
       "视频下载和字幕编辑免费。AI 转写和翻译需要 Stage5 点数或您自己的 API 密钥。",
@@ -343,6 +351,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Lire la suite →",
     freeLabel: "Gratuit :",
     paidLabel: "Payant :",
+    pricingLink: "Voir les packs de crédits et les estimations →",
     downloadLinkText: "En savoir plus sur le téléchargement vidéo →",
     ctaNote:
       "Le téléchargement et l’édition des sous-titres sont gratuits. La transcription et la traduction par IA nécessitent des crédits Stage5 ou votre propre clé API.",
@@ -361,6 +370,7 @@ const watchUiCopy: Record<Locale, WatchUiCopy> = {
     readMore: "Weiterlesen →",
     freeLabel: "Kostenlos:",
     paidLabel: "Kostenpflichtig:",
+    pricingLink: "Credit-Pakete und Schätzungen ansehen →",
     downloadLinkText: "Mehr über Video-Downloads erfahren →",
     ctaNote:
       "Video-Download und Untertitelbearbeitung sind kostenlos. KI-Transkription und -Übersetzung erfordern Stage5-Credits oder deinen eigenen API-Schlüssel.",

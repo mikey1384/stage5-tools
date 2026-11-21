@@ -70,7 +70,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     pricingFree:
       "Downloading videos, organizing your library, editing subtitles manually, and exporting SRT files.",
     pricingPaid:
-      "AI transcription and translation. You can use Stage5 credits (approximately $1 for ~50 minutes of video, $10 for ~18 hours) or unlock BYO (bring your own) API key access once for $10 and pay OpenAI or Anthropic directly.",
+      "AI transcription and translation. You can use Stage5 credits or unlock BYO (bring your own) API key access once for $10 and pay OpenAI or Anthropic directly.",
     section2Title: "An editing exercise: awards and attribution",
     section2Body: [
       "Listen for the change from a nomination for the film to nominations for Nolan's directing and adapted screenplay. A long list can become misleading if a shortened caption loses who or what each award category refers to.",
@@ -124,7 +124,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     pricingFree:
       "Descargar videos, organizar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
     pricingPaid:
-      "Transcripción y traducción con IA. Puedes usar créditos Stage5 (aproximadamente $1 por ~50 minutos, $10 por ~18 horas) o desbloquear el acceso BYO (trae tu propia clave) una vez por $10 y pagar directamente a OpenAI o Anthropic.",
+      "Transcripción y traducción con IA. Puedes usar créditos Stage5 o desbloquear el acceso BYO (trae tu propia clave) una vez por $10 y pagar directamente a OpenAI o Anthropic.",
     section2Title: "Ejercicio de edición: premios y atribución",
     section2Body: [
       "Escucha el paso de una nominación para la película a las de Nolan por dirección y guion adaptado. Una lista larga puede resultar engañosa si, al acortarla, se pierde a quién o a qué corresponde cada categoría.",
@@ -178,7 +178,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     pricingFree:
       "비디오 다운로드, 라이브러리 정리, 수동 자막 편집, SRT 파일 내보내기.",
     pricingPaid:
-      "AI 전사 및 번역. Stage5 크레딧을 사용할 수 있습니다(약 $1에 ~50분, $10에 ~18시간) 또는 BYO(자신의 API 키 가져오기) 액세스를 한 번 $10에 잠금 해제하고 OpenAI나 Anthropic에 직접 결제할 수 있습니다.",
+      "AI 전사 및 번역. Stage5 크레딧을 사용하거나 BYO(자신의 API 키 가져오기) 액세스를 한 번 $10에 잠금 해제하고 OpenAI나 Anthropic에 직접 결제할 수 있습니다.",
     section2Title: "상과 후보의 주체를 살리는 편집 연습",
     section2Body: [
       "영화의 작품상 후보 지명에서 놀란의 감독상·각색상 후보 지명으로 넘어가는 부분에 귀를 기울여 보세요. 긴 목록을 줄이다가 각 부문이 누구 또는 무엇에 해당하는지 빠뜨리면 뜻이 달라질 수 있습니다.",
@@ -232,7 +232,7 @@ export const nolanColbertOppenheimerCopy: Record<SupportedLocale, WatchPageCopy>
     pricingFree:
       "Baixar vídeos, organizar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",
     pricingPaid:
-      "Transcrição e tradução com IA. Você pode usar créditos Stage5 (aproximadamente $1 para ~50 minutos, $10 para ~18 horas) ou desbloquear o acesso BYO (traga sua própria chave) uma vez por $10 e pagar diretamente à OpenAI ou Anthropic.",
+      "Transcrição e tradução com IA. Você pode usar créditos Stage5 ou desbloquear o acesso BYO (traga sua própria chave) uma vez por $10 e pagar diretamente à OpenAI ou Anthropic.",
     section2Title: "Exercício de edição: prêmios e atribuição",
     section2Body: [
       "Ouça a passagem de uma indicação para o filme às indicações de Nolan por direção e roteiro adaptado. Uma lista longa pode ficar enganosa se, ao encurtá-la, desaparecer a quem ou a quê cada categoria se refere.",

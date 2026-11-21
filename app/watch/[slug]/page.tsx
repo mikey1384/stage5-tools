@@ -311,6 +311,12 @@ export default async function WatchPage({
                     {copy.pricingPaid}
                   </li>
                 </ul>
+                <a
+                  href={localizeHref("/pricing")}
+                  className="mt-4 inline-block text-base font-medium text-sky-300 hover:text-sky-200"
+                >
+                  {uiCopy.pricingLink}
+                </a>
               </div>
 
               {copy.contentTitle && (

@@ -79,7 +79,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     pricingFree:
       "Downloading videos, managing your library, editing subtitles manually, and exporting SRT files.",
     pricingPaid:
-      "AI transcription and translation. You can use Stage5 credits (example: $1 for ~50 minutes, $10 for ~18 hours) or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
+      "AI transcription and translation. You can use Stage5 credits or unlock BYO once for $10 and bring your own API key from OpenAI or Anthropic to pay them directly.",
     downloadTitle: "Download Translator",
     downloadBody:
       "Translator works on macOS and Windows. Download it, paste this video's URL, and see how the workflow feels. The download and subtitle editor are free to use.",
@@ -140,7 +140,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     pricingFree:
       "Descargar videos, gestionar tu biblioteca, editar subtítulos manualmente y exportar archivos SRT.",
     pricingPaid:
-      "Transcripción y traducción con IA. Puedes usar créditos Stage5 (ejemplo: $1 por ~50 minutos, $10 por ~18 horas) o desbloquear BYO una vez por $10 y traer tu propia clave API de OpenAI o Anthropic para pagarles directamente.",
+      "Transcripción y traducción con IA. Puedes usar créditos Stage5 o desbloquear BYO una vez por $10 y traer tu propia clave API de OpenAI o Anthropic para pagarles directamente.",
     downloadTitle: "Descarga Translator",
     downloadBody:
       "Translator funciona en macOS y Windows. Descárgalo, pega la URL de este video y prueba el flujo. La descarga y el editor de subtítulos son gratis.",
@@ -201,7 +201,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     pricingFree:
       "영상 다운로드, 라이브러리 관리, 수동 자막 편집, SRT 파일 내보내기.",
     pricingPaid:
-      "AI 전사 및 번역. Stage5 크레딧(예: ~50분에 $1, ~18시간에 $10) 또는 BYO를 $10에 한 번 잠금 해제하고 OpenAI 또는 Anthropic의 자체 API 키를 가져와 직접 결제할 수 있습니다.",
+      "AI 전사 및 번역. Stage5 크레딧을 사용하거나 BYO를 $10에 한 번 잠금 해제하고 OpenAI 또는 Anthropic의 자체 API 키를 가져와 직접 결제할 수 있습니다.",
     downloadTitle: "Translator 다운로드",
     downloadBody:
       "Translator는 macOS와 Windows에서 작동합니다. 다운로드하고, 이 영상의 URL을 붙여넣고, 워크플로우를 확인하세요. 다운로드 및 자막 편집기는 무료입니다.",
@@ -262,7 +262,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     pricingFree:
       "Baixar vídeos, gerenciar sua biblioteca, editar legendas manualmente e exportar arquivos SRT.",
     pricingPaid:
-      "Transcrição e tradução com IA. Você pode usar créditos Stage5 (exemplo: $1 por ~50 minutos, $10 por ~18 horas) ou desbloquear BYO uma vez por $10 e trazer sua própria chave API do OpenAI ou Anthropic para pagar diretamente a eles.",
+      "Transcrição e tradução com IA. Você pode usar créditos Stage5 ou desbloquear BYO uma vez por $10 e trazer sua própria chave API do OpenAI ou Anthropic para pagar diretamente a eles.",
     downloadTitle: "Baixe o Translator",
     downloadBody:
       "O Translator funciona no macOS e Windows. Baixe, cole a URL deste vídeo e veja como o fluxo funciona. O download e o editor de legendas são grátis.",
@@ -329,7 +329,7 @@ export const ferranAdriaWildProjectCopy: Record<Locale, WatchPageCopy> = {
     pricingFree:
       "Tải video, quản lý thư viện, chỉnh sửa phụ đề thủ công và xuất tệp SRT.",
     pricingPaid:
-      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 (ví dụ: $1 cho ~50 phút, $10 cho ~18 giờ) hoặc mở khóa BYO một lần với $10 và mang khóa API riêng từ OpenAI hoặc Anthropic để thanh toán trực tiếp cho họ.",
+      "Phiên âm và dịch AI. Bạn có thể sử dụng tín dụng Stage5 hoặc mở khóa BYO một lần với $10 và mang khóa API riêng từ OpenAI hoặc Anthropic để thanh toán trực tiếp cho họ.",
     downloadTitle: "Tải Translator",
     downloadBody:
       "Translator hoạt động trên macOS và Windows. Tải xuống, dán URL video này và xem quy trình hoạt động như thế nào. Tải xuống và trình chỉnh sửa phụ đề miễn phí sử dụng.",
